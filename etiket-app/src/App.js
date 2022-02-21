@@ -1,23 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
+import Navbar from './components/navbar/Navbar';
+import background_image from './assets/fondo.png'
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar/>
+      <div className='d-flex'>
+
+        <nav className='d-flex flex-column colored_border'> 
+          <a href="/" className="list-group-item list-group-item-action colored_border">
+            <i class="fa-solid fa-wine-bottle"></i><br></br>RECTANGULAR
+          </a>
+          <a href="/" className="list-group-item list-group-item-action colored_border">
+            <i class="fa-solid fa-wine-bottle"></i><br></br>BOTELLAS/LATAS
+          </a>
+          <a href="/" className="list-group-item list-group-item-action colored_border">
+            <i class="fa-solid fa-wine-bottle"></i><br></br>TRIANGULAR
+          </a>
+          <a href="/" className="list-group-item list-group-item-action colored_border">
+            <i class="fa-solid fa-wine-bottle"></i><br></br>CIRCULAR
+          </a>
+        </nav>
+
+        <img src={background_image} width="1200" height="600" alt='fondo con mensaje amigable'></img>
+        
+        </div>
     </div>
   );
 }

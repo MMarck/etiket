@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.colored_border{
+  border: 2px solid #1ED796;
+}
+
+.lateral{
+  height: 100vh;
+
+  background-color: #1ED796;
+}
