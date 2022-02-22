@@ -84,3 +84,70 @@ a + a {
   color: var(--Sgreen);
   border: 2px solid var(--Sgreen);
 }
+
+.popupbox {
+  position: fixed;
+  background: #00000050;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+}
+ 
+.box {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+  background-color: white;
+  height: auto;
+  max-height: 70vh;
+  margin-top: 35vh;
+  border-radius: 4px;
+  padding: 40px;
+  border: 4px solid var(--Sgreen);
+  overflow: visible;
+}
+ 
+.close {
+  color: var(--Sgreen);
+  cursor: pointer;
+  position: absolute;
+  right: calc(-20px);
+  top: calc(-20px);
+  background-color: white;
+  border: 4px solid var(--Sgreen);
+  border-radius: 80%;
+  line-height: 20px;
+  text-align: center;
+  font-size: 40px;
+}
+
+.close:hover{
+  color: white;
+  background-color: var(--Sgreen);
+  
+}
+
+#loginform{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+}
+
+.inputText{
+  border: 2px solid var(--Sgreen);
+  padding-left: 10px;
+  border-radius: 20px;
+  width: 400px;
+  font-size: 20px;
+}
+
+.inputText:focus{
+  outline: none;
+}
+
+.inputText::placeholder{
+  color: rgb(194, 194, 194);
+  font-weight: 600;
+}
