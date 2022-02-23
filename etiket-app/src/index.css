@@ -151,3 +151,10 @@ a + a {
   color: rgb(194, 194, 194);
   font-weight: 600;
 }
+
+#loginbox{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 50px;
+}
