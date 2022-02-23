@@ -1,0 +1,6 @@
+@import '../constants.css';
+
+
+#navbar{
+    height: var(--Navbar-heigth);
+}

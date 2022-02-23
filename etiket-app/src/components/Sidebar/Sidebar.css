@@ -1,0 +1,22 @@
+@import '../constants.css';
+
+:root {
+    --fraction: calc(100% / 4);
+}
+
+#sidebar {
+    height: var(--Sidebar-heigth);
+    width: 25%;
+}
+
+.option{
+    height: var(--fraction);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:center;
+}
+
+i{
+    align-self: center;
+}

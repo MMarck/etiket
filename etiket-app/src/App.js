@@ -1,6 +1,7 @@
 import './App.css';
-import Navbar from './components/navbar/Navbar';
-import background_image from './assets/fondo.png'
+import Navbar from './components/Navbar/Navbar';
+import Sidebar from './components/Sidebar/Sidebar';
+import background_image from './assets/fondo.png';
 
 
 function App() {
@@ -9,23 +10,15 @@ function App() {
       <Navbar/>
       <div className='d-flex'>
 
-        <nav className='d-flex flex-column colored_border'> 
-          <a href="/" className="list-group-item list-group-item-action colored_border">
-            <i class="fa-solid fa-wine-bottle"></i><br></br>RECTANGULAR
-          </a>
-          <a href="/" className="list-group-item list-group-item-action colored_border">
-            <i class="fa-solid fa-wine-bottle"></i><br></br>BOTELLAS/LATAS
-          </a>
-          <a href="/" className="list-group-item list-group-item-action colored_border">
-            <i class="fa-solid fa-wine-bottle"></i><br></br>TRIANGULAR
-          </a>
-          <a href="/" className="list-group-item list-group-item-action colored_border">
-            <i class="fa-solid fa-wine-bottle"></i><br></br>CIRCULAR
-          </a>
-        </nav>
+        <Sidebar/>
 
-        <img src={background_image} width="1200" height="600" alt='fondo con mensaje amigable'></img>
+        {/* <img src={background_image} width="200" height="200" alt='fondo con mensaje amigable'></img> */}
+        <div className='container d-flex justify-content-center align-items-center m-0' style={{'background-color':'#404040'}} >
+          <h1 className='m-0' style={{'color':'#979797', 'font-family':'Bradley Hand ITC', 'fontSize':'4.5rem', 'font-weight': 'bold' }} >Creemos una etiqueta <br></br> para tu producto</h1>
+        </div>
         
+        
+
         </div>
     </div>
   );
