@@ -4,8 +4,6 @@ import Header from "./components/Header";
 import HomeBody from "./components/HomeBody";
 import Navbar from './components/Navbar/Navbar';
 import Sidebar from './components/Sidebar/Sidebar';
-import SidebarRect from './components/SidebarRect';
-import background_image from './assets/fondo.png';
 import GeneradorRectagular from './components/GeneradorRectangular/GeneradorRectangular';
 import GeneradorBotella from './components/GeneradorBotella/GeneradorBotella';
 import GeneradorTriangular from './components/GeneradorTriangular/GeneradorTriangular';
@@ -31,7 +29,7 @@ function App() {
             <Navbar setHomeButton={true} information={'Primer paso: Escoger un tipo de plantilla'} />
             <div className='d-flex'>
               <Sidebar/>
-              <div className='container d-flex justify-content-center align-items-center m-0' style={{'background-color':'#404040'}} >
+              <div className='container d-flex justify-content-center align-items-center m-0' style={{backgroundColor:'#404040'}} >
                 <h1 className='m-0' style={{'color':'#979797', 'font-family':'Bradley Hand ITC', 'fontSize':'4.5rem', 'font-weight': 'bold', 'text-align': 'center'}} >Creemos una etiqueta <br></br> para tu producto</h1>
               </div>
             </div>    

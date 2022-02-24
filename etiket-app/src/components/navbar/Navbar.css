@@ -21,3 +21,15 @@
 #homeBtn:hover{
     color: white;
 }
+
+button{
+    font-size: 2.5vh;
+}
+
+#navTitle{
+    font-size: 3.5vh;
+}
+
+#navIcon{
+    font-size: 6vh;
+}
