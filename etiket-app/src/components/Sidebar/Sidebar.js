@@ -1,33 +1,37 @@
 import { Component } from 'react';
 import './Sidebar.css';
+import {Link } from 'react-router-dom';
+
 
 class Sidebar extends Component{
 
     render(){
-        return(
-            
-          <div className='d-flex flex-column ' id='sidebar'> 
+      return (
 
-            <div href="/" className="option colored_border">
-              <i class="fa-solid fa-wine-bottle"></i>
-              <a>RECTANGULAR</a>
-            </div>
-            <div href="/" className="option colored_border">
-              <i class="fa-solid fa-wine-bottle"></i>
-              <a>BOTELLAS/LATAS</a>
-            </div>
-            <div href="/" className="option colored_border">
-              <i class="fa-solid fa-wine-bottle"></i>
-              <a>TRIANGULAR</a>
-            </div>
-            <div href="/" className="option colored_border">
-              <i class="fa-solid fa-wine-bottle"></i>
-              <a>CIRCULAR</a>
-            </div>
+                <div className='d-flex flex-column ' id='sidebar'> 
 
-          </div>
-             
-      )
+                  <div className="option colored_border">
+                    <i class="fa-solid fa-wine-bottle"></i>
+                    <Link to='/rectangular'>RECTANGULAR</Link>
+                  </div>
+                  <div className="option colored_border">
+                    <i class="fa-solid fa-wine-bottle"></i>
+                    <Link to="/botella">BOTELLAS/LATAS</Link>
+                  </div>
+                  <div className="option colored_border">
+                    <i class="fa-solid fa-wine-bottle"></i>
+                    <Link to='/triangular'>TRIANGULAR</Link>
+                  </div>
+                  <div className="option colored_border">
+                    <i class="fa-solid fa-wine-bottle"></i>
+                    <Link to='/circular'>CIRCULAR</Link>
+                  </div>
+
+                </div>
+
+        
+      );
+
     };
 }
 

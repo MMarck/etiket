@@ -1,10 +1,13 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Header from "./components/Header"
-import HomeBody from "./components/HomeBody"
-import Navbar from './components/navbar/Navbar';
+import Header from "./components/Header";
+import HomeBody from "./components/HomeBody";
+import Navbar from './components/Navbar/Navbar';
 import Sidebar from './components/Sidebar/Sidebar';
-import background_image from './assets/fondo.png';
+import GeneradorRectagular from './components/GeneradorRectangular/GeneradorRectangular';
+import GeneradorBotella from './components/GeneradorBotella/GeneradorBotella';
+import GeneradorTriangular from './components/GeneradorTriangular/GeneradorTriangular';
+import GeneradorCircular from './components/GeneradorCircular/GeneradorCircular';
 
 
 function App() {
@@ -20,20 +23,30 @@ function App() {
             </div>
           </>
         } />
+
         <Route path="/generador" exact element={
           <>
-            <Navbar/>
+            <Navbar setHomeButton={true} information={'Primer paso: Escoger un tipo de plantilla'} />
             <div className='d-flex'>
               <Sidebar/>
-
-              {/* <img src={background_image} width="200" height="200" alt='fondo con mensaje amigable'></img> */}
               <div className='container d-flex justify-content-center align-items-center m-0' style={{'background-color':'#404040'}} >
-                <h1 className='m-0' style={{'color':'#979797', 'font-family':'Bradley Hand ITC', 'fontSize':'4.5rem', 'font-weight': 'bold' }} >Creemos una etiqueta <br></br> para tu producto</h1>
+                <h1 className='m-0' style={{'color':'#979797', 'font-family':'Bradley Hand ITC', 'fontSize':'4.5rem', 'font-weight': 'bold', 'text-align': 'center'}} >Creemos una etiqueta <br></br> para tu producto</h1>
               </div>
-            </div>          
+            </div>    
           </>
         }/>
+
+        <Route path="/rectangular" exact element={ <GeneradorRectagular/> }/>
+        <Route path="/botella" exact element={ <GeneradorBotella/> }/>
+        <Route path="/triangular" exact element={ <GeneradorTriangular/> }/>
+        <Route path="/circular" exact element={ <GeneradorCircular/> }/>
+
+
+
+
       </Routes>
+
+      
     </Router>
   );
 }
