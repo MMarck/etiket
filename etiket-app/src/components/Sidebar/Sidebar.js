@@ -10,7 +10,7 @@ class Sidebar extends Component{
 
             <div href="/" className="option colored_border">
               <i class="fa-solid fa-wine-bottle"></i>
-              <a>RECTANGULAR</a>
+              <a href='/generador-rect'>RECTANGULAR</a>
             </div>
             <div href="/" className="option colored_border">
               <i class="fa-solid fa-wine-bottle"></i>
