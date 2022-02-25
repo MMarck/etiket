@@ -1,0 +1,53 @@
+:root {
+    --Sgreen:#1ED796;
+    --Sblack:#404040;
+    --Sselectedgreen:rgba(29, 215, 150, 0.2);
+}
+
+.sidebarRect{
+    overflow: auto;
+    overflow-y: scroll;
+    max-height: 90vh;
+}
+
+.dContent{
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.multIcon{
+    color: var(--Sgreen);
+    font-size: 20px;
+}
+
+#ancho, #altura{
+    border: 2px solid var(--Sgreen);
+    padding-left: 10px;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-radius: 0px;
+    font-size: 15px;
+}
+
+.duInput{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.nContent{
+    padding: 5px;
+}
+
+#nombre{
+    border: 2px solid var(--Sgreen);
+    padding-left: 10px;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-radius: 0px;
+    font-size: 15px;
+}
+

@@ -1,12 +1,11 @@
 import {useState} from 'react';
 import {RiArrowDropDownLine, RiArrowDropUpLine} from "react-icons/ri"
-import onClickOutside from 'react-onclickoutside';
 
 function DropdownSelector ({title, items=[]})  {
     const[isOpen, setIsOpen] = useState(false);
     const[selection, setSelection]=useState([])
     const toggle= () => setIsOpen(!isOpen);
-    DropdownSelector.handleClickOutside=() => setIsOpen(false);
+
 
     function handleOnClick(item){
         
@@ -62,8 +61,6 @@ function DropdownSelector ({title, items=[]})  {
     )
 }
 
-const clickOutsideConfig={
-    handleClickOutside: () => DropdownSelector.handleClickOutside
-};
 
-export default onClickOutside(DropdownSelector, clickOutsideConfig);
+
+export default DropdownSelector;

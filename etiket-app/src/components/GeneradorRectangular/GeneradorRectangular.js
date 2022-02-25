@@ -3,8 +3,29 @@ import './GeneradorRectangular.css';
 import Navbar from '../Navbar/Navbar';
 import Sidebar from '../Sidebar/Sidebar';
 import SidebarRect from '../SidebarRect';
+import DropdownMenu from '../DropdownMenu';
+import DropdownSelector from '../DropdownSelector';
+import {FaTimes} from "react-icons/fa"
+
+const unidades=[
+    {
+        id: "mm",
+        value: "mm",
+    },
+    {
+        id: "cm",
+        value: "cm",
+    },
+    {
+        id: "pulg",
+        value: "pulg",
+    }
+];
 
 class GeneradorRectangular extends Component{
+
+
+
     constructor(props){
         super(props);
         this.state = {
@@ -36,6 +57,8 @@ class GeneradorRectangular extends Component{
         })
     }
 
+    
+
 
     render(){
         return(
@@ -43,43 +66,79 @@ class GeneradorRectangular extends Component{
                 <Navbar setBackButton={true} information={'Segundo paso: Rellenar información'} />
                 <div className='d-flex'>
                     
-                    <form style={{overflow: 'auto', overflowY: 'scroll', maxHeight: '90vh'}}>
-                        <label htmlFor="altura" className="col-sm-2 col-form-label">Altura</label>
-                        <input name='altura' type="text" onChange={this.updateStateVariable} className="form-control" id="altura"/>
-                        
-                        <label htmlFor="ancho" className="col-sm-2 col-form-label">Ancho</label>
-                        <input name='ancho' type="text" onChange={this.updateStateVariable} className="form-control" id="ancho"/>
-                        
-                        <label htmlFor="nombre" className="col-sm-2 col-form-label">Nombre producto</label>
-                        <input name='nombreProducto' type="text" onChange={this.updateStateVariable} className="form-control" id="nombre"/>
-                        
-                        <label htmlFor="marca" className="col-sm-2 col-form-label">Marca producto</label>
-                        <input name='marca' type="text" onChange={this.updateStateVariable} className="form-control" id="marca"/>
-                        
-                        <label htmlFor="pesoNeto" className="col-sm-2 col-form-label">Peso Neso</label>
-                        <input name='pesoNeto' type="text" onChange={this.updateStateVariable} className="form-control" id="pesoNeto"/>
+                    <form className="sidebarRect">
+                        <DropdownMenu title="Dimensiones" content={
+                            <div className='dContent'>
+                                <div className='dAltura'>
+                                    <label htmlFor="altura" className="col-sm-2 col-form-label">Altura</label>
+                                    <div className='duInput'>
+                                        <input name='altura' type="text" onChange={this.updateStateVariable} className="form-control" id="altura"/>
+                                        <DropdownSelector title="Escoje una unidad" items={unidades} />
+                                    </div>
+                                </div>
+                                <FaTimes className='multIcon' />
+                                <div className='dAncho'>
+                                    <label htmlFor="ancho" className="col-sm-2 col-form-label">Ancho</label>
+                                    <div className='duInput'>
+                                        <input name='ancho' type="text" onChange={this.updateStateVariable} className="form-control" id="ancho"/>
+                                        <DropdownSelector title="Escoje una unidad" items={unidades} />
+                                    </div>
+                                </div>
+                            </div>
+                        }/>
 
-                        <label htmlFor="presoDrenado" className="col-sm-2 col-form-label">Peso drenado</label>
-                        <input name='presoDrenado' type="text" onChange={this.updateStateVariable} className="form-control" id="presoDrenado"/>
-                        
-                        <label htmlFor="ingredientes" className="col-sm-2 col-form-label">Ingredientes</label>
-                        <input name='ingredientes' type="text" onChange={this.updateStateVariable} className="form-control" id="ingredientes"/>
-                        
-                        <label htmlFor="alergenos" className="col-sm-2 col-form-label">Alergenos</label>
-                        <input name='alergenos' type="text" onChange={this.updateStateVariable} className="form-control" id="alergenos"/>
-                        
-                        <label htmlFor="metodoConservacion" className="col-sm-2 col-form-label">Metodo conservacion</label>
-                        <input name='metodoConservacion' type="text" onChange={this.updateStateVariable} className="form-control" id="metodoConservacion"/>
-                        
-                        <label htmlFor="vidaUtil" className="col-sm-2 col-form-label">Vida Util</label>
-                        <input name='vidaUtil' type="text" onChange={this.updateStateVariable} className="form-control" id="vidaUtil"/>
+                        <DropdownMenu title="Declaración de identidad del alimento" content={
+                            <div className='nContent'>
+                                <label htmlFor="nombre" className="nLabel">Nombre producto</label>
+                                <input name='nombreProducto' id="nInput" type="text" onChange={this.updateStateVariable} className="form-control" id="nombre"/>
+                            </div>
+                        }/>
 
-                        <label htmlFor="direccion" className="col-sm-2 col-form-label">Direccion</label>
-                        <input name='direccion' type="text" onChange={this.updateStateVariable} className="form-control" id="direccion"/>
+                        <DropdownMenu title="Marca del alimento" content={
+                            <>
+                                <label htmlFor="marca" className="col-sm-2 col-form-label">Marca producto</label>
+                                <input name='marca' type="text" onChange={this.updateStateVariable} className="form-control" id="marca"/>
+                            </>
+                        }/>
                         
-                        <label htmlFor="instrucciones" className="col-sm-2 col-form-label">Instrucciones</label>
-                        <input name='instrucciones' type="text" onChange={this.updateStateVariable} className="form-control" id="instrucciones"/>
+                        <DropdownMenu title="Contenido neto" content={
+                            <>
+                                <label htmlFor="pesoNeto" className="col-sm-2 col-form-label">Peso Neso</label>
+                                <input name='pesoNeto' type="text" onChange={this.updateStateVariable} className="form-control" id="pesoNeto"/>
+                                <label htmlFor="presoDrenado" className="col-sm-2 col-form-label">Peso drenado</label>
+                                <input name='presoDrenado' type="text" onChange={this.updateStateVariable} className="form-control" id="presoDrenado"/>
+                            </>
+                        }/>
+
+                        <DropdownMenu title="Ingredientes" content={
+                            <>
+                                <label htmlFor="ingredientes" className="col-sm-2 col-form-label">Ingredientes</label>
+                                <input name='ingredientes' type="text" onChange={this.updateStateVariable} className="form-control" id="ingredientes"/>
+                            </>
+                        }/>
                         
+                        <DropdownMenu title="Alérgenos y Sensitivos" content={
+                            <>
+                                <label htmlFor="alergenos" className="col-sm-2 col-form-label">Alergenos</label>
+                                <input name='alergenos' type="text" onChange={this.updateStateVariable} className="form-control" id="alergenos"/>
+                            </>
+                        }/>
+                        
+                        <DropdownMenu title="Especificaciones e indicaciones" content={
+                            <>
+                                <label htmlFor="metodoConservacion" className="col-sm-2 col-form-label">Metodo conservacion</label>
+                                <input name='metodoConservacion' type="text" onChange={this.updateStateVariable} className="form-control" id="metodoConservacion"/>
+                                
+                                <label htmlFor="vidaUtil" className="col-sm-2 col-form-label">Vida Util</label>
+                                <input name='vidaUtil' type="text" onChange={this.updateStateVariable} className="form-control" id="vidaUtil"/>
+
+                                <label htmlFor="direccion" className="col-sm-2 col-form-label">Direccion</label>
+                                <input name='direccion' type="text" onChange={this.updateStateVariable} className="form-control" id="direccion"/>
+                                
+                                <label htmlFor="instrucciones" className="col-sm-2 col-form-label">Instrucciones</label>
+                                <input name='instrucciones' type="text" onChange={this.updateStateVariable} className="form-control" id="instrucciones"/>
+                            </>
+                        }/>  
                         
                     </form>
 
