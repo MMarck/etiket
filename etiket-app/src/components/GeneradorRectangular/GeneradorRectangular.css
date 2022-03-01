@@ -38,11 +38,11 @@
     gap: 5px;
 }
 
-.nContent{
+.gRContent{
     padding: 5px;
 }
 
-#nombre{
+.gRInput{
     border: 2px solid var(--Sgreen);
     padding-left: 10px;
     padding-top: 0;
