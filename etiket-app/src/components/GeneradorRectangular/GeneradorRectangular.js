@@ -1,8 +1,6 @@
 import { Component } from 'react';
 import './GeneradorRectangular.css';
 import Navbar from '../Navbar/Navbar';
-import Sidebar from '../Sidebar/Sidebar';
-import SidebarRect from '../SidebarRect';
 import DropdownMenu from '../DropdownMenu';
 import DropdownSelector from '../DropdownSelector';
 import {FaTimes} from "react-icons/fa"
@@ -90,7 +88,7 @@ class GeneradorRectangular extends Component{
                         <DropdownMenu title="Declaración de identidad del alimento" content={
                             <div className='nContent'>
                                 <label htmlFor="nombre" className="nLabel">Nombre producto</label>
-                                <input name='nombreProducto' id="nInput" type="text" onChange={this.updateStateVariable} className="form-control" id="nombre"/>
+                                <input name='nombreProducto' type="text" onChange={this.updateStateVariable} className="form-control" id="nombre"/>
                             </div>
                         }/>
 
@@ -144,20 +142,24 @@ class GeneradorRectangular extends Component{
 
 
                     <div className='container d-flex justify-content-center align-items-center m-0' style={{backgroundColor:'#404040', height: '90vh', overflow: 'auto', overflowY: 'scroll', maxHeight: '90vh'}} > 
-                        <FrontRectangular 
+                        <TicketRectangularFront
                             productName={this.state.nombreProducto} 
                             brand={this.state.marca} 
                             netWeigth={this.state.pesoNeto} 
                             drenWeigth={this.state.presoDrenado} 
+                            ticketWidth={this.state.ancho}
+                            ticketheight={this.state.altura}
                         />
 
-                        <BackRectangular 
+                        <TicketRectangularBack 
                             ingredients={this.state.ingredientes}
                             allergens = {this.state.alergenos}
                             conservationMethod = {this.state.metodoConservacion}
                             life = {this.state.vidaUtil}
                             direction = {this.state.direccion}
                             instructions = {this.state.instrucciones}
+                            ticketWidth={this.state.ancho}
+                            ticketheight={this.state.altura}
                         />
                     </div>
 
@@ -173,36 +175,51 @@ export default GeneradorRectangular;
 /*
  * Componente para dibujar la parte DELANTERA de la etiqueta rectangular
 */
-function FrontRectangular ({productName, brand, netWeigth, drenWeigth}){
+function TicketRectangularFront ({productName, brand, netWeigth, drenWeigth, verticalSizeIndicator, horizontalSizeIndicator, ticketheight, ticketWidth}){
     productName = productName? productName:'Nombre del producto';
     brand = brand? brand:'Marca®';
     netWeigth = netWeigth? netWeigth:'-';
     drenWeigth = drenWeigth? drenWeigth:false;
+    verticalSizeIndicator = verticalSizeIndicator? verticalSizeIndicator:false;
+    horizontalSizeIndicator = horizontalSizeIndicator? horizontalSizeIndicator:false;
+    ticketheight = ticketheight? ticketheight:'100mm';
+    ticketWidth = ticketWidth? ticketWidth:'100mm';
+
 
     return(
         <div>
-            <h5 className='m-4' style={{'border':'2px solid #1ED796', textAlign:'center', color:'#1ED796'}} >Cara frontal</h5>
-            <div className='mx-4 p-4 d-flex flex-column justify-content-between align-items-center' 
-            style={{backgroundColor:'white', height:'100mm', width:'100mm', textAlign:'center'}}
-            >
+            
+            <div className='mx-4 d-flex align-items-center '>
+                
+                <SizeIndicator orientation={'vertical'} length={ticketheight}/>
+                <div  style={{display:'inline-grid'}}>
+                    <h5 className='m-4' style={{'border':'2px solid #1ED796', textAlign:'center', color:'#1ED796'}} >Cara frontal</h5>
+                    <div className=' p-4 d-flex flex-column justify-content-between align-items-center' 
+                    style={{backgroundColor:'white', height:ticketheight, width:ticketWidth, textAlign:'center'}}
+                    >
 
-                <div className='d-flex flex-column justify-content-between align-items-center' >
-                    <span> {productName} </span>
-                    <span> {brand} </span>
+                        <div className='d-flex flex-column justify-content-between align-items-center' >
+                            <span> {productName} </span>
+                            <span> {brand} </span>
+                        </div>
+                        
+                        <div className='d-flex flex-column justify-content-between align-items-center' >
+                            <span> Contenido Neto {netWeigth}g </span>
+
+                            {drenWeigth?
+                                <span> Contenido drenado {drenWeigth}g </span>
+                                :''                    
+                            }
+
+                        </div>
+                        
+
+                    </div>
+                    <SizeIndicator length={ticketWidth}/>
                 </div>
                 
-                <div className='d-flex flex-column justify-content-between align-items-center' >
-                    <span> Contenido Neto {netWeigth}g </span>
-
-                    {drenWeigth?
-                        <span> Contenido drenado {drenWeigth}g </span>
-                        :''                    
-                    }
-
-                </div>
-                
-
             </div>
+            
         </div>
     )
 }
@@ -211,19 +228,21 @@ function FrontRectangular ({productName, brand, netWeigth, drenWeigth}){
 /*
  * Componente para dibujar la parte TRASERA de la etiqueta rectangular
 */
-function BackRectangular ({ingredients, allergens, conservationMethod, life, direction, instructions}){
+function TicketRectangularBack ({ingredients, allergens, conservationMethod, life, direction, instructions, ticketheight, ticketWidth}){
     ingredients= ingredients? ingredients: 'Harina de trigo, Azucar, Mantequilla, Huevo';
     allergens= allergens? allergens: 'Huevo';
     conservationMethod= conservationMethod? conservationMethod: 'En congelacion';
     life= life? life:'60';
     direction= direction? direction: ' Vía a la Costa Km. 6.5, Av. del Bombero, Guayaquil ';
     instructions= instructions? instructions: 'Abrir y consumir en el menor tiempo posible';
+    ticketheight = ticketheight? ticketheight:'100mm';
+    ticketWidth = ticketWidth? ticketWidth:'100mm';
 
     return(
         <div>
             <h5 className='m-4' style={{'border':'2px solid #1ED796', textAlign:'center', color:'#1ED796'}} >Cara trasera</h5>
             <div className='row p-2' 
-            style={{backgroundColor:'white', height:'100mm', width:'100mm', textAlign:'center'}}
+            style={{backgroundColor:'white', height: ticketheight, width: ticketWidth, textAlign:'center'}}
             >
 
                 <div className='col-6 my-2 pt-2'  style={{ height: '90%'}}  >
@@ -254,6 +273,42 @@ function BackRectangular ({ingredients, allergens, conservationMethod, life, dir
                 
 
             </div>
+            <SizeIndicator visibilityProp={'hidden'}/>
+
         </div>
     )
+}
+
+
+/*
+ * Componente para dibujar la parte DELANTERA de la etiqueta rectangular
+*/
+function SizeIndicator ({length, orientation, visibilityProp}){
+    length = length? length:'100mm';
+    orientation = orientation? orientation:'horizontal';
+    visibilityProp = visibilityProp? visibilityProp:'visible';
+
+    if(orientation === 'horizontal'){
+        return(
+            <div  className=' d-inline-block text-center my-2' style={{visibility:visibilityProp}}>
+                <div className='px-2' style={{display: 'inline-block', position: 'relative', zIndex: '2', color: 'white', border: '2px solid #1ED796', backgroundColor: '#404040'}} >{length}</div>
+                <div className='line' style={{position: 'relative', top: '-16px', width: length, height: '3px', backgroundColor: '#1ED796'}}/>
+            </div>
+        )
+    }
+
+    if(orientation === 'vertical'){
+        return(
+            <div  className='d-flex align-items-center justify-content-center' 
+            style={{width: '3px', height: length, margin:'0px 18px', backgroundColor: '#1ED796', transform: 'translateY(12px)'}}>
+                <div className='px-2' style={{ position: 'relative', border: '2px solid #1ED796', zIndex: '2', color: 'white', backgroundColor: '#404040', transform: 'rotate(-90deg)'}} >
+                    {length}
+                </div>
+            </div>
+
+            
+        )
+    }
+
+
 }
