@@ -117,7 +117,7 @@ class GeneradorRectangular extends Component{
                 <Navbar setBackButton={true} information={'Segundo paso: Rellenar información'} />
                 <div className='d-flex'>
                     
-                    <form className="sidebarRect">
+                    <form className="sidebarRect dark-mode">
                         <DropdownMenu title="Dimensiones" content={
                             <div className='dContent'>
                                 <div className='dAltura'>
@@ -194,7 +194,7 @@ class GeneradorRectangular extends Component{
                     </form>
 
 
-                    <div className='container d-flex justify-content-center align-items-center m-0' style={{backgroundColor:'#404040', height: '90vh', overflow: 'auto', overflowY: 'scroll', maxHeight: '90vh'}} > 
+                    <div className='container d-flex justify-content-center align-items-center m-0' style={{backgroundColor:'#dcdcdc', height: '90vh', overflow: 'auto', overflowY: 'scroll', maxHeight: '90vh'}} > 
                         <TicketRectangularFront
                             productName={this.state.nombreProducto} 
                             brand={this.state.marca} 
@@ -246,7 +246,7 @@ function TicketRectangularFront ({productName, brand, netWeigth, drenWeigth, ver
                 
                 <SizeIndicator orientation={'vertical'} length={ticketheight}/>
                 <div  style={{display:'inline-grid'}}>
-                    <h5 className='m-4' style={{'border':'2px solid #1ED796', textAlign:'center', color:'#1ED796'}} >Cara frontal</h5>
+                    <h5 className='m-4' style={{'border':'2px solid #1ED796', textAlign:'center', color:'#1ED796', backgroundColor:'#404040'}} >Cara frontal</h5>
                     <div className=' p-4 d-flex flex-column justify-content-between align-items-center' 
                     style={{backgroundColor:'white', height:ticketheight, width:ticketWidth, textAlign:'center'}}
                     >
@@ -293,7 +293,7 @@ function TicketRectangularBack ({ingredients, allergens, conservationMethod, lif
 
     return(
         <div>
-            <h5 className='m-4' style={{'border':'2px solid #1ED796', textAlign:'center', color:'#1ED796'}} >Cara trasera</h5>
+            <h5 className='m-4' style={{'border':'2px solid #1ED796', textAlign:'center', color:'#1ED796', backgroundColor:'#404040'}} >Cara trasera</h5>
             <div className='row p-2' 
             style={{backgroundColor:'white', height: ticketheight, width: ticketWidth, textAlign:'center'}}
             >

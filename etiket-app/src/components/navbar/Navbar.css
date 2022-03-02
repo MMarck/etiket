@@ -5,23 +5,15 @@
     height: var(--Navbar-heigth);
 }
 
-#homeBtn{
-    padding: 8px;
-    width: auto;
-    height: auto;
-    background-color: var(--Sgreen);
-    color: var(--Sblack);
-    font-size: 35px;
-    font-family: "Poppins";
-    font-weight: 600;
-    border: 2px solid white;
-    border-radius: 30px;
+.navbar-dark{
+    background-color: var(--Background-color-dark);
+    color: var(--Font-color-dark);
 }
 
-#homeBtn:hover{
-    color: white;
+.navbar-ligth{
+    background-color: var(--Background-color-ligth);
+    color: var(--Font-color-ligth);
 }
-
 
 #navTitle{
     font-size: 3.5vh;

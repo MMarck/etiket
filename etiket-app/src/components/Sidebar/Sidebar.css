@@ -9,6 +9,22 @@
     width: 25%;
 }
 
+a{
+    color: currentColor;
+    text-decoration: none;
+}
+.sidebar-dark{
+    background-color: var(--Background-color-dark);
+    color: var(--Font-color-dark);
+}
+
+
+
+.sidebar-ligth{
+    background-color: var(--Background-color-ligth);
+    color: var(--Font-color-ligth);
+}
+
 .option{
     height: var(--fraction);
     display: flex;

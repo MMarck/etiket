@@ -29,8 +29,8 @@ function App() {
             <Navbar setHomeButton={true} information={'Primer paso: Escoger un tipo de plantilla'} />
             <div className='d-flex'>
               <Sidebar/>
-              <div className='container d-flex justify-content-center align-items-center m-0' style={{backgroundColor:'#404040'}} >
-                <h1 className='m-0' style={{'color':'#979797', 'font-family':'Bradley Hand ITC', 'fontSize':'4.5rem', 'font-weight': 'bold', 'text-align': 'center'}} >Creemos una etiqueta <br></br> para tu producto</h1>
+              <div className='container d-flex justify-content-center align-items-center m-0' style={{backgroundColor:'#dcdcdc'}} >
+                <h1 className='m-0' style={{color:'black', fontFamily:'Bradley Hand ITC', fontSize:'4.5rem', fontWeight: 'bold', textAlign: 'center'}} >Creemos una etiqueta <br></br> para tu producto</h1>
               </div>
             </div>    
           </>

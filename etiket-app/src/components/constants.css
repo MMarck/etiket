@@ -1,4 +1,10 @@
 :root {
     --Sidebar-heigth: 90vh;
     --Navbar-heigth: 10vh;
+
+    --Background-color-dark: #404040;
+    --Font-color-dark: #ffffff;
+
+    --Background-color-light: #ffffff;
+    --Font-color-light: #000000;
 }

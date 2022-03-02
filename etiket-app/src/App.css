@@ -1,3 +1,5 @@
+@import './components/constants.css';
+
 .App {
   text-align: center;
 }
@@ -41,3 +43,12 @@
   border: 2px solid #1ED796;
 }
 
+.dark-mode{
+  background-color: var(--Background-color-dark);
+  color: var(--Font-color-dark);
+}
+
+.ligth-mode{
+  background-color: var(--Background-color-ligth);
+  color: var(--Font-color-ligth);
+}

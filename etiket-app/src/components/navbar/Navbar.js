@@ -20,7 +20,7 @@ class Navbar extends Component{
 
         return(
         
-            <div className="p-2 collapse navbar-collapse d-flex justify-content-between colored_border" id="navbarSupportedContent">
+            <div className="p-2 collapse navbar-collapse d-flex justify-content-between colored_border navbar-dark">
                 
                 {this.state.homeButton? 
                     <Link to="/">
