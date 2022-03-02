@@ -20,6 +20,59 @@ const unidades=[
     }
 ];
 
+const unidadesMasa=[
+    {
+        id: "g",
+        value: "Gramos",
+    },
+    {
+        id: "kg",
+        value: "Kilogramos",
+    },
+    {
+        id: "ml",
+        value: "Mililitros",
+    },
+    {
+        id: "l",
+        value: "Litros"
+    }
+]
+
+const conservacion=[
+    {
+        id: "ambRefr",
+        value: "Al ambiente, una vex abierto, refrigerar",
+    },
+    {
+        id: "ambFresco",
+        value: "Al ambiente, fresco y seco",
+    },
+    {
+        id: "refr",
+        value: "En refrigeración",
+    },
+    {
+        id: "cong",
+        value: "En congelación",
+    }
+]
+
+const unidadesDias=[
+    {
+        id: "dias",
+        value: "Días",
+    },
+    {
+        id: "meses",
+        value: "Meses",
+    },
+    {
+        id: "anos",
+        value: "Años"
+    }
+]
+
 class GeneradorRectangular extends Component{
 
 
@@ -86,26 +139,26 @@ class GeneradorRectangular extends Component{
                         }/>
 
                         <DropdownMenu title="Declaración de identidad del alimento" content={
-                            <div className='nContent'>
-                                <label htmlFor="nombre" className="nLabel">Nombre producto</label>
-                                <input name='nombreProducto' type="text" onChange={this.updateStateVariable} className="form-control" id="nombre"/>
+                            <div className='gRContent'>
+                                <label htmlFor="nombre" className="gRLabel">Nombre producto</label>
+                                <input name='nombreProducto' type="text" onChange={this.updateStateVariable} className="form-control gRInput"/>
                             </div>
                         }/>
 
                         <DropdownMenu title="Marca del alimento" content={
-                            <>
-                                <label htmlFor="marca" className="col-sm-2 col-form-label">Marca producto</label>
-                                <input name='marca' type="text" onChange={this.updateStateVariable} className="form-control" id="marca"/>
-                            </>
+                            <div className='gRContent'>
+                                <label htmlFor="marca" className="gRLabel">Marca producto</label>
+                                <input name='marca' type="text" onChange={this.updateStateVariable} className="form-control gRInput" id="marca"/>
+                            </div>
                         }/>
                         
                         <DropdownMenu title="Contenido neto" content={
-                            <>
-                                <label htmlFor="pesoNeto" className="col-sm-2 col-form-label">Peso Neso</label>
-                                <input name='pesoNeto' type="text" onChange={this.updateStateVariable} className="form-control" id="pesoNeto"/>
-                                <label htmlFor="presoDrenado" className="col-sm-2 col-form-label">Peso drenado</label>
-                                <input name='presoDrenado' type="text" onChange={this.updateStateVariable} className="form-control" id="presoDrenado"/>
-                            </>
+                            <div className='gRContent'>
+                                <label htmlFor="pesoNeto" className="gRLabel">Peso Neso</label>
+                                <input name='pesoNeto' type="text" onChange={this.updateStateVariable} className="form-control gRInput" id="pesoNeto"/>
+                                <label htmlFor="presoDrenado" className="gRLabel">Peso drenado</label>
+                                <input name='presoDrenado' type="text" onChange={this.updateStateVariable} className="form-control gRInput" id="presoDrenado"/>
+                            </div>
                         }/>
 
                         <DropdownMenu title="Ingredientes" content={
