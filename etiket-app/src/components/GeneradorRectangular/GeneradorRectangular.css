@@ -1,7 +1,7 @@
 :root {
     --Sgreen:#1ED796;
     --Sblack:#404040;
-    --Sselectedgreen:rgba(29, 215, 150, 0.2);
+    --Sselectedgreen:#1dd79633;
 }
 
 .sidebarRect{
@@ -50,4 +50,5 @@
     border-radius: 0px;
     font-size: 15px;
 }
+
 

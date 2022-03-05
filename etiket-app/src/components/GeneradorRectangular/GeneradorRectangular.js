@@ -6,74 +6,122 @@ import SidebarRect from '../SidebarRect';
 import DropdownMenu from '../DropdownMenu';
 import DropdownSelector from '../DropdownSelector';
 import {FaTimes} from "react-icons/fa"
+import Select from 'react-select';
 
 const unidades=[
     {
-        id: "mm",
         value: "mm",
+        label: "mm",
     },
     {
-        id: "cm",
         value: "cm",
+        label: "cm",
     },
     {
-        id: "pulg",
         value: "pulg",
+        label: "pulg",
     }
 ];
 
 const unidadesMasa=[
     {
-        id: "g",
-        value: "Gramos",
+        value: "g",
+        label: "Gramos",
     },
     {
-        id: "kg",
-        value: "Kilogramos",
+        value: "kg",
+        label: "Kilogramos",
     },
     {
-        id: "ml",
-        value: "Mililitros",
+        value: "ml",
+        label: "Mililitros",
     },
     {
-        id: "l",
-        value: "Litros"
+        value: "l",
+        label: "Litros"
     }
 ]
 
 const conservacion=[
     {
-        id: "ambRefr",
-        value: "Al ambiente, una vex abierto, refrigerar",
+        value: "ambRefr",
+        label: "Al ambiente, una vez abierto, refrigerar",
     },
     {
-        id: "ambFresco",
-        value: "Al ambiente, fresco y seco",
+        value: "ambFresco",
+        label: "Al ambiente, fresco y seco",
     },
     {
-        id: "refr",
-        value: "En refrigeración",
+        value: "refr",
+        label: "En refrigeración",
     },
     {
-        id: "cong",
-        value: "En congelación",
+        value: "cong",
+        label: "En congelación",
     }
 ]
 
 const unidadesDias=[
     {
-        id: "dias",
-        value: "Días",
+        value: "dias",
+        label: "Días",
     },
     {
-        id: "meses",
-        value: "Meses",
+        value: "meses",
+        label: "Meses",
     },
     {
-        id: "anos",
-        value: "Años"
+        value: "anos",
+        label: "Años"
     }
 ]
+
+const alergenos=[
+    { value: "tartrazina", label: "Tartrazina"},
+    { value: "fenil", label: "Fenilcetronuricos: Fenilanina"},
+    { value: "gluten", label: "Gluten"},
+    { value: "crustaceos",label: "Crustáceos"},
+    { value: "huevo", label: "Huevo"},
+    { value: "pescado", label: "Pescado"},
+    { value: "mani", label: "Maní"},
+    { value: "soya", label: "Soya"},
+    { value: "leche", label: "Leche"},
+    { value: "lactosa", label: "Lactosa"},
+    { value: "nueces", label: "Nueces"},
+    { value: "almendras", label: "Almendras"},
+    { value: "avellanas", label: "Avellanas"},
+    { value: "anacardos", label: "Anacardos"},
+    { value: "nuecesMacadamia", label: "Nueces Macadamia"},
+    { value: "apio", label: "Apio"},
+    { value: "mostaza",  label: "Mostaza"},
+    { value: "altramuces", label: "Altramuces"},
+    { value: "sesamo", label: "Sésamo"},
+    { value: "regaliz", label: "Regaliz"}
+]
+
+const ddStyle={
+    option: (provided, state)=>({
+        ...provided,
+        backgroundColor: state.isSelected ? '#1ED796':state.isFocused && "#1dd79633",
+        color: "#404040",
+        cursor: "Pointer",
+    }),
+    menuList: (provided, state) =>({
+        ...provided,
+        border: "2px solid #1ED796"
+    }),
+    control: () =>({
+        border: "2px solid #1ED796",
+        display: "flex",
+        cursor: "Pointer",
+    }),
+    dropdownIndicator: (provided, state)=>({
+        ...provided,
+        "&:hover":{
+            color: "#1ED796"
+        }
+    }),
+}
 
 class GeneradorRectangular extends Component{
 
@@ -126,7 +174,7 @@ class GeneradorRectangular extends Component{
                                     <label htmlFor="altura" className="col-sm-2 col-form-label">Altura</label>
                                     <div className='duInput'>
                                         <input name='altura' type="text" onChange={this.updateStateVariable} className="form-control" id="altura"/>
-                                        <DropdownSelector title="Escoje una unidad" items={unidades} />
+                                        <Select className='ddMenu' styles={ddStyle} options={unidades} />
                                     </div>
                                 </div>
                                 <FaTimes className='multIcon' />
@@ -134,7 +182,7 @@ class GeneradorRectangular extends Component{
                                     <label htmlFor="ancho" className="col-sm-2 col-form-label">Ancho</label>
                                     <div className='duInput'>
                                         <input name='ancho' type="text" onChange={this.updateStateVariable} className="form-control" id="ancho"/>
-                                        <DropdownSelector title="Escoje una unidad" items={unidades} />
+                                        <Select className='ddMenu' styles={ddStyle} options={unidades} />
                                     </div>
                                 </div>
                             </div>
@@ -156,41 +204,56 @@ class GeneradorRectangular extends Component{
                         
                         <DropdownMenu title="Contenido neto" content={
                             <div className='gRContent'>
-                                <label htmlFor="pesoNeto" className="gRLabel">Peso Neso</label>
-                                <input name='pesoNeto' type="text" onChange={this.updateStateVariable} className="form-control gRInput" id="pesoNeto"/>
+                                <label htmlFor="pesoNeto" className="gRLabel">Peso Neto</label>
+                                <div className='duInput'>
+                                    <input name='pesoNeto' type="text" onChange={this.updateStateVariable} className="form-control gRInput" id="pesoNeto"/>
+                                    <Select className='ddMenu' styles={ddStyle} options={unidadesMasa} />
+                                </div>
                                 <label htmlFor="presoDrenado" className="gRLabel">Peso drenado</label>
-                                <input name='presoDrenado' type="text" onChange={this.updateStateVariable} className="form-control gRInput" id="presoDrenado"/>
+                                <div className='duInput'>
+                                    <input name='presoDrenado' type="text" onChange={this.updateStateVariable} className="form-control gRInput" id="presoDrenado"/>
+                                    <Select className='ddMenu' styles={ddStyle} options={unidadesMasa} />
+                                </div>
                             </div>
                         }/>
 
                         <DropdownMenu title="Ingredientes" content={
-                            <>
+                            <div className='gRContent'>
                                 <label htmlFor="ingredientes" className="col-sm-2 col-form-label">Ingredientes</label>
-                                <input name='ingredientes' type="text" onChange={this.updateStateVariable} className="form-control" id="ingredientes"/>
-                            </>
+                                <input name='ingredientes' type="text" onChange={this.updateStateVariable} className="form-control gRInput" id="ingredientes"/>
+                            </div>
                         }/>
                         
                         <DropdownMenu title="Alérgenos y Sensitivos" content={
-                            <>
-                                <label htmlFor="alergenos" className="col-sm-2 col-form-label">Alergenos</label>
-                                <input name='alergenos' type="text" onChange={this.updateStateVariable} className="form-control" id="alergenos"/>
-                            </>
+                            <div className='gRContent'>
+                                <label htmlFor="alergenos" className="col-sm-2 col-form-label">Alérgenos</label>
+                                <Select isMulti className='ddMenu' styles={ddStyle} options={alergenos} />
+                            </div>
                         }/>
                         
                         <DropdownMenu title="Especificaciones e indicaciones" content={
-                            <>
-                                <label htmlFor="metodoConservacion" className="col-sm-2 col-form-label">Metodo conservacion</label>
-                                <input name='metodoConservacion' type="text" onChange={this.updateStateVariable} className="form-control" id="metodoConservacion"/>
-                                
-                                <label htmlFor="vidaUtil" className="col-sm-2 col-form-label">Vida Util</label>
-                                <input name='vidaUtil' type="text" onChange={this.updateStateVariable} className="form-control" id="vidaUtil"/>
+                            <div className='gRContent'>
+                                <div>
+                                    <label htmlFor="metodoConservacion" className="col-sm-2 col-form-label">Metodo conservacion</label>
+                                    <Select className='ddMenu' styles={ddStyle} options={conservacion} />
+                                </div>
 
-                                <label htmlFor="direccion" className="col-sm-2 col-form-label">Direccion</label>
-                                <input name='direccion' type="text" onChange={this.updateStateVariable} className="form-control" id="direccion"/>
+                                <div className='duInput'>
+                                    <label htmlFor="vidaUtil" className="col-form-label">Vida Util</label>
+                                    <input name='vidaUtil' type="text" onChange={this.updateStateVariable} className="form-control gRInput" id="vidaUtil"/>
+                                    <Select className='ddMenu' styles={ddStyle} options={unidadesDias} />
+                                </div>
                                 
-                                <label htmlFor="instrucciones" className="col-sm-2 col-form-label">Instrucciones</label>
-                                <input name='instrucciones' type="text" onChange={this.updateStateVariable} className="form-control" id="instrucciones"/>
-                            </>
+                                <div>
+                                    <label htmlFor="direccion" className="col-sm-2 col-form-label">Direccion</label>
+                                    <input name='direccion' type="text" onChange={this.updateStateVariable} className="form-control gRInput" id="direccion"/>
+                                </div>
+
+                                <div>
+                                    <label htmlFor="instrucciones" className="col-sm-2 col-form-label">Instrucciones</label>
+                                    <input name='instrucciones' type="text" onChange={this.updateStateVariable} className="form-control gRInput" id="instrucciones"/>
+                                </div>
+                            </div>
                         }/>  
                         
                     </form>
