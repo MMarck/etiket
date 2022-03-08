@@ -24,19 +24,19 @@ const unidades=[
 const unidadesMasa=[
     {
         value: "g",
-        label: "Gramos",
+        label: "g",
     },
     {
         value: "kg",
-        label: "Kilogramos",
+        label: "kg",
     },
     {
         value: "ml",
-        label: "Mililitros",
+        label: "ml",
     },
     {
         value: "l",
-        label: "Litros"
+        label: "l"
     }
 ]
 
@@ -97,6 +97,36 @@ const alergenos=[
     { value: "regaliz", label: "Regaliz"}
 ]
 
+const ddLargerStyle={
+    option: (provided, state)=>({
+        ...provided,
+        backgroundColor: state.isSelected ? '#1ED796':state.isFocused && "#1dd79633",
+        color: "#404040",
+        cursor: "Pointer",
+    }),
+    menuList: (provided, state) =>({
+        ...provided,
+        border: "2px solid #1ED796",
+        borderRadius: "8px",
+    }),
+    control: () =>({
+        border: "2px solid #1ED796",
+        display: "flex",
+        cursor: "Pointer",
+        borderRadius: "8px",
+    }),
+    dropdownIndicator: (provided, state)=>({
+        ...provided,
+        "&:hover":{
+            color: "#1ED796"
+        }
+    }),
+    menu: (provided, state)=>({
+        ...provided,
+        borderRadius: "8px",
+    })
+}
+
 const ddStyle={
     option: (provided, state)=>({
         ...provided,
@@ -106,12 +136,16 @@ const ddStyle={
     }),
     menuList: (provided, state) =>({
         ...provided,
-        border: "2px solid #1ED796"
+        border: "2px solid #1ED796",
+        borderRadius: "8px",
     }),
     control: () =>({
         border: "2px solid #1ED796",
         display: "flex",
         cursor: "Pointer",
+        minWidth: "none",
+        width: "100px",
+        borderRadius: "8px",
     }),
     dropdownIndicator: (provided, state)=>({
         ...provided,
@@ -119,6 +153,10 @@ const ddStyle={
             color: "#1ED796"
         }
     }),
+    menu: (provided, state)=>({
+        ...provided,
+        borderRadius: "8px",
+    })
 }
 
 class GeneradorRectangular extends Component{
@@ -171,16 +209,18 @@ class GeneradorRectangular extends Component{
                                 <div className='dAltura'>
                                     <label htmlFor="altura" className="col-sm-2 col-form-label">Altura</label>
                                     <div className='duInput'>
-                                        <input name='altura' type="text" onChange={this.updateStateVariable} className="form-control" id="altura"/>
-                                        <Select className='ddMenu' styles={ddStyle} options={unidades} />
+                                        <input name='altura' type="text" onChange={this.updateStateVariable} className="form-control gRInput numberInput" />
+                                        <Select className='ddMenu' styles={ddStyle} options={unidades} defaultValue={{ label: "cm", value: "cm" }}/>
+                                        
                                     </div>
+                                    
                                 </div>
-                                <FaTimes className='multIcon' />
+                                
                                 <div className='dAncho'>
                                     <label htmlFor="ancho" className="col-sm-2 col-form-label">Ancho</label>
                                     <div className='duInput'>
-                                        <input name='ancho' type="text" onChange={this.updateStateVariable} className="form-control" id="ancho"/>
-                                        <Select className='ddMenu' styles={ddStyle} options={unidades} />
+                                        <input name='ancho' type="text" onChange={this.updateStateVariable} className="form-control gRInput numberInput" />
+                                        <Select className='ddMenu' styles={ddStyle} options={unidades} defaultValue={{ label: "cm", value: "cm" }} />
                                     </div>
                                 </div>
                             </div>
@@ -202,15 +242,21 @@ class GeneradorRectangular extends Component{
                         
                         <DropdownMenu title="Contenido neto" content={
                             <div className='gRContent'>
-                                <label htmlFor="pesoNeto" className="gRLabel">Peso Neto</label>
+                                
                                 <div className='duInput'>
-                                    <input name='pesoNeto' type="text" onChange={this.updateStateVariable} className="form-control gRInput" id="pesoNeto"/>
-                                    <Select className='ddMenu' styles={ddStyle} options={unidadesMasa} />
+                                    <label htmlFor="pesoNeto" className="gRLabel">Peso Neto</label>
+                                    <div className='subgRContent'>
+                                        <input name='pesoNeto' type="text" onChange={this.updateStateVariable} className="form-control gRInput numberInput" id="pesoNeto"/>
+                                        <Select className='ddMenu' styles={ddStyle} options={unidadesMasa} defaultValue={{ label: "g", value: "g" }} />
+                                    </div>
                                 </div>
-                                <label htmlFor="presoDrenado" className="gRLabel">Peso drenado</label>
+                                
                                 <div className='duInput'>
-                                    <input name='presoDrenado' type="text" onChange={this.updateStateVariable} className="form-control gRInput" id="presoDrenado"/>
-                                    <Select className='ddMenu' styles={ddStyle} options={unidadesMasa} />
+                                    <label htmlFor="presoDrenado" className="gRLabel">Peso drenado</label>
+                                    <div className='subgRContent'>
+                                        <input name='presoDrenado' type="text" onChange={this.updateStateVariable} className="form-control gRInput numberInput" id="presoDrenado"/>
+                                        <Select className='ddMenu' styles={ddStyle} options={unidadesMasa} defaultValue={{ label: "g", value: "g" }} />
+                                    </div>
                                 </div>
                             </div>
                         }/>
@@ -225,7 +271,7 @@ class GeneradorRectangular extends Component{
                         <DropdownMenu title="Alérgenos y Sensitivos" content={
                             <div className='gRContent'>
                                 <label htmlFor="alergenos" className="col-sm-2 col-form-label">Alérgenos</label>
-                                <Select isMulti className='ddMenu' styles={ddStyle} options={alergenos} />
+                                <Select isMulti className='ddMenu' styles={ddLargerStyle} options={alergenos} />
                             </div>
                         }/>
                         
@@ -233,11 +279,12 @@ class GeneradorRectangular extends Component{
                             <div className='gRContent'>
                                 <div>
                                     <label htmlFor="metodoConservacion" className="col-sm-2 col-form-label">Metodo conservacion</label>
-                                    <Select className='ddMenu' styles={ddStyle} options={conservacion} />
+                                    <Select className='ddMenu' styles={ddLargerStyle} options={conservacion} />
                                 </div>
-
+                                <label htmlFor="vidaUtil" className="col-form-label">Vida Util</label>
+                                
                                 <div className='duInput'>
-                                    <label htmlFor="vidaUtil" className="col-form-label">Vida Util</label>
+                                    
                                     <input name='vidaUtil' type="text" onChange={this.updateStateVariable} className="form-control gRInput" id="vidaUtil"/>
                                     <Select className='ddMenu' styles={ddStyle} options={unidadesDias} />
                                 </div>
