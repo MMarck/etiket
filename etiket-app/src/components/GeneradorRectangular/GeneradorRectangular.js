@@ -2,7 +2,6 @@ import { Component } from 'react';
 import './GeneradorRectangular.css';
 import Navbar from '../Navbar/Navbar';
 import DropdownMenu from '../DropdownMenu';
-import DropdownSelector from '../DropdownSelector';
 import {FaTimes} from "react-icons/fa"
 import Select from 'react-select';
 
@@ -109,11 +108,12 @@ const ddLargerStyle={
         border: "2px solid #1ED796",
         borderRadius: "8px",
     }),
-    control: () =>({
+    control: (provided, state) =>({
         border: "2px solid #1ED796",
         display: "flex",
         cursor: "Pointer",
         borderRadius: "8px",
+        
     }),
     dropdownIndicator: (provided, state)=>({
         ...provided,
@@ -124,7 +124,7 @@ const ddLargerStyle={
     menu: (provided, state)=>({
         ...provided,
         borderRadius: "8px",
-    })
+    }),
 }
 
 const ddStyle={
@@ -139,7 +139,7 @@ const ddStyle={
         border: "2px solid #1ED796",
         borderRadius: "8px",
     }),
-    control: () =>({
+    control: (state) =>({
         border: "2px solid #1ED796",
         display: "flex",
         cursor: "Pointer",
@@ -243,19 +243,24 @@ class GeneradorRectangular extends Component{
                         <DropdownMenu title="Contenido neto" content={
                             <div className='gRContent'>
                                 
-                                <div className='duInput'>
+                                <div className='duInput cnInput'>
                                     <label htmlFor="pesoNeto" className="gRLabel">Peso Neto</label>
                                     <div className='subgRContent'>
-                                        <input name='pesoNeto' type="text" onChange={this.updateStateVariable} className="form-control gRInput numberInput" id="pesoNeto"/>
+                                        <input name='pesoNeto' type="text" onChange={this.updateStateVariable} className=" gRInput numberInput" id="pesoNeto"/>
                                         <Select className='ddMenu' styles={ddStyle} options={unidadesMasa} defaultValue={{ label: "g", value: "g" }} />
                                     </div>
                                 </div>
                                 
-                                <div className='duInput'>
-                                    <label htmlFor="presoDrenado" className="gRLabel">Peso drenado</label>
+                                <div className='duInput cnInput'>
+                                    
+                                    <label class="container gRLabel"> Peso drenado
+                                        <input type="checkbox"></input>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    
                                     <div className='subgRContent'>
-                                        <input name='presoDrenado' type="text" onChange={this.updateStateVariable} className="form-control gRInput numberInput" id="presoDrenado"/>
-                                        <Select className='ddMenu' styles={ddStyle} options={unidadesMasa} defaultValue={{ label: "g", value: "g" }} />
+                                        <input name='presoDrenado' type="text" onChange={this.updateStateVariable} className=" gRInput numberInput" id="presoDrenado" disabled/>
+                                        <Select className='ddMenu' styles={ddStyle} options={unidadesMasa} defaultValue={{ label: "g", value: "g" }} isDisabled={true}/>
                                     </div>
                                 </div>
                             </div>
