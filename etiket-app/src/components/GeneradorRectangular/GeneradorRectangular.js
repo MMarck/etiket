@@ -2,9 +2,10 @@ import { Component } from 'react';
 import './GeneradorRectangular.css';
 import Navbar from '../Navbar/Navbar';
 import DropdownMenu from '../DropdownMenu';
-import {FaTimes} from "react-icons/fa"
+import { useState } from "react";
 import Select from 'react-select';
 import Draggable from 'react-draggable'; 
+
 
 const unidades=[
     {
@@ -145,7 +146,7 @@ const ddStyle={
         display: "flex",
         cursor: "Pointer",
         minWidth: "none",
-        width: "100px",
+        width: "100%",
         borderRadius: "8px",
     }),
     dropdownIndicator: (provided, state)=>({
@@ -163,7 +164,6 @@ const ddStyle={
 class GeneradorRectangular extends Component{
 
 
-
     constructor(props){
         super(props);
         this.state = {
@@ -172,13 +172,14 @@ class GeneradorRectangular extends Component{
             nombreProducto: '',
             marca: '',
             pesoNeto: '',
-            presoDrenado: '',
+            pesoDrenado: '',
             ingredientes: '',
             alergenos: '',
             metodoConservacion: '',
             vidaUtil:'',
             direccion: '',
-            instrucciones: ''
+            instrucciones: '',
+            disabled: true
         };
         this.updateStateVariable = this.updateStateVariable.bind(this);
         this.clearVariables = this.clearVariables.bind(this);
@@ -215,9 +216,27 @@ class GeneradorRectangular extends Component{
         //borrar formulario
 
     }
+    /*
+    * Función para habilitar/desabilitar el peso denrado
+    */
+
+    changeDisabled(){
+        const isDisabled=document.getElementById("pesoDrenado").disabled;
+            if (isDisabled) {
+                document.getElementById("pesoDrenado").disabled=false;
+            } else {
+                document.getElementById("pesoDrenado").disabled=true;
+                document.getElementById("pesoDrenado").value="";
+            }
+    }
+
+    
 
 
     render(){
+        
+        
+
         return(
             <div>
                 <Navbar setBackButton={true} information={'Segundo paso: Rellenar información'} />
@@ -274,13 +293,16 @@ class GeneradorRectangular extends Component{
                                 <div className='duInput cnInput'>
                                     
                                     <label class="container gRLabel"> Peso drenado
-                                        <input type="checkbox"></input>
+                                        <input type="checkbox" onClick={()=> {
+                                            this.setState({disabled:!this.state.disabled});
+                                            this.changeDisabled();
+                                        }}></input>
                                         <span class="checkmark"></span>
                                     </label>
                                     
                                     <div className='subgRContent'>
-                                        <input name='presoDrenado' type="text" onChange={this.updateStateVariable} className=" gRInput numberInput" id="presoDrenado" disabled/>
-                                        <Select className='ddMenu' styles={ddStyle} options={unidadesMasa} defaultValue={{ label: "g", value: "g" }} isDisabled={true}/>
+                                        <input name='pesoDrenado' type="text" onChange={this.updateStateVariable} className=" gRInput numberInput" id="pesoDrenado" disabled/>
+                                        <Select className='ddMenu' styles={ddStyle} options={unidadesMasa} defaultValue={{ label: "g", value: "g" }} isDisabled={this.state.disabled}/>
                                     </div>
                                 </div>
                             </div>
@@ -306,12 +328,14 @@ class GeneradorRectangular extends Component{
                                     <label htmlFor="metodoConservacion" className="col-sm-2 col-form-label">Metodo conservacion</label>
                                     <Select className='ddMenu' styles={ddLargerStyle} options={conservacion} />
                                 </div>
-                                <label htmlFor="vidaUtil" className="col-form-label">Vida Util</label>
                                 
-                                <div className='duInput'>
-                                    
-                                    <input name='vidaUtil' type="text" onChange={this.updateStateVariable} className="form-control gRInput" id="vidaUtil"/>
-                                    <Select className='ddMenu' styles={ddStyle} options={unidadesDias} />
+                                
+                                <div className='subgRContent'>
+                                    <label htmlFor="vidaUtil" className="col-form-label">Vida Util</label>
+                                    <div className='duInput'>
+                                        <input name='vidaUtil' type="text" onChange={this.updateStateVariable} className="form-control gRInput numberInput" id="vidaUtil"/>
+                                        <Select className='ddMenu' styles={ddStyle} options={unidadesDias} />
+                                    </div>
                                 </div>
                                 
                                 <div>
@@ -363,6 +387,8 @@ class GeneradorRectangular extends Component{
 }
 
 export default GeneradorRectangular;
+
+
 
 
 /*

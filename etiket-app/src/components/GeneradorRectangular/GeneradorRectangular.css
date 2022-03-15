@@ -37,8 +37,17 @@
     gap: 5px;
 }
 
+
+
 .gRContent{
     padding: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.gRLabel{
+  width: auto;
 }
 
 .gRInput{
@@ -62,11 +71,16 @@
 .subgRContent{
     display: flex;
     justify-content: space-between;
+    gap: 5px;
 }
 
 .cnInput{
     justify-content: space-between;
     align-items: center;
+}
+
+#vidaUtil{
+  width: auto;
 }
 
 /* The container */
