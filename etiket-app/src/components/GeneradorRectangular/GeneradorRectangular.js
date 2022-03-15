@@ -4,6 +4,7 @@ import Navbar from '../Navbar/Navbar';
 import DropdownMenu from '../DropdownMenu';
 import {FaTimes} from "react-icons/fa"
 import Select from 'react-select';
+import Draggable from 'react-draggable'; 
 
 const unidades=[
     {
@@ -180,6 +181,7 @@ class GeneradorRectangular extends Component{
             instrucciones: ''
         };
         this.updateStateVariable = this.updateStateVariable.bind(this);
+        this.clearVariables = this.clearVariables.bind(this);
     }
 
     /* 
@@ -194,7 +196,25 @@ class GeneradorRectangular extends Component{
         })
     }
 
-    
+    clearVariables(){
+        //borrar estado
+        this.setState({
+            altura: '',
+            ancho: '',
+            nombreProducto: '',
+            marca: '',
+            pesoNeto: '',
+            presoDrenado: '',
+            ingredientes: '',
+            alergenos: '',
+            metodoConservacion: '',
+            vidaUtil:'',
+            direccion: '',
+            instrucciones: ''
+        })
+        //borrar formulario
+
+    }
 
 
     render(){
@@ -308,29 +328,34 @@ class GeneradorRectangular extends Component{
                         
                     </form>
 
+                    <div className='d-flex flex-column'  style={{backgroundColor:'#404040', height: '-webkit-fill-available', width:'-webkit-fill-available', overflow: 'auto', overflowY: 'scroll', maxHeight: '90vh'}}>
+                        <div className='container d-flex justify-content-center align-items-center m-0' > 
+                            <TicketRectangularFront
+                                productName={this.state.nombreProducto} 
+                                brand={this.state.marca} 
+                                netWeigth={this.state.pesoNeto} 
+                                drenWeigth={this.state.presoDrenado} 
+                                ticketWidth={this.state.ancho}
+                                ticketheight={this.state.altura}
+                            />
 
-                    <div className='container d-flex justify-content-center align-items-center m-0' style={{backgroundColor:'#404040', height: '90vh', overflow: 'auto', overflowY: 'scroll', maxHeight: '90vh'}} > 
-                        <TicketRectangularFront
-                            productName={this.state.nombreProducto} 
-                            brand={this.state.marca} 
-                            netWeigth={this.state.pesoNeto} 
-                            drenWeigth={this.state.presoDrenado} 
-                            ticketWidth={this.state.ancho}
-                            ticketheight={this.state.altura}
-                        />
-
-                        <TicketRectangularBack 
-                            ingredients={this.state.ingredientes}
-                            allergens = {this.state.alergenos}
-                            conservationMethod = {this.state.metodoConservacion}
-                            life = {this.state.vidaUtil}
-                            direction = {this.state.direccion}
-                            instructions = {this.state.instrucciones}
-                            ticketWidth={this.state.ancho}
-                            ticketheight={this.state.altura}
-                        />
+                            <TicketRectangularBack 
+                                ingredients={this.state.ingredientes}
+                                allergens = {this.state.alergenos}
+                                conservationMethod = {this.state.metodoConservacion}
+                                life = {this.state.vidaUtil}
+                                direction = {this.state.direccion}
+                                instructions = {this.state.instrucciones}
+                                ticketWidth={this.state.ancho}
+                                ticketheight={this.state.altura}
+                            />
+                        </div>
+                        <div className='d-flex justify-content-around'>
+                            <button type="button" className='colored-button' onClick={this.clearVariables} > Borrar todo</button>
+                            <button type="button" className='colored-button' > Exportar a PDF</button>    
+                        </div>
                     </div>
-
+                    
                 </div>   
             </div>
       )
@@ -343,15 +368,22 @@ export default GeneradorRectangular;
 /*
  * Componente para dibujar la parte DELANTERA de la etiqueta rectangular
 */
-function TicketRectangularFront ({productName, brand, netWeigth, drenWeigth, verticalSizeIndicator, horizontalSizeIndicator, ticketheight, ticketWidth}){
+function TicketRectangularFront ({productName, brand, netWeigth, drenWeigth, verticalSizeIndicator, horizontalSizeIndicator, ticketheight: ticketHeight, ticketWidth}){
     productName = productName? productName:'Nombre del producto';
     brand = brand? brand:'Marca®';
     netWeigth = netWeigth? netWeigth:'-';
     drenWeigth = drenWeigth? drenWeigth:false;
     verticalSizeIndicator = verticalSizeIndicator? verticalSizeIndicator:false;
     horizontalSizeIndicator = horizontalSizeIndicator? horizontalSizeIndicator:false;
-    ticketheight = ticketheight? ticketheight:'100mm';
+    ticketHeight = ticketHeight? ticketHeight:'100mm';
     ticketWidth = ticketWidth? ticketWidth:'100mm';
+
+    var ticketArea = parseInt(ticketHeight) * parseInt(ticketWidth); // ajustar unidades
+
+    var weigthBound = ( ticketArea > 10000)? (0.3 * parseInt(ticketHeight)) + "mm" : ticketHeight;
+    //10.000 mm2 
+
+
 
 
     return(
@@ -359,23 +391,25 @@ function TicketRectangularFront ({productName, brand, netWeigth, drenWeigth, ver
             
             <div className='mx-4 d-flex align-items-center '>
                 
-                <SizeIndicator orientation={'vertical'} length={ticketheight}/>
+                <SizeIndicator orientation={'vertical'} length={ticketHeight}/>
                 <div  style={{display:'inline-grid'}}>
                     <h5 className='m-4' style={{'border':'2px solid #1ED796', textAlign:'center', color:'#1ED796'}} >Cara frontal</h5>
-                    <div className=' p-4 d-flex flex-column justify-content-between align-items-center' 
-                    style={{backgroundColor:'white', height:ticketheight, width:ticketWidth, textAlign:'center'}}
+                    <div className='d-flex flex-column justify-content-between align-items-center' 
+                    style={{backgroundColor:'white', height:ticketHeight, width:ticketWidth, textAlign:'center', position:'relative'}}
                     >
 
                         <div className='d-flex flex-column justify-content-between align-items-center' >
-                            <span> {productName} </span>
-                            <span> {brand} </span>
+                            <Draggable bounds='parent' ><span className='hover_colored_border'> {productName} </span></Draggable> 
+                            <Draggable bounds='parent' ><span className='hover_colored_border'> {brand} </span></Draggable> 
                         </div>
                         
-                        <div className='d-flex flex-column justify-content-between align-items-center' >
-                            <span> Contenido Neto {netWeigth}g </span>
+                        <div className='d-flex flex-column justify-content-between align-items-center '
+                        style={{height:weigthBound, width:'-webkit-fill-available', textAlign:'center', position:'relative'}}
+                         >
+                            <Draggable bounds='parent' ><span className='hover_colored_border'> Contenido Neto {netWeigth}g </span></Draggable> 
 
                             {drenWeigth?
-                                <span> Contenido drenado {drenWeigth}g </span>
+                                <Draggable bounds='parent' ><span className='hover_colored_border'> Contenido drenado {drenWeigth}g </span></Draggable>
                                 :''                    
                             }
 
@@ -397,47 +431,53 @@ function TicketRectangularFront ({productName, brand, netWeigth, drenWeigth, ver
  * Componente para dibujar la parte TRASERA de la etiqueta rectangular
 */
 function TicketRectangularBack ({ingredients, allergens, conservationMethod, life, direction, instructions, ticketheight, ticketWidth}){
-    ingredients= ingredients? ingredients: 'Harina de trigo, Azucar, Mantequilla, Huevo';
-    allergens= allergens? allergens: 'Huevo';
-    conservationMethod= conservationMethod? conservationMethod: 'En congelacion';
-    life= life? life:'60';
-    direction= direction? direction: ' Vía a la Costa Km. 6.5, Av. del Bombero, Guayaquil ';
-    instructions= instructions? instructions: 'Abrir y consumir en el menor tiempo posible';
+    ingredients= ingredients? ingredients: '';
+    allergens= allergens? allergens: '';
+    conservationMethod= conservationMethod? conservationMethod: '';
+    life= life? life:'';
+    direction= direction? direction: '';
+    instructions= instructions? instructions: '';
     ticketheight = ticketheight? ticketheight:'100mm';
     ticketWidth = ticketWidth? ticketWidth:'100mm';
 
     return(
         <div>
             <h5 className='m-4' style={{'border':'2px solid #1ED796', textAlign:'center', color:'#1ED796'}} >Cara trasera</h5>
-            <div className='row p-2' 
-            style={{backgroundColor:'white', height: ticketheight, width: ticketWidth, textAlign:'center'}}
+            <div className='row' 
+            style={{backgroundColor:'white', height: ticketheight, width: ticketWidth, textAlign:'center', position:'relative'}}
             >
 
                 <div className='col-6 my-2 pt-2'  style={{ height: '90%'}}  >
 
-                    <div className='col-12 my-2 p-2' style={{border: '2px solid #3a3a3a', height: '50%', fontSize:'0.5em', textAlign:'left'}} >
-                    
-                        <span> <strong>Metodo de conservacion:</strong> {conservationMethod}</span>
-                        <br/><br/>
-                        <span> <strong>Vida Util:</strong> {life} dias</span>
-                        <br/><br/>
-                        <span> <strong>Direccion:</strong>{direction}</span>
-                        <br/><br/>
-                        <span> <strong>Instrucciones:</strong> {instructions}</span>
-                        <br/><br/>
+                    <Draggable  bounds='parent'>
+                        <div className='col-12 my-2 p-2 hover_colored_border' style={{ height: '50%', fontSize:'0.5em', textAlign:'left', backgroundColor:'white', position:'none'}} >
                         
-                    </div>
+                            <span> <strong>Metodo de conservacion:</strong> {conservationMethod}</span>
+                            <br/><br/>
+                            <span> <strong>Vida Util:</strong> {life} </span>
+                            <br/><br/>
+                            <span> <strong>Direccion:</strong>{direction}</span>
+                            <br/><br/>
+                            <span> <strong>Instrucciones:</strong> {instructions}</span>
+                            <br/><br/>
+                            
+                        </div>
+                    </Draggable>
 
-                    <div className='col-12 my-2 p-2' style={{border: '2px solid #3a3a3a', height: '50%', fontSize:'0.7em',  textAlign:'left'}} >
-                        <span> <strong>Ingredientes:</strong> {ingredients}</span>
-                        <br/><br/>
-                        <span> <strong>Alergenos:</strong> {allergens}</span>
-                    </div>
+                    <Draggable  bounds='parent' >
+                        <div className='col-12 my-2 p-2 hover_colored_border' style={{ height: '50%', fontSize:'0.7em',  textAlign:'left', backgroundColor:'white'}} >
+                            <span> <strong>Ingredientes:</strong> {ingredients}</span>
+                            <br/><br/>
+                            <span> <strong>Alergenos:</strong> {allergens}</span>
+                        </div>
+                    </Draggable>
 
                 </div>
                 
-                <div className='col-6 my-4 p-2' style={{border: '2px solid #3a3a3a', height: '90%'}} >
-                </div>
+                <Draggable  bounds='parent' >
+                    <div className='col-6 my-4 p-2 hover_colored_border' style={{ height: '90%', backgroundColor:'white'}} >
+                    </div>
+                </Draggable>
                 
 
             </div>
