@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {BsFillCaretDownSquareFill, BsFillCaretUpSquareFill} from "react-icons/bs"
+import "./DropdownMenu.css"
 
 const DropdownMenu = ({title, content}) => {
     const [isOpen, setIsOpen]=useState(false);
@@ -16,7 +17,7 @@ const DropdownMenu = ({title, content}) => {
     }
 
     return (
-        <div>
+        <div className="sliderMenu">
             <div id="title">
                 {title}
                 <p className="arrow" onClick={toggleMenu}>

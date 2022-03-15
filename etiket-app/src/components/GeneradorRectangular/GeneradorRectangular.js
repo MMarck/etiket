@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import './GeneradorRectangular.css';
 import Navbar from '../Navbar/Navbar';
-import DropdownMenu from '../DropdownMenu';
+import DropdownMenu from '../DropdownMenu/DropdownMenu';
 import Select from 'react-select';
 import Ingrediente from '../Ingrediente/Ingrediente';
 import Draggable from 'react-draggable'; 
