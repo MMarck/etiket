@@ -2,9 +2,8 @@ import { Component } from 'react';
 import './GeneradorRectangular.css';
 import Navbar from '../Navbar/Navbar';
 import DropdownMenu from '../DropdownMenu';
-import { useState } from "react";
 import Select from 'react-select';
-
+import Ingrediente from '../Ingrediente/Ingrediente';
 
 const unidades=[
     {
@@ -288,10 +287,7 @@ class GeneradorRectangular extends Component{
                         }/>
 
                         <DropdownMenu title="Ingredientes" content={
-                            <div className='gRContent'>
-                                <label htmlFor="ingredientes" className="col-sm-2 col-form-label">Ingredientes</label>
-                                <input name='ingredientes' type="text" onChange={this.updateStateVariable} className="form-control gRInput" id="ingredientes"/>
-                            </div>
+                            <Ingrediente/>
                         }/>
                         
                         <DropdownMenu title="Alérgenos y Sensitivos" content={

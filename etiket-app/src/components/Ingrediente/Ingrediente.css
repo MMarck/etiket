@@ -1,0 +1,58 @@
+.gRContent{
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.gRLabel{
+  width: auto;
+}
+
+.gRInput{
+    border: 2px solid var(--Sgreen);
+    padding-left: 10px;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.numberInput{
+    max-width: 60px;
+}
+
+.subgRContent{
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.addBtn{
+    align-self: center;
+    font-size: 40px;
+    cursor: pointer;
+    color: gray;
+}
+  
+.addBtn:hover{
+    color: var(--Sgreen);
+}
+
+.closeIng {
+    color: var(--Sgreen);
+    align-self: center;
+    cursor: pointer;
+    background-color: white;
+    border: 4px solid var(--Sgreen);
+    border-radius: 80%;
+    line-height: 20px;
+    text-align: center;
+    font-size: 30px;
+}
+  
+.closeIng:hover{
+    color: white;
+    background-color: var(--Sgreen);
+    
+}
