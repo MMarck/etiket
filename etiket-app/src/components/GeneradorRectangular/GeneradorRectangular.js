@@ -179,10 +179,13 @@ class GeneradorRectangular extends Component{
             vidaUtil:'',
             direccion: '',
             instrucciones: '',
-            disabled: true
+            disabled: true,
+            zoom: 1
         };
         this.updateStateVariable = this.updateStateVariable.bind(this);
         this.clearVariables = this.clearVariables.bind(this);
+        this.zoomIn = this.zoomIn.bind(this);
+        this.zoomOut = this.zoomOut.bind(this);
     }
 
     /* 
@@ -216,10 +219,10 @@ class GeneradorRectangular extends Component{
         //borrar formulario
 
     }
+
     /*
     * Función para habilitar/desabilitar el peso denrado
     */
-
     changeDisabled(){
         const isDisabled=document.getElementById("pesoDrenado").disabled;
             if (isDisabled) {
@@ -228,6 +231,24 @@ class GeneradorRectangular extends Component{
                 document.getElementById("pesoDrenado").disabled=true;
                 document.getElementById("pesoDrenado").value="";
             }
+    }
+
+    /*
+    * Función permite aumentar el zoom aplicado como propiedad css al contenedor de las etiquetas
+    */
+    zoomIn(){
+        this.setState({'zoom':this.state.zoom + 0.1}); //actualizar la variable en el estado
+        let visualizer = document.getElementById('ticketContainer');//obtener control del visualizador
+        visualizer.style.transform = 'scale('+ this.state.zoom +')';//aplica el valor 
+    }
+
+    /*
+    * Función permite disminuir el zoom aplicado como propiedad css al contenedor de las etiquetas
+    */
+    zoomOut(){
+        this.setState({'zoom':this.state.zoom - 0.1}); //actualizar la variable en el estado
+        let visualizer = document.getElementById('ticketContainer');//obtener control del visualizador
+        visualizer.style.transform = 'scale('+ this.state.zoom +')';//aplica el valor
     }
 
     
@@ -350,12 +371,12 @@ class GeneradorRectangular extends Component{
                     </form>
 
                     <div className='d-flex flex-column'  style={{backgroundColor:'#404040', height: '-webkit-fill-available', width:'-webkit-fill-available', overflow: 'auto', overflowY: 'scroll', maxHeight: '90vh'}}>
-                        <div className='container d-flex justify-content-center align-items-center m-0' > 
+                        <div id='ticketContainer' className='container d-flex justify-content-center align-items-center m-0' > 
                             <TicketRectangularFront
                                 productName={this.state.nombreProducto} 
                                 brand={this.state.marca} 
                                 netWeigth={this.state.pesoNeto} 
-                                drenWeigth={this.state.presoDrenado} 
+                                drenWeigth={this.state.pesoDrenado} 
                                 ticketWidth={this.state.ancho}
                                 ticketheight={this.state.altura}
                             />
@@ -374,6 +395,8 @@ class GeneradorRectangular extends Component{
                         <div className='d-flex justify-content-around'>
                             <button type="button" className='colored-button' onClick={this.clearVariables} > Borrar todo</button>
                             <button type="button" className='colored-button' > Exportar a PDF</button>    
+                            <button type="button" className='colored-button' onClick={this.zoomIn}> zoom in </button>    
+                            <button type="button" className='colored-button' onClick={this.zoomOut}> zoom out</button>    
                         </div>
                     </div>
                     
@@ -421,10 +444,10 @@ function TicketRectangularFront ({productName, brand, netWeigth, drenWeigth, ver
                     style={{backgroundColor:'white', height:ticketHeight, width:ticketWidth, textAlign:'center', position:'relative'}}
                     >
 
-                        <div className='d-flex flex-column justify-content-between align-items-center' >
+                        
                             <Draggable bounds='parent' ><span className='hover_colored_border'> {productName} </span></Draggable> 
                             <Draggable bounds='parent' ><span className='hover_colored_border'> {brand} </span></Draggable> 
-                        </div>
+                        
                         
                         <div className='d-flex flex-column justify-content-between align-items-center '
                         style={{height:weigthBound, width:'-webkit-fill-available', textAlign:'center', position:'relative'}}
@@ -470,10 +493,10 @@ function TicketRectangularBack ({ingredients, allergens, conservationMethod, lif
             style={{backgroundColor:'white', height: ticketheight, width: ticketWidth, textAlign:'center', position:'relative'}}
             >
 
-                <div className='col-6 my-2 pt-2'  style={{ height: '90%'}}  >
+                
 
                     <Draggable  bounds='parent'>
-                        <div className='col-12 my-2 p-2 hover_colored_border' style={{ height: '50%', fontSize:'0.5em', textAlign:'left', backgroundColor:'white', position:'none'}} >
+                        <div className='col-12 my-2 p-2 hover_colored_border' style={{ height: '50%', width:'40%' ,fontSize:'0.5em', textAlign:'left', backgroundColor:'white', position:'none'}} >
                         
                             <span> <strong>Metodo de conservacion:</strong> {conservationMethod}</span>
                             <br/><br/>
@@ -488,19 +511,19 @@ function TicketRectangularBack ({ingredients, allergens, conservationMethod, lif
                     </Draggable>
 
                     <Draggable  bounds='parent' >
-                        <div className='col-12 my-2 p-2 hover_colored_border' style={{ height: '50%', fontSize:'0.7em',  textAlign:'left', backgroundColor:'white'}} >
+                        <div className='col-12 my-2 p-2 hover_colored_border' style={{ height: '50%', width:'40%', fontSize:'0.7em',  textAlign:'left', backgroundColor:'white'}} >
                             <span> <strong>Ingredientes:</strong> {ingredients}</span>
                             <br/><br/>
                             <span> <strong>Alergenos:</strong> {allergens}</span>
                         </div>
                     </Draggable>
 
-                </div>
                 
-                <Draggable  bounds='parent' >
+                
+                {/* <Draggable  bounds='parent' >
                     <div className='col-6 my-4 p-2 hover_colored_border' style={{ height: '90%', backgroundColor:'white'}} >
                     </div>
-                </Draggable>
+                </Draggable> */}
                 
 
             </div>

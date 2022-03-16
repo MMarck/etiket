@@ -150,3 +150,8 @@
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
+.hover_colored_border:hover{
+  border: 1px solid var(--Sgreen);
+  cursor: move;
+}
