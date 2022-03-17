@@ -84,8 +84,8 @@ class Ingrediente extends Component{
                 <label htmlFor="ingredientes" className="col-sm-2 col-form-label">Ingredientes</label>
                 {this.state.addElements.map((index)=>(
                     <div className='subgRContent'>
-                        <input name='ingredientes' type="text" onChange={this.updateStateVariable} className="form-control gRInput" id="ingredientes"/>
-                        <input name='unidadIng' type="text" className="form-control gRInput numberInput" id="unidadIng"/>
+                        <input name='ingredientes' type="text" onChange={this.updateStateVariable} className="form-control gRInputIng" id="ingredientes"/>
+                        <input name='unidadIng' type="text" className="form-control gRInputIng numberInputIng" id="unidadIng"/>
                         <Select className='ddMenu' styles={ddStyle} options={unidadesMasa} defaultValue={{ label: "g", value: "g" }} />
                         { index ? <FaTimes onClick={()=>this.delIngredientes(index)} className="closeIng"/> : null }
                         

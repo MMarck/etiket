@@ -62,15 +62,15 @@ const conservacion=[
 
 const unidadesDias=[
     {
-        value: "dias",
+        value: "Días",
         label: "Días",
     },
     {
-        value: "meses",
+        value: "Meses",
         label: "Meses",
     },
     {
-        value: "anos",
+        value: "Años",
         label: "Años"
     }
 ]
@@ -114,6 +114,7 @@ const ddLargerStyle={
         border: "2px solid #1ED796",
         display: "flex",
         cursor: "Pointer",
+        maxWidth: "30vw",
         borderRadius: "8px",
         
     }),
@@ -167,15 +168,20 @@ class GeneradorRectangular extends Component{
     constructor(props){
         super(props);
         this.state = {
+            selectedAlturaUn: 'cm',
+            selectedAnchoUn: 'cm',
             altura: '',
             ancho: '',
             nombreProducto: '',
             marca: '',
+            selectedNetoUn:'g',
+            selectedDrenadoUn: 'g',
             pesoNeto: '',
             pesoDrenado: '',
             ingredientes: '',
             alergenos: '',
             metodoConservacion: '',
+            selectedUtilUn: '',
             vidaUtil:'',
             direccion: '',
             instrucciones: '',
@@ -186,6 +192,7 @@ class GeneradorRectangular extends Component{
         this.clearVariables = this.clearVariables.bind(this);
         this.zoomIn = this.zoomIn.bind(this);
         this.zoomOut = this.zoomOut.bind(this);
+        this.numberFilter=this.numberFilter.bind(this);
     }
 
     /* 
@@ -220,6 +227,41 @@ class GeneradorRectangular extends Component{
 
     }
 
+    numberFilter(event) {
+        var value = event.target.value + event.key;
+        if (!/^\d{0,3}(\.\d{0,2})?$/.test(value)){
+           event.preventDefault();
+        }
+    }
+
+    handleChangeUnidades(e,unidad,estado){
+        this.setState({ [unidad]: e.value }, ()=> {
+            this.setState({[estado]: parseFloat(this.state[estado])+this.state[unidad]})
+        });
+        
+    }
+
+    handleChangeValores(e,estado,unidad){
+        this.setState({[estado]:e+this.state[unidad]})
+    }
+
+    handleChangeMultiples(e,estado){
+        var res="";
+        if (e.length>1) {
+            e.forEach(element => {
+                res=res+","+element.label;
+            });
+            res=res.slice(1);
+        } else if(e.length==1) {
+            res=e[0].label
+        }
+        this.setState({[estado]:res})
+    }
+
+    handleChangeSingle(e,estado){
+        this.setState({[estado]:e.label})
+    }
+
     /*
     * Función para habilitar/desabilitar el peso denrado
     */
@@ -230,6 +272,7 @@ class GeneradorRectangular extends Component{
             } else {
                 document.getElementById("pesoDrenado").disabled=true;
                 document.getElementById("pesoDrenado").value="";
+                this.setState({"pesoDrenado": ""})
             }
     }
 
@@ -269,8 +312,8 @@ class GeneradorRectangular extends Component{
                                 <div className='dAltura'>
                                     <label htmlFor="altura" className="col-sm-2 col-form-label">Altura</label>
                                     <div className='duInput'>
-                                        <input name='altura' type="text" onChange={this.updateStateVariable} className="form-control gRInput numberInput" />
-                                        <Select className='ddMenu' styles={ddStyle} options={unidades} defaultValue={{ label: "cm", value: "cm" }}/>
+                                        <input name='altura' type = "text" onInput={this.maxLengthCheck} onChange={(e)=>this.handleChangeValores(e.target.value,"altura","selectedAlturaUn")} className="form-control gRInput numberInput" onKeyPress={this.numberFilter} />
+                                        <Select className='ddMenu' styles={ddStyle} options={unidades} defaultValue={{ label: "cm", value: "cm" }} onChange={(e)=> this.handleChangeUnidades(e,"selectedAlturaUn", "altura")}/>
                                         
                                     </div>
                                     
@@ -279,8 +322,8 @@ class GeneradorRectangular extends Component{
                                 <div className='dAncho'>
                                     <label htmlFor="ancho" className="col-sm-2 col-form-label">Ancho</label>
                                     <div className='duInput'>
-                                        <input name='ancho' type="text" onChange={this.updateStateVariable} className="form-control gRInput numberInput" />
-                                        <Select className='ddMenu' styles={ddStyle} options={unidades} defaultValue={{ label: "cm", value: "cm" }} />
+                                        <input name='ancho' type = "text" onChange={(e)=>this.handleChangeValores(e.target.value,"ancho","selectedAnchoUn")} className="form-control gRInput numberInput" onKeyPress={this.numberFilter}/>
+                                        <Select className='ddMenu' styles={ddStyle} options={unidades} defaultValue={{ label: "cm", value: "cm" }} onChange={(e)=> this.handleChangeUnidades(e,"selectedAnchoUn", "ancho")}/>
                                     </div>
                                 </div>
                             </div>
@@ -306,8 +349,8 @@ class GeneradorRectangular extends Component{
                                 <div className='duInput cnInput'>
                                     <label htmlFor="pesoNeto" className="gRLabel">Peso Neto</label>
                                     <div className='subgRContent'>
-                                        <input name='pesoNeto' type="text" onChange={this.updateStateVariable} className=" gRInput numberInput" id="pesoNeto"/>
-                                        <Select className='ddMenu' styles={ddStyle} options={unidadesMasa} defaultValue={{ label: "g", value: "g" }} />
+                                        <input name='pesoNeto' type="text" onKeyPress={this.numberFilter} onChange={(e)=> this.handleChangeValores(e.target.value,"pesoNeto","selectedNetoUn")} className=" gRInput numberInput" id="pesoNeto"/>
+                                        <Select className='ddMenu' styles={ddStyle} options={unidadesMasa} defaultValue={{ label: "g", value: "g" }} onChange={(e)=>this.handleChangeUnidades(e,"selectedNetoUn","pesoNeto")} />
                                     </div>
                                 </div>
                                 
@@ -322,8 +365,8 @@ class GeneradorRectangular extends Component{
                                     </label>
                                     
                                     <div className='subgRContent'>
-                                        <input name='pesoDrenado' type="text" onChange={this.updateStateVariable} className=" gRInput numberInput" id="pesoDrenado" disabled/>
-                                        <Select className='ddMenu' styles={ddStyle} options={unidadesMasa} defaultValue={{ label: "g", value: "g" }} isDisabled={this.state.disabled}/>
+                                        <input name='pesoDrenado' type="text" onKeyPress={this.numberFilter} onChange={(e)=> this.handleChangeValores(e.target.value,"pesoDrenado","selectedDrenadoUn")} className=" gRInput numberInput" id="pesoDrenado" disabled />
+                                        <Select className='ddMenu' styles={ddStyle} options={unidadesMasa} defaultValue={{ label: "g", value: "g" }} isDisabled={this.state.disabled} onChange={(e)=>this.handleChangeUnidades(e,"selectedDrenadoUn","pesoDrenado")}/>
                                     </div>
                                 </div>
                             </div>
@@ -336,7 +379,7 @@ class GeneradorRectangular extends Component{
                         <DropdownMenu title="Alérgenos y Sensitivos" content={
                             <div className='gRContent'>
                                 <label htmlFor="alergenos" className="col-sm-2 col-form-label">Alérgenos</label>
-                                <Select isMulti className='ddMenu' styles={ddLargerStyle} options={alergenos} />
+                                <Select isMulti className='ddMenu' styles={ddLargerStyle} options={alergenos} onChange={(e)=>this.handleChangeMultiples(e,"alergenos")} />
                             </div>
                         }/>
                         
@@ -344,15 +387,15 @@ class GeneradorRectangular extends Component{
                             <div className='gRContent'>
                                 <div>
                                     <label htmlFor="metodoConservacion" className="col-sm-2 col-form-label">Metodo conservacion</label>
-                                    <Select className='ddMenu' styles={ddLargerStyle} options={conservacion} />
+                                    <Select className='ddMenu' styles={ddLargerStyle} options={conservacion} onChange={(e)=>this.handleChangeSingle(e,"metodoConservacion")}/>
                                 </div>
                                 
                                 
                                 <div className='subgRContent'>
                                     <label htmlFor="vidaUtil" className="col-form-label">Vida Util</label>
                                     <div className='duInput'>
-                                        <input name='vidaUtil' type="text" onChange={this.updateStateVariable} className="form-control gRInput numberInput" id="vidaUtil"/>
-                                        <Select className='ddMenu' styles={ddStyle} options={unidadesDias} />
+                                        <input name='vidaUtil' type="text" onKeyPress={this.numberFilter} onChange={(e)=> this.handleChangeValores(e.target.value,"vidaUtil","selectedUtilUn")} className="form-control gRInput numberInput" id="vidaUtil"/>
+                                        <Select className='ddMenu' styles={ddStyle} options={unidadesDias} onChange={(e)=>this.handleChangeUnidades(e,"selectedUtilUn","vidaUtil")} />
                                     </div>
                                 </div>
                                 
@@ -370,7 +413,7 @@ class GeneradorRectangular extends Component{
                         
                     </form>
 
-                    <div className='d-flex flex-column'  style={{backgroundColor:'#404040', height: '-webkit-fill-available', width:'-webkit-fill-available', overflow: 'auto', overflowY: 'scroll', maxHeight: '90vh'}}>
+                    <div className='d-flex flex-column'  style={{backgroundColor:'#404040', height: '100vh', width:'-webkit-fill-available', overflow: 'auto', overflowY: 'scroll', maxHeight: '90vh'}}>
                         <div id='ticketContainer' className='container d-flex justify-content-center align-items-center m-0' > 
                             <TicketRectangularFront
                                 productName={this.state.nombreProducto} 
@@ -452,10 +495,10 @@ function TicketRectangularFront ({productName, brand, netWeigth, drenWeigth, ver
                         <div className='d-flex flex-column justify-content-between align-items-center '
                         style={{height:weigthBound, width:'-webkit-fill-available', textAlign:'center', position:'relative'}}
                          >
-                            <Draggable bounds='parent' ><span className='hover_colored_border'> Contenido Neto {netWeigth}g </span></Draggable> 
+                            <Draggable bounds='parent' ><span className='hover_colored_border'> Contenido Neto {netWeigth}</span></Draggable> 
 
                             {drenWeigth?
-                                <Draggable bounds='parent' ><span className='hover_colored_border'> Contenido drenado {drenWeigth}g </span></Draggable>
+                                <Draggable bounds='parent' ><span className='hover_colored_border'> Contenido drenado {drenWeigth} </span></Draggable>
                                 :''                    
                             }
 
@@ -514,7 +557,7 @@ function TicketRectangularBack ({ingredients, allergens, conservationMethod, lif
                         <div className='col-12 my-2 p-2 hover_colored_border' style={{ height: '50%', width:'40%', fontSize:'0.7em',  textAlign:'left', backgroundColor:'white'}} >
                             <span> <strong>Ingredientes:</strong> {ingredients}</span>
                             <br/><br/>
-                            <span> <strong>Alergenos:</strong> {allergens}</span>
+                            <span> <strong>CONTIENE:</strong> {allergens}</span>
                         </div>
                     </Draggable>
 

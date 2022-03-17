@@ -8,6 +8,9 @@
     overflow: auto;
     overflow-y: scroll;
     max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
 }
 
 .dContent{
@@ -57,7 +60,6 @@
     padding-bottom: 0;
     border-radius: 8px;
     font-size: 15px;
-    width: auto;
 }
 
 .gRInput:disabled{
@@ -66,7 +68,7 @@
 }
 
 .numberInput{
-    max-width: 60px;
+  max-width: 75px;
 }
 
 .subgRContent{
