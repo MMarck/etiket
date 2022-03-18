@@ -280,18 +280,46 @@ class GeneradorRectangular extends Component{
     * Función permite aumentar el zoom aplicado como propiedad css al contenedor de las etiquetas
     */
     zoomIn(){
-        this.setState({'zoom':this.state.zoom + 0.1}); //actualizar la variable en el estado
-        let visualizer = document.getElementById('ticketContainer');//obtener control del visualizador
-        visualizer.style.transform = 'scale('+ this.state.zoom +')';//aplica el valor 
+        this.setState({'zoom':this.state.zoom + 0.1}, ()=>{ //actualizar la variable en el estado
+            let visualizer = document.getElementById('ticketContainer');//obtener control del visualizador
+            visualizer.style.transform = 'scale('+ this.state.zoom +')';//aplica el valor 
+
+            if( this.state.zoom >= 1.2){
+                visualizer.style.paddingTop = this.state.zoom * 7 + "vh";
+                visualizer.style.paddingLeft = this.state.zoom * 7 + "vw";
+
+            }
+             if( this.state.zoom >= 1.4){
+                visualizer.style.paddingTop = this.state.zoom * 12 + "vh";
+                visualizer.style.paddingLeft = this.state.zoom * 14 + "vw";
+            }
+
+        }); 
     }
 
     /*
     * Función permite disminuir el zoom aplicado como propiedad css al contenedor de las etiquetas
     */
     zoomOut(){
-        this.setState({'zoom':this.state.zoom - 0.1}); //actualizar la variable en el estado
-        let visualizer = document.getElementById('ticketContainer');//obtener control del visualizador
-        visualizer.style.transform = 'scale('+ this.state.zoom +')';//aplica el valor
+        this.setState({'zoom':this.state.zoom - 0.1}, ()=>{ //actualizar la variable en el estado
+            let visualizer = document.getElementById('ticketContainer');//obtener control del visualizador
+            visualizer.style.transform = 'scale('+ this.state.zoom +')';//aplica el valor 
+
+
+            if( this.state.zoom < 1.2){
+                visualizer.style.paddingTop = "0vh";
+                visualizer.style.paddingLeft = "0vw";
+
+            }else if( this.state.zoom >= 1.2 && this.state.zoom < 1.4){
+                visualizer.style.paddingTop = this.state.zoom * 7 + "vh";
+                visualizer.style.paddingLeft = this.state.zoom * 7 + "vw";
+
+            }else if( this.state.zoom >= 1.4){
+                visualizer.style.paddingTop = this.state.zoom * 12 + "vh";
+                visualizer.style.paddingLeft = this.state.zoom * 14 + "vw";
+            }
+
+        }); 
     }
 
     
@@ -413,29 +441,31 @@ class GeneradorRectangular extends Component{
                         
                     </form>
 
-                    <div className='d-flex flex-column'  style={{backgroundColor:'#404040', height: '100vh', width:'-webkit-fill-available', overflow: 'auto', overflowY: 'scroll', maxHeight: '90vh'}}>
-                        <div id='ticketContainer' className='container d-flex justify-content-center align-items-center m-0' > 
-                            <TicketRectangularFront
-                                productName={this.state.nombreProducto} 
-                                brand={this.state.marca} 
-                                netWeigth={this.state.pesoNeto} 
-                                drenWeigth={this.state.pesoDrenado} 
-                                ticketWidth={this.state.ancho}
-                                ticketheight={this.state.altura}
-                            />
+                    <div className='d-flex flex-column' style={{backgroundColor:'#404040', height: '100vh', width:'-webkit-fill-available',maxHeight: '90vh'}}>
+                        <div className='' style={{ overflowY: 'scroll', maxHeight: '90vh', maxWidth:'72vw', zIndex:0}}> 
+                            <div id='ticketContainer' className='d-flex justify-content-center align-items-center m-0' style={{ zIndex:0}}>
+                                <TicketRectangularFront
+                                    productName={this.state.nombreProducto} 
+                                    brand={this.state.marca} 
+                                    netWeigth={this.state.pesoNeto} 
+                                    drenWeigth={this.state.pesoDrenado} 
+                                    ticketWidth={this.state.ancho}
+                                    ticketheight={this.state.altura}
+                                />
 
-                            <TicketRectangularBack 
-                                ingredients={this.state.ingredientes}
-                                allergens = {this.state.alergenos}
-                                conservationMethod = {this.state.metodoConservacion}
-                                life = {this.state.vidaUtil}
-                                direction = {this.state.direccion}
-                                instructions = {this.state.instrucciones}
-                                ticketWidth={this.state.ancho}
-                                ticketheight={this.state.altura}
-                            />
+                                <TicketRectangularBack 
+                                    ingredients={this.state.ingredientes}
+                                    allergens = {this.state.alergenos}
+                                    conservationMethod = {this.state.metodoConservacion}
+                                    life = {this.state.vidaUtil}
+                                    direction = {this.state.direccion}
+                                    instructions = {this.state.instrucciones}
+                                    ticketWidth={this.state.ancho}
+                                    ticketheight={this.state.altura}
+                                />
+                            </div>
                         </div>
-                        <div className='d-flex justify-content-around'>
+                        <div className='d-flex justify-content-around p-3' style={{zIndex:1}}>
                             <button type="button" className='colored-button' onClick={this.clearVariables} > Borrar todo</button>
                             <button type="button" className='colored-button' > Exportar a PDF</button>    
                             <button type="button" className='colored-button' onClick={this.zoomIn}> zoom in </button>    
@@ -493,7 +523,7 @@ function TicketRectangularFront ({productName, brand, netWeigth, drenWeigth, ver
                         
                         
                         <div className='d-flex flex-column justify-content-between align-items-center '
-                        style={{height:weigthBound, width:'-webkit-fill-available', textAlign:'center', position:'relative'}}
+                        style={{height:weigthBound, width:'-webkit-fill-available', textAlign:'center', position:'static'}}
                          >
                             <Draggable bounds='parent' ><span className='hover_colored_border'> Contenido Neto {netWeigth}</span></Draggable> 
 
