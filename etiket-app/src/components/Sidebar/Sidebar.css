@@ -20,3 +20,16 @@
 i{
     align-self: center;
 }
+
+#SidebarContainer{
+    width: 80px;
+}
+
+#SidebarOptions{
+    overflow-y: auto;
+    row-gap: 20px;
+}
+
+#SidebarOptions img{
+    width: 20px;
+}

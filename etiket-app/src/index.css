@@ -69,22 +69,7 @@ a + a {
   color: var(--Sblack);
 }
 
-.btn{
-  width: 300px;
-  background-color: var(--Sgreen);
-  color: var(--Sblack);
-  font-size: 20px;
-  font-family: "Poppins";
-  font-weight: 600;
-  border: 2px solid white;
-  border-radius: 30px;
-}
 
-.btn:hover{
-  background-color: white;
-  color: var(--Sgreen);
-  border: 2px solid var(--Sgreen);
-}
 
 .popupbox {
   position: fixed;
