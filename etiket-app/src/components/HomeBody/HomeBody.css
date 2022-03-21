@@ -1,0 +1,15 @@
+@import "../constants.css";
+
+.homebody{
+    display: flex;
+}
+
+.homebody>h1{
+    margin-top: 56px;
+    font-weight: 800;
+    color: var(--Sblack);
+}
+
+.info{
+    background-image: var(--fondoWeb);
+}

@@ -1,7 +1,7 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from "./components/Header";
-import HomeBody from "./components/HomeBody";
+import HomeBody from "./components/HomeBody/HomeBody";
 import Navbar from './components/Navbar/Navbar';
 import Sidebar from './components/Sidebar/Sidebar';
 import GeneradorRectagular from './components/GeneradorRectangular/GeneradorRectangular';
@@ -18,7 +18,6 @@ function App() {
         <Route path="/" exact element={
           <>
             <div className="App">
-              <Header />
               <HomeBody />
             </div>
           </>
