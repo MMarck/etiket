@@ -12,10 +12,6 @@
     color: var(--Sblack);
 }
 
-.LoginForm{
-    width: 100%;
-    height: 100%;
-}
 
 .info{
     background-repeat: no-repeat;
@@ -68,4 +64,9 @@
 .highImgIcon{
     height: auto;
     width: 40px;
+}
+
+#avisoDeIngreso {
+    padding: 35px 0px ;
+    font-size: 1.35rem;
 }

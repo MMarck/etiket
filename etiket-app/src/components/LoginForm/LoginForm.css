@@ -1,0 +1,51 @@
+
+#LoginBox{
+  width: 500px;
+}
+
+#LoginForm{
+  text-align:left;
+  width: 100%;
+}
+
+#loginform label{
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: gray;
+}
+
+#LoginForm input{
+  width: 100%;
+}
+
+
+.signupButton{
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px grey;
+  width:fit-content;
+  padding-right:10px;
+  cursor: pointer;
+}
+
+.facebook {
+  background-color: #1B77F0;
+}
+.facebook .icon {
+    background: url(https://developers-dot-devsite-v2-prod.appspot.com/identity/sign-in/g-normal.png) transparent 5px 50% no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+    width: 42px;
+    height: 42px;
+}
+
+.google {
+  border: thin solid #888;
+}
+
+.google .icon {
+    background: url(https://developers-dot-devsite-v2-prod.appspot.com/identity/sign-in/g-normal.png) transparent 5px 50% no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+    width: 42px;
+    height: 42px;
+}
