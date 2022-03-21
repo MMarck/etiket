@@ -22,4 +22,50 @@
     background-size: cover;
     width: 100%;
     height: 100%;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 3%;
+}
+
+.headText{
+    color: white;
+    font-weight: bold;
+    font-size: 30px;
+    text-align: center;
+}
+
+.text{
+    color: white;
+    font-size: 12px;
+}
+
+.infoSquare{
+    background-color: white;
+    margin-left: 90px;
+    margin-right: 90px;
+    margin-top: 5%;
+    padding-top: 20px;
+    padding-bottom: 5px;
+}
+
+.imgInfoIcon{
+    height: auto;
+    width: 45px;
+}
+
+.squareText{
+    color: black;
+    padding-left: 80px;
+    padding-right: 80px;
+}
+
+.highText{
+    color: var(--Sgreen);
+    font-weight: bolder;
+    margin-bottom: 0px;
+}
+
+.highImgIcon{
+    height: auto;
+    width: 40px;
 }
