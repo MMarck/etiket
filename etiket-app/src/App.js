@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Outlet, Link} from 'react-router-dom';
 import Header from "./components/Header";
 import HomeBody from "./components/HomeBody/HomeBody";
 import Navbar from './components/Navbar/Navbar';
@@ -8,13 +8,16 @@ import GeneradorRectagular from './components/GeneradorRectangular/GeneradorRect
 import GeneradorBotella from './components/GeneradorBotella/GeneradorBotella';
 import GeneradorTriangular from './components/GeneradorTriangular/GeneradorTriangular';
 import GeneradorCircular from './components/GeneradorCircular/GeneradorCircular';
-
+import MiCuenta from './components/MiCuenta/MiCuenta';
+import MisEtiquetas from './components/MisEtiquetas/MisEtiquetas';
 
 function App() {
 
   return (
     <Router>
+      
       <Routes>
+        
         <Route path="/" exact element={
           <>
             <div className="App">
@@ -23,17 +26,12 @@ function App() {
           </>
         } />
 
-        <Route path="/generador" exact element={
-          <>
-            <Navbar setHomeButton={true} information={'Primer paso: Escoger un tipo de plantilla'} />
-            <div className='d-flex'>
-              <Sidebar/>
-              <div className='container d-flex justify-content-center align-items-center m-0' style={{backgroundColor:'#404040'}} >
-                <h1 className='m-0' style={{'color':'#979797', 'font-family':'Bradley Hand ITC', 'fontSize':'4.5rem', 'font-weight': 'bold', 'text-align': 'center'}} >Creemos una etiqueta <br></br> para tu producto</h1>
-              </div>
-            </div>    
-          </>
-        }/>
+        <Route path="/dashboard" element={<Dashboard/>}>
+          <Route index element={<PaperWelcome/>}/>
+          <Route path='Micuenta' element={<MiCuenta/>}/>
+          <Route path='MisEtiquetas' element={<MisEtiquetas/>}/>
+          <Route path='CrearEtiqueta' element={<CrearEtiqueta/>}/>
+        </Route>
 
         <Route path="/rectangular" exact element={ <GeneradorRectagular/> }/>
         <Route path="/botella" exact element={ <GeneradorBotella/> }/>
@@ -51,3 +49,41 @@ function App() {
 }
 
 export default App;
+
+
+function Dashboard(){
+  return(
+    <div className='d-flex h-100 w-100'>
+      <Sidebar/>
+      <Outlet/>{/*  Este componente pertenece a react-router-dom y 
+                permite alternar entre las rutas hijas declararas 
+                en un compontente Router */}
+    </div>  
+  );
+}
+
+function PaperWelcome(){
+  return(
+    <div id='PaperWelcome' className='d-flex justify-content-center align-items-center flex-column flex-grow-1'>
+    <span><br/><br/><br/>Bienvenido !<br/>
+      Estás a punto de vender tus productos<br/>
+      con una etiqueta en conformidad con la norma !
+      <br/><br/>Empecemos !<br/><br/><br/>
+    </span>
+
+    <Link  to='/dashboard/CrearEtiqueta'>
+      <button className='btn btn-dark'>CREAR ETIQUETA</button>
+    </Link>
+    
+    <img src='../images/figura1.png' width='300px' ></img>
+  </div>  
+  );
+}
+
+function CrearEtiqueta(){
+  return(
+    <div id='PaperWelcome' className='d-flex justify-content-center align-items-center flex-column flex-grow-1'>
+      <h1>Crear Etiqueta</h1>
+    </div>
+  );
+}
