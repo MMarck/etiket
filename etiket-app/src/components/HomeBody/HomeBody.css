@@ -4,7 +4,6 @@
     display: flex;
     justify-content: center;
     height: 100%;
-    position: fixed;
 }
 
 .homebody>h1{
@@ -22,7 +21,6 @@
     height: 100%;
     padding-left: 50px;
     padding-right: 50px;
-    padding-top: 3%;
 }
 
 .headText{
@@ -39,11 +37,11 @@
 
 .infoSquare{
     background-color: white;
-    margin-left: 90px;
-    margin-right: 90px;
+    margin: 0 auto;
     margin-top: 5%;
     padding-top: 20px;
     padding-bottom: 5px;
+    max-width: 70%;
 }
 
 .imgInfoIcon{
@@ -68,11 +66,111 @@
     width: 40px;
 }
 
+#verPlanes{
+    cursor: pointer;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+#rectSelectorContainer{
+    background-color: white;
+    display: flex;
+    border-radius: 10px;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+#emprendedorSqr, #empresasSqr{
+    padding: 10px;
+    width: 12vw;
+    min-width: fit-content;
+    border-radius: 10px;
+}
+
 #avisoDeIngreso {
     padding: 25px 0px ;
     font-size: 1.2rem;
 }
 
+#planesContainer{
+    margin-top: 2%;
+    display: flex;
+    gap: 3%;
+}
+
+.planesRect{
+    background-color: white;
+    border-radius: 22px;
+}
+
+.planSelected{
+    background-color: #404040;
+    color: var(--Sgreen);
+}
+
+.planesHeader{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #333333;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    padding-top: 3%;
+}
+
+.planesTextHeader{
+    color: var(--Sgreen);
+    font-weight: bold;
+}
+
+.planesPrecio{
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.precioNumber{
+    font-weight: bolder;
+    font-size: 60px;
+}
+
+.precioPlazo{
+    color: white;
+    font-size: 30px;
+    padding-top: 10%;
+}
+
+.planesText{
+    padding-top: 3%;
+    font-size: small;
+}
+
+.planesText{
+    text-align: left;
+    margin-top: 2%;
+}
+
+.textSubHeader{
+    padding-left: 3%;
+}
+
+.isFeature{
+    font-weight: 600;
+}
+
+.isNotFeature{
+    color: #929292;
+    list-style: none;
+}
+
+.isFeature, .isNotFeature{
+    margin-top: 2%;
+}
+
+.featureEsp{
+    font-weight: normal;
+    font-style: italic;
+}
 
 .darkButton{
     border: 0px;
@@ -80,42 +178,43 @@
     color: var(--Sgreen);
   }
   
-  .ligthButton{
+.ligthButton{
     border: 2px solid var(--Sgreen);
     background-color: white;
     color: var(--Sgreen);
-  }
+}
   
   
-  .signupButton{
+.signupButton{
     max-height: 40px;
     border-radius: 5px;
     box-shadow: 1px 1px 1px grey;
     width:fit-content;
     padding-right:10px;
     cursor: pointer;
-  }
+}
   
-  .facebook {
+.facebook {
     background-color: #1B77F0;
     color: white;
-  }
-  .facebook .icon {
-      background: url(https://developers-dot-devsite-v2-prod.appspot.com/identity/sign-in/g-normal.png) transparent 5px 50% no-repeat;
-      display: inline-block;
-      vertical-align: middle;
-      width: 42px;
-      height: 42px;
-  }
+}
+
+.facebook .icon {
+    background: url(https://developers-dot-devsite-v2-prod.appspot.com/identity/sign-in/g-normal.png) transparent 5px 50% no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+    width: 42px;
+    height: 42px;
+}
   
-  .google {
+.google {
     border: thin solid #888;
-  }
+}
   
-  .google .icon {
-      background: url(https://developers-dot-devsite-v2-prod.appspot.com/identity/sign-in/g-normal.png) transparent 5px 50% no-repeat;
-      display: inline-block;
-      vertical-align: middle;
-      width: 42px;
-      height: 42px;
-  }
+.google .icon {
+    background: url(https://developers-dot-devsite-v2-prod.appspot.com/identity/sign-in/g-normal.png) transparent 5px 50% no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+    width: 42px;
+    height: 42px;
+}
