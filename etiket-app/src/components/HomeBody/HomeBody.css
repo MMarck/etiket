@@ -21,6 +21,53 @@
 }
 
 #avisoDeIngreso {
-    padding: 35px 0px ;
-    font-size: 1.35rem;
+    padding: 25px 0px ;
+    font-size: 1.2rem;
 }
+
+
+.darkButton{
+    border: 0px;
+    background-color: var(--Sblack);
+    color: var(--Sgreen);
+  }
+  
+  .ligthButton{
+    border: 2px solid var(--Sgreen);
+    background-color: white;
+    color: var(--Sgreen);
+  }
+  
+  
+  .signupButton{
+    max-height: 40px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px grey;
+    width:fit-content;
+    padding-right:10px;
+    cursor: pointer;
+  }
+  
+  .facebook {
+    background-color: #1B77F0;
+    color: white;
+  }
+  .facebook .icon {
+      background: url(https://developers-dot-devsite-v2-prod.appspot.com/identity/sign-in/g-normal.png) transparent 5px 50% no-repeat;
+      display: inline-block;
+      vertical-align: middle;
+      width: 42px;
+      height: 42px;
+  }
+  
+  .google {
+    border: thin solid #888;
+  }
+  
+  .google .icon {
+      background: url(https://developers-dot-devsite-v2-prod.appspot.com/identity/sign-in/g-normal.png) transparent 5px 50% no-repeat;
+      display: inline-block;
+      vertical-align: middle;
+      width: 42px;
+      height: 42px;
+  }

@@ -31,21 +31,21 @@ class Sidebar extends Component{
           
             <ReactTooltip place="right" type="dark" effect="solid"/> {/* Componente para poner el tooltip hover con informacion a cada elemento */}
 
-            <img src={pathIcons + 'dimensions.png'}          data-tip='Dimesiones del empaque' />
-            <img src={pathIcons + 'jam-jar-with-label.png'}  data-tip='Identidad del alimento'  />
-            <img src={pathIcons + 'marca-comercial.png'}     data-tip='Marca comercial'/>
-            <img src={pathIcons + 'peso.png'}                data-tip='Contenido neto' />
-            <img src={pathIcons + 'alcohol-content.png'}     data-tip='Grado alcohólico' />
-            <img src={pathIcons + 'ingredientes.png'}        data-tip='Ingredientes' />
-            <img src={pathIcons + 'alergenos.png'}           data-tip='Alérgenos' />
-            <img src={pathIcons + 'nutritionfacts.png'}      data-tip='Informacion nutricional' />
-            <img src={pathIcons + 'shelf-life-expired.png'}  data-tip='Tiempo de vida útil' />
-            <img src={pathIcons + 'celsius.png'}             data-tip='Forma de conservación' />
-            <img src={pathIcons + 'lote.png'}                data-tip='Identificación del lote' />
-            <img src={pathIcons + 'info.png'}                data-tip='información adicional' />
-            <img src={pathIcons + 'pin.png'}                 data-tip='dirección del fabricante' />
-            <img src={pathIcons + 'instructions.png'}        data-tip='Instrucciones de uso' />
-            <img src={pathIcons + 'mensajes-declarados.png'} data-tip='Declaraciones' />
+            <img src={pathIcons + 'dimensions.png'}          alt='dimensions' data-tip='Dimesiones del empaque' />
+            <img src={pathIcons + 'jam-jar-with-label.png'}  alt='jam-jar-with-label' data-tip='Identidad del alimento'  />
+            <img src={pathIcons + 'marca-comercial.png'}     alt='marca-comercial' data-tip='Marca comercial'/>
+            <img src={pathIcons + 'peso.png'}                alt='peso' data-tip='Contenido neto' />
+            <img src={pathIcons + 'alcohol-content.png'}     alt='alcohol-content' data-tip='Grado alcohólico' />
+            <img src={pathIcons + 'ingredientes.png'}        alt='ingredientes' data-tip='Ingredientes' />
+            <img src={pathIcons + 'alergenos.png'}           alt='alergenos' data-tip='Alérgenos' />
+            <img src={pathIcons + 'nutritionfacts.png'}      alt='nutritionfacts' data-tip='Informacion nutricional' />
+            <img src={pathIcons + 'shelf-life-expired.png'}  alt='shelf-life-expired' data-tip='Tiempo de vida útil' />
+            <img src={pathIcons + 'celsius.png'}             alt='celsius' data-tip='Forma de conservación' />
+            <img src={pathIcons + 'lote.png'}                alt='lote' data-tip='Identificación del lote' />
+            <img src={pathIcons + 'info.png'}                alt='info' data-tip='información adicional' />
+            <img src={pathIcons + 'pin.png'}                 alt='pin' data-tip='dirección del fabricante' />
+            <img src={pathIcons + 'instructions.png'}        alt='instructions' data-tip='Instrucciones de uso' />
+            <img src={pathIcons + 'mensajes-declarados.png'} alt='mensajes-declarados' data-tip='Declaraciones' />
             
           </div>
           

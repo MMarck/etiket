@@ -1,6 +1,15 @@
+@import '../constants.css';
+
 
 #LoginBox{
-  width: 500px;
+  width: 100%;
+}
+
+#LoginBox > * {
+  margin: 0px auto;
+}
+#LoginBox button{
+  width: 100%;
 }
 
 #LoginForm{
@@ -12,10 +21,25 @@
   font-size: 0.9rem;
   font-weight: bold;
   color: gray;
+  margin: 100px auto;
 }
 
 #LoginForm input{
   width: 100%;
+}
+
+
+
+.darkButton{
+  border: 0px;
+  background-color: var(--Sblack);
+  color: var(--Sgreen);
+}
+
+.ligthButton{
+  border: 2px solid var(--Sgreen);
+  background-color: white;
+  color: var(--Sgreen);
 }
 
 
@@ -29,6 +53,7 @@
 
 .facebook {
   background-color: #1B77F0;
+  color: white;
 }
 .facebook .icon {
     background: url(https://developers-dot-devsite-v2-prod.appspot.com/identity/sign-in/g-normal.png) transparent 5px 50% no-repeat;
