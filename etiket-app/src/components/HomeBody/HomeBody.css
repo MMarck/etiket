@@ -119,3 +119,12 @@
       width: 42px;
       height: 42px;
   }
+
+/*
+  *Poner un pequeño pading cuando la pantalla sea chiquita
+*/
+@media screen and (max-height: 600px) {
+    #LeftForm {
+        padding-top: 320px;
+    }
+  }
