@@ -10,6 +10,9 @@ import GeneradorTriangular from './components/GeneradorTriangular/GeneradorTrian
 import GeneradorCircular from './components/GeneradorCircular/GeneradorCircular';
 import MiCuenta from './components/MiCuenta/MiCuenta';
 import MisEtiquetas from './components/MisEtiquetas/MisEtiquetas';
+import LoginForm from './components/LoginForm/LoginForm';
+import ResetPassword from './components/ResetPassword/ResetPassword';
+import CreateAccount from './components/CreateAccount/CreateAccount';
 
 function App() {
 
@@ -24,7 +27,12 @@ function App() {
               <HomeBody />
             </div>
           </>
-        } />
+        }>
+          <Route index element={<LoginForm/>}/>
+          <Route path='resetPassword' element={<ResetPassword/>}/>
+          <Route path='createAccount' element={<CreateAccount/>}/>
+        
+        </Route>
 
         <Route path="/dashboard" element={<Dashboard/>}>
           <Route index element={<PaperWelcome/>}/>
