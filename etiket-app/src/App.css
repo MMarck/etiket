@@ -44,12 +44,10 @@
 
 .colored-button{
   border-radius: 20px;
-  background-color: none;
   border: none;
 }
 
 .colored-button:hover{
-  border-radius: 20px;
   background-color: #1ED796;
   border: none;
 }

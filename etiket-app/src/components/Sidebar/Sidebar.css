@@ -21,15 +21,46 @@ i{
     align-self: center;
 }
 
+#userIcon{
+    margin-top: 1vh;
+    margin-bottom: 2vh;
+    cursor: pointer;
+}
+
+#userImg{
+    cursor: pointer;
+}
+
+#userSubMenu{
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+.userSubBtn{
+    width: 100%;
+    align-self: flex-end;
+    padding: 5px;
+    padding-right: 5vw;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
 #SidebarContainer{
-    width: 80px;
+    padding-left: 1vw;
+    padding-right: 1vw;
 }
 
 #SidebarOptions{
     overflow-y: auto;
     row-gap: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #SidebarOptions img{
-    width: 20px;
+    width: 1.9vw;
 }
