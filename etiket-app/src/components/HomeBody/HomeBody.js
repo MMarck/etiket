@@ -20,9 +20,10 @@ class HomeBody extends Component {
     this.setState({isPlanesVisible: !this.state.isPlanesVisible});
   }
 
-  tooglePlanVisualization(){
-    this.setState({isEmpresaVisible: !this.state.isEmpresaVisible});
-    this.setState({isEmprendedorVisible: !this.state.isEmprendedorVisible});
+  toogleEmpresa(){
+    if (this.state.isEmpresaVisible){
+      this.setState({isEmpresaVisible: !this.state.isEmpresaVisible});
+    }
     
   }
 
