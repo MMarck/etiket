@@ -10,7 +10,7 @@ class Sidebar extends Component{
 
     render(){
       return (
-        <div id='SidebarContainer' className='d-flex flex-column justify-content-between' >
+        <div id='SidebarContainer' className='d-flex flex-column justify-content-start' >
           <div className='d-flex justify-content-center mt-2 mb-4'> 
             <img src={pathIcons + 'user.png'} width={'50px'} data-tip data-for='userMenu' /> 
 
