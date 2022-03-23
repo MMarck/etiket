@@ -16,11 +16,31 @@
 .info{
     background-repeat: no-repeat;
     background-size: cover;
-    overflow-y: auto;
+    overflow-y: scroll;
     width: 100%;
     height: 100%;
     padding-left: 50px;
     padding-right: 50px;
+}
+
+@keyframes showPlanes {
+    from{transform: translateY(100%);}
+    to{transform: translateY(0%);}
+}
+
+@keyframes showExp {
+    from{transform: translateY(-100%);}
+    to{transform: translateY(0%);}
+}
+
+#planes.isShowing{
+    animation-name: showPlanes;
+    animation-duration: 0.5s;
+}
+
+#exp.isShowing{
+    animation-name: showExp;
+    animation-duration: 0.5s;
 }
 
 .headText{
@@ -87,6 +107,15 @@
     border-radius: 10px;
 }
 
+button.comprar{
+    background-color: var(--Sblack);
+    color: var(--Sgreen);
+    padding: 2%;
+    padding-left: 5%;
+    padding-right: 5%;
+    margin-bottom: 5%;
+}
+
 #avisoDeIngreso {
     padding: 25px 0px ;
     font-size: 1.2rem;
@@ -98,6 +127,11 @@
     gap: 3%;
 }
 
+#emprendedorSqr, #empresasSqr{
+    cursor: pointer;
+}
+
+
 .planesRect{
     background-color: white;
     border-radius: 22px;
@@ -106,6 +140,10 @@
 .planSelected{
     background-color: #404040;
     color: var(--Sgreen);
+}
+
+.planNotSelected:hover{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
 }
 
 .planesHeader{
