@@ -5,6 +5,10 @@
   --Sselectedgreen:rgba(29, 215, 150, 0.2);
 }
 
+html{
+  margin-left: calc(100vw - 100%);
+}
+
 html, body {
   margin:0px;
   height:100%;
