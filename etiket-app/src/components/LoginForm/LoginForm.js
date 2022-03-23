@@ -25,7 +25,7 @@ const LoginForm = () => {
 
         <br/>       
         <Link to="/resetPassword" className="w-100">
-          <button className="darkButton w-100">¿Olvidé mi contraseña?</button>
+          <button className="btn-dark darkButton w-100">¿Olvidé mi contraseña?</button>
         </Link>
 
         <hr/>

@@ -33,9 +33,13 @@ const CreateAccount = () => {
 
             <br/>
             <Link to="/" className="w-100">
-                <button className="ligthButton w-100">Crear Usuario</button>
-                </Link>
+              <button className="ligthButton w-100">Crear Usuario</button>
+            </Link>
 
+            <br/><br/>
+            <Link  to='/' className="w-100">
+              <button className='btn-dark darkButton'>Cancelar</button>
+            </Link> 
         </form>
 
 

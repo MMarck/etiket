@@ -1,9 +1,6 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Routes, Outlet, Link} from 'react-router-dom';
-import Header from "./components/Header";
+import { BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom';
 import HomeBody from "./components/HomeBody/HomeBody";
-import Navbar from './components/Navbar/Navbar';
-import Sidebar from './components/Sidebar/Sidebar';
 import GeneradorRectagular from './components/GeneradorRectangular/GeneradorRectangular';
 import GeneradorBotella from './components/GeneradorBotella/GeneradorBotella';
 import GeneradorTriangular from './components/GeneradorTriangular/GeneradorTriangular';
@@ -13,6 +10,7 @@ import MisEtiquetas from './components/MisEtiquetas/MisEtiquetas';
 import LoginForm from './components/LoginForm/LoginForm';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import CreateAccount from './components/CreateAccount/CreateAccount';
+import Dashboard from './components/Dashboard/Dashboard'
 
 function App() {
 
@@ -35,7 +33,7 @@ function App() {
         </Route>
 
         <Route path="/dashboard" element={<Dashboard/>}>
-          <Route index element={<PaperWelcome/>}/>
+          <Route index element={<WallPaperWelcome/>}/>
           <Route path='Micuenta' element={<MiCuenta/>}/>
           <Route path='MisEtiquetas' element={<MisEtiquetas/>}/>
           <Route path='CrearEtiqueta' element={<CrearEtiqueta/>}/>
@@ -59,20 +57,14 @@ function App() {
 export default App;
 
 
-function Dashboard(){
-  return(
-    <div className='d-flex h-100 w-100'>
-      <Sidebar/>
-      <Outlet/>{/*  Este componente pertenece a react-router-dom y 
-                permite alternar entre las rutas hijas declararas 
-                en un compontente Router */}
-    </div>  
-  );
-}
 
-function PaperWelcome(){
+/*
+ *Este componente se renderiza frente a otros componentes y ocupa todo su contenedor
+ *muestra un saludo para el usuario y lo invita a crear una etiqueta
+*/
+function WallPaperWelcome(){
   return(
-    <div id='PaperWelcome' className='d-flex justify-content-center align-items-center flex-column flex-grow-1'>
+    <div id='WallPaperWelcome' className='d-flex justify-content-center align-items-center flex-column flex-grow-1 w-100'>
     <span><br/><br/><br/>Bienvenido !<br/>
       Estás a punto de vender tus productos<br/>
       con una etiqueta en conformidad con la norma !
@@ -90,8 +82,7 @@ function PaperWelcome(){
 
 function CrearEtiqueta(){
   return(
-    <div id='PaperWelcome' className='d-flex justify-content-center align-items-center flex-column flex-grow-1'>
+    
       <h1>Crear Etiqueta</h1>
-    </div>
   );
 }

@@ -19,12 +19,12 @@ const ResetPassword = () => {
             
             <div className="d-flex justify-content-center ">
               <Link to="/" className="w-50">
-                <button className="btn btn-dark">Enviar</button>
+                <button className="btn-dark darkButton">Enviar</button>
               </Link>
 
               
               <Link  to='/' className="w-50">
-                <button className='btn btn-dark'>Cancelar</button>
+                <button className='btn-dark darkButton'>Cancelar</button>
               </Link> 
             </div>
 
