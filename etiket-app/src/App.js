@@ -71,7 +71,7 @@ function WallPaperWelcome(){
       <br/><br/>Empecemos !<br/><br/><br/>
     </span>
 
-    <Link  to='/dashboard/CrearEtiqueta'>
+    <Link  to='/dashboard/MisEtiquetas'>
       <button className='btn btn-dark'>CREAR ETIQUETA</button>
     </Link>
     
