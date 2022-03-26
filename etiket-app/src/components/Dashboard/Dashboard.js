@@ -9,7 +9,7 @@ function Dashboard(){
       <div className='d-flex h-100 w-100'>
         <Sidebar/>
 
-        <div id='Wallpaper' className='d-flex justify-content-around align-items-center flex-column flex-grow-1'>
+        <div id='Wallpaper'>
 
             <img id='AbsoluteLogo' src="../images/solinalLogo.png" alt="logo de solinal" width={'100px'} /> 
 

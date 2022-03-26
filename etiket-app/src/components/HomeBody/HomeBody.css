@@ -211,7 +211,7 @@ button.comprar{
 }
 
 .darkButton{
-    border: 0px;
+    border: none;
     background-color: var(--Sblack);
     color: var(--Sgreen);
   }
@@ -221,6 +221,12 @@ button.comprar{
     background-color: white;
     color: var(--Sgreen);
 }
+
+.green-button{
+    border: none;
+    background-color: var(--Sgreen);
+    color: var(--Sblack);
+  }
   
   
 .signupButton{

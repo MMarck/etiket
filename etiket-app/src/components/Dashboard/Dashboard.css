@@ -1,5 +1,12 @@
 #Wallpaper{
     background-color: #F5F6F8;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    flex: 1 0 auto;
+    font-size: 0.7rem;
+    overflow-y: auto;
 }
 
 #AbsoluteLogo{

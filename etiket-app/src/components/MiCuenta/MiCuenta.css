@@ -1,0 +1,40 @@
+#PaperWelcome{
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex: 1 1 auto;
+    margin: 8vh 0vh;
+}
+
+.rounded-square{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    border-radius: 15px;
+    border: 1px solid gray;
+    background-color: white;
+    padding: 3em 1em;
+}
+
+.titled-box{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.ligth-input{
+    border: 0;
+    border-bottom: 1px solid grey;
+    margin-top: 0.5rem;
+}
+
+.data-user-container{
+    max-width: 40%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex: 1 0 auto;
+}
