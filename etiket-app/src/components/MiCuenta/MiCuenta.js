@@ -1,6 +1,7 @@
 import './MiCuenta.css';
 import { Modal } from 'react-bootstrap';
 import { useState } from 'react';
+import {  Link} from 'react-router-dom';
 
 
 
@@ -9,7 +10,7 @@ const userIcon = '../../images/icons/user.png';
 
 function MiCuenta(){
     return(
-      <div id='PaperWelcome' >
+      <div className='columnContainer' >
         <h1 className='mb-5 fw-bold'>Mi cuenta</h1>
 
 
@@ -92,15 +93,14 @@ function MiCuenta(){
 
               <CambiarCorreoModal/>
 
-              <button 
-                className='btn-dark darkButton border-0 text-white fw-bolder p-2' >
-                RESETEAR CONTRASEÑA
-              </button>
+              <Link to='/dashboard/changePassword'>
+                <button 
+                  className='btn-dark darkButton border-0 text-white fw-bolder p-2' >
+                  RESETEAR CONTRASEÑA
+                </button>
+              </Link>
 
-              <button 
-                className='btn-danger border-0 bg-danger text-white fw-bolder p-2' >
-                BORRAR CUENTA
-              </button>
+              <ConfirmacionBorrarCuentaModal/>
 
               
 
@@ -223,3 +223,59 @@ const ConfirmacionCorreoModal = ({closeParent}) => {
     </>
   );
 }
+
+
+function ConfirmacionBorrarCuentaModal() {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  
+  return (
+    <>
+
+
+      <button 
+        onClick={handleShow}  
+        className='btn-danger border-0 bg-danger text-white fw-bolder p-2' >
+        BORRAR CUENTA
+      </button>
+
+      <Modal 
+        show={show} 
+        onHide={handleClose} 
+        size="md" 
+        centered 
+        style={{fontSize:'0.8rem'}} 
+      >
+
+
+        <Modal.Header closeButton  className='bg-danger danger text-white'>
+          <Modal.Title>Estás seguro?</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <div className='ms-4'>
+            <span> 
+            Eliminar tu cuenta es irreversible. Procede con precaución.
+            Al seleccionar <b>SÍ, ELIMINAR MI CUENTA</b> a continuación, todas las etiquetas que
+            has diseñado y tus datos se perderán de por vida.
+            </span>
+       
+            <Link to='/'>
+              <button 
+                className='btn-danger border-0 bg-danger text-white fw-bolder p-2' >
+                SÍ, ELIMINAR MI CUENTA
+              </button>
+            </Link>
+            
+          </div>
+
+        </Modal.Body>
+
+      </Modal>
+    </>
+  );
+}
+
+

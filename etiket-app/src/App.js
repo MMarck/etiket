@@ -34,9 +34,10 @@ function App() {
 
         <Route path="/dashboard" element={<Dashboard/>}>
           <Route index element={<WallPaperWelcome/>}/>
-          <Route path='Micuenta' element={<MiCuenta/>}/>
-          <Route path='MisEtiquetas' element={<MisEtiquetas/>}/>
-          <Route path='CrearEtiqueta' element={<CrearEtiqueta/>}/>
+          <Route path='miCuenta' element={<MiCuenta/>}/>
+          <Route path='misEtiquetas' element={<MisEtiquetas/>}/>
+          <Route path='crearEtiqueta' element={<CrearEtiqueta/>}/>
+          <Route path='changePassword' element={<ChangePassword/>}/>
         </Route>
 
         <Route path="/rectangular" exact element={ <GeneradorRectagular/> }/>
@@ -71,7 +72,7 @@ function WallPaperWelcome(){
       <br/><br/>Empecemos !<br/><br/><br/>
     </span>
 
-    <Link  to='/dashboard/MisEtiquetas'>
+    <Link  to='/dashboard/misEtiquetas'>
       <button className='btn btn-dark'>CREAR ETIQUETA</button>
     </Link>
     
@@ -84,5 +85,37 @@ function CrearEtiqueta(){
   return(
     
       <h1>Crear Etiqueta</h1>
+  );
+}
+
+function ChangePassword(){
+  return(
+    <div className='columnContainer w-50' >
+    
+    <h4><b>Introduzca su nueva contraseña</b></h4><br/>
+
+    <div className="rounded-square mt-5 w-75" style={{margin:'0px auto'}}>
+      <form className='w-100'>
+        <label htmlFor="password">Nueva contraseña</label>
+        <br/>
+        <input
+          className="inputText ligth-input mb-4 w-100" 
+          id="password" 
+          type="password" 
+          name="password" 
+        />
+      </form>
+    </div>
+
+    <Link to='/dashboard/miCuenta'>
+      <button 
+      className=" btn-secondary darkButton fw-bolder p-2 my-4" 
+      style={{width:'fit-content'}}> 
+      ACTUALIZAR CONTRASEÑA
+      </button>
+    </Link>
+
+    </div>
+
   );
 }

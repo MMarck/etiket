@@ -25,11 +25,11 @@ class Sidebar extends Component{
 
           <ReactTooltip event='click' id='userMenu' place='right' effect='solid' type="light" clickable={true} border={true} borderColor={"gray"} offset={{bottom: 30}}>
             <div id="userSubMenu">
-              <Link to={'/dashboard/MiCuenta'} > 
+              <Link to={'/dashboard/miCuenta'} > 
                 <button className='colored-button userSubBtn' > Mi cuenta</button>
               </Link>
               <br/>
-              <Link to={'/dashboard/MisEtiquetas'} className='colored-button'>
+              <Link to={'/dashboard/misEtiquetas'} className='colored-button'>
                 <button className='colored-button userSubBtn' > Mis etiquetas</button>
               </Link>
             </div>
