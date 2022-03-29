@@ -65,6 +65,8 @@ i{
 #SidebarOptions img{
     width: 1.9vw;
     max-height: 1.9vw;
+    min-width: 30px;
+    min-height: 30px;
 }
 
 .sidebarContHeader{
