@@ -53,23 +53,7 @@
   width: auto;
 }
 
-.gRInput{
-    border: 2px solid var(--Sgreen);
-    padding-left: 10px;
-    padding-top: 0;
-    padding-bottom: 0;
-    border-radius: 8px;
-    font-size: 15px;
-}
 
-.gRInput:disabled{
-    background-color: #b1b1b13b;
-    border-color: var(--Sselectedgreen);
-}
-
-.numberInput{
-  max-width: 75px;
-}
 
 .subgRContent{
     display: flex;
