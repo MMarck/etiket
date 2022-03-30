@@ -1,0 +1,14 @@
+@import '../constants.css';
+
+.sideBarItem{
+    display: flex;
+    gap: 1vw;
+}
+
+.iconEnabled{
+    cursor: pointer;
+}
+
+.iconEnabled:hover{
+    filter: invert(99%) sepia(67%) saturate(3880%) hue-rotate(77deg) brightness(91%) contrast(83%);
+}

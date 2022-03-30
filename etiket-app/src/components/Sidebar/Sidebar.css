@@ -51,6 +51,8 @@ i{
 #SidebarContainer{
     padding-left: 1vw;
     padding-right: 1vw;
+    width: fit-content;
+    overflow: auto;
 }
 
 #SidebarOptions{
@@ -58,9 +60,82 @@ i{
     row-gap: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 #SidebarOptions img{
     width: 1.9vw;
+    max-height: 1.9vw;
+    min-width: 30px;
+    min-height: 30px;
 }
+
+.sidebarContHeader{
+    margin-bottom: 5%;
+}
+
+.sidebarTitle{
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.sidebarSubTitle{
+    font-weight: 300;
+    font-size:0.75em;
+    margin-bottom: 0;
+}
+
+#dimensionesCont{
+    display: flex;
+    gap: 1vw;
+}
+
+.sidebarItem{
+    max-width: 20vw;
+}
+
+#dimensiones{
+    display: flex;
+    flex-direction: column;
+}
+
+#dimensionesInput{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    gap: 5vh;
+}
+
+.gRInput{
+    border: 2px solid var(--Sblack);
+    background-color: var(--Sblack);
+    padding-left: 10px;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-radius: 5px;
+    font-size: 15px;
+    width: 100%;
+    color: white;
+    outline: none;
+}
+
+.gRInput:disabled{
+    background-color: #b1b1b13b;
+    border-color: var(--Sselectedgreen);
+}
+
+.numberInput{
+}
+
+#sbAncho, #sbAltura{
+    display: flex;
+    gap: 1vw
+}
+
+#sbUnidades{
+    align-self: center;
+}
+
+.sbLabel{
+    font-weight: bold;
+}
+
