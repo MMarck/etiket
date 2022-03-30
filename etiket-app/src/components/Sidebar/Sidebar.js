@@ -20,7 +20,7 @@ class Sidebar extends Component{
     return (
       <div id='SidebarContainer' className='' >
         <div id="userIcon" className=''> 
-          <img id="userImg" src={pathIcons + 'user.png'} width={'50px'} data-tip data-for='userMenu' /> 
+          <img id="userImg" alt="User" src={pathIcons + 'user.png'} width={'50px'} data-tip data-for='userMenu' /> 
 
 
           <ReactTooltip event='click' id='userMenu' place='right' effect='solid' type="light" clickable={true} border={true} borderColor={"gray"} offset={{bottom: 30}}>
@@ -41,7 +41,7 @@ class Sidebar extends Component{
         
           <ReactTooltip place="right" type="dark" effect="solid"/> {/* Componente para poner el tooltip hover con informacion a cada elemento */}
 
-          <img src={pathIcons + 'dimensions.png'}          alt='dimensions' data-tip='Dimesiones del empaque' className={isDisabled ? "iconEnabled":"iconDisabled"}/>
+          <img src={pathIcons + 'dimensions.png'}          alt='dimensions' data-tip='Dimensiones del empaque' className={isDisabled ? "iconEnabled":"iconDisabled"}/>
           <img src={pathIcons + 'jam-jar-with-label.png'}  alt='jam-jar-with-label' data-tip='Identidad del alimento' className={isDisabled ? "iconEnabled":"iconDisabled"} />
           <img src={pathIcons + 'marca-comercial.png'}     alt='marca-comercial' data-tip='Marca comercial' className={isDisabled ? "iconEnabled":"iconDisabled"} />
           <img src={pathIcons + 'peso.png'}                alt='peso' data-tip='Contenido neto' className={isDisabled ? "iconEnabled":"iconDisabled"} />

@@ -11,6 +11,7 @@ import LoginForm from './components/LoginForm/LoginForm';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import CreateAccount from './components/CreateAccount/CreateAccount';
 import Dashboard from './components/Dashboard/Dashboard'
+import ReactTooltip from "react-tooltip";
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
           <Route index element={<WallPaperWelcome/>}/>
           <Route path='miCuenta' element={<MiCuenta/>}/>
           <Route path='misEtiquetas' element={<MisEtiquetas/>}/>
+          <Route path='nuevo_proyecto' element={<SetTicketName/>}/>
           <Route path='crearEtiqueta' element={<CrearEtiqueta/>}/>
           <Route path='changePassword' element={<ChangePassword/>}/>
         </Route>
@@ -76,8 +78,29 @@ function WallPaperWelcome(){
       <button className='btn btn-dark'>CREAR ETIQUETA</button>
     </Link>
     
-    <img src='../images/figura1.png' width='300px' ></img>
+    <img alt="Edificios" src='../images/figura1.png' width='300px' ></img>
   </div>  
+  );
+}
+
+/*
+*
+*/
+function SetTicketName(){
+  return(
+    <div className='w-100 h-100 margin-auto'>
+      <ReactTooltip place="rigth" type="dark" effect="solid"  data-for='name'/>
+      <input
+        className="ligth-input m-4 fs-6 bg-transparent" 
+        id="name" 
+        type="text" 
+        name="name" 
+        placeholder="Nombre del proyecto"
+        data-tip='Escribe aquí el nombre de tu proyecto'
+      />
+
+      <button className='btn-dark rounded fs-7'>continuar</button>
+    </div>
   );
 }
 
