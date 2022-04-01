@@ -1,0 +1,74 @@
+@import '../constants.css';
+
+
+#MisEtiquetasContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    margin-top: 8vh;
+    overflow-y: auto;
+}
+
+
+.opcionEnvase{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid gray;
+    text-decoration: none;
+    color: black;
+}
+
+.opcionEnvase:hover{
+    font-weight: bolder;
+    color: black;
+    cursor: pointer;
+    border: 2px solid var(--Sgreen);
+}
+
+
+#BotonMasNuevaEtiqueta{
+    border: none;
+    background-color: transparent;
+    font-size: 5em;
+    font-weight: bold;
+    width: 6rem;
+    height: 6rem;
+}
+
+.previewEtiqueta{
+    width: 6rem;
+    height: 6rem;
+    border: 1px solid gray;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.etiquetaContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+}
+
+.etiquetaContainer:hover{
+    border: 1px solid gray;
+    cursor: pointer;
+}
+
+#ContenedorEtiquetas{
+    max-width: 50%;
+    display: flex;
+    justify-content: flex-start;
+    gap: 1em;
+    flex-wrap: wrap;
+}

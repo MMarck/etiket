@@ -1,6 +1,6 @@
 import './SidebarItem.css';
 import { Component } from 'react';
-import ReactTooltip from "react-tooltip";
+
 
 const pathIcons = '../images/icons/';
 

@@ -448,7 +448,7 @@ class Sidebar extends Component{
     return (
       <div id='SidebarContainer' className='' >
         <div id="userIcon" className=''> 
-          <img id="userImg" src={pathIcons + 'user.png'} width={'50px'} data-tip data-for='userMenu' /> 
+          <img id="userImg" alt="User" src={pathIcons + 'user.png'} width={'50px'} data-tip data-for='userMenu' /> 
 
 
           <ReactTooltip event='click' id='userMenu' place='right' effect='solid' type="light" clickable={true} border={true} borderColor={"gray"} offset={{bottom: 30}}>
