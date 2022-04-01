@@ -12,3 +12,7 @@
 .iconEnabled:hover{
     filter: invert(99%) sepia(67%) saturate(3880%) hue-rotate(77deg) brightness(91%) contrast(83%);
 }
+
+.sideBarContent{
+    width: 25vw;
+}

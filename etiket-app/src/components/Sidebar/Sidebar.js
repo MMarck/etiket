@@ -2,6 +2,7 @@ import { Component } from 'react';
 import './Sidebar.css';
 import ReactTooltip from "react-tooltip";
 import SidebarItem from "../SidebarItem/SidebarItem";
+import CustomCheckbox from "../CustomCheckbox/CustomCheckbox";
 import {Link} from 'react-router-dom';
 import Select from 'react-select';
 
@@ -91,6 +92,67 @@ const unidadesDias=[
   }
 ]
 
+const pesosNetos=[
+  {
+    value: "Contenido neto",
+    label: "Contenido neto"
+  },
+  {
+    value: "Peso neto",
+    label: "Peso neto"
+  }
+]
+
+const pesosDrenados=[
+  {
+    value: "Peso drenado",
+    label: "Peso drenado"
+  },
+  {
+    value: "Peso escurrido",
+    label: "Peso escurrido"
+  },
+  {
+    value: "Masa drenada",
+    label: "Masa drenada"
+  },
+  {
+    value: "Masa escurrida",
+    label: "Masa escurrida"
+  }
+]
+
+const unidadesAlcohol=[
+  {
+    value:"Alcohol __%(Vol.)",
+    label: "Alcohol __%(Vol.)"
+  },
+  {
+    value:"Alcohol __%(Volumen)",
+    label: "Alcohol __%(Volumen)"
+  },
+  {
+    value:"Alc. __%(Vol.)",
+    label: "Alc. __%(Vol.)"
+  },
+  {
+    value:"ALCOHOL __%(VOL.)",
+    label: "ALCOHOL __%(VOL.)"
+  },
+  {
+    value:"ALCOHOL __%(VOLUMEN)",
+    label: "ALCOHOL __%(VOLUMEN)"
+  },
+  {
+    value:"ALC. __% (VOL.)",
+    label:"ALC. __% (VOL.)"
+  },
+  {
+    value:"ALC. __% (VOLUMEN)",
+    label:"ALC. __% (VOLUMEN)"
+  }
+]
+
 const alergenos=[
   { value: "tartrazina", label: "Tartrazina"},
   { value: "fenil", label: "Fenilcetronuricos: Fenilanina"},
@@ -114,6 +176,55 @@ const alergenos=[
   { value: "regaliz", label: "Regaliz"}
 ]
 
+const ddMultipleStyle={
+  clearIndicator: (provided, state)=>({
+    ...provided,
+    color: state.isFocused ? "#1ED796":"white"
+  }),
+  option: (provided, state)=>({
+    ...provided,
+    backgroundColor: state.isSelected ? '#1ED796':state.isFocused ? "#1dd79633":"#404040",
+    color: "white",
+    cursor: "Pointer",
+  }),
+  menuList: (provided, state) =>({
+    ...provided,
+    border: "2px solid #404040",
+    backgroundColor: "#404040",
+    borderRadius: "5px",
+  }),
+  control: (provided, state) =>({
+    border: state.isDisabled ? "2px solid #00000048":"2px solid #404040",
+    backgroundColor: state.isDisabled ? "#00000048":"#404040",
+    display: "flex",
+    cursor: "Pointer",
+    borderRadius: "8px",
+      
+  }),
+  input: (provided,state)=>({
+    ...provided,
+    color: "white"
+  }),
+  placeholder: (provided,state)=>({
+    ...provided,
+    color: "white"
+  }),
+  singleValue: (provided,state)=>({
+    ...provided,
+    color: "white"
+  }),
+  dropdownIndicator: (provided, state)=>({
+    ...provided,
+    "&:hover":{
+        color: "#1ED796"
+    }
+  }),
+  menu: (provided, state)=>({
+    ...provided,
+    borderRadius: "8px",
+  }),
+}
+
 const ddLargerStyle={
   option: (provided, state)=>({
     ...provided,
@@ -128,10 +239,11 @@ const ddLargerStyle={
     borderRadius: "5px",
   }),
   control: (provided, state) =>({
-    border: "2px solid #404040",
-    backgroundColor: "#404040",
+    border: state.isDisabled ? "2px solid #00000048":"2px solid #404040",
+    backgroundColor: state.isDisabled ? "#00000048":"#404040",
     display: "flex",
     cursor: "Pointer",
+    width:"10vw",
     maxWidth: "30vw",
     borderRadius: "8px",
       
@@ -160,7 +272,7 @@ const ddLargerStyle={
   }),
 }
 
-const ddStyle={
+const ddLargestStyle={
   option: (provided, state)=>({
     ...provided,
     backgroundColor: state.isSelected ? '#1ED796':state.isFocused ? "#1dd79633":"#404040",
@@ -173,13 +285,60 @@ const ddStyle={
     backgroundColor: "#404040",
     borderRadius: "5px",
   }),
-  control: (state) =>({
+  control: (provided, state) =>({
+    border: state.isDisabled ? "2px solid #00000048":"2px solid #404040",
+    backgroundColor: state.isDisabled ? "#00000048":"#404040",
+    display: "flex",
+    cursor: "Pointer",
+    width:"14vw",
+    maxWidth: "30vw",
+    borderRadius: "8px",
+      
+  }),
+  input: (provided,state)=>({
+    ...provided,
+    color: "white"
+  }),
+  placeholder: (provided,state)=>({
+    ...provided,
+    color: "white"
+  }),
+  singleValue: (provided,state)=>({
+    ...provided,
+    color: "white"
+  }),
+  dropdownIndicator: (provided, state)=>({
+    ...provided,
+    "&:hover":{
+        color: "#1ED796"
+    }
+  }),
+  menu: (provided, state)=>({
+    ...provided,
+    borderRadius: "8px",
+  }),
+}
+
+const ddSmallStyle={
+  option: (provided, state)=>({
+    ...provided,
+    backgroundColor: state.isSelected ? '#1ED796':state.isFocused ? "#1dd79633":"#404040",
+    color: "white",
+    cursor: "Pointer",
+  }),
+  menuList: (provided, state) =>({
+    ...provided,
     border: "2px solid #404040",
     backgroundColor: "#404040",
+    borderRadius: "5px",
+  }),
+  control: (provided,state) =>({
+    border: state.isDisabled ? "2px solid #00000048":"2px solid #404040",
+    backgroundColor: state.isDisabled ? "#00000048":"#404040",
     display: "flex",
     cursor: "Pointer",
     minWidth: "none",
-    width: "100%",
+    width: "5vw",
     borderRadius: "8px",
   }),
   input: (provided,state)=>({
@@ -221,8 +380,11 @@ class Sidebar extends Component{
       marca: "",
       pesoNeto: {label:"Contenido neto", value: "Contenido neto"},
       pesoNetoUn:{label:"g", value:"g"},
-      pesoDrenado: {label:"Peso drenado", value: "Peso drenado"},
-      pesoDrenadoUn:{label:"g", value:"g"},
+      pesoDrenadoDisabled:true,
+      pesoDrenado: {},
+      pesoDrenadoUn:{},
+      alcohol:"",
+      alcoholUn:{},
       ingredientes: '',
       alergenos: '',
       metodoConservacion: '',
@@ -257,6 +419,28 @@ class Sidebar extends Component{
 
   handleChangeDropdown(e,estado){
     this.setState({[estado]:e})
+  }
+
+  handlePesoDrenadoDisable(){
+    this.setState({pesoDrenadoDisabled: !this.state.pesoDrenadoDisabled}, ()=>{
+      if (!this.state.pesoDrenadoDisabled) {
+        document.getElementById("pesoDrenadoInput").value="";
+        this.setState({pesoDrenado: {}, pesoDrenadoUn:{}});
+      }
+    })
+  }
+
+  handleChangeMultiples(e,estado){
+    var res="";
+    if (e.length>1) {
+        e.forEach(element => {
+            res=res+","+element.label;
+        });
+        res=res.slice(1);
+    } else if(e.length==1) {
+        res=e[0].label
+    }
+    this.setState({[estado]:res})
   }
 
   render(){
@@ -335,13 +519,44 @@ class Sidebar extends Component{
           }/>
 
           <SidebarItem icon="peso.png" alt="peso" dataTip="Contenido neto" isDisabled={isDisabled} content={
-            <>
-              <Select className='ddMenu' styles={ddLargerStyle} options={unidadesMasa} defaultValue={this.state.pesoNetoUn} onChange={(e)=> this.handleChangeDropdown(e,"pesoNetoUn")}/>
-            </>
+            <div id='peso' className='sidebarItem'>
+              <div className='sidebarContHeader'>
+                <p className='sidebarTitle'>Contenido neto y masa escurrida (peso escurrido)</p>
+                <p className='sidebarSubTitle'>La declaración del contenido neto representa la cantidad en el momento
+                del empacado. El contenido neto debe declararse </p>
+              </div>
+              <div id="pesoCont">
+                <div id='pesosCheckbox' style={{alignSelf:'flex-end', marginBottom:"1vh"}} onChange={()=>{this.handlePesoDrenadoDisable()}}>
+                  <CustomCheckbox/>
+                </div>
+                
+                <div id="pesos">
+                  <div id='pesoNeto'>
+                    <Select className='ddMenu' styles={ddLargerStyle} options={pesosNetos} defaultValue={this.state.pesoNeto} onChange={(e)=> this.handleChangeDropdown(e,"pesoNeto")}/>
+                    <input name='pesoNeto' type="text" onKeyPress={this.numberFilter} className=" gRInput numberInput"/>
+                    <Select className='ddMenu' styles={ddSmallStyle} options={unidadesMasa} defaultValue={this.state.pesoNetoUn} onChange={(e)=> this.handleChangeDropdown(e,"pesoNetoUn")}/>
+                  </div>
+                  <div id='pesoDrenado'>
+                    <Select className='ddMenu' styles={ddLargerStyle} options={pesosDrenados} defaultValue={{label:"Peso drenado", value: "Peso drenado"}} onChange={(e)=> this.handleChangeDropdown(e,"pesoNeto")} isDisabled={this.state.pesoDrenadoDisabled}/>
+                    <input id="pesoDrenadoInput" name='pesoDrenado' type="text" onKeyPress={this.numberFilter} className=" gRInput numberInput" disabled={this.state.pesoDrenadoDisabled}/>
+                    <Select className='ddMenu' styles={ddSmallStyle} options={unidadesMasa} defaultValue={{label:"g", value:"g"}} onChange={(e)=> this.handleChangeDropdown(e,"pesoNetoUn")} isDisabled={this.state.pesoDrenadoDisabled}/>
+                  </div>
+                </div>
+              </div>
+            </div>
           } />
 
           <SidebarItem icon="alcohol-content.png" alt="alcohol-content" dataTip="Grado alcohólico" isDisabled={isDisabled} content={
-            <></>
+            <div id="alcohol">
+              <div className='sidebarContHeader'>
+                <p className='sidebarTitle'>Contenido alcohólico</p>
+                <p className='sidebarSubTitle'>En el caso de necesitar, se debe declarar un porcentaje del contenido alcohólico.</p>
+              </div>
+              <div id="alcoholCont">
+                <input id="alcoholInput" name='alcohol' type="text" onKeyPress={this.numberFilter} className=" gRInput numberInput"></input>
+                <Select className='ddMenu' styles={ddLargestStyle} options={unidadesAlcohol} defaultValue={{value:"Alcohol __% (Vol.)", label:"Alcohol __% (Vol.)"}} onChange={(e)=> this.handleChangeDropdown(e,"alcoholUn")}/>
+              </div>
+            </div>
           } />
 
           <SidebarItem icon="ingredientes.png" alt="ingredientes" dataTip="Ingredientes" isDisabled={isDisabled} content={
@@ -349,7 +564,15 @@ class Sidebar extends Component{
           } />
 
           <SidebarItem icon="alergenos.png" alt="alergenos" dataTip="Alérgenos" isDisabled={isDisabled} content={
-            <></>
+            <div id='alergenos'>
+              <div className='sidebarContHeader'>
+                <p className='sidebarTitle'>Alérgenos</p>
+                <p className='sidebarSubTitle'>En el caso de necesitar, se debe declarar los tipos de alérgenos que contiene el producto.</p>
+              </div>
+              <div id='alergenosCont'>
+                <Select isMulti={true} className='ddMenu' styles={ddMultipleStyle} options={alergenos} onChange={(e)=>this.handleChangeMultiples(e,"alergenos")} />
+              </div>
+            </div>
           } />
 
           <SidebarItem icon="nutritionfacts.png" alt="nutritionfacts" dataTip="Informacion nutricional" isDisabled={isDisabled} content={
