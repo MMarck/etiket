@@ -236,9 +236,9 @@ function MisEtiquetas(){
       }
       
       {showTicketEdit?
-        <div className='w-100 h-100'>
-            <TicketEditor ticket={currentTicket} />
-        </div> 
+        
+        <TicketEditor ticket={currentTicket} />
+        
       :''
       }
 

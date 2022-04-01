@@ -2,6 +2,7 @@ import { Component } from 'react';
 import './TicketEditor.css';
 import Draggable from 'react-draggable'; 
 
+const returnImage = '../../images/icons/return.png'
 
 class TicketEditor extends Component{
 
@@ -172,43 +173,44 @@ class TicketEditor extends Component{
         
 
         return(
-            <div>
-                
-                <div className='d-flex'>
 
-                    <div className='d-flex flex-column' style={{backgroundColor:'#404040', height: '100vh', width:'-webkit-fill-available',maxHeight: '90vh'}}>
-                        <div className='' style={{ overflowY: 'scroll', maxHeight: '90vh', maxWidth:'72vw', zIndex:0}}> 
-                            <div id='ticketContainer' className='d-flex justify-content-center align-items-center m-0' style={{ zIndex:0}}>
-                                <TicketRectangularFront
-                                    productName={this.state.nombreProducto} 
-                                    brand={this.state.marca} 
-                                    netWeigth={this.state.pesoNeto} 
-                                    drenWeigth={this.state.pesoDrenado} 
-                                    ticketWidth={this.state.ancho}
-                                    ticketheight={this.state.altura}
-                                />
+            <div id='TicketEditorContainer' >
+                <div id='PreviewContainer'> 
+                    <div id='ticketContainer' className='d-flex justify-content-center align-items-center m-0' style={{ zIndex:0}}>
+                        <TicketRectangularFront
+                            productName={this.state.nombreProducto} 
+                            brand={this.state.marca} 
+                            netWeigth={this.state.pesoNeto} 
+                            drenWeigth={this.state.pesoDrenado} 
+                            ticketWidth={this.state.ancho}
+                            ticketheight={this.state.altura}
+                        />
 
-                                <TicketRectangularBack 
-                                    ingredients={this.state.ingredientes}
-                                    allergens = {this.state.alergenos}
-                                    conservationMethod = {this.state.metodoConservacion}
-                                    life = {this.state.vidaUtil}
-                                    direction = {this.state.direccion}
-                                    instructions = {this.state.instrucciones}
-                                    ticketWidth={this.state.ancho}
-                                    ticketheight={this.state.altura}
-                                />
-                            </div>
-                        </div>
-                        <div className='d-flex justify-content-around p-3' style={{zIndex:1}}>
-                            <button type="button" className='colored-button' onClick={this.clearVariables} > Borrar todo</button>
-                            <button type="button" className='colored-button' > Exportar a PDF</button>    
-                            <button type="button" className='colored-button' onClick={this.zoomIn}> zoom in </button>    
-                            <button type="button" className='colored-button' onClick={this.zoomOut}> zoom out</button>    
-                        </div>
+                        <TicketRectangularBack 
+                            ingredients={this.state.ingredientes}
+                            allergens = {this.state.alergenos}
+                            conservationMethod = {this.state.metodoConservacion}
+                            life = {this.state.vidaUtil}
+                            direction = {this.state.direccion}
+                            instructions = {this.state.instrucciones}
+                            ticketWidth={this.state.ancho}
+                            ticketheight={this.state.altura}
+                        />
+                    </div>
+                </div>
+
+                <div className='d-flex flex-column justify-content-center align-items-center gap-2' >
+                    <span className='p-2'><img src={returnImage} alt='return ' width={'10px'}  />  BORRAR TODO</span>
+
+                    <div className='d-flex gap-3'>
+                        <button type="button" className='darkButton-twhite' > EXPORTAR EN PDF</button>    
+                        <button type="button" className='darkButton-twhite' > EXPORTAR EN PNG</button>   
+                        <button type="button" className='colored-button' onClick={this.zoomIn}> zoom in </button>    
+                    <button type="button" className='colored-button' onClick={this.zoomOut}> zoom out</button>   
                     </div>
                     
-                </div>   
+                     
+                </div>
             </div>
       )
     };
@@ -247,7 +249,7 @@ function TicketRectangularFront ({productName, brand, netWeigth, drenWeigth, ver
                 
                 <SizeIndicator orientation={'vertical'} length={ticketHeight}/>
                 <div  style={{display:'inline-grid'}}>
-                    <h5 className='m-4' style={{'border':'2px solid #1ED796', textAlign:'center', color:'#1ED796'}} >Cara frontal</h5>
+                    <h5 className='text-center fw-bold text-dark m-4 ' >Panel de visualización principal</h5>
                     <div className='d-flex flex-column justify-content-between align-items-center' 
                     style={{backgroundColor:'white', height:ticketHeight, width:ticketWidth, textAlign:'center', position:'relative'}}
                     >
@@ -296,7 +298,7 @@ function TicketRectangularBack ({ingredients, allergens, conservationMethod, lif
 
     return(
         <div>
-            <h5 className='m-4' style={{'border':'2px solid #1ED796', textAlign:'center', color:'#1ED796'}} >Cara trasera</h5>
+            <h5 className='text-center fw-bold text-dark m-4 ' >Panel de información</h5>
             <div className='row' 
             style={{backgroundColor:'white', height: ticketheight, width: ticketWidth, textAlign:'center', position:'relative'}}
             >
@@ -353,8 +355,8 @@ function SizeIndicator ({length, orientation, visibilityProp}){
     if(orientation === 'horizontal'){
         return(
             <div  className=' d-inline-block text-center my-2' style={{visibility:visibilityProp}}>
-                <div className='px-2' style={{display: 'inline-block', position: 'relative', zIndex: '2', color: 'white', border: '2px solid #1ED796', backgroundColor: '#404040'}} >{length}</div>
-                <div className='line' style={{position: 'relative', top: '-16px', width: length, height: '3px', backgroundColor: '#1ED796'}}/>
+                <div className='px-2' style={{display: 'inline-block', position: 'relative', zIndex: '2', color: 'gray',}} >{length}</div>
+                <div className='line' style={{position: 'relative', top: '-20px', width: length, height: '2px', backgroundColor: 'gray'}}/>
             </div>
         )
     }
@@ -362,8 +364,8 @@ function SizeIndicator ({length, orientation, visibilityProp}){
     if(orientation === 'vertical'){
         return(
             <div  className='d-flex align-items-center justify-content-center' 
-            style={{width: '3px', height: length, margin:'0px 18px', backgroundColor: '#1ED796', transform: 'translateY(12px)'}}>
-                <div className='px-2' style={{ position: 'relative', border: '2px solid #1ED796', zIndex: '2', color: 'white', backgroundColor: '#404040', transform: 'rotate(-90deg)'}} >
+            style={{width: '2px', height: length, margin:'0px 18px', backgroundColor: 'gray', transform: 'translateY(12px)'}}>
+                <div className='px-2' style={{ position: 'relative',right:'10px',  zIndex: '2', color: 'gray', transform: 'rotate(-90deg)'}} >
                     {length}
                 </div>
             </div>

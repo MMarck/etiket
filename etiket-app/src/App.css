@@ -1,3 +1,5 @@
+@import 'components/constants.css';
+
 .App {
   text-align: center;
   height: 100%;
@@ -50,6 +52,15 @@
 .colored-button:hover{
   background-color: #1ED796;
   border: none;
+}
+
+
+.darkButton-twhite{
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 1em;
+  background-color: var(--Sblack);
 }
 
 #root{

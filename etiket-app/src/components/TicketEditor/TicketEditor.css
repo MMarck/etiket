@@ -1,7 +1,17 @@
-:root {
-    --Sgreen:#1ED796;
-    --Sblack:#404040;
-    --Sselectedgreen:#1dd79633;
+@import '../constants.css';
+
+#TicketEditorContainer{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width:'-webkit-fill-available';
+  max-height: 90vh;
+}
+
+#PreviewContainer{
+  width: 100%;
+  height: 100%;
+  overflow: auto;
 }
 
 .sidebarRect{
