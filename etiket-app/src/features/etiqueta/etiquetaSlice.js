@@ -21,7 +21,13 @@ export const etiquetaSlice = createSlice({
     metodoConservacion: '',
     vidaUtil:'',
     direccion: '',
-    instrucciones: ''
+    instrucciones: '',
+    pesosPos: {x:0,y:0},
+    nombrePos: {x:0,y:0},
+    marcaPos: {x:0, y:0},
+    ingPos: {x:0, y:0},
+    algPos: {x:0, y:0},
+    infNutPos: {x:0, y:0}
   },
   reducers: {
     replace: (state,stateName,event) => {
