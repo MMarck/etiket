@@ -4,8 +4,8 @@ export const etiquetaSlice = createSlice({
   name: 'etiqueta',
   initialState: {
     isDisabled: false,
-    ancho: "",
-    altura: "",
+    ancho: "10",
+    altura: "10",
     dimensionesUn: {label:"Centímetros",value:"cm"},
     nombreProducto: '',
     marca: "",

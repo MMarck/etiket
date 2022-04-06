@@ -591,7 +591,7 @@ class Sidebar extends Component{
                 <p className='sidebarSubTitle'>En el caso de necesitar, se debe declarar los tipos de alérgenos que contiene el producto.</p>
               </div>
               <div id='alergenosCont'>
-                <Select isMulti={true} className='ddMenu' styles={ddMultipleStyle} options={alergenos} onChange={(e)=> this.handleStateChange("alergenos",e)} />
+                <Select isMulti={true} className='ddMenu' styles={ddMultipleStyle} options={alergenos} onChange={(e)=> this.handleStateChange("alergenos",e.map((item) => " " + item.value))} />
               </div>
             </div>
           } />

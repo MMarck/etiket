@@ -3,6 +3,8 @@ import './TicketEditor.css';
 import Draggable from 'react-draggable'; 
 import { connect } from 'react-redux';
 import { replace } from '../../components/etiqueta/etiquetaSlice'
+import TicketViewerFront from '../TicketViewerFront/TicketViewerFront';
+import TicketViewerBack from '../TicketViewerBack/TicketViewerBack';
 
 const returnImage = '../../images/icons/return.png'
 
@@ -79,16 +81,9 @@ class TicketEditor extends Component{
             <div id='TicketEditorContainer' >
                 <div id='PreviewContainer'> 
                     <div id='ticketContainer' className='d-flex justify-content-center align-items-center m-0' style={{ zIndex:0}}>
-                        <TicketRectangularFront
-                            productName={this.props.etiqueta.nombreProducto} 
-                            brand={this.props.etiqueta.marca} 
-                            netWeigth={this.props.etiqueta.pesoNeto} 
-                            drenWeigth={this.props.etiqueta.pesoDrenado} 
-                            ticketWidth={this.props.etiqueta.ancho}
-                            ticketheight={this.props.etiqueta.altura}
-                        />
+                        <TicketViewerFront/>
 
-                        <TicketRectangularBack 
+                        <TicketViewerBack 
                             ingredients={this.props.etiqueta.ingredientes}
                             allergens = {this.props.etiqueta.alergenos}
                             conservationMethod = {this.props.etiqueta.metodoConservacion}
@@ -122,70 +117,6 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
   )(TicketEditor);
-
-
-
-
-/*
- * Componente para dibujar la parte DELANTERA de la etiqueta rectangular
-*/
-function TicketRectangularFront ({productName, brand, netWeigth, drenWeigth, verticalSizeIndicator, horizontalSizeIndicator, ticketheight: ticketHeight, ticketWidth}){
-    productName = productName? productName:'';
-    brand = brand? brand:'';
-    netWeigth = netWeigth? netWeigth:'';
-    drenWeigth = drenWeigth? drenWeigth:false;
-    verticalSizeIndicator = verticalSizeIndicator? verticalSizeIndicator:false;
-    horizontalSizeIndicator = horizontalSizeIndicator? horizontalSizeIndicator:false;
-    ticketHeight = ticketHeight? ticketHeight:'100mm';
-    ticketWidth = ticketWidth? ticketWidth:'100mm';
-
-    var ticketArea = parseInt(ticketHeight) * parseInt(ticketWidth); // ajustar unidades
-
-    var weigthBound = ( ticketArea > 10000)? (0.3 * parseInt(ticketHeight)) + "mm" : ticketHeight;
-    //10.000 mm2 
-
-
-
-
-    return(
-        <div>
-            
-            <div className='mx-4 d-flex align-items-center '>
-                
-                <SizeIndicator orientation={'vertical'} length={ticketHeight}/>
-                <div  style={{display:'inline-grid'}}>
-                    <h5 className='text-center fw-bold text-dark m-4 ' >Panel de visualización principal</h5>
-                    <div className='d-flex flex-column justify-content-between align-items-center' 
-                    style={{backgroundColor:'white', height:ticketHeight, width:ticketWidth, textAlign:'center', position:'relative'}}
-                    >
-
-                        
-                            <Draggable bounds='parent' ><span className='hover_colored_border'> {productName} </span></Draggable> 
-                            <Draggable bounds='parent' ><span className='hover_colored_border'> {brand} </span></Draggable> 
-                        
-                        
-                        <div className='d-flex flex-column justify-content-between align-items-center '
-                        style={{height:weigthBound, width:'-webkit-fill-available', textAlign:'center', position:'static'}}
-                         >
-                            <Draggable bounds='parent' ><span className='hover_colored_border'> {netWeigth?  'Contenido Neto '+netWeigth: ''}</span></Draggable> 
-
-                            {drenWeigth?
-                                <Draggable bounds='parent' ><span className='hover_colored_border'> Contenido drenado {drenWeigth} </span></Draggable>
-                                :''                    
-                            }
-
-                        </div>
-                        
-
-                    </div>
-                    <SizeIndicator length={ticketWidth}/>
-                </div>
-                
-            </div>
-            
-        </div>
-    )
-}
 
 
 /*
