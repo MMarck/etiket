@@ -5,6 +5,9 @@ import SidebarItem from "../SidebarItem/SidebarItem";
 import CustomCheckbox from "../CustomCheckbox/CustomCheckbox";
 import {Link} from 'react-router-dom';
 import Select from 'react-select';
+import { connect } from 'react-redux';
+import {replace} from "../etiqueta/etiquetaSlice";
+import { getFormControlUnstyledUtilityClasses } from '@mui/base';
 
 const pathIcons = '../images/icons/';
 
@@ -365,6 +368,13 @@ const ddSmallStyle={
   })
 }
 
+const mapStateToProps = state => ({
+  etiqueta: state.etiqueta
+});
+const mapDispatchToProps = () => ({ 
+  replace
+});
+
 class Sidebar extends Component{
     
   constructor(props){
@@ -424,8 +434,9 @@ class Sidebar extends Component{
   handlePesoDrenadoDisable(){
     this.setState({pesoDrenadoDisabled: !this.state.pesoDrenadoDisabled}, ()=>{
       if (!this.state.pesoDrenadoDisabled) {
-        document.getElementById("pesoDrenadoInput").value="";
-        this.setState({pesoDrenado: {}, pesoDrenadoUn:{}});
+        //document.getElementById("pesoDrenadoInput").value="";
+        this.handleStateChange("pesoDrenado","")
+        this.handleStateChange("pesoDrenadoUn",{})
       }
     })
   }
@@ -442,8 +453,18 @@ class Sidebar extends Component{
     }
     this.setState({[estado]:res})
   }
+  
+  handleStateChange(stateName,value){
+    const payload={
+      stateName: stateName,
+      value: value
+    }
+
+    this.props.replace(payload);
+  }
 
   render(){
+    
     const isDisabled=this.state.isDisabled
     return (
       <div id='SidebarContainer' className='' >
@@ -479,15 +500,15 @@ class Sidebar extends Component{
                 <div id="dimensionesInput">
                   <div id='sbAncho'>
                     <label htmlFor="ancho" className="sbLabel">Ancho</label>
-                    <input name='ancho' value={this.state.labelAncho} type = "text" onChange={(e)=>this.handleChangeValoresDimensiones(e.target.value,"ancho","labelAncho")} className="gRInput numberInput" onKeyPress={this.numberFilter}/>
+                    <input name='ancho' value={this.props.etiqueta.ancho} type = "text" onChange={(e)=>this.handleStateChange("ancho",e.target.value)} className="gRInput numberInput" onKeyPress={this.numberFilter}/>
                   </div>
                   <div id='sbAltura'>
                     <label htmlFor="altura" className="sbLabel">Altura</label>
-                    <input name='altura' value={this.state.labelAltura} type = "text" onChange={(e)=>this.handleChangeValoresDimensiones(e.target.value,"altura","labelAltura")} className="gRInput numberInput" onKeyPress={this.numberFilter}/>
+                    <input name='altura' value={this.props.etiqueta.altura} type = "text" onChange={(e)=>this.handleStateChange("altura",e.target.value)} className="gRInput numberInput" onKeyPress={this.numberFilter}/>
                   </div>
                 </div>
                 <div id="sbUnidades">
-                <Select className='ddMenu' styles={ddLargerStyle} options={unidades} defaultValue={this.state.dimensionesUn} onChange={(e)=> this.handleChangeUnidadesDimensiones(e)}/>
+                <Select className='ddMenu' styles={ddLargerStyle} options={unidades} defaultValue={this.props.etiqueta.dimensionesUn} onChange={(e)=> this.handleStateChange("dimensionesUn",e)}/>
                 </div>
               </div>
             </div>
@@ -500,7 +521,7 @@ class Sidebar extends Component{
                 <p className='sidebarSubTitle'>Ingresa el nombre de tu alimento. Recuerda que el nombre debe indicar su verdadera naturaleza y debe ser específico y no genérico.</p>
               </div>
               <div id='identidadCont'>
-                <input name='nombreProducto' placeholder='Escriba aquí...' value={this.state.nombreProducto} type="text" onChange={this.updateStateVariable} className="gRInput"/>
+                <input name='nombreProducto' placeholder='Escriba aquí...' value={this.props.etiqueta.nombreProducto} type="text" onChange={(e)=> this.handleStateChange("nombreProducto",e.target.value)} className="gRInput"/>
               </div>
             </div>
           }/>
@@ -513,7 +534,7 @@ class Sidebar extends Component{
                  o una "marca registrada", siempre que vaya acompañado de la identidad del alimento.</p>
               </div>
               <div id='marcaCont'>
-                <input name='marca' placeholder='Escriba aquí...' value={this.state.marca} type="text" onChange={this.updateStateVariable} className="gRInput"/>
+                <input name='marca' placeholder='Escriba aquí...' value={this.props.etiqueta.marca} type="text" onChange={(e)=> this.handleStateChange("marca",e.target.value)} className="gRInput"/>
               </div>
             </div>
           }/>
@@ -532,14 +553,14 @@ class Sidebar extends Component{
                 
                 <div id="pesos">
                   <div id='pesoNeto'>
-                    <Select className='ddMenu' styles={ddLargerStyle} options={pesosNetos} defaultValue={this.state.pesoNeto} onChange={(e)=> this.handleChangeDropdown(e,"pesoNeto")}/>
-                    <input name='pesoNeto' type="text" onKeyPress={this.numberFilter} className=" gRInput numberInput"/>
-                    <Select className='ddMenu' styles={ddSmallStyle} options={unidadesMasa} defaultValue={this.state.pesoNetoUn} onChange={(e)=> this.handleChangeDropdown(e,"pesoNetoUn")}/>
+                    <Select className='ddMenu' styles={ddLargerStyle} options={pesosNetos} defaultValue={this.props.etiqueta.pesoNetoLabel} onChange={(e)=> this.handleStateChange("pesoNetoLabel",e)}/>
+                    <input name='pesoNeto' value={this.props.etiqueta.pesoNeto} type="text" onKeyPress={this.numberFilter} className=" gRInput numberInput" onChange={(e)=> this.handleStateChange("pesoNeto",e.target.value)}/>
+                    <Select className='ddMenu' styles={ddSmallStyle} options={unidadesMasa} defaultValue={this.props.etiqueta.pesoNetoUn} onChange={(e)=> this.handleStateChange("pesoNetoUn",e)}/>
                   </div>
                   <div id='pesoDrenado'>
-                    <Select className='ddMenu' styles={ddLargerStyle} options={pesosDrenados} defaultValue={{label:"Peso drenado", value: "Peso drenado"}} onChange={(e)=> this.handleChangeDropdown(e,"pesoNeto")} isDisabled={this.state.pesoDrenadoDisabled}/>
-                    <input id="pesoDrenadoInput" name='pesoDrenado' type="text" onKeyPress={this.numberFilter} className=" gRInput numberInput" disabled={this.state.pesoDrenadoDisabled}/>
-                    <Select className='ddMenu' styles={ddSmallStyle} options={unidadesMasa} defaultValue={{label:"g", value:"g"}} onChange={(e)=> this.handleChangeDropdown(e,"pesoNetoUn")} isDisabled={this.state.pesoDrenadoDisabled}/>
+                    <Select className='ddMenu' styles={ddLargerStyle} options={pesosDrenados} defaultValue={this.props.etiqueta.pesoDrenadoLabel} onChange={(e)=> this.handleStateChange("pesoDrenadoLabel",e)} isDisabled={this.state.pesoDrenadoDisabled}/>
+                    <input id="pesoDrenadoInput" value={this.props.etiqueta.pesoDrenado} name='pesoDrenado' type="text" onKeyPress={this.numberFilter} className=" gRInput numberInput" onChange={(e)=> this.handleStateChange("pesoNeto",e.target.value)} disabled={this.state.pesoDrenadoDisabled}/>
+                    <Select className='ddMenu' styles={ddSmallStyle} options={unidadesMasa} defaultValue={this.props.etiqueta.pesoDrenadoUn} onChange={(e)=> this.handleChangeDropdown(e,"pesoNetoUn")} isDisabled={this.state.pesoDrenadoDisabled}/>
                   </div>
                 </div>
               </div>
@@ -553,8 +574,8 @@ class Sidebar extends Component{
                 <p className='sidebarSubTitle'>En el caso de necesitar, se debe declarar un porcentaje del contenido alcohólico.</p>
               </div>
               <div id="alcoholCont">
-                <input id="alcoholInput" name='alcohol' type="text" onKeyPress={this.numberFilter} className=" gRInput numberInput"></input>
-                <Select className='ddMenu' styles={ddLargestStyle} options={unidadesAlcohol} defaultValue={{value:"Alcohol __% (Vol.)", label:"Alcohol __% (Vol.)"}} onChange={(e)=> this.handleChangeDropdown(e,"alcoholUn")}/>
+                <input id="alcoholInput" name='alcohol' type="text" onKeyPress={this.numberFilter} className=" gRInput numberInput" onChange={(e)=> this.handleStateChange("alcohol",e.target.value)}></input>
+                <Select className='ddMenu' styles={ddLargestStyle} options={unidadesAlcohol} defaultValue={{value:"Alcohol __% (Vol.)", label:"Alcohol __% (Vol.)"}} onChange={(e)=> this.handleStateChange("alcoholUn",e)}/>
               </div>
             </div>
           } />
@@ -570,7 +591,7 @@ class Sidebar extends Component{
                 <p className='sidebarSubTitle'>En el caso de necesitar, se debe declarar los tipos de alérgenos que contiene el producto.</p>
               </div>
               <div id='alergenosCont'>
-                <Select isMulti={true} className='ddMenu' styles={ddMultipleStyle} options={alergenos} onChange={(e)=>this.handleChangeMultiples(e,"alergenos")} />
+                <Select isMulti={true} className='ddMenu' styles={ddMultipleStyle} options={alergenos} onChange={(e)=> this.handleStateChange("alergenos",e)} />
               </div>
             </div>
           } />
@@ -615,4 +636,7 @@ class Sidebar extends Component{
   };
 }
 
-export default Sidebar;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps()
+)(Sidebar);
