@@ -9,10 +9,12 @@ export const etiquetaSlice = createSlice({
     dimensionesUn: {label:"Centímetros",value:"cm"},
     nombreProducto: '',
     marca: "",
-    pesoNeto: {label:"Contenido neto", value: "Contenido neto"},
+    pesoNetoLabel: {label:"Contenido neto", value: "Contenido neto"},
+    pesoNeto: "",
     pesoNetoUn:{label:"g", value:"g"},
     pesoDrenadoDisabled:true,
-    pesoDrenado: {},
+    pesoDrenadoLabel: {},
+    pesoDrenado: "",
     pesoDrenadoUn:{},
     alcohol:"",
     alcoholUn:{},
@@ -21,14 +23,22 @@ export const etiquetaSlice = createSlice({
     metodoConservacion: '',
     vidaUtil:'',
     direccion: '',
-    instrucciones: ''
+    instrucciones: '',
+    pesosPos: {x:0,y:0},
+    nombrePos: {x:0,y:0},
+    marcaPos: {x:0, y:0},
+    ingPos: {x:0, y:0},
+    algPos: {x:0, y:0},
+    infNutPos: {x:0, y:0}
   },
   reducers: {
-    replace: (state,stateName,event) => {
+    replace: (state,action) => {
       // Esta función es para reemplazar un estado por el evento
-      // Se pone stateName el estado a cambiar y event es el valor nuevo
+      // Se pone stateName el estado a cambiar y action es el valor nuevo
+      // Action tiene la forma de {nombreEstado: "", value: ""}
       // Se usaría para cosas como pesoNeto
-      state[stateName] = event
+      state[action.payload.stateName] = action.payload.value
+      console.log(state[action.payload.stateName])
     }
   },
 })

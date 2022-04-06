@@ -237,7 +237,7 @@ function MisEtiquetas(){
       
       {showTicketEdit?
         
-        <TicketEditor ticket={currentTicket} />
+        <TicketEditor />
         
       :''
       }
