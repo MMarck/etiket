@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+
+
+
 export const etiquetaSlice = createSlice({
   name: 'etiqueta',
   initialState: {
@@ -20,12 +23,13 @@ export const etiquetaSlice = createSlice({
     alcoholUn:{},
     ingredientes: '',
     alergenos: '',
-    metodoConservacion: '',
+    conservacionUn: {label:"Mantener", value:"Mantener"},
+    metodoConservacion: {label:"En refrigeración", value:"En refrigeración"},
     vidaUtil:'',
     vidaUtilUn: {label: "Días", value: "Días"},
-    fabricacion:new Date(),
+    fabricacion:handleDateChange(new Date()),
     fabricacionUn:{label: "Fecha de elaboración", value: "Fecha de elaboración"},
-    caducacion:new Date(),
+    caducacion:handleDateChange(new Date()),
     caducacionUn:{label: "Fecha de caducación", value: "Fecha de caducación"},
     direccion: '',
     instrucciones: '',
@@ -51,3 +55,17 @@ export const etiquetaSlice = createSlice({
 export const { replace } = etiquetaSlice.actions
 
 export default etiquetaSlice.reducer
+
+
+function handleDateChange(value){
+
+  const yyyy = value.getFullYear();
+  let mm = value.getMonth() + 1; 
+  let dd = value.getDate();
+
+  if (dd < 10) dd = '0' + dd;
+  if (mm < 10) mm = '0' + mm;
+
+  const date = dd + '/' + mm + '/' + yyyy
+  return date
+}
