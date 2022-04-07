@@ -13,7 +13,11 @@ import CreateAccount from './components/CreateAccount/CreateAccount';
 import Dashboard from './components/Dashboard/Dashboard'
 import ReactTooltip from "react-tooltip";
 
+import store from './app/store'
+
 function App() {
+
+  console.log(store.getState());
 
   return (
     <Router>

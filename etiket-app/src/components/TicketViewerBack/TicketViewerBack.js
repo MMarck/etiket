@@ -77,10 +77,10 @@ class TicketViewerBack extends Component{
 
                                 <br/><br/>
 
-                                <span>  
+                                <span><b>
                                     {this.props.etiqueta.alergenos?
                                         "CONTIENE: " + this.props.etiqueta.alergenos
-                                    :''}
+                                    :''}</b>
                                 </span>
                             </div>
                         </Draggable>

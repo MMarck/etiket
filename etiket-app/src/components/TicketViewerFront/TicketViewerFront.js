@@ -49,21 +49,21 @@ class TicketViewerFront extends Component{
                             
                             
                             <div className='d-flex flex-column justify-content-between align-items-center '
-                            style={{height: this.state.weigthBound, width:'-webkit-fill-available', textAlign:'center', position:'static'}}
+                            style={{height: this.state.weigthBound, width:'-webkit-fill-available', textAlign:'center', position:'relative'}}
                             >
                                 <Draggable bounds='parent' >
                                     <span className='hover_colored_border'> 
                                         {this.props.etiqueta.pesoNeto? 
-                                            'Contenido Neto '+this.props.etiqueta.pesoNeto +' '+ this.props.etiqueta.pesoNetoUn.value
+                                            this.props.etiqueta.pesoNetoLabel.value +" "+this.props.etiqueta.pesoNeto +' '+ this.props.etiqueta.pesoNetoUn.value
                                         : ''}
                                     </span>
                                 </Draggable> 
 
-                                {!this.props.etiqueta.pesoDrenadoDisabled?
+                                {true?
                                     <Draggable bounds='parent' >
                                         <span className='hover_colored_border'> 
                                             {this.props.etiqueta.pesoDrenado?  
-                                                'Contenido Neto '+this.props.etiqueta.pesoDrenado +' '+ this.props.etiqueta.pesoDrenadoUn.value
+                                                this.props.etiqueta.pesoDrenadoLabel.value +" "+this.props.etiqueta.pesoDrenado +' '+ this.props.etiqueta.pesoDrenadoUn.value
                                                 : ''}
                                         </span>
                                     </Draggable>
