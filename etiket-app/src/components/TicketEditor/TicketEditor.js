@@ -1,123 +1,30 @@
 import { Component } from 'react';
 import './TicketEditor.css';
 import Draggable from 'react-draggable'; 
+import { connect } from 'react-redux';
+import { replace } from '../../components/etiqueta/etiquetaSlice'
+import TicketViewerFront from '../TicketViewerFront/TicketViewerFront';
+import TicketViewerBack from '../TicketViewerBack/TicketViewerBack';
 
 const returnImage = '../../images/icons/return.png'
 
+const mapStateToProps = state => ({
+    etiqueta: state.etiqueta
+  });
+const mapDispatchToProps = () => ({ 
+    replace
+});
 class TicketEditor extends Component{
 
-    constructor(props, ticket){
-        
+    constructor(props){
         super(props);
-        console.log(this.props.ticket);
         this.state = {
-            selectedAlturaUn: 'cm',
-            selectedAnchoUn: 'cm',
-            altura: '',
-            ancho: '',
-            nombreProducto: '',
-            marca: '',
-            selectedNetoUn:'g',
-            selectedDrenadoUn: 'g',
-            pesoNeto: '',
-            pesoDrenado: '',
-            ingredientes: '',
-            alergenos: '',
-            metodoConservacion: '',
-            selectedUtilUn: '',
-            vidaUtil:'',
-            direccion: '',
-            instrucciones: '',
-            disabled: true,
-            zoom: 1
-        };
-        this.updateStateVariable = this.updateStateVariable.bind(this);
-        this.clearVariables = this.clearVariables.bind(this);
+            zoom : 1
+        }
         this.zoomIn = this.zoomIn.bind(this);
         this.zoomOut = this.zoomOut.bind(this);
-        this.numberFilter=this.numberFilter.bind(this);
     }
 
-    /* 
-    * Para que este metodo funcione bien se debe declarar
-    * la variable A en el estado y el input debe tener el 
-    * prop 'name' con el nombre A 
-    */
-    updateStateVariable(event){
-        const { value, name } = event.target;
-        this.setState({
-            [name]: value
-        })
-    }
-
-    clearVariables(){
-        //borrar estado
-        this.setState({
-            altura: '',
-            ancho: '',
-            nombreProducto: '',
-            marca: '',
-            pesoNeto: '',
-            presoDrenado: '',
-            ingredientes: '',
-            alergenos: '',
-            metodoConservacion: '',
-            vidaUtil:'',
-            direccion: '',
-            instrucciones: ''
-        })
-        //borrar formulario
-
-    }
-
-    numberFilter(event) {
-        var value = event.target.value + event.key;
-        if (!/^\d{0,3}(\.\d{0,2})?$/.test(value)){
-           event.preventDefault();
-        }
-    }
-
-    handleChangeUnidades(e,unidad,estado){
-        this.setState({ [unidad]: e.value }, ()=> {
-            this.setState({[estado]: parseFloat(this.state[estado])+this.state[unidad]})
-        });
-        
-    }
-
-    handleChangeValores(e,estado,unidad){
-        this.setState({[estado]:e+this.state[unidad]})
-    }
-
-    handleChangeMultiples(e,estado){
-        var res="";
-        if (e.length>1) {
-            e.forEach(element => {
-                res=res+","+element.label;
-            });
-            res=res.slice(1);
-        } else if(e.length===1) {
-            res=e[0].label
-        }
-        this.setState({[estado]:res})
-    }
-
-    handleChangeSingle(e,estado){
-        this.setState({[estado]:e.label})
-    }
-
-    /*
-    * Función para habilitar/desabilitar el peso denrado
-    */
-    changeDisabled(){
-        const isDisabled=document.getElementById("pesoDrenado").disabled;
-            if (isDisabled) {
-                document.getElementById("pesoDrenado").disabled=false;
-            } else {
-                document.getElementById("pesoDrenado").disabled=true;
-                document.getElementById("pesoDrenado").value="";
-                this.setState({"pesoDrenado": ""})
-            }
-    }
 
     /*
     * Función permite aumentar el zoom aplicado como propiedad css al contenedor de las etiquetas
@@ -169,32 +76,22 @@ class TicketEditor extends Component{
 
 
     render(){
-        
-        
-
         return(
 
             <div id='TicketEditorContainer' >
                 <div id='PreviewContainer'> 
                     <div id='ticketContainer' className='d-flex justify-content-center align-items-center m-0' style={{ zIndex:0}}>
-                        <TicketRectangularFront
-                            productName={this.state.nombreProducto} 
-                            brand={this.state.marca} 
-                            netWeigth={this.state.pesoNeto} 
-                            drenWeigth={this.state.pesoDrenado} 
-                            ticketWidth={this.state.ancho}
-                            ticketheight={this.state.altura}
-                        />
+                        <TicketViewerFront/>
 
-                        <TicketRectangularBack 
-                            ingredients={this.state.ingredientes}
-                            allergens = {this.state.alergenos}
-                            conservationMethod = {this.state.metodoConservacion}
-                            life = {this.state.vidaUtil}
-                            direction = {this.state.direccion}
-                            instructions = {this.state.instrucciones}
-                            ticketWidth={this.state.ancho}
-                            ticketheight={this.state.altura}
+                        <TicketViewerBack 
+                            ingredients={this.props.etiqueta.ingredientes}
+                            allergens = {this.props.etiqueta.alergenos}
+                            conservationMethod = {this.props.etiqueta.metodoConservacion}
+                            life = {this.props.etiqueta.vidaUtil}
+                            direction = {this.props.etiqueta.direccion}
+                            instructions = {this.props.etiqueta.instrucciones}
+                            ticketWidth={this.props.etiqueta.ancho}
+                            ticketheight={this.props.etiqueta.altura}
                         />
                     </div>
                 </div>
@@ -216,71 +113,10 @@ class TicketEditor extends Component{
     };
 }
 
-export default TicketEditor;
-
-
-
-
-/*
- * Componente para dibujar la parte DELANTERA de la etiqueta rectangular
-*/
-function TicketRectangularFront ({productName, brand, netWeigth, drenWeigth, verticalSizeIndicator, horizontalSizeIndicator, ticketheight: ticketHeight, ticketWidth}){
-    productName = productName? productName:'Nombre del producto';
-    brand = brand? brand:'Marca®';
-    netWeigth = netWeigth? netWeigth:'-';
-    drenWeigth = drenWeigth? drenWeigth:false;
-    verticalSizeIndicator = verticalSizeIndicator? verticalSizeIndicator:false;
-    horizontalSizeIndicator = horizontalSizeIndicator? horizontalSizeIndicator:false;
-    ticketHeight = ticketHeight? ticketHeight:'100mm';
-    ticketWidth = ticketWidth? ticketWidth:'100mm';
-
-    var ticketArea = parseInt(ticketHeight) * parseInt(ticketWidth); // ajustar unidades
-
-    var weigthBound = ( ticketArea > 10000)? (0.3 * parseInt(ticketHeight)) + "mm" : ticketHeight;
-    //10.000 mm2 
-
-
-
-
-    return(
-        <div>
-            
-            <div className='mx-4 d-flex align-items-center '>
-                
-                <SizeIndicator orientation={'vertical'} length={ticketHeight}/>
-                <div  style={{display:'inline-grid'}}>
-                    <h5 className='text-center fw-bold text-dark m-4 ' >Panel de visualización principal</h5>
-                    <div className='d-flex flex-column justify-content-between align-items-center' 
-                    style={{backgroundColor:'white', height:ticketHeight, width:ticketWidth, textAlign:'center', position:'relative'}}
-                    >
-
-                        
-                            <Draggable bounds='parent' ><span className='hover_colored_border'> {productName} </span></Draggable> 
-                            <Draggable bounds='parent' ><span className='hover_colored_border'> {brand} </span></Draggable> 
-                        
-                        
-                        <div className='d-flex flex-column justify-content-between align-items-center '
-                        style={{height:weigthBound, width:'-webkit-fill-available', textAlign:'center', position:'static'}}
-                         >
-                            <Draggable bounds='parent' ><span className='hover_colored_border'> Contenido Neto {netWeigth}</span></Draggable> 
-
-                            {drenWeigth?
-                                <Draggable bounds='parent' ><span className='hover_colored_border'> Contenido drenado {drenWeigth} </span></Draggable>
-                                :''                    
-                            }
-
-                        </div>
-                        
-
-                    </div>
-                    <SizeIndicator length={ticketWidth}/>
-                </div>
-                
-            </div>
-            
-        </div>
-    )
-}
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(TicketEditor);
 
 
 /*
