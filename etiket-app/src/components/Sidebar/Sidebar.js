@@ -647,8 +647,6 @@ class Sidebar extends Component{
 
     const date = dd + '/' + mm + '/' + yyyy
 
-    console.log(date)
-
     const payload={
       stateName: stateName,
       value: date
@@ -660,7 +658,6 @@ class Sidebar extends Component{
   getDateObject(value){
     value=value.split("/")
     const date=new Date(parseInt(value[2]),parseInt(value[1]) -1,parseInt(value[0]))
-    console.log(date)
     return date
   }
 
