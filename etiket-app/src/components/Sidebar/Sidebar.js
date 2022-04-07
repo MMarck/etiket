@@ -62,6 +62,17 @@ const unidadesMasa=[
   }
 ]
 
+const conservacionUn=[
+  {
+    value: "Mantener",
+    label: "Mantener"
+  },
+  {
+    value: "Conservar",
+    label: "Conservar"
+  }
+]
+
 const conservacion=[
   {
       value: "ambRefr",
@@ -389,6 +400,54 @@ const ddLargeStyle={
   }),
 }
 
+const ddLargeStyleSmallFont={
+  option: (provided, state)=>({
+    ...provided,
+    backgroundColor: state.isSelected ? '#1ED796':state.isFocused ? "#1dd79633":"#404040",
+    color: "white",
+    cursor: "Pointer",
+  }),
+  menuList: (provided, state) =>({
+    ...provided,
+    border: "2px solid #404040",
+    backgroundColor: "#404040",
+    borderRadius: "5px",
+  }),
+  control: (provided, state) =>({
+    border: state.isDisabled ? "2px solid #00000048":"2px solid #404040",
+    backgroundColor: state.isDisabled ? "#00000048":"#404040",
+    display: "flex",
+    cursor: "Pointer",
+    width:"14vw",
+    maxWidth: "30vw",
+    borderRadius: "8px",
+      
+  }),
+  input: (provided,state)=>({
+    ...provided,
+    color: "white"
+  }),
+  placeholder: (provided,state)=>({
+    ...provided,
+    color: "white"
+  }),
+  singleValue: (provided,state)=>({
+    ...provided,
+    color: "white",
+    fontSize: "0.65em"
+  }),
+  dropdownIndicator: (provided, state)=>({
+    ...provided,
+    "&:hover":{
+        color: "#1ED796"
+    }
+  }),
+  menu: (provided, state)=>({
+    ...provided,
+    borderRadius: "8px",
+  }),
+}
+
 const ddLargestStyle={
   option: (provided, state)=>({
     ...provided,
@@ -577,6 +636,35 @@ class Sidebar extends Component{
     this.props.replace(payload);
   }
 
+  handleDateChange(stateName,value){
+
+    const yyyy = value.getFullYear();
+    let mm = value.getMonth() + 1; 
+    let dd = value.getDate();
+
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+
+    const date = dd + '/' + mm + '/' + yyyy
+
+    console.log(date)
+
+    const payload={
+      stateName: stateName,
+      value: date
+    }
+
+    this.props.replace(payload)
+  }
+
+  getDateObject(value){
+    value=value.split("/")
+    const date=new Date(parseInt(value[2]),parseInt(value[1]) -1,parseInt(value[0]))
+    console.log(date)
+    return date
+  }
+
+
   render(){
     
     const isDisabled=this.state.isDisabled
@@ -727,18 +815,27 @@ class Sidebar extends Component{
                 </div>
                 <div id='elab' className='vidaSubCont'>
                   <Select className='ddMenu' styles={ddLargestStyle} options={fabricaciones} onChange={(e)=> this.handleStateChange("fabricacionUn",e)} />
-                  <DatePicker onChange={(e)=>this.handleStateChange("fabricacion",e)} value={this.props.etiqueta.fabricacion}/>
+                  <DatePicker format='d/M/yyyy' onChange={(e)=>this.handleDateChange("fabricacion",e)} value={this.getDateObject(this.props.etiqueta.fabricacion)}/>
                 </div>
                 <div id='cadu' className='vidaSubCont'>
                   <Select className='ddMenu' styles={ddLargestStyle} options={caducidades} onChange={(e)=> this.handleStateChange("caducacionUn",e)} />
-                  <DatePicker onChange={(e)=>this.handleStateChange("caducacion",e)} value={this.props.etiqueta.caducacion}/>
+                  <DatePicker format='d/M/yyyy' onChange={(e)=>this.handleDateChange("caducacion",e)} value={this.getDateObject(this.props.etiqueta.caducacion)}/>
                 </div>
               </div>
             </div>
           } />
 
           <SidebarItem icon="celsius.png" alt="celsius" dataTip="Forma de conservación" isDisabled={isDisabled} content={
-            <></>
+            <div id='conservacion'>
+              <div className='sidebarContHeader'>
+                <p className='sidebarTitle'>Forma de conservacion</p>
+                <p className='sidebarSubTitle'>Se debe especificar la forma de conservacion correcta de su producto.</p>
+              </div>
+              <div id='conservacionCont'>
+                <Select className='ddMenu' defaultValue={this.props.etiqueta.conservacionUn} styles={ddNormalStyle} options={conservacionUn} onChange={(e)=> this.handleStateChange("conservacionUn",e)} />
+                <Select className='ddMenu' defaultValue={this.props.etiqueta.metodoConvervacion} styles={ddLargeStyleSmallFont} options={conservacion} onChange={(e)=> this.handleStateChange("metodoConvervacion",e)} />
+              </div>
+            </div>
           } />
 
           <SidebarItem icon="lote.png" alt="lote" dataTip="Identificación del lote" isDisabled={isDisabled} content={

@@ -225,19 +225,24 @@ i{
 }
 
 #alcoholCont{
-    display: flex;
-    gap: 1vw;
+  display: flex;
+  gap: 1vw;
 }
 
 #vidaCont{
-    display: flex;
-    flex-direction: column;
-    gap: 1vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
 }
 
 .vidaSubCont{
-    display: flex;
-    gap: 1vw;
+  display: flex;
+  gap: 1vw;
+}
+
+#conservacionCont{
+  display: flex;
+  gap: 0.5vw;
 }
 
 /* Date picker */
@@ -388,15 +393,21 @@ i{
 .react-calendar__navigation button:disabled {
   background-color: #f0f0f0;
 }
+
+.react-calendar__navigation button:enabled{
+  color: white;
+}
+
 .react-calendar__navigation button:enabled:hover,
 .react-calendar__navigation button:enabled:focus {
-  background-color: #e6e6e6;
+  background-color: var(--Sgreen);
 }
 .react-calendar__month-view__weekdays {
   text-align: center;
   text-transform: uppercase;
   font-weight: bold;
   font-size: 0.75em;
+  color: white;
 }
 .react-calendar__month-view__weekdays__weekday {
   padding: 0.5em;
@@ -408,6 +419,11 @@ i{
   font-size: 0.75em;
   font-weight: bold;
 }
+
+.react-calendar__month-view__days__day{
+  color: white;
+}
+
 .react-calendar__month-view__days__day--weekend {
   color: #d10000;
 }
