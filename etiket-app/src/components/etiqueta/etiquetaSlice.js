@@ -22,6 +22,11 @@ export const etiquetaSlice = createSlice({
     alergenos: '',
     metodoConservacion: '',
     vidaUtil:'',
+    vidaUtilUn: {label: "Días", value: "Días"},
+    fabricacion:new Date(),
+    fabricacionUn:{label: "Fecha de elaboración", value: "Fecha de elaboración"},
+    caducacion:new Date(),
+    caducacionUn:{label: "Fecha de caducación", value: "Fecha de caducación"},
     direccion: '',
     instrucciones: '',
     pesosPos: {x:0,y:0},
@@ -38,7 +43,6 @@ export const etiquetaSlice = createSlice({
       // Action tiene la forma de {nombreEstado: "", value: ""}
       // Se usaría para cosas como pesoNeto
       state[action.payload.stateName] = action.payload.value
-      console.log(state[action.payload.stateName])
     }
   },
 })

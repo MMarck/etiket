@@ -8,6 +8,7 @@ import Select from 'react-select';
 import { connect } from 'react-redux';
 import {replace} from "../etiqueta/etiquetaSlice";
 import { getFormControlUnstyledUtilityClasses } from '@mui/base';
+import DatePicker from 'react-date-picker/dist/entry.nostyle';
 
 const pathIcons = '../images/icons/';
 
@@ -90,8 +91,74 @@ const unidadesDias=[
       label: "Meses",
   },
   {
+    value: "Año",
+    label: "Año"
+  },
+  {
       value: "Años",
       label: "Años"
+  }
+]
+
+const fabricaciones=[
+  {
+    value: "Fecha de elaboración",
+    label: "Fecha de elaboración",
+  },
+  {
+      value: "Fecha de fabricación",
+      label: "Fecha de fabricación",
+  },
+  {
+    value: "Fecha de envasado",
+    label: "Fecha de envasado"
+  }
+]
+
+const caducidades=[
+  {
+    value: "Consumir antes del",
+    label: "Consumir antes del",
+  },
+  {
+      value: "Fecha de caducidad",
+      label: "Fecha de caducidad",
+  },
+  {
+    value: "Fecha de vencimiento",
+    label: "Fecha de vencimiento"
+  },
+  {
+    value: "Fecha de elaboración",
+    label: "Fecha de elaboración",
+  },
+  {
+      value: "Consumir preferentemente antes del",
+      label: "Consumir preferentemente antes del",
+  },
+  {
+    value: "Fecha de mejor calidad",
+    label: "Fecha de mejor calidad"
+  },
+  {
+    value: "Consumir antes del final de",
+    label: "Consumir antes del final de",
+  },
+  {
+    value: "Consumir preferentemente antes del final de",
+    label: "Consumir preferentemente antes del final de"
+  },
+  {
+    value: "Fecha de mejor calidad: antes del final de",
+    label: "Fecha de mejor calidad: antes del final de"
+  },
+  {
+      value: "Fecha de caducidad: final de",
+      label: "Fecha de caducidad: final de",
+  },
+  {
+    value: "Fecha de vencimiento: final de",
+    label: "Fecha de vencimiento: final de"
   }
 ]
 
@@ -228,7 +295,7 @@ const ddMultipleStyle={
   }),
 }
 
-const ddLargerStyle={
+const ddNormalStyle={
   option: (provided, state)=>({
     ...provided,
     backgroundColor: state.isSelected ? '#1ED796':state.isFocused ? "#1dd79633":"#404040",
@@ -275,7 +342,7 @@ const ddLargerStyle={
   }),
 }
 
-const ddLargestStyle={
+const ddLargeStyle={
   option: (provided, state)=>({
     ...provided,
     backgroundColor: state.isSelected ? '#1ED796':state.isFocused ? "#1dd79633":"#404040",
@@ -309,6 +376,55 @@ const ddLargestStyle={
   singleValue: (provided,state)=>({
     ...provided,
     color: "white"
+  }),
+  dropdownIndicator: (provided, state)=>({
+    ...provided,
+    "&:hover":{
+        color: "#1ED796"
+    }
+  }),
+  menu: (provided, state)=>({
+    ...provided,
+    borderRadius: "8px",
+  }),
+}
+
+const ddLargestStyle={
+  option: (provided, state)=>({
+    ...provided,
+    backgroundColor: state.isSelected ? '#1ED796':state.isFocused ? "#1dd79633":"#404040",
+    color: "white",
+    cursor: "Pointer",
+  }),
+  menuList: (provided, state) =>({
+    ...provided,
+    border: "2px solid #404040",
+    backgroundColor: "#404040",
+    borderRadius: "5px",
+  }),
+  control: (provided, state) =>({
+    border: state.isDisabled ? "2px solid #00000048":"2px solid #404040",
+    backgroundColor: state.isDisabled ? "#00000048":"#404040",
+    display: "flex",
+    cursor: "Pointer",
+    width:"15.41vw",
+    maxWidth: "30vw",
+    borderRadius: "8px",
+      
+  }),
+  input: (provided,state)=>({
+    ...provided,
+    color: "white"
+  }),
+  placeholder: (provided,state)=>({
+    ...provided,
+    color: "white",
+    fontSize: "1em"
+  }),
+  singleValue: (provided,state)=>({
+    ...provided,
+    color: "white",
+    fontSize: "0.65em"
   }),
   dropdownIndicator: (provided, state)=>({
     ...provided,
@@ -381,15 +497,7 @@ class Sidebar extends Component{
     super(props)
     this.state={
       isDisabled: false,
-      labelAncho:"",
-      labelAltura:"",
-      ancho: "",
-      altura: "",
-      dimensionesUn: {label:"Centímetros",value:"cm"},
-      nombreProducto: '',
-      marca: "",
-      pesoNeto: {label:"Contenido neto", value: "Contenido neto"},
-      pesoNetoUn:{label:"g", value:"g"},
+      date: new Date(),
       pesoDrenadoDisabled:true,
       pesoDrenado: {},
       pesoDrenadoUn:{},
@@ -403,6 +511,12 @@ class Sidebar extends Component{
       instrucciones: ''
     }
     this.updateStateVariable = this.updateStateVariable.bind(this);
+  }
+
+  setNewDate(date){
+    this.setState({
+      date: date
+    })
   }
 
   updateStateVariable(event){
@@ -508,7 +622,7 @@ class Sidebar extends Component{
                   </div>
                 </div>
                 <div id="sbUnidades">
-                <Select className='ddMenu' styles={ddLargerStyle} options={unidades} defaultValue={this.props.etiqueta.dimensionesUn} onChange={(e)=> this.handleStateChange("dimensionesUn",e)}/>
+                <Select className='ddMenu' styles={ddNormalStyle} options={unidades} defaultValue={this.props.etiqueta.dimensionesUn} onChange={(e)=> this.handleStateChange("dimensionesUn",e)}/>
                 </div>
               </div>
             </div>
@@ -553,12 +667,12 @@ class Sidebar extends Component{
                 
                 <div id="pesos">
                   <div id='pesoNeto'>
-                    <Select className='ddMenu' styles={ddLargerStyle} options={pesosNetos} defaultValue={this.props.etiqueta.pesoNetoLabel} onChange={(e)=> this.handleStateChange("pesoNetoLabel",e)}/>
+                    <Select className='ddMenu' styles={ddNormalStyle} options={pesosNetos} defaultValue={this.props.etiqueta.pesoNetoLabel} onChange={(e)=> this.handleStateChange("pesoNetoLabel",e)}/>
                     <input name='pesoNeto' value={this.props.etiqueta.pesoNeto} type="text" onKeyPress={this.numberFilter} className=" gRInput numberInput" onChange={(e)=> this.handleStateChange("pesoNeto",e.target.value)}/>
                     <Select className='ddMenu' styles={ddSmallStyle} options={unidadesMasa} defaultValue={this.props.etiqueta.pesoNetoUn} onChange={(e)=> this.handleStateChange("pesoNetoUn",e)}/>
                   </div>
                   <div id='pesoDrenado'>
-                    <Select className='ddMenu' styles={ddLargerStyle} options={pesosDrenados} defaultValue={this.props.etiqueta.pesoDrenadoLabel} onChange={(e)=> this.handleStateChange("pesoDrenadoLabel",e)} isDisabled={this.state.pesoDrenadoDisabled}/>
+                    <Select className='ddMenu' styles={ddNormalStyle} options={pesosDrenados} defaultValue={this.props.etiqueta.pesoDrenadoLabel} onChange={(e)=> this.handleStateChange("pesoDrenadoLabel",e)} isDisabled={this.state.pesoDrenadoDisabled}/>
                     <input id="pesoDrenadoInput" value={this.props.etiqueta.pesoDrenado} name='pesoDrenado' type="text" onKeyPress={this.numberFilter} className=" gRInput numberInput" onChange={(e)=> this.handleStateChange("pesoNeto",e.target.value)} disabled={this.state.pesoDrenadoDisabled}/>
                     <Select className='ddMenu' styles={ddSmallStyle} options={unidadesMasa} defaultValue={this.props.etiqueta.pesoDrenadoUn} onChange={(e)=> this.handleChangeDropdown(e,"pesoNetoUn")} isDisabled={this.state.pesoDrenadoDisabled}/>
                   </div>
@@ -575,7 +689,7 @@ class Sidebar extends Component{
               </div>
               <div id="alcoholCont">
                 <input id="alcoholInput" name='alcohol' type="text" onKeyPress={this.numberFilter} className=" gRInput numberInput" onChange={(e)=> this.handleStateChange("alcohol",e.target.value)}></input>
-                <Select className='ddMenu' styles={ddLargestStyle} options={unidadesAlcohol} defaultValue={{value:"Alcohol __% (Vol.)", label:"Alcohol __% (Vol.)"}} onChange={(e)=> this.handleStateChange("alcoholUn",e)}/>
+                <Select className='ddMenu' styles={ddLargeStyle} options={unidadesAlcohol} defaultValue={{value:"Alcohol __% (Vol.)", label:"Alcohol __% (Vol.)"}} onChange={(e)=> this.handleStateChange("alcoholUn",e)}/>
               </div>
             </div>
           } />
@@ -601,7 +715,26 @@ class Sidebar extends Component{
           } />
 
           <SidebarItem icon="shelf-life-expired.png" alt="nutritionfacts" dataTip="Informacion nutricional" isDisabled={isDisabled} content={
-            <></>
+            <div id='vida'>
+              <div className='sidebarContHeader'>
+                <p className='sidebarTitle'>Tiempo de vida útil</p>
+                <p className='sidebarSubTitle'>Es obligatorio definir el tiempo de consumo seguro, incluyendo la fecha de elaboración y fecha de caducidad</p>
+              </div>
+              <div id="vidaCont">
+                <div id='dias' className='vidaSubCont'>
+                  <input name='vidaUtil' type="text" onKeyPress={this.numberFilter} onChange={(e)=> this.handleStateChange("vidaUtil",e)} className="form-control gRInput numberInput" id="vidaUtil"/>
+                  <Select className='ddMenu' styles={ddNormalStyle} options={unidadesDias} onChange={(e)=> this.handleStateChange("vidaUtilUn",e)} />
+                </div>
+                <div id='elab' className='vidaSubCont'>
+                  <Select className='ddMenu' styles={ddLargestStyle} options={fabricaciones} onChange={(e)=> this.handleStateChange("fabricacionUn",e)} />
+                  <DatePicker onChange={(e)=>this.handleStateChange("fabricacion",e)} value={this.props.etiqueta.fabricacion}/>
+                </div>
+                <div id='cadu' className='vidaSubCont'>
+                  <Select className='ddMenu' styles={ddLargestStyle} options={caducidades} onChange={(e)=> this.handleStateChange("caducacionUn",e)} />
+                  <DatePicker onChange={(e)=>this.handleStateChange("caducacion",e)} value={this.props.etiqueta.caducacion}/>
+                </div>
+              </div>
+            </div>
           } />
 
           <SidebarItem icon="celsius.png" alt="celsius" dataTip="Forma de conservación" isDisabled={isDisabled} content={
