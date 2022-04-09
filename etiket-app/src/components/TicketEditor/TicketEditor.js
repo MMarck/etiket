@@ -2,7 +2,7 @@ import { Component } from 'react';
 import './TicketEditor.css';
 import Draggable from 'react-draggable'; 
 import { connect } from 'react-redux';
-import { replace } from '../../components/etiqueta/etiquetaSlice'
+import { replace } from '../../reducers/etiquetaSlice'
 import TicketViewerFront from '../TicketViewerFront/TicketViewerFront';
 import TicketViewerBack from '../TicketViewerBack/TicketViewerBack';
 

@@ -170,7 +170,7 @@ class HomeBody extends Component {
       <div className='homebody'>
         <div id='LeftForm' className="d-flex flex-column justify-content-center align-items-center flex-grow-1 flex-shrink-0 w-50 overflow-auto">
           
-          <img src="./images/solinalLogo.png" alt="logo de solinal" width={'200px'} />
+          <img src="../images/solinalLogo.png" alt="logo de solinal" width={'200px'} />
 
           <Outlet/>
           

@@ -1,7 +1,7 @@
 import Draggable from 'react-draggable'; 
 import SizeIndicator from '../SizeIndicator/SizeIndicator'
 import { connect } from 'react-redux';
-import { replace } from '../etiqueta/etiquetaSlice'
+import { replace } from '../../reducers/etiquetaSlice'
 import { Component } from 'react';
 
 const mapStateToProps = state => ({
@@ -34,18 +34,19 @@ class TicketViewerBack extends Component{
                             <div className='col-12 my-2 p-2 hover_colored_border' style={{ height: '50%', width:'40%' ,fontSize:'0.5em', textAlign:'left', backgroundColor:'white', position:'none'}} >
                             
                                 <span>  
-                                    {this.props.etiqueta.metodoConservacion?
-                                        "Metodo de conservacion: " + this.props.etiqueta.metodoConservacion
+                                    {this.props.etiqueta.metodoConservacion.value?
+                                        "Metodo de conservacion: " + this.props.etiqueta.conservacionUn.value + ' '+this.props.etiqueta.metodoConservacion.label
                                     :''}
                                 </span>
 
                                 <br/><br/>
 
                                 <span>  
-                                    {this.props.etiqueta.metodoConservacion?
-                                        "Vida Util: " + this.props.etiqueta.vidaUtil
+                                    {this.props.etiqueta.vidaUtil?
+                                        "Vida Util: " + this.props.etiqueta.vidaUtil + ' ' +this.props.etiqueta.vidaUtilUn.value
                                     :''}
                                 </span>
+                                
 
                                 <br/><br/>
 
@@ -60,6 +61,21 @@ class TicketViewerBack extends Component{
                                 <span>  
                                     {this.props.etiqueta.direccion?
                                         "Instrucciones: " + this.props.etiqueta.instrucciones
+                                    :''}
+                                </span>
+
+                                <br/><br/>
+
+                                <span>  
+                                    {this.props.etiqueta.fabricacionUn.value?
+                                        this.props.etiqueta.fabricacionUn.value + ' ' +this.props.etiqueta.fabricacion
+                                    :''}
+                                </span>
+                                <br/><br/>
+
+                                <span>  
+                                    {this.props.etiqueta.caducacionUn.value?
+                                        this.props.etiqueta.caducacionUn.value + ' ' +this.props.etiqueta.caducacion
                                     :''}
                                 </span>
                                 

@@ -17,20 +17,20 @@ const LoginForm = () => {
             <input className="inputText mb-4" type="password" id="password" name="password" placeholder="Ingrese su contraseña"/>
 
             <br/>
-            <Link to="/dashboard">
+            <Link to="/">
               <button className="ligthButton">Iniciar sesión</button>
             </Link>
 
         </form>
 
         <br/>       
-        <Link to="/resetPassword" className="w-100">
+        <Link to="/login/resetPassword" className="w-100">
           <button className="btn-dark darkButton w-100">¿Olvidé mi contraseña?</button>
         </Link>
 
         <hr/>
 
-        <Link to="/createAccount" className="w-100">
+        <Link to="/login/createAccount" className="w-100">
           <button className="ligthButton w-100">Crear Usuario</button>
         </Link>
 

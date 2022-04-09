@@ -1,4 +1,4 @@
-import './MiCuenta.css';
+import './MyAccount.css';
 import { Modal } from 'react-bootstrap';
 import { useState } from 'react';
 import {  Link} from 'react-router-dom';
@@ -8,7 +8,7 @@ import {  Link} from 'react-router-dom';
 const userIcon = '../../images/icons/user.png';
 
 
-function MiCuenta(){
+function MyAccount(){
     return(
       <div className='columnContainer' >
         <h1 className='mb-5 fw-bold'>Mi cuenta</h1>
@@ -114,7 +114,7 @@ function MiCuenta(){
     );
   }
 
-export default MiCuenta;
+export default MyAccount;
 
 
 function CambiarCorreoModal() {

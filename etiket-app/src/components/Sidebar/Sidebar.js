@@ -6,7 +6,7 @@ import CustomCheckbox from "../CustomCheckbox/CustomCheckbox";
 import {Link} from 'react-router-dom';
 import Select from 'react-select';
 import { connect } from 'react-redux';
-import {replace} from "../etiqueta/etiquetaSlice";
+import {replace} from "../../reducers/etiquetaSlice";
 import { getFormControlUnstyledUtilityClasses } from '@mui/base';
 import DatePicker from 'react-date-picker/dist/entry.nostyle';
 
@@ -673,11 +673,11 @@ class Sidebar extends Component{
 
           <ReactTooltip event='click' id='userMenu' place='right' effect='solid' type="light" clickable={true} border={true} borderColor={"gray"} offset={{bottom: 30}}>
             <div id="userSubMenu">
-              <Link to={'/dashboard/miCuenta'} > 
+              <Link to={'/miCuenta'} > 
                 <button className='colored-button userSubBtn' > Mi cuenta</button>
               </Link>
               <br/>
-              <Link to={'/dashboard/misEtiquetas'} className='colored-button'>
+              <Link to={'/misEtiquetas'} className='colored-button'>
                 <button className='colored-button userSubBtn' > Mis etiquetas</button>
               </Link>
             </div>
@@ -807,7 +807,7 @@ class Sidebar extends Component{
               </div>
               <div id="vidaCont">
                 <div id='dias' className='vidaSubCont'>
-                  <input name='vidaUtil' type="text" onKeyPress={this.numberFilter} onChange={(e)=> this.handleStateChange("vidaUtil",e)} className="form-control gRInput numberInput" id="vidaUtil"/>
+                  <input name='vidaUtil' type="text" onKeyPress={this.numberFilter} onChange={(e)=> this.handleStateChange("vidaUtil",e.target.value)} className="form-control gRInput numberInput" id="vidaUtil"/>
                   <Select className='ddMenu' styles={ddNormalStyle} options={unidadesDias} onChange={(e)=> this.handleStateChange("vidaUtilUn",e)} />
                 </div>
                 <div id='elab' className='vidaSubCont'>
@@ -830,7 +830,7 @@ class Sidebar extends Component{
               </div>
               <div id='conservacionCont'>
                 <Select className='ddMenu' defaultValue={this.props.etiqueta.conservacionUn} styles={ddNormalStyle} options={conservacionUn} onChange={(e)=> this.handleStateChange("conservacionUn",e)} />
-                <Select className='ddMenu' defaultValue={this.props.etiqueta.metodoConvervacion} styles={ddLargeStyleSmallFont} options={conservacion} onChange={(e)=> this.handleStateChange("metodoConvervacion",e)} />
+                <Select className='ddMenu' defaultValue={this.props.etiqueta.metodoConvervacion} styles={ddLargeStyleSmallFont} options={conservacion} onChange={(e)=> {this.handleStateChange("metodoConservacion",e)}} />
               </div>
             </div>
           } />

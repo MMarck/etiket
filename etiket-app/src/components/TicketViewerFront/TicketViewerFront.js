@@ -1,7 +1,7 @@
 import Draggable from 'react-draggable'; 
 import SizeIndicator from '../SizeIndicator/SizeIndicator'
 import { connect } from 'react-redux';
-import { replace } from '../etiqueta/etiquetaSlice'
+import { replace } from '../../reducers/etiquetaSlice'
 import { Component } from 'react';
 
 const mapStateToProps = state => ({
@@ -46,6 +46,13 @@ class TicketViewerFront extends Component{
                             
                                 <Draggable bounds='parent' ><span className='hover_colored_border'> {this.props.etiqueta.nombreProducto} </span></Draggable> 
                                 <Draggable bounds='parent' ><span className='hover_colored_border'> {this.props.etiqueta.marca} </span></Draggable> 
+                                <Draggable bounds='parent' >
+                                    <span className='hover_colored_border'> 
+                                        {this.props.etiqueta.alcohol? 
+                                           this.props.etiqueta.alcohol +' '+ this.props.etiqueta.alcoholUn.value
+                                        : ''}
+                                    </span>
+                                </Draggable> 
                             
                             
                             <div className='d-flex flex-column justify-content-between align-items-center '

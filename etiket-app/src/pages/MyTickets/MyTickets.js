@@ -1,33 +1,11 @@
 import { Modal } from 'react-bootstrap';
 import { useState } from 'react';
 import ReactTooltip from "react-tooltip";
-import TicketEditor from '../TicketEditor/TicketEditor';
-import './MisEtiquetas.css';
+import TicketEditor from '../../components/TicketEditor/TicketEditor';
+import './MyTickets.css';
 
 
-
-const imagePath = (type) => {
-
-  switch (type) {
-    case 'rectangular':
-      return '../../images/empaque-rectangular.png';
-
-    case 'botella':
-      return '../../images/empaque-botellas.png';
-
-    case 'irregular':
-      return '../../images/empaque-irregular.png';   
-
-    case 'circular':
-      return '../../images/empaque-circular.png';
-
-    default:
-      return '../../images/empaque-rectangular.png';
-  }
-  
-}
-
-function MisEtiquetas(){
+function MyTickets(){
 
   const [listadoEtiquetas, setlistadoEtiquetas] = useState([]);
 
@@ -247,8 +225,28 @@ function MisEtiquetas(){
   );
 }
 
-export default MisEtiquetas;
+export default MyTickets;
 
+const imagePath = (type) => {
+
+  switch (type) {
+    case 'rectangular':
+      return '../../images/empaque-rectangular.png';
+
+    case 'botella':
+      return '../../images/empaque-botellas.png';
+
+    case 'irregular':
+      return '../../images/empaque-irregular.png';   
+
+    case 'circular':
+      return '../../images/empaque-circular.png';
+
+    default:
+      return '../../images/empaque-rectangular.png';
+  }
+  
+}
 
 const OpcionEnvase = ({title, description, imagePath, altImageText, saveTicket, packageType}) => {
   return (
