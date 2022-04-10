@@ -3,6 +3,12 @@ import { Link } from "react-router-dom";
 import "./LoginForm.css";
 
 const LoginForm = () => {
+
+  const google = ()=>{
+    window.open("http://localhost:5000/auth/google", "_self")
+  }
+
+
   return (
     <div className="d-flex flex-column w-50 small">
         
@@ -36,7 +42,8 @@ const LoginForm = () => {
 
         <div className='signupButton google mx-auto mt-2 small'>
           <span className="icon"></span>
-          <span>Inicia sesion con Google</span>
+          <span onClick={google}>Inicia sesion con Google</span>
+
         </div> 
 
         <div className='signupButton facebook mx-auto mt-2 small'>
