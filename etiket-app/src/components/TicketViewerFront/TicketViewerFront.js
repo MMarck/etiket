@@ -53,7 +53,7 @@ class TicketViewerFront extends Component{
                                 <Draggable bounds='parent' >
                                     <span className='hover_colored_border'> 
                                         {this.props.etiqueta.alcohol? 
-                                           this.props.etiqueta.alcohol +' '+ this.props.etiqueta.alcoholUn.value
+                                           this.props.etiqueta.alcoholUn.value.replace("__",this.props.etiqueta.alcohol)
                                         : ''}
                                     </span>
                                 </Draggable> 

@@ -2,10 +2,12 @@ import { Modal } from 'react-bootstrap';
 import { useState } from 'react';
 import ReactTooltip from "react-tooltip";
 import TicketEditor from '../../components/TicketEditor/TicketEditor';
+import {Link} from 'react-router-dom';
 import './MyTickets.css';
 
 
 function MyTickets(){
+  const pathIcons = '../images/icons/';
 
   const [listadoEtiquetas, setlistadoEtiquetas] = useState([]);
 
@@ -72,10 +74,12 @@ function MyTickets(){
     /* Contenedor divido en secciones para renderizar una determinada 
     vista dependiendo de las variables del estado */
     <div className='w-100 h-100'>
-
-
+      <Link to={"/"}>
+        <img src={pathIcons+"back.png"} alt="Regresar" className="backBtn"/>
+      </Link>
       {showTickets?
         <div id='MisEtiquetasContainer' >
+          
 
           <h2 className='mb-5'>Mis etiquetas</h2>
 
@@ -148,7 +152,7 @@ function MyTickets(){
         
         <Modal.Body>
           <span className='fs-7'>Empieza a diseñar la etiqueta de tus alimentos eligiendo primero el tipo de empaque o envase en la que pretendes comercializarlo.</span>
-          <div className='d-flex'>
+          <div className='d-flex gap-3'>
             
             <OpcionEnvase 
               saveTicket={selectPackageType}
@@ -194,21 +198,26 @@ function MyTickets(){
       {showNewTicketName?
         <div className='w-100 h-100'>
           <ReactTooltip place="bottom" type="dark" effect="solid"  data-for='name'/>
-          <input
-            className="ligth-input m-4 fs-6 bg-transparent" 
-            id="name" 
-            type="text" 
-            name="name" 
-            placeholder="Nombre del proyecto"
-            data-tip='Escribe aquí el nombre de tu proyecto'
-            onChange={updateNewTicketName}
-          />
+          
+          <div>
+            <input
+              className="ligth-input m-4 fs-6 bg-transparent" 
+              id="name" 
+              type="text" 
+              name="name" 
+              placeholder="Nombre del proyecto"
+              data-tip='Escribe aquí el nombre de tu proyecto'
+              onChange={updateNewTicketName}
+            />
 
-          <button 
-            onClick={()=>{setNameNewTicket(currentTicket);}}
-            className='btn-dark rounded fs-7'>
-            continuar
-          </button>
+            <button 
+              onClick={()=>{setNameNewTicket(currentTicket);}}
+              className='btn-dark rounded fs-7'>
+              continuar
+            </button>
+          </div>
+          
+          
         </div> 
       :''
       }

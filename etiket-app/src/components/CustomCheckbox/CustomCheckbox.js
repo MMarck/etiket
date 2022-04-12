@@ -2,8 +2,8 @@ import "./CustomCheckbox.css";
 import { useState } from "react";
 import { animated, useSpring, config} from "react-spring";
 
-function CustomCheckbox() {
-  const [isChecked, setIsChecked] = useState(false);
+function CustomCheckbox(props) {
+  const [isChecked, setIsChecked] = useState(props.isChecked);
   const [checkmarkLength, setCheckmarkLength] = useState(null);
 
   const checkboxAnimationStyle = useSpring({
