@@ -9,7 +9,7 @@ function Dashboard(){
       <div className='d-flex h-100 w-100'>
         <Sidebar/>
 
-        <div id='Wallpaper'>
+        <div id='Wallpaper' >
 
             <img id='AbsoluteLogo' src="images/solinalLogo.png" alt="logo de solinal" width={'100px'} /> 
 
@@ -17,7 +17,6 @@ function Dashboard(){
                     permite alternar entre las rutas hijas declararas 
                     en un compontente Router */}
 
-            <button id='FixedButton' type="button" className="btn-dark">Guía</button>
         </div>
         
       </div>  

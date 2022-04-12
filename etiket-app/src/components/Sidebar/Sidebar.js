@@ -140,10 +140,6 @@ const caducidades=[
     label: "Fecha de vencimiento"
   },
   {
-    value: "Fecha de elaboración",
-    label: "Fecha de elaboración",
-  },
-  {
       value: "Consumir preferentemente antes del",
       label: "Consumir preferentemente antes del",
   },
@@ -235,26 +231,28 @@ const unidadesAlcohol=[
 ]
 
 const alergenos=[
-  { value: "tartrazina", label: "Tartrazina"},
-  { value: "fenil", label: "Fenilcetronuricos: Fenilanina"},
-  { value: "gluten", label: "Gluten"},
-  { value: "crustaceos",label: "Crustáceos"},
-  { value: "huevo", label: "Huevo"},
-  { value: "pescado", label: "Pescado"},
-  { value: "mani", label: "Maní"},
-  { value: "soya", label: "Soya"},
-  { value: "leche", label: "Leche"},
-  { value: "lactosa", label: "Lactosa"},
-  { value: "nueces", label: "Nueces"},
-  { value: "almendras", label: "Almendras"},
-  { value: "avellanas", label: "Avellanas"},
-  { value: "anacardos", label: "Anacardos"},
-  { value: "nuecesMacadamia", label: "Nueces Macadamia"},
-  { value: "apio", label: "Apio"},
-  { value: "mostaza",  label: "Mostaza"},
-  { value: "altramuces", label: "Altramuces"},
-  { value: "sesamo", label: "Sésamo"},
-  { value: "regaliz", label: "Regaliz"}
+  { value: "MANÍ", label: "Maní"},
+  { value: "HUEVO", label: "Huevo"},
+  { value: "LECHE", label: "Leche"},
+  { value: "LACTOSA",label: "Lactosa"},
+  { value: "GLÚTEN", label: "Glúten"},
+  { value: "NUECES", label: "Nueces"},
+  { value: "SOYA", label: "Soya"},
+  { value: "PESCADO", label: "Pescado"},
+  { value: "MARISCOS", label: "Mariscos"},
+  { value: "CRUSTÁCEOS", label: "Crustáceos"},
+  { value: "SEMILLAS DE SÉSAMO", label: "Semillas de sésamo"},
+  { value: "MOLUSCOS", label: "Moluscos"},
+  { value: "APIO", label: "Apio"},
+  { value: "MOSTAZA", label: "Mostaza"},
+  { value: "DIÓXIDO DE AZUFRE", label: "Dióxido de azufre"},
+  { value: "SULFITOS", label: "Sulfitos"},
+  { value: "CEREALES QUE CONTIENEN GLÚTEN",  label: "Cereales que contienen glúten"},
+  { value: "AJONJOLÍ", label: "Altramuces"},
+  { value: "COCO", label: "Coco"},
+  { value: "ALMENDRA", label: "Almendra"},
+  { value: "AVELLANA", label: "Avellana"},
+  { value: "MACADAMIA", label: "Macadamia"},
 ]
 
 const ddMultipleStyle={
@@ -605,13 +603,13 @@ class Sidebar extends Component{
   }
 
   handlePesoDrenadoDisable(){
-    this.setState({pesoDrenadoDisabled: !this.state.pesoDrenadoDisabled}, ()=>{
-      if (!this.state.pesoDrenadoDisabled) {
-        //document.getElementById("pesoDrenadoInput").value="";
-        this.handleStateChange("pesoDrenado","")
-        this.handleStateChange("pesoDrenadoUn",{})
-      }
-    })
+    if (this.props.etiqueta.pesoDrenadoDisabled) {
+      this.handleStateChange("pesoDrenadoDisabled",!this.props.etiqueta.pesoDrenadoDisabled);
+    } else {
+      this.handleStateChange("pesoDrenadoDisabled",!this.props.etiqueta.pesoDrenadoDisabled);
+      this.handleStateChange("pesoDrenado","")
+    }
+    
   }
 
   handleChangeMultiples(e,estado){
@@ -671,7 +669,7 @@ class Sidebar extends Component{
           <img id="userImg" alt="User" src={pathIcons + 'user.png'} width={'50px'} data-tip data-for='userMenu' /> 
 
 
-          <ReactTooltip event='click' id='userMenu' place='right' effect='solid' type="light" clickable={true} border={true} borderColor={"gray"} offset={{bottom: 30}}>
+          <ReactTooltip event='click' id='userMenu' place='right' effect='solid' type="light" clickable={true} border={true} borderColor={"gray"} offset={{bottom: 50}}>
             <div id="userSubMenu">
               <Link to={'/miCuenta'} > 
                 <button className='colored-button userSubBtn' > Mi cuenta</button>
@@ -679,6 +677,10 @@ class Sidebar extends Component{
               <br/>
               <Link to={'/misEtiquetas'} className='colored-button'>
                 <button className='colored-button userSubBtn' > Mis etiquetas</button>
+              </Link>
+              <br/>
+              <Link to={'/miCuenta'} > 
+                <button className='colored-button userSubBtn' > Cerrar sesión</button>
               </Link>
             </div>
           </ReactTooltip>
@@ -747,7 +749,7 @@ class Sidebar extends Component{
               </div>
               <div id="pesoCont">
                 <div id='pesosCheckbox' style={{alignSelf:'flex-end', marginBottom:"1vh"}} onChange={()=>{this.handlePesoDrenadoDisable()}}>
-                  <CustomCheckbox/>
+                  <CustomCheckbox isChecked={this.props.etiqueta.pesoDrenadoDisabled}/>
                 </div>
                 
                 <div id="pesos">
@@ -757,9 +759,9 @@ class Sidebar extends Component{
                     <Select className='ddMenu' styles={ddSmallStyle} options={unidadesMasa} defaultValue={this.props.etiqueta.pesoNetoUn} onChange={(e)=> this.handleStateChange("pesoNetoUn",e)}/>
                   </div>
                   <div id='pesoDrenado'>
-                    <Select className='ddMenu' styles={ddNormalStyle} options={pesosDrenados} defaultValue={this.props.etiqueta.pesoDrenadoLabel} onChange={(e)=> this.handleStateChange("pesoDrenadoLabel",e)} isDisabled={this.state.pesoDrenadoDisabled}/>
-                    <input id="pesoDrenadoInput" value={this.props.etiqueta.pesoDrenado} name='pesoDrenado' type="text" onKeyPress={this.numberFilter} className=" gRInput numberInput" onChange={(e)=> this.handleStateChange("pesoDrenado",e.target.value)} disabled={this.state.pesoDrenadoDisabled}/>
-                    <Select className='ddMenu' styles={ddSmallStyle} options={unidadesMasa} defaultValue={this.props.etiqueta.pesoDrenadoUn} onChange={(e)=> this.handleChangeDropdown(e,"pesoNetoUn")} isDisabled={this.state.pesoDrenadoDisabled}/>
+                    <Select className='ddMenu' styles={ddNormalStyle} options={pesosDrenados} defaultValue={this.props.etiqueta.pesoDrenadoLabel} onChange={(e)=> this.handleStateChange("pesoDrenadoLabel",e)} isDisabled={this.props.etiqueta.pesoDrenadoDisabled}/>
+                    <input id="pesoDrenadoInput" value={this.props.etiqueta.pesoDrenado} name='pesoDrenado' type="text" onKeyPress={this.numberFilter} className=" gRInput numberInput" onChange={(e)=> this.handleStateChange("pesoDrenado",e.target.value)} disabled={this.props.etiqueta.pesoDrenadoDisabled}/>
+                    <Select className='ddMenu' styles={ddSmallStyle} options={unidadesMasa} defaultValue={this.props.etiqueta.pesoDrenadoUn} onChange={(e)=> this.handleStateChange("pesoDrenadoUn",e)} isDisabled={this.props.etiqueta.pesoDrenadoDisabled}/>
                   </div>
                 </div>
               </div>

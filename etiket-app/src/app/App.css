@@ -67,11 +67,3 @@
   width: 100%;
   height: 100%;
 }
-
-#WallPaperWelcome{
-  height: 100%;
-  background: linear-gradient(180deg, rgba(42,113,140,1) 0%, rgba(107,206,217,1) 100%);
-  color: white;
-  text-align: center;
-  font-weight: bold;
-}

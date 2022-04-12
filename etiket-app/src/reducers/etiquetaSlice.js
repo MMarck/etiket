@@ -20,7 +20,7 @@ export const etiquetaSlice = createSlice({
     pesoDrenado: "",
     pesoDrenadoUn:{},
     alcohol:"",
-    alcoholUn:{},
+    alcoholUn:{value:"Alcohol __% (Vol.)", label:"Alcohol __% (Vol.)"},
     ingredientes: '',
     alergenos: '',
     conservacionUn: {label:"Mantener", value:"Mantener"},

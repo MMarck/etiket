@@ -7,7 +7,7 @@ import './WallpaperWelcome.css';
 */
 export default function WallPaperWelcome(){
     return(
-        <div id='WallPaperWelcome'>
+        <div id='WallPaperWelcome' style={{backgroundImage:"url(/images/fondo-web3.png)"}}>
             <span>
                 <br/><br/><br/>Bienvenido !<br/>
                 Estás a punto de vender tus productos<br/>
@@ -19,7 +19,6 @@ export default function WallPaperWelcome(){
                 <button className='btn btn-dark'>CREAR ETIQUETA</button>
             </Link>
             
-            <img alt="Edificios" src='images/figura1.png' width='300px' ></img>
         </div>  
     );
 }
