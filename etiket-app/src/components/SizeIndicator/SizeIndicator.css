@@ -1,0 +1,7 @@
+.sizeIndicatorWapper {
+opacity: 0.4;
+}
+
+.sizeIndicatorWapper:hover {
+opacity: 1.0;
+}

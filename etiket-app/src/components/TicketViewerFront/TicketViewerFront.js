@@ -23,7 +23,7 @@ class TicketViewerFront extends Component{
         this.state = {
             ticketArea : parseInt(this.props.etiqueta.altura) * parseInt(this.props.etiqueta.ancho), // ajustar unidades
             weigthBound : (parseInt(this.props.etiqueta.altura) * parseInt(this.props.etiqueta.ancho) > 10000)? (0.3 * parseInt(this.props.etiqueta.altura)) + "mm" : this.props.etiqueta.altura,//10.000 mm2 
-
+            sizeIndicatorVisibility: this.props.etiqueta.sizeIndicatorVisibility
         }
     }
     
@@ -32,7 +32,11 @@ class TicketViewerFront extends Component{
             <div>
                 <div className='mx-4 d-flex align-items-center '>
                     
-                    <SizeIndicator orientation={'vertical'} length={this.props.etiqueta.altura + this.props.etiqueta.dimensionesUn.value}/>
+                    <SizeIndicator 
+                        orientation={'vertical'}
+                        length={this.props.etiqueta.altura + this.props.etiqueta.dimensionesUn.value}
+                        visibilityProp={this.props.etiqueta.sizeIndicatorVisibility}
+                    />
                     <div  style={{display:'inline-grid'}}>
                         <h5 className='text-center fw-bold text-dark m-4 ' >Panel de visualización principal</h5>
                         <div className='d-flex flex-column justify-content-between align-items-center' 
@@ -82,7 +86,10 @@ class TicketViewerFront extends Component{
                             
 
                         </div>
-                        <SizeIndicator length={this.props.etiqueta.altura + this.props.etiqueta.dimensionesUn.value}/>
+                        <SizeIndicator
+                            length={this.props.etiqueta.ancho + this.props.etiqueta.dimensionesUn.value}
+                            visibilityProp={this.props.etiqueta.sizeIndicatorVisibility}
+                        />
                     </div>
                     
                 </div>

@@ -9,6 +9,7 @@ export const etiquetaSlice = createSlice({
     isDisabled: false,
     ancho: "10",
     altura: "10",
+    sizeIndicatorVisibility: 'hidden',
     dimensionesUn: {label:"Centímetros",value:"cm"},
     nombreProducto: '',
     marca: "",

@@ -81,7 +81,7 @@ class TicketEditor extends Component{
             <div id='TicketEditorContainer' >
                 <div id='PreviewContainer'> 
                     <div id='ticketContainer' className='d-flex justify-content-center align-items-center m-0' style={{ zIndex:0}}>
-                        <TicketViewerFront/>
+                        <TicketViewerFront sizeIndicatorVisibility= {'hidden'}/>
 
                         <TicketViewerBack 
                             ingredients={this.props.etiqueta.ingredientes}
