@@ -1,5 +1,6 @@
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 const passport = require('passport');
+const UserInfoError = require('passport-google-oauth20/lib/errors/userinfoerror');
 
 //cambiar variables por un archivo .env
 const GOOGLE_CLIENT_ID = "502504690344-hfbd6oo4t4apba7f9ehqrobo3146qifd.apps.googleusercontent.com";
@@ -14,8 +15,10 @@ passport.use(new GoogleStrategy({
     clientSecret: GOOGLE_CLIENT_SECRET,
     callbackURL: "/auth/google/callback"
   },
-  function(accessToken, refreshToken, profile, done) {
-    done(err = null, user = profile )
+  function(accessToken, refreshToken, profile, done){
+    User.findOrCreate({googleId: profile.id}, function(err,user){
+      return cb(err,user)
+    });
   }
 ));
 
