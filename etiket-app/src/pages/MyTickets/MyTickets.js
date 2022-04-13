@@ -64,10 +64,10 @@ function MyTickets(){
     setShowTicketEdit(true);
   }
 
-    const  updateNewTicketName = (event)=>{
-        const {value} = event.target;
-        setCurrentTicketName(value);
-    }
+  const  updateNewTicketName = (event)=>{
+      const {value} = event.target;
+      setCurrentTicketName(value);
+  }
 
 
   return(
@@ -100,21 +100,24 @@ function MyTickets(){
 
           <div id='ContenedorEtiquetas'>
             {/* el prop key es para que react evite renderizar innecesariamente al elemento cuando exista alguna actulizacion */}
-            {listadoEtiquetas.map((object, index) =>  
-              <div 
+            {listadoEtiquetas.map((object, index) =>
+              <Link to={"/GeneradorRectangular"}>
+                <div 
                 key={index} 
                 className='etiquetaContainer'
                 onClick={()=>{editCurrentTicket(index)}}
-              >
-                <div className='previewEtiqueta'>
-                  <img 
-                  src={imagePath(object.packageType)}
-                  alt={object.packageType}
-                  width='60px'/>
-                </div>
+                >
+                  <div className='previewEtiqueta'>
+                    <img 
+                    src={imagePath(object.packageType)}
+                    alt={object.packageType}
+                    width='60px'/>
+                  </div>
               
-                <span className='flex-shrink-1'>{object.name}</span>
-              </div>
+                  <span className='flex-shrink-1'>{object.name}</span>
+                </div>
+              </Link>  
+              
             )}
 
             {(listadoEtiquetas.length > 0 && listadoEtiquetas.length < 2)?

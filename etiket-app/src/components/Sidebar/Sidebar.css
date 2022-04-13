@@ -54,6 +54,7 @@ i{
     width: max-content;
     min-width: min-content;
     overflow: auto;
+    background-color: white;
 }
 
 #SidebarOptions{

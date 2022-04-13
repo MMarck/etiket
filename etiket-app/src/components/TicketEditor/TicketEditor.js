@@ -2,9 +2,9 @@ import { Component } from 'react';
 import './TicketEditor.css';
 import Draggable from 'react-draggable'; 
 import { connect } from 'react-redux';
-import { replace } from '../../reducers/etiquetaSlice'
-import TicketViewerFront from '../TicketViewerFront/TicketViewerFront';
-import TicketViewerBack from '../TicketViewerBack/TicketViewerBack';
+import { replace, erase } from '../../reducers/etiquetaSlice'
+import TicketViewerFront from '../TicketViewerFrontRectangular/TicketViewerFrontRectangular';
+import TicketViewerBack from '../TicketViewerBackRectangular/TicketViewerBackRectangular';
 
 const returnImage = '../../images/icons/return.png'
 
@@ -12,7 +12,8 @@ const mapStateToProps = state => ({
     etiqueta: state.etiqueta
   });
 const mapDispatchToProps = () => ({ 
-    replace
+    replace,
+    erase,
 });
 class TicketEditor extends Component{
 
@@ -97,10 +98,10 @@ class TicketEditor extends Component{
                 </div>
 
                 <div className='d-flex flex-column justify-content-center align-items-center gap-2' >
-                    <span className='p-2'><img src={returnImage} alt='return ' width={'10px'}  />  BORRAR TODO</span>
+                    <span className='p-2'  onClick={()=>this.props.erase()}  style={{cursor:"pointer"}} ><img src={returnImage} alt='return ' width={'10px'}  />  BORRAR TODO</span>
 
                     <div className='d-flex gap-3'>
-                        <button type="button" className='darkButton-twhite' > EXPORTAR EN PDF</button>    
+                        <button type="button" className='darkButton-twhite'> EXPORTAR EN PDF</button>    
                         <button type="button" className='darkButton-twhite' > EXPORTAR EN PNG</button>   
                         <button type="button" className='colored-button' onClick={this.zoomIn}> zoom in </button>    
                     <button type="button" className='colored-button' onClick={this.zoomOut}> zoom out</button>   
@@ -115,7 +116,7 @@ class TicketEditor extends Component{
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps()
   )(TicketEditor);
 
 

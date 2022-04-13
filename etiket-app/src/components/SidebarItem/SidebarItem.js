@@ -25,7 +25,7 @@ class SidebarItem extends Component{
         const icon=this.state.icon
 
         return(
-            <div className='sideBarItem'>
+            <div className={this.props.isDisabled ? "sideBarItem sideBarItemDisabled" : "sideBarItem"}>
                 <img src={pathIcons + this.props.icon} alt={this.props.alt} data-tip={this.props.dataTip} className={this.props.isDisabled ? "iconDisabled":"iconEnabled"} onClick={()=>{this.handleIsOpen()}}/>
                 {isOpen && 
                     <div className='sideBarContent'>

@@ -9,6 +9,7 @@ import ResetPassword from '../components/ResetPassword/ResetPassword'
 import CreateAccount from '../components/CreateAccount/CreateAccount'
 import LoginForm from '../components/LoginForm/LoginForm'
 import ChangePassword from '../pages/ChangePassword/ChangePassword';
+import GeneradorRectangular from '../components/GeneradorRectangular/GeneradorRectangular';
 import './App.css';
 
 
@@ -71,6 +72,7 @@ function App() {
           <Route index element={<WallPaperWelcome/>}/>
           <Route path='miCuenta' element={<MyAccount/>}/>
           <Route path='misEtiquetas' element={<MyTickets/>}/>
+          <Route path="GeneradorRectangular" element={<GeneradorRectangular/>}/>
           <Route path='nuevoProyecto' element={<NewTicket/>}/>
           <Route path='crearEtiqueta' element={<CrearEtiqueta/>}/>
           <Route path='cambiarClave' element={<ChangePassword/>}/>
