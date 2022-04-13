@@ -6,9 +6,11 @@ import { createSlice } from '@reduxjs/toolkit'
 export const etiquetaSlice = createSlice({
   name: 'etiqueta',
   initialState: {
+    nombre:'',
     isDisabled: false,
     ancho: "10",
     altura: "10",
+    sizeIndicatorVisibility: 'hidden',
     dimensionesUn: {label:"Centímetros",value:"cm"},
     nombreProducto: '',
     marca: "",

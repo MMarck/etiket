@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import {replace} from "../../reducers/etiquetaSlice";
 import { getFormControlUnstyledUtilityClasses } from '@mui/base';
 import DatePicker from 'react-date-picker/dist/entry.nostyle';
+import store from '../../app/store';
 
 const pathIcons = '../images/icons/';
 
@@ -22,7 +23,7 @@ const unidades=[
       label: "Centímetros",
   },
   {
-      value: "pulg",
+      value: "in",
       label: "Púlgadas",
   }
 ];
@@ -679,7 +680,7 @@ class Sidebar extends Component{
                 <button className='colored-button userSubBtn' > Mis etiquetas</button>
               </Link>
               <br/>
-              <Link to={'/miCuenta'} > 
+              <Link to={'/login'} > 
                 <button className='colored-button userSubBtn' > Cerrar sesión</button>
               </Link>
             </div>
@@ -701,11 +702,11 @@ class Sidebar extends Component{
                 <div id="dimensionesInput">
                   <div id='sbAncho'>
                     <label htmlFor="ancho" className="sbLabel">Ancho</label>
-                    <input name='ancho' value={this.props.etiqueta.ancho} type = "text" onChange={(e)=>this.handleStateChange("ancho",e.target.value)} className="gRInput numberInput" onKeyPress={this.numberFilter}/>
+                    <input name='ancho' value={this.props.etiqueta.ancho} type = "text" onChange={(e)=>{this.handleStateChange("ancho",e.target.value); this.handleStateChange("sizeIndicatorVisibility",'visible')}} className="gRInput numberInput" onKeyPress={this.numberFilter}/>
                   </div>
                   <div id='sbAltura'>
                     <label htmlFor="altura" className="sbLabel">Altura</label>
-                    <input name='altura' value={this.props.etiqueta.altura} type = "text" onChange={(e)=>this.handleStateChange("altura",e.target.value)} className="gRInput numberInput" onKeyPress={this.numberFilter}/>
+                    <input name='altura' value={this.props.etiqueta.altura} type = "text" onChange={(e)=>{this.handleStateChange("altura",e.target.value); this.handleStateChange("sizeIndicatorVisibility",'visible')}} className="gRInput numberInput" onKeyPress={this.numberFilter}/>
                   </div>
                 </div>
                 <div id="sbUnidades">

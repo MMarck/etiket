@@ -1,6 +1,6 @@
-const pathIcons = '../images/icons/';
+export const pathIcons = '../images/icons/';
 
-const unidades=[
+export const unidades=[
   {
       value: "mm",
       label: "Milímetros",
@@ -15,7 +15,7 @@ const unidades=[
   }
 ];
 
-const unidadesMasa=[
+export const unidadesMasa=[
   {
     value: "ug",
     label: "ug",
@@ -50,7 +50,18 @@ const unidadesMasa=[
   }
 ]
 
-const conservacion=[
+const conservacionUn=[
+  {
+    value: "Mantener",
+    label: "Mantener"
+  },
+  {
+    value: "Conservar",
+    label: "Conservar"
+  }
+]
+
+export const conservacion=[
   {
       value: "ambRefr",
       label: "Al ambiente, una vez abierto, refrigerar",
@@ -69,7 +80,7 @@ const conservacion=[
   }
 ]
 
-const unidadesDias=[
+export const unidadesDias=[
   {
       value: "Días",
       label: "Días",
@@ -79,12 +90,78 @@ const unidadesDias=[
       label: "Meses",
   },
   {
+    value: "Año",
+    label: "Año"
+  },
+  {
       value: "Años",
       label: "Años"
   }
 ]
 
-const pesosNetos=[
+export const fabricaciones=[
+  {
+    value: "Fecha de elaboración",
+    label: "Fecha de elaboración",
+  },
+  {
+      value: "Fecha de fabricación",
+      label: "Fecha de fabricación",
+  },
+  {
+    value: "Fecha de envasado",
+    label: "Fecha de envasado"
+  }
+]
+
+export const caducidades=[
+  {
+    value: "Consumir antes del",
+    label: "Consumir antes del",
+  },
+  {
+      value: "Fecha de caducidad",
+      label: "Fecha de caducidad",
+  },
+  {
+    value: "Fecha de vencimiento",
+    label: "Fecha de vencimiento"
+  },
+  {
+    value: "Fecha de elaboración",
+    label: "Fecha de elaboración",
+  },
+  {
+      value: "Consumir preferentemente antes del",
+      label: "Consumir preferentemente antes del",
+  },
+  {
+    value: "Fecha de mejor calidad",
+    label: "Fecha de mejor calidad"
+  },
+  {
+    value: "Consumir antes del final de",
+    label: "Consumir antes del final de",
+  },
+  {
+    value: "Consumir preferentemente antes del final de",
+    label: "Consumir preferentemente antes del final de"
+  },
+  {
+    value: "Fecha de mejor calidad: antes del final de",
+    label: "Fecha de mejor calidad: antes del final de"
+  },
+  {
+      value: "Fecha de caducidad: final de",
+      label: "Fecha de caducidad: final de",
+  },
+  {
+    value: "Fecha de vencimiento: final de",
+    label: "Fecha de vencimiento: final de"
+  }
+]
+
+export const pesosNetos=[
   {
     value: "Contenido neto",
     label: "Contenido neto"
@@ -95,7 +172,7 @@ const pesosNetos=[
   }
 ]
 
-const pesosDrenados=[
+export const pesosDrenados=[
   {
     value: "Peso drenado",
     label: "Peso drenado"
@@ -114,7 +191,7 @@ const pesosDrenados=[
   }
 ]
 
-const unidadesAlcohol=[
+export const unidadesAlcohol=[
   {
     value:"Alcohol __%(Vol.)",
     label: "Alcohol __%(Vol.)"
@@ -145,7 +222,7 @@ const unidadesAlcohol=[
   }
 ]
 
-const alergenos=[
+export const alergenos=[
   { value: "tartrazina", label: "Tartrazina"},
   { value: "fenil", label: "Fenilcetronuricos: Fenilanina"},
   { value: "gluten", label: "Gluten"},
@@ -167,192 +244,3 @@ const alergenos=[
   { value: "sesamo", label: "Sésamo"},
   { value: "regaliz", label: "Regaliz"}
 ]
-
-const ddMultipleStyle={
-  clearIndicator: (provided, state)=>({
-    ...provided,
-    color: state.isFocused ? "#1ED796":"white"
-  }),
-  option: (provided, state)=>({
-    ...provided,
-    backgroundColor: state.isSelected ? '#1ED796':state.isFocused ? "#1dd79633":"#404040",
-    color: "white",
-    cursor: "Pointer",
-  }),
-  menuList: (provided, state) =>({
-    ...provided,
-    border: "2px solid #404040",
-    backgroundColor: "#404040",
-    borderRadius: "5px",
-  }),
-  control: (provided, state) =>({
-    border: state.isDisabled ? "2px solid #00000048":"2px solid #404040",
-    backgroundColor: state.isDisabled ? "#00000048":"#404040",
-    display: "flex",
-    cursor: "Pointer",
-    borderRadius: "8px",
-      
-  }),
-  input: (provided,state)=>({
-    ...provided,
-    color: "white"
-  }),
-  placeholder: (provided,state)=>({
-    ...provided,
-    color: "white"
-  }),
-  singleValue: (provided,state)=>({
-    ...provided,
-    color: "white"
-  }),
-  dropdownIndicator: (provided, state)=>({
-    ...provided,
-    "&:hover":{
-        color: "#1ED796"
-    }
-  }),
-  menu: (provided, state)=>({
-    ...provided,
-    borderRadius: "8px",
-  }),
-}
-
-const ddLargerStyle={
-  option: (provided, state)=>({
-    ...provided,
-    backgroundColor: state.isSelected ? '#1ED796':state.isFocused ? "#1dd79633":"#404040",
-    color: "white",
-    cursor: "Pointer",
-  }),
-  menuList: (provided, state) =>({
-    ...provided,
-    border: "2px solid #404040",
-    backgroundColor: "#404040",
-    borderRadius: "5px",
-  }),
-  control: (provided, state) =>({
-    border: state.isDisabled ? "2px solid #00000048":"2px solid #404040",
-    backgroundColor: state.isDisabled ? "#00000048":"#404040",
-    display: "flex",
-    cursor: "Pointer",
-    width:"10vw",
-    maxWidth: "30vw",
-    borderRadius: "8px",
-      
-  }),
-  input: (provided,state)=>({
-    ...provided,
-    color: "white"
-  }),
-  placeholder: (provided,state)=>({
-    ...provided,
-    color: "white"
-  }),
-  singleValue: (provided,state)=>({
-    ...provided,
-    color: "white"
-  }),
-  dropdownIndicator: (provided, state)=>({
-    ...provided,
-    "&:hover":{
-        color: "#1ED796"
-    }
-  }),
-  menu: (provided, state)=>({
-    ...provided,
-    borderRadius: "8px",
-  }),
-}
-
-const ddLargestStyle={
-  option: (provided, state)=>({
-    ...provided,
-    backgroundColor: state.isSelected ? '#1ED796':state.isFocused ? "#1dd79633":"#404040",
-    color: "white",
-    cursor: "Pointer",
-  }),
-  menuList: (provided, state) =>({
-    ...provided,
-    border: "2px solid #404040",
-    backgroundColor: "#404040",
-    borderRadius: "5px",
-  }),
-  control: (provided, state) =>({
-    border: state.isDisabled ? "2px solid #00000048":"2px solid #404040",
-    backgroundColor: state.isDisabled ? "#00000048":"#404040",
-    display: "flex",
-    cursor: "Pointer",
-    width:"14vw",
-    maxWidth: "30vw",
-    borderRadius: "8px",
-      
-  }),
-  input: (provided,state)=>({
-    ...provided,
-    color: "white"
-  }),
-  placeholder: (provided,state)=>({
-    ...provided,
-    color: "white"
-  }),
-  singleValue: (provided,state)=>({
-    ...provided,
-    color: "white"
-  }),
-  dropdownIndicator: (provided, state)=>({
-    ...provided,
-    "&:hover":{
-        color: "#1ED796"
-    }
-  }),
-  menu: (provided, state)=>({
-    ...provided,
-    borderRadius: "8px",
-  }),
-}
-
-const ddSmallStyle={
-  option: (provided, state)=>({
-    ...provided,
-    backgroundColor: state.isSelected ? '#1ED796':state.isFocused ? "#1dd79633":"#404040",
-    color: "white",
-    cursor: "Pointer",
-  }),
-  menuList: (provided, state) =>({
-    ...provided,
-    border: "2px solid #404040",
-    backgroundColor: "#404040",
-    borderRadius: "5px",
-  }),
-  control: (provided,state) =>({
-    border: state.isDisabled ? "2px solid #00000048":"2px solid #404040",
-    backgroundColor: state.isDisabled ? "#00000048":"#404040",
-    display: "flex",
-    cursor: "Pointer",
-    minWidth: "none",
-    width: "5vw",
-    borderRadius: "8px",
-  }),
-  input: (provided,state)=>({
-    ...provided,
-    color: "white"
-  }),
-  placeholder: (provided,state)=>({
-    ...provided,
-    color: "white"
-  }),
-  singleValue: (provided,state)=>({
-    ...provided,
-    color: "white"
-  }),
-  dropdownIndicator: (provided, state)=>({
-    ...provided,
-    "&:hover":{
-        color: "#1ED796"
-    }
-  }),
-  menu: (provided, state)=>({
-    ...provided,
-    borderRadius: "8px",
-  })
-}

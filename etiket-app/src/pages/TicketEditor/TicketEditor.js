@@ -1,11 +1,13 @@
-import { Component } from 'react';
-import './TicketEditor.css';
-import Draggable from 'react-draggable'; 
-import { connect } from 'react-redux';
 import { replace, erase } from '../../reducers/etiquetaSlice'
-import TicketViewerFront from '../TicketViewerFrontRectangular/TicketViewerFrontRectangular';
-import TicketViewerBack from '../TicketViewerBackRectangular/TicketViewerBackRectangular';
+import { Component } from 'react';
+import { connect } from 'react-redux';
+import PrototypeFront from '../../components/PrototypeFront/PrototypeFront';
+import PrototypeBack from '../../components/PrototypeBack/PrototypeBack';
+import Draggable from 'react-draggable'; 
+import './TicketEditor.css';
+import { Link } from 'react-router-dom'
 
+const pathIcons = '../images/icons/';
 const returnImage = '../../images/icons/return.png'
 
 const mapStateToProps = state => ({
@@ -80,11 +82,16 @@ class TicketEditor extends Component{
         return(
 
             <div id='TicketEditorContainer' >
+                <Link to={"/misEtiquetas"}>
+                    <img src={pathIcons+"back.png"} alt="Regresar" className="backBtn "/>
+                </Link>
+                {/* <span> {"this.props.etiqueta.nombre"} </span> */}
+
                 <div id='PreviewContainer'> 
                     <div id='ticketContainer' className='d-flex justify-content-center align-items-center m-0' style={{ zIndex:0}}>
-                        <TicketViewerFront/>
+                        <PrototypeFront sizeIndicatorVisibility= {'hidden'}/>
 
-                        <TicketViewerBack 
+                        <PrototypeBack
                             ingredients={this.props.etiqueta.ingredientes}
                             allergens = {this.props.etiqueta.alergenos}
                             conservationMethod = {this.props.etiqueta.metodoConservacion}
@@ -164,13 +171,6 @@ function TicketRectangularBack ({ingredients, allergens, conservationMethod, lif
                             <span> <strong>CONTIENE:</strong> {allergens}</span>
                         </div>
                     </Draggable>
-
-                
-                
-                {/* <Draggable  bounds='parent' >
-                    <div className='col-6 my-4 p-2 hover_colored_border' style={{ height: '90%', backgroundColor:'white'}} >
-                    </div>
-                </Draggable> */}
                 
 
             </div>

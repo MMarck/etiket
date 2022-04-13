@@ -16,7 +16,7 @@ const mapDispatchToProps = () => ({
  * Componente para dibujar la vista TRASERA de la etiqueta, las variables que utiliza estan mapeadas
  * en props mediante el metodo connect de react redux al objeto etiqueta del store global
 */
-class TicketViewerBack extends Component{
+class PrototypeBack extends Component{
 
     render(){
         return(
@@ -112,4 +112,4 @@ class TicketViewerBack extends Component{
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-  )(TicketViewerBack);
+  )(PrototypeBack);

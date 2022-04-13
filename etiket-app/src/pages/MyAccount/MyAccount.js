@@ -43,7 +43,7 @@ function MyAccount(){
               <img src={userIcon} width={'50px'}  height={'50px'}/> 
               
               <div className="d-flex  flex-column justify-content-start ms-2">
-                <span class="opacity-50">Foto de perfil</span>
+                <span className="opacity-50">Foto de perfil</span>
                 <span >La foto debe tener al menos 300 px x 300px y no debe pesar mas de 2 MB.</span>
                 <br/>
 
@@ -79,11 +79,9 @@ function MyAccount(){
               <span className="opacity-50">Plan</span>
               <div className="d-flex  justify-content-start align-items-center">
                 <span className="m-2 me-5">GRATIS</span>
-                <button 
-                  className='btn-success green-button fw-bolder py-1 px-3'
-                  style={{width:'fit-content', height:'fit-content'}}> 
-                  CAMBIAR PLAN
-                </button>
+                
+                <CambiarPlanModal/>
+
               </div>
 
             </div>
@@ -93,7 +91,7 @@ function MyAccount(){
 
               <CambiarCorreoModal/>
 
-              <Link to='/dashboard/changePassword'>
+              <Link to='/cambiarClave'>
                 <button 
                   className='btn-dark darkButton border-0 text-white fw-bolder p-2' >
                   RESETEAR CONTRASEÑA
@@ -159,7 +157,7 @@ function CambiarCorreoModal() {
             <ConfirmacionCorreoModal closeParent={handleClose}/>
 
             <br/>
-            <span class="opacity-50 pt-3">Verifica tu nuevo correo</span>
+            <span className="opacity-50 pt-3">Verifica tu nuevo correo</span>
           </div>
 
         </Modal.Body>
@@ -262,7 +260,7 @@ function ConfirmacionBorrarCuentaModal() {
             has diseñado y tus datos se perderán de por vida.
             </span>
        
-            <Link to='/'>
+            <Link to='/login'>
               <button 
                 className='btn-danger border-0 bg-danger text-white fw-bolder p-2' >
                 SÍ, ELIMINAR MI CUENTA
@@ -278,4 +276,67 @@ function ConfirmacionBorrarCuentaModal() {
   );
 }
 
+/*
+ *  Este componente renderiza un boton y maneja la visulizacion del modal
+ *  para el cambio de plan
+*/
+function CambiarPlanModal() {
+  const [show, setShow] = useState(false);
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  
+  return (
+    <>
+      <button 
+        className='btn-success green-button fw-bolder py-1 px-3'
+        style={{width:'fit-content', height:'fit-content'}}
+        onClick={handleShow}
+      > 
+        CAMBIAR PLAN
+      </button>
+
+
+
+      <Modal 
+        show={show} 
+        onHide={handleClose} 
+        size="md" 
+        centered 
+        style={{fontSize:'0.8rem'}} 
+      >
+
+        {/* <Modal.Header closeButton style={{border:'none', height:'10px'}}/>  */}
+        <Modal.Header closeButton>
+          <Modal.Title className='p-4'>
+            <h4 style={{fontSize:'0.9em', fontWeight:'bold'}}>Cambio de plan</h4>
+            <dd style={{fontSize:'0.5em'}}>Tu plan actual es <b>Gratis por siempre</b></dd>
+
+          </Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <div className='ms-4'>
+            <form className='data-user-container' >
+              <label htmlFor="nuevo_correo">Nuevo correo</label>
+              <input
+              className="inputText  ligth-input mb-4" 
+              id="nuevo_correo" 
+              type="text" 
+              name="correo" 
+              placeholder="Ingrese nuevo correo"
+              />
+            </form>
+
+            <ConfirmacionCorreoModal closeParent={handleClose}/>
+
+            <br/>
+            <span className="opacity-50 pt-3">Verifica tu nuevo correo</span>
+          </div>
+
+        </Modal.Body>
+
+      </Modal>
+    </>
+  );
+}

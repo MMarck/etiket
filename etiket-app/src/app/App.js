@@ -5,15 +5,16 @@ import WallPaperWelcome from '../pages/WallpaperWelcome/WallpaperWelcome';
 import NewTicket from '../pages/NewTicket/NewTicket';
 import MyTickets from '../pages/MyTickets/MyTickets';
 import HomeBody from '../components/HomeBody/HomeBody'
-import ResetPassword from '../components/ResetPassword/ResetPassword'
-import CreateAccount from '../components/CreateAccount/CreateAccount'
-import LoginForm from '../components/LoginForm/LoginForm'
+import ResetPassword from '../components/ResetPassword/ResetPassword';
+import CreateAccount from '../components/CreateAccount/CreateAccount';
+import LoginForm from '../components/LoginForm/LoginForm';
 import ChangePassword from '../pages/ChangePassword/ChangePassword';
-import GeneradorRectangular from '../components/GeneradorRectangular/GeneradorRectangular';
+import TicketEditor from '../pages/TicketEditor/TicketEditor';
 import './App.css';
 
 
 import { useEffect, useState } from 'react';
+import store from './store';
 
 function App() {
   //cambiar por el estado global
@@ -41,6 +42,7 @@ function App() {
       })
       .then(resObject => {
         setUser(resObject.user)
+        console.log(resObject.user)
       })
       .catch((err)=>{
         console.log(err)
@@ -67,17 +69,17 @@ function App() {
           <Route path='createAccount' element={<CreateAccount/>}/>
         
         </Route> 
-      {user?
-        <Route path="/" element={user? <Dashboard/>: <Navigate to='/login'/>}>
+      
+        <Route path="/" element={true? <Dashboard/>: <Navigate to='/login'/>}>
           <Route index element={<WallPaperWelcome/>}/>
           <Route path='miCuenta' element={<MyAccount/>}/>
           <Route path='misEtiquetas' element={<MyTickets/>}/>
-          <Route path="GeneradorRectangular" element={<GeneradorRectangular/>}/>
           <Route path='nuevoProyecto' element={<NewTicket/>}/>
           <Route path='crearEtiqueta' element={<CrearEtiqueta/>}/>
           <Route path='cambiarClave' element={<ChangePassword/>}/>
+          <Route path='editarEtiqueta/:id' element={<TicketEditor/>}/>
         </Route>
-      :''} 
+       
       
       </Routes>
     </Router>
