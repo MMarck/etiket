@@ -5,7 +5,9 @@ import PrototypeFront from '../../components/PrototypeFront/PrototypeFront';
 import PrototypeBack from '../../components/PrototypeBack/PrototypeBack';
 import Draggable from 'react-draggable'; 
 import './TicketEditor.css';
+import { Link } from 'react-router-dom'
 
+const pathIcons = '../images/icons/';
 const returnImage = '../../images/icons/return.png'
 
 const mapStateToProps = state => ({
@@ -80,6 +82,11 @@ class TicketEditor extends Component{
         return(
 
             <div id='TicketEditorContainer' >
+                <Link to={"/misEtiquetas"}>
+                    <img src={pathIcons+"back.png"} alt="Regresar" className="backBtn "/>
+                </Link>
+                {/* <span> {"this.props.etiqueta.nombre"} </span> */}
+
                 <div id='PreviewContainer'> 
                     <div id='ticketContainer' className='d-flex justify-content-center align-items-center m-0' style={{ zIndex:0}}>
                         <PrototypeFront sizeIndicatorVisibility= {'hidden'}/>
@@ -164,13 +171,6 @@ function TicketRectangularBack ({ingredients, allergens, conservationMethod, lif
                             <span> <strong>CONTIENE:</strong> {allergens}</span>
                         </div>
                     </Draggable>
-
-                
-                
-                {/* <Draggable  bounds='parent' >
-                    <div className='col-6 my-4 p-2 hover_colored_border' style={{ height: '90%', backgroundColor:'white'}} >
-                    </div>
-                </Draggable> */}
                 
 
             </div>
