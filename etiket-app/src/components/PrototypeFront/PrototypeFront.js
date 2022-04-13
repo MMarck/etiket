@@ -16,7 +16,7 @@ const mapDispatchToProps = () => ({
  * Componente para dibujar la vista DELANTERA de la etiqueta, las variables que utiliza estan mapeadas
  * en props mediante el metodo connect de react redux al objeto etiqueta del store global
 */
-class TicketViewerFront extends Component{
+class PrototypeFront extends Component{
 
     constructor(props){
         super(props)
@@ -102,4 +102,4 @@ class TicketViewerFront extends Component{
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-  )(TicketViewerFront);
+  )(PrototypeFront);

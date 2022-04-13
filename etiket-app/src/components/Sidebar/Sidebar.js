@@ -663,7 +663,7 @@ class Sidebar extends Component{
 
   render(){
     
-    const isDisabled=this.state.isDisabled
+    const isDisabled=this.props.isDisabled
     return (
       <div id='SidebarContainer' className='' >
         <div id="userIcon" className=''> 

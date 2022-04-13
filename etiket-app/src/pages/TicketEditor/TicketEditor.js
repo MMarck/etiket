@@ -1,10 +1,10 @@
+import { replace, erase } from '../../reducers/etiquetaSlice'
 import { Component } from 'react';
-import './TicketEditor.css';
-import Draggable from 'react-draggable'; 
 import { connect } from 'react-redux';
-import { replace } from '../../reducers/etiquetaSlice'
-import TicketViewerBack from '../../components/TicketViewerBack/TicketViewerBack';
-import TicketViewerFront from '../../components/TicketViewerFront/TicketViewerFront';
+import PrototypeFront from '../../components/PrototypeFront/PrototypeFront';
+import PrototypeBack from '../../components/PrototypeBack/PrototypeBack';
+import Draggable from 'react-draggable'; 
+import './TicketEditor.css';
 
 const returnImage = '../../images/icons/return.png'
 
@@ -12,7 +12,8 @@ const mapStateToProps = state => ({
     etiqueta: state.etiqueta
   });
 const mapDispatchToProps = () => ({ 
-    replace
+    replace,
+    erase,
 });
 class TicketEditor extends Component{
 
@@ -81,9 +82,9 @@ class TicketEditor extends Component{
             <div id='TicketEditorContainer' >
                 <div id='PreviewContainer'> 
                     <div id='ticketContainer' className='d-flex justify-content-center align-items-center m-0' style={{ zIndex:0}}>
-                        <TicketViewerFront sizeIndicatorVisibility= {'hidden'}/>
+                        <PrototypeFront sizeIndicatorVisibility= {'hidden'}/>
 
-                        <TicketViewerBack 
+                        <PrototypeBack
                             ingredients={this.props.etiqueta.ingredientes}
                             allergens = {this.props.etiqueta.alergenos}
                             conservationMethod = {this.props.etiqueta.metodoConservacion}
@@ -97,10 +98,10 @@ class TicketEditor extends Component{
                 </div>
 
                 <div className='d-flex flex-column justify-content-center align-items-center gap-2' >
-                    <span className='p-2'><img src={returnImage} alt='return ' width={'10px'}  />  BORRAR TODO</span>
+                    <span className='p-2'  onClick={()=>this.props.erase()}  style={{cursor:"pointer"}} ><img src={returnImage} alt='return ' width={'10px'}  />  BORRAR TODO</span>
 
                     <div className='d-flex gap-3'>
-                        <button type="button" className='darkButton-twhite' > EXPORTAR EN PDF</button>    
+                        <button type="button" className='darkButton-twhite'> EXPORTAR EN PDF</button>    
                         <button type="button" className='darkButton-twhite' > EXPORTAR EN PNG</button>   
                         <button type="button" className='colored-button' onClick={this.zoomIn}> zoom in </button>    
                     <button type="button" className='colored-button' onClick={this.zoomOut}> zoom out</button>   
@@ -115,7 +116,7 @@ class TicketEditor extends Component{
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps()
   )(TicketEditor);
 
 
