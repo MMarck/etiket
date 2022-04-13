@@ -3,8 +3,8 @@ import './TicketEditor.css';
 import Draggable from 'react-draggable'; 
 import { connect } from 'react-redux';
 import { replace } from '../../reducers/etiquetaSlice'
-import TicketViewerFront from '../TicketViewerFront/TicketViewerFront';
-import TicketViewerBack from '../TicketViewerBack/TicketViewerBack';
+import TicketViewerBack from '../../components/TicketViewerBack/TicketViewerBack';
+import TicketViewerFront from '../../components/TicketViewerFront/TicketViewerFront';
 
 const returnImage = '../../images/icons/return.png'
 

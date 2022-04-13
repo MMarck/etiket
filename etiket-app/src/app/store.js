@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import etiquetaReducer from "../reducers/etiquetaSlice"
-import TicketSetReducer from '../reducers/TicketSetSlice'
+import TicketListReducer from '../reducers/TicketListSlice'
 import SessionReducer from '../reducers/SessionSlice'
+import NewTicketReducer from '../reducers/NewTicketSlice'
 
 export default configureStore({
   reducer: {
     session: SessionReducer,
     etiqueta: etiquetaReducer,
-    TicketSet: TicketSetReducer
+    ticketList: TicketListReducer,
+    newTicket: NewTicketReducer
   },
 })

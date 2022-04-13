@@ -680,7 +680,7 @@ class Sidebar extends Component{
                 <button className='colored-button userSubBtn' > Mis etiquetas</button>
               </Link>
               <br/>
-              <Link to={'/miCuenta'} > 
+              <Link to={'/login'} > 
                 <button className='colored-button userSubBtn' > Cerrar sesión</button>
               </Link>
             </div>
