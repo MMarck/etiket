@@ -53,8 +53,6 @@ module.exports = {
      */
     create: function (req, res) {
         var Users = new UsersModel({
-			username : req.body.username,
-			password : req.body.password,
 			email : req.body.email,
 			nombre : req.body.nombre
         });
