@@ -1,3 +1,4 @@
+var passport = require('passport');
 var UsersModel = require('../models/UsersModel.js');
 
 /**
@@ -52,23 +53,29 @@ module.exports = {
      */
     create: function (req, res) {
         var Users = new UsersModel({
-			userId : req.body.userId,
 			username : req.body.username,
 			password : req.body.password,
 			email : req.body.email,
 			nombre : req.body.nombre
         });
 
-        Users.save(function (err, Users) {
-            if (err) {
+        UsersModel.register(Users,req.body.password,function(err,user){
+            if (err){
                 return res.status(500).json({
-                    message: 'Error when creating Users',
+                    message: "Error creando usuario",
                     error: err
-                });
+                })
             }
+            
+            passport.authenticate("local")(req,res,function(){
+                return res.status(204).json();
+            })
 
-            return res.status(201).json(Users);
         });
+    },
+
+    auth: function(req,res){
+        
     },
 
     /**

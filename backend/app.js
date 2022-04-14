@@ -26,4 +26,15 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/UsersDB', UsersDBRoutes);
 
+
+// requires the model with Passport-Local Mongoose plugged in
+const User = require('./models/UsersModel');
+
+// use static authenticate method of model in LocalStrategy
+passport.use(User.createStrategy());
+
+// use static serialize and deserialize of model for passport session support
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 module.exports = app;
