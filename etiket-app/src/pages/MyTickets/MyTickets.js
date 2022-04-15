@@ -127,6 +127,8 @@ class MyTickets extends Component{
             guardada en estado global (store), cada elemento redirige al componente
             TicketEditor el cual lee el id en la URL y carga los de dato de 
             dicha etiqueta para modificarlo*/
+
+            //PENDIENTE SOLO LOS USUARIOS PREMIUM PUEDEN ELIMINAR ETIQUETAS
             this.props.ticketList.map((object, index) =>  
               <Link 
                 to = {'/editarEtiqueta/'+ index}
@@ -244,9 +246,10 @@ class MyTickets extends Component{
   /*
   * Metodo para obtener las etiquetas desde la base de datos
   * retorna un listado con las etiquetas
+  * PENDIENTE CARGAR LAS ETIQUETAS Y VERIFICAR CUENTA DEL USUARIO
   */
   getTickets() {
-    return [{name:'etiqueta1',type:'rectangular'}]
+    return [{name:'etiqueta1',type:'rectangular'},{name:'etiqueta1',type:'rectangular'}]
   }
 }
 

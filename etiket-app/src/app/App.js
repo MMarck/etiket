@@ -15,6 +15,9 @@ import './App.css';
 
 import { useEffect, useState } from 'react';
 import store from './store';
+import { createBrowserHistory } from "history";
+
+const history = createBrowserHistory();
 
 function App() {
   //cambiar por el estado global
@@ -54,7 +57,7 @@ function App() {
 
   return (
     
-    <Router> 
+    <Router  history={history}> 
       <Routes>
         
          <Route path="/login" exact element={

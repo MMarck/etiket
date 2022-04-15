@@ -18,7 +18,7 @@ export const etiquetaSlice = createSlice({
     pesoNeto: "",
     pesoNetoUn:{label:"g", value:"g"},
     pesoDrenadoDisabled:true,
-    pesoDrenadoLabel: {},
+    pesoDrenadoLabel: {label:"Peso drenado", value: "Peso drenado"},
     pesoDrenado: "",
     pesoDrenadoUn:{},
     alcohol:"",
@@ -49,7 +49,6 @@ export const etiquetaSlice = createSlice({
       // Action tiene la forma de {nombreEstado: "", value: ""}
       // Se usaría para cosas como pesoNeto
       state[action.payload.stateName] = action.payload.value;
-      console.log("Se acaba de llamar replace")
     },
     erase: (state) => {
       state.isDisabled= false;

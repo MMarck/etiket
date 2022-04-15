@@ -22,10 +22,7 @@ const unidades=[
       value: "cm",
       label: "Centímetros",
   },
-  {
-      value: "in",
-      label: "Púlgadas",
-  }
+
 ];
 
 const unidadesMasa=[
@@ -750,7 +747,7 @@ class Sidebar extends Component{
               </div>
               <div id="pesoCont">
                 <div id='pesosCheckbox' style={{alignSelf:'flex-end', marginBottom:"1vh"}} onChange={()=>{this.handlePesoDrenadoDisable()}}>
-                  <CustomCheckbox isChecked={this.props.etiqueta.pesoDrenadoDisabled}/>
+                  <CustomCheckbox isChecked={!this.props.etiqueta.pesoDrenadoDisabled}/>
                 </div>
                 
                 <div id="pesos">

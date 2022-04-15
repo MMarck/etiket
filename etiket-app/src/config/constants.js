@@ -8,10 +8,6 @@ export const unidades=[
   {
       value: "cm",
       label: "Centímetros",
-  },
-  {
-      value: "pulg",
-      label: "Púlgadas",
   }
 ];
 

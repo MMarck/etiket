@@ -282,6 +282,7 @@ function ConfirmacionBorrarCuentaModal() {
 */
 function CambiarPlanModal() {
   const [show, setShow] = useState(false);
+  const [flag_emprendedor_empresa, setFlag_emprendedor_empresa] = useState(true);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -306,37 +307,76 @@ function CambiarPlanModal() {
         style={{fontSize:'0.8rem'}} 
       >
 
-        {/* <Modal.Header closeButton style={{border:'none', height:'10px'}}/>  */}
-        <Modal.Header closeButton>
-          <Modal.Title className='p-4'>
-            <h4 style={{fontSize:'0.9em', fontWeight:'bold'}}>Cambio de plan</h4>
+        <Modal.Header closeButton id='Modal-header'>
+          <Modal.Title className=''>
+            <h4 style={{fontSize:'0.7em', fontWeight:'bold'}}>Cambio de plan</h4>
             <dd style={{fontSize:'0.5em'}}>Tu plan actual es <b>Gratis por siempre</b></dd>
 
           </Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>
-          <div className='ms-4'>
-            <form className='data-user-container' >
-              <label htmlFor="nuevo_correo">Nuevo correo</label>
-              <input
-              className="inputText  ligth-input mb-4" 
-              id="nuevo_correo" 
-              type="text" 
-              name="correo" 
-              placeholder="Ingrese nuevo correo"
-              />
-            </form>
+        <Modal.Body id='modal-body' >
+          <div id="rectSelectorContainer" >
 
-            <ConfirmacionCorreoModal closeParent={handleClose}/>
-
-            <br/>
-            <span className="opacity-50 pt-3">Verifica tu nuevo correo</span>
+            <div id="emprendedorSqr" 
+              onClick={()=>{setFlag_emprendedor_empresa(!flag_emprendedor_empresa)}} 
+              className={flag_emprendedor_empresa? "planSelected":"planNotSelected"}
+            >
+              <span>Emprendedor</span>
+            </div>
+            <div id="empresasSqr" 
+              onClick={()=>{setFlag_emprendedor_empresa(!flag_emprendedor_empresa)}} 
+              className={!flag_emprendedor_empresa? "planSelected":"planNotSelected"}
+            >
+              <span>Empresas</span>
+            </div>
           </div>
+
+          <form className='py-4'>
+            {flag_emprendedor_empresa?
+              <>
+                <RadioButton planName="GRATIS" title="Gratis por siempre" description="" group="planes" />
+                <div className='d-flex gap-2'>
+                  <RadioButton planName="EMPRENDEDOR_MENSUAL" title="Plan Emprendedor" description="$ 4/mes" group="planes" />
+                  <RadioButton planName="EMPRENDEDOR_ANUAL" title="Plan Emprendedor" description="$ 40/pago anual" group="planes" />
+                </div>
+              </>
+            :''}
+
+            {!flag_emprendedor_empresa?
+              <>
+                <RadioButton planName="GRATIS" title="Gratis por siempre" description="" group="planes" />
+                <div className='d-flex gap-2'>
+                  <RadioButton planName="CORPORATIVO_MENSUAL" title="Plan Corporativo" description="$ 9/mes" group="planes" />
+                  <RadioButton planName="CORPORATIVO_ANUAL" title="Plan Corporativo" description="$ 100/pago anual" group="planes" />
+                </div>
+              </>
+            :''}
+
+          </form>
+
+          {/* PENDIENTE PONER CAMBIO DE PLAN PARA UN USARUI */}
+          <button 
+            className='darkButton fs-6'
+            style={{padding: "0.7em 1.2em", width:"fit-content"}}
+          > 
+            COMPRAR PLAN
+          </button>
 
         </Modal.Body>
 
       </Modal>
     </>
   );
+}
+
+
+const  RadioButton = ({group, title, description, planName})=> {
+  return (
+    <div className=''>
+      <input type="radio" id={planName} name={group} value={planName}/>
+      <label for={planName}> <b>{title}</b> { " " + description}</label>
+    </div>
+  );
+
 }
