@@ -6,7 +6,6 @@ import replace from '../../reducers/NewTicketSlice'
 import './NewTicket.css';
 
 
-
 const mapStateToProps = state => ({
   newTicket: state.newTicket
 });
@@ -15,7 +14,7 @@ const mapDispatchToProps = () => ({
 });
 const pathIcons = '../images/icons/';
 
-
+/* const  navigate = useNavigate(); */
 /*
 * Vista para crear una nueva etiqueta, recibe el tipo de etiqueta y
 * el pais, luego pide el nombre y adjunta al usuario para crear la etiqueta 
@@ -40,6 +39,7 @@ class NewTicket extends Component{
     /* lo mejor seria hacerlo de manera programatica pero,
     por el momenento hare que el boton que llama a esta funcion sea 
     un link */
+    /* navigate("/success", { replace: true }); */
   }
 
   render(){

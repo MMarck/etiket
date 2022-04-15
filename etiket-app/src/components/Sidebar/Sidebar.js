@@ -22,10 +22,7 @@ const unidades=[
       value: "cm",
       label: "Centímetros",
   },
-  {
-      value: "in",
-      label: "Púlgadas",
-  }
+
 ];
 
 const unidadesMasa=[
