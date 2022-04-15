@@ -1,6 +1,7 @@
 
 import { Component } from "react";
 import { Link } from "react-router-dom";
+import { withRouter } from "../../tools/withRouter";
 import "./CreateAccount.css";
 
 
@@ -39,8 +40,16 @@ class CreateAccount extends Component {
           'Content-Type': 'application/json'},
         body: JSON.stringify(jsonData)
       })
-      .then(response => response.json())
-      .then(data=>console.log(data));
+      .then(response => {
+        if (response.ok) {
+          alert("Se ha creado el usuario")
+          this.props.navigate("/login")
+        } else {
+          response.json()
+          .then(data=>alert(data.error.message ));
+        }
+        })
+      
 
     }
   }
@@ -105,4 +114,4 @@ class CreateAccount extends Component {
   }
 }
 
-export default CreateAccount
+export default withRouter(CreateAccount)

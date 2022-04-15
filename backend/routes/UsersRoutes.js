@@ -1,4 +1,5 @@
 var express = require('express');
+const res = require('express/lib/response');
 var passport = require('passport');
 var router = express.Router();
 var UsersController = require('../controllers/UsersController.js');
@@ -22,8 +23,13 @@ router.get('/login', function(req, res) {
  */
 router.post('/', UsersController.create);
 
-router.post("/login", passport.authenticate("local"), function(req,res){
-    return res.status(200).send("Ha iniciado sesión")
+router.post("/login", UsersController.auth);
+
+router.post("/:id",UsersController.verifyJwt,(req,res)=>{
+    //Esto tendría el id del usuario en req.user
+    //El chiste sería ver si el id existe
+    //Y devolver acorde una respuesta, se usaría para la auth
+    //en cada vez que se entra a una página
 });
 
 /*
