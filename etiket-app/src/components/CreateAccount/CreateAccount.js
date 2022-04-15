@@ -1,11 +1,11 @@
 
+import { backendURL } from '../../config/constants.js'
+import { withRouter } from "../../tools/withRouter";
 import { Component } from "react";
 import { Link } from "react-router-dom";
-import { withRouter } from "../../tools/withRouter";
 import "./CreateAccount.css";
 
 
-const backend="http://localhost:3002/"
 
 class CreateAccount extends Component {
 
@@ -33,12 +33,13 @@ class CreateAccount extends Component {
         password: this.state.password,
         nombre: this.state.nombre + " " + this.state.apellido
       }
-      fetch(backend+"UsersDB",{
+      fetch(backendURL+"UsersDB",{
         method:"POST",
         mode:"cors",
-        headers: { Accept: 'application/json',
+        headers: { 
+          Accept: 'application/json',
           'Content-Type': 'application/json'},
-        body: JSON.stringify(jsonData)
+          body: JSON.stringify(jsonData)
       })
       .then(response => {
         if (response.ok) {

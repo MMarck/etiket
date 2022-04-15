@@ -1,70 +1,14 @@
-import { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Modal } from 'react-bootstrap';
-import { replace } from "../../reducers/NewTicketSlice";
+import { countries, pathIcons } from '../../config/constants';
+import { ddNormalStyle } from '../../tools/Statefunctions';
 import { setTickets } from "../../reducers/TicketListSlice";
+import { Component } from 'react';
 import { connect } from 'react-redux';
+import { replace } from "../../reducers/NewTicketSlice";
+import { Modal } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import Select from 'react-select';
 import './MyTickets.css';
 
-//PENDIENTE PONER CONSTANTES EN UN SOLO ARCHIVO 
-const ddNormalStyle={
-  option: (provided, state)=>({
-    ...provided,
-    backgroundColor: state.isSelected ? '#1ED796':state.isFocused ? "#1dd79633":"#404040",
-    color: "white",
-    cursor: "Pointer",
-  }),
-  menuList: (provided, state) =>({
-    ...provided,
-    border: "2px solid #404040",
-    backgroundColor: "#404040",
-    borderRadius: "5px",
-  }),
-  control: (provided, state) =>({
-    border: state.isDisabled ? "2px solid #00000048":"2px solid #404040",
-    backgroundColor: state.isDisabled ? "#00000048":"#404040",
-    display: "flex",
-    cursor: "Pointer",
-    width:"10vw",
-    maxWidth: "30vw",
-    borderRadius: "8px",
-      
-  }),
-  input: (provided,state)=>({
-    ...provided,
-    color: "white"
-  }),
-  placeholder: (provided,state)=>({
-    ...provided,
-    color: "white"
-  }),
-  singleValue: (provided,state)=>({
-    ...provided,
-    color: "white"
-  }),
-  dropdownIndicator: (provided, state)=>({
-    ...provided,
-    "&:hover":{
-        color: "#1ED796"
-    }
-  }),
-  menu: (provided, state)=>({
-    ...provided,
-    borderRadius: "8px",
-  }),
-}
-const countries=[
-  {
-    value: "Ecuador",
-    label: "Ecuador"
-  },
-  {
-    value: "Mexico",
-    label: "Mexico"
-  }
-]
-const pathIcons = '../images/icons/';
 
 const mapStateToProps = state => ({
   newTicket: state.newTicket,
@@ -176,13 +120,18 @@ class MyTickets extends Component{
         que se encuentra en el esta del componente */}
         <Modal show={this.state.showPackagesTypes} onHide={() =>{this.setState({showPackagesTypes:false})}} size="lg" centered>
 
-          <Modal.Header closeButton className="border-0">
-            <Modal.Title>Elige el tipo de envase o empaque</Modal.Title>          
+          <Modal.Header closeButton className="newTicketModal-header">
+            <Modal.Title>
+              <h4><b>Elige el país</b></h4>
+              <h5 className="h5-subtitle" >
+                Cada país tiene su propio estándar para el etiquetado de alimentos.
+                Elige el país donde vas a comercializar tu producto.
+              </h5>
+            </Modal.Title>          
           </Modal.Header>
           
           <Modal.Body>
-            <div id='pesoNeto' className='my-4'>
-              <label htmlFor="countryTicket" >Seleccione país</label>
+            <div style={{width: 'fit-content', marginBottom:'1em'}}>
               <Select
                 id='countryTicket'
                 className='ddMenu' 
@@ -193,14 +142,16 @@ class MyTickets extends Component{
               />
             </div>
 
-            <span className='fs-7'>
+            <h4><b>Elige el tipo de envase o empaque</b></h4>
+            <h5 className="h5-subtitle" >
               Empieza a diseñar la etiqueta de tus alimentos eligiendo primero 
               el tipo de empaque o envase en la que pretendes comercializarlo.
-            </span>
+            </h5>
 
             <div className='d-flex gap-3'>
               
-              <PackageOption  packageType="rectangular"
+              <PackageOption  
+                packageType="rectangular"
                 title='Rectangulares o cuadrados' 
                 description='Bebidas, cajas de pizza, galletas, empaques doypack' 
                 imagePath= {imagePath('rectangular')}
@@ -249,7 +200,7 @@ class MyTickets extends Component{
   * PENDIENTE CARGAR LAS ETIQUETAS Y VERIFICAR CUENTA DEL USUARIO
   */
   getTickets() {
-    return [{name:'etiqueta1',type:'rectangular'},{name:'etiqueta1',type:'rectangular'}]
+    return [{name:'etiqueta1',type:'rectangular'}]
   }
 }
 
@@ -262,19 +213,19 @@ const imagePath = (type) => {
 
   switch (type) {
     case 'rectangular':
-      return '../../images/empaque-rectangular.png';
+      return '/images/empaque-rectangular.png';
 
     case 'botella':
-      return '../../images/empaque-botellas.png';
+      return '/images/empaque-botellas.png';
 
     case 'irregular':
-      return '../../images/empaque-irregular.png';   
+      return '/images/empaque-irregular.png';   
 
     case 'circular':
-      return '../../images/empaque-circular.png';
+      return '/images/empaque-circular.png';
 
     default:
-      return '../../images/empaque-rectangular.png';
+      return '/images/empaque-rectangular.png';
   }
   
 }
@@ -290,18 +241,21 @@ const imagePath = (type) => {
 */
 const PackageOption = ({title, description, imagePath, altImageText,  packageType, setTypeTicket}) => {
   
+  //Aclaracion: la clase "modal-dialog" y "modal-content" es agregada automaticamente por la libreria react-bootstrap
   return (
     <Link 
       to='/nuevoProyecto'
-      className = 'opcionEnvase'
+      className = 'packageOption' 
       onClick = {()=>{ setTypeTicket(["type", packageType])}}//setear tipo de paquete en el store
     >
-    <img src={imagePath} alt={altImageText} width='100px'/>
-    <p>
-      <dt style={{fontSize:'80%'}}> {title} </dt>
-      <dd style={{fontSize:'70%'}}> {description} </dd>
-    </p>
-  </Link>
+      <div className='packageOption-image'>
+        <img src={imagePath} alt={altImageText} />
+      </div>
+      <p className='packageOption-description'>
+        <dt className='packageOption-title'> {title} </dt>
+        <dd className='packageOption-subtitle'> {description} </dd>
+      </p>
+    </Link>
   )
 }
 

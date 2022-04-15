@@ -11,7 +11,7 @@ function Dashboard(){
 
         <div id='Wallpaper' >
 
-            <img id='AbsoluteLogo' src="images/solinalLogo.png" alt="logo de solinal" width={'100px'} /> 
+            <img id='AbsoluteLogo' src="/images/solinalLogo.png" alt="logo de solinal" width={'100px'} /> 
 
             <Outlet/>{/*  Este componente pertenece a react-router-dom y 
                     permite alternar entre las rutas hijas declararas 

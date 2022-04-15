@@ -12,6 +12,16 @@
     overflow-y: auto;
 }
 
+/* Aclaracion: la clase "modal-dialog" y "modal-content" es agregada automaticamente por la libreria react-bootstrap */
+.modal-dialog, .modal-content{
+    width: fit-content;
+}
+
+/* Aclaracion: la clase "css-1xqpobx-Control" la coloca la clase react-select automaticamente */
+#countryTicket .css-1xqpobx-Control{
+    width: 100%;
+}
+
 .backBtn{
     width:2vw;
     margin-left:1vw;
@@ -23,30 +33,55 @@
     filter: invert(99%) sepia(67%) saturate(3880%) hue-rotate(77deg) brightness(91%) contrast(83%);
 }
 
-.opcionEnvase{
-    box-sizing: border-box;
+.packageOption{
+    height: 12rem;
+    width: 12rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-top: 10px;
-    padding-left: 2vw;
-    padding-right: 2vw;
     text-align: center;
     border-radius: 10px;
-    border: 2px solid gray;
+    border: 2px solid rgb(216, 216, 216);
     text-decoration: none;
     color: black;
+    padding: 5px;
 }
 
-.opcionEnvase:hover{
+.packageOption:hover{
     font-weight: bolder;
     color: black;
     cursor: pointer;
     border: 2px solid var(--Sgreen);
+    padding: 8px;
+}
+.packageOption-image{
+    height: 80%;
+}
+.packageOption-image img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 
+.packageOption-description{
+    height: 20%;
+    width: 100%;
+    margin: 0 ;
+}
+
+.packageOption-title{
+    font-size: 0.6rem;
+}
+
+.packageOption-subtitle{
+    font-size: 0.5rem;
+}
+
+.packageOption h4{
+    color: var(--Sblack);
+}
 #BotonMasNuevaEtiqueta{
     border: none;
     background-color: transparent;
@@ -85,3 +120,14 @@
     gap: 1em;
     flex-wrap: wrap;
 }
+
+.h5-subtitle{
+    color: gray;
+    font-size: 0.7rem;
+}
+
+.newTicketModal-header{
+    border: none;
+    padding: 1em 1em 0 1em;
+}
+

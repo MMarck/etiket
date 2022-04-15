@@ -1,4 +1,6 @@
-export const pathIcons = '../images/icons/';
+export const pathIcons = '/images/icons/';
+
+export const backendURL="http://localhost:3000/";
 
 export const unidades=[
   {
@@ -239,4 +241,30 @@ export const alergenos=[
   { value: "altramuces", label: "Altramuces"},
   { value: "sesamo", label: "Sésamo"},
   { value: "regaliz", label: "Regaliz"}
+]
+
+/*
+ * PAISES 
+*/
+export const countries=[
+  {
+    value: "Ecuador",
+    label: "Ecuador"
+  },
+  {
+    value: "Estados Unidos",
+    label: "Estados Unidos"
+  },
+  {
+    value: "Chile",
+    label: "Chile"
+  },
+  {
+    value: "Peru",
+    label: "Peru"
+  },
+  {
+    value: "Bolivia",
+    label: "Bolivia"
+  }
 ]

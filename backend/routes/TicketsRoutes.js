@@ -2,33 +2,33 @@ var express = require('express');
 const res = require('express/lib/response');
 var passport = require('passport');
 var router = express.Router();
-var UsersController = require('../controllers/UsersController.js');
+var TicketsController = require('../controllers/TicketsController');
 
 
-//Initial route http://localhost:3000/UsersDB
-
-/*
- * GET
- */
-router.get('/', UsersController.list);
+//Initial route http://localhost:3000/Ticket
 
 /*
  * GET
  */
-router.get('/:id', UsersController.show);
+router.get('/', TicketsController.list);
+
+/*
+ * GET
+ */
+router.get('/:id', TicketsController.show);
 
 router.get('/login', function(req, res) {
     res.render('login', {user: req.user});
 });
 
 /*
- * POST
+ * POST - crear un nueva etiqueta
  */
-router.post('/', UsersController.create);
+router.post('/', TicketsController.create);
 
-router.post("/login", UsersController.auth);
+router.post("/login", TicketsController.auth);
 
-router.post("/:id",UsersController.verifyJwt,(req,res)=>{
+router.post("/:id",TicketsController.verifyJwt,(req,res)=>{
     //Esto tendría el id del usuario en req.user
     //El chiste sería ver si el id existe
     //Y devolver acorde una respuesta, se usaría para la auth
@@ -38,11 +38,11 @@ router.post("/:id",UsersController.verifyJwt,(req,res)=>{
 /*
  * PUT
  */
-router.put('/:id', UsersController.update);
+router.put('/:id', TicketsController.update);
 
 /*
  * DELETE
  */
-router.delete('/:id', UsersController.remove);
+router.delete('/:id', TicketsController.remove);
 
 module.exports = router;
