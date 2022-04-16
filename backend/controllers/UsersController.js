@@ -1,9 +1,28 @@
-var passport = require('passport');
 var UsersModel = require('../models/UsersModel.js');
 var jwt=require("jsonwebtoken")
 const path = require('path')
 require('dotenv').config({path:path.resolve(__dirname,"../config/.env")}); 
 
+
+const generateAccessToken = (user) => {
+    return jwt.sign({ id: user.id, isAdmin: user.isAdmin }, "mySecretKey", {
+      expiresIn: "5s",
+    });
+  };
+  
+const generateRefreshToken = (user) => {
+    return jwt.sign({ id: user.id, isAdmin: user.isAdmin }, "myRefreshSecretKey");
+};
+
+/**
+ * lista de tokes de refrescos, estos se usan para que los
+ * usuarios no tengan que enviar multiples veces sin usuario 
+ * y contraseña para volver a logear
+ * 
+ */
+ let refreshTokens = [];
+
+ 
 /**
  * UsersController.js
  *
@@ -12,10 +31,38 @@ require('dotenv').config({path:path.resolve(__dirname,"../config/.env")});
 module.exports = {
 
     /**
+     * Crear usuario, se requieren los siguientes datos: 
+     * correo, contraseña, nombre y apellido,
+     * se coloca automaticamente el plan segun el modelo
+     */
+     new_user: function (req, res) {
+        //desempaquetado de datos iniciales
+        const { email, password, firstName, lastName } = req.body;
+        //nueva instancia de usuario
+        var user = new UsersModel({ email, password, firstName, lastName });
+        //guardado de usuario en la base de datos
+        const response = user.save();
+
+        //manejo de la respuesta asincrona
+        response.then( _ =>
+            res.status(201).json("Usuario creado exitosamente")
+        )
+        .catch(  err => {
+
+            if (err.code === 11000){
+                res.status(409).json("Correo ya utilizado")
+            }else{
+                res.status(500).json("No se pudo crear usuario")
+            }
+            console.log(err)
+        });
+
+    },
+    /**
      * UsersController.list()
      */
     list: function (req, res) {
-        UsersModel.find(function (err, Userss) {
+        UsersModel.find({'email':'claus'}, function (err, Userss) {
             if (err) {
                 return res.status(500).json({
                     message: 'Error when getting Users.',
@@ -51,41 +98,39 @@ module.exports = {
         });
     },
 
-    /**
-     * UsersController.create()
-     */
-    create: function (req, res) {
-        var Users = new UsersModel({
-			email : req.body.email,
-			nombre : req.body.nombre
-        });
+    
 
-        UsersModel.register(Users,req.body.password,function(err,user){
-            if (err){
+    login: function(req, res) {
+        //filtro de usuarios
+        UsersModel.findOne({'email':req.body.email, 'password': req.body.password},  (err, user) => {
+            if (err) {
                 return res.status(500).json({
-                    message: "Error creando usuario",
+                    message: 'Error when getting Users.',
                     error: err
-                })
+                });
             }
             
-            passport.authenticate("local")(req,res,function(){
-                return res.status(201).json();
-            })
+            if (user) {
+                //Generacion de token de acceso y de refresco
+                const accessToken = generateAccessToken(user);
+                const refreshToken = generateRefreshToken(user);
+                //guardado de token de refresco
+                refreshTokens.push(refreshToken);
+
+                //Informacion provista al frontend (eticket-app)
+                res.json({
+                    email: user.email,
+                    plan: user.plan,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    accessToken,
+                    refreshToken
+                });
+            } else {
+                res.status(400).json("Correo o contraseña incorrectos");
+            }
 
         });
-    },
-
-    auth: function(req, res, next) {
-        /* look at the 2nd parameter to the below call */
-        passport.authenticate('local', function(err, user, info) {
-          if (err) { return next(err); }
-          if (!user) { return res.status(400).json({message:"Error, correo o contraseña no son correctos"}); }
-          req.logIn(user, function(err) {
-            if (err) { return next(err); }
-            const accessToken=jwt.sign({id:req.user._id}, process.env.JWT_SECRET);
-            return res.status(202).json({message:"correcto", user:accessToken})
-          });
-        })(req, res, next);
     },
 
     verifyJwt: function(req,res,next){
