@@ -39,7 +39,7 @@ class PrototypeFront extends Component{
         let pesoDrenadoUn = this.props.etiqueta.pesoDrenadoUn.value;
         let pesoDrenadoLabel = this.props.etiqueta.pesoDrenadoLabel.value;
         let dimensionesUn = this.props.etiqueta.dimensionesUn.value;
-        let sizeIndicatorVisibility =  this.props.etiqueta.sizeIndicatorVisibility;
+        let sizeIndicatorVisibility =  this.props.sizeIndicatorVisibility;
         let nombreProducto = this.props.etiqueta.nombreProducto;
         let marca = this.props.etiqueta.marca;
         let alcohol = this.props.etiqueta.alcohol;
@@ -52,79 +52,69 @@ class PrototypeFront extends Component{
         pesoNetoUn = pesoNetoUn? pesoNetoUn:'';
 
         return(
-            <div>
-                <div className='mx-4 d-flex align-items-center '>
+            <div className='mx-4 d-flex align-items-center '>
 
-                    <SizeIndicator 
-                        orientation={'vertical'}
-                        length={ altura + dimensionesUn}
-                        visibilityProp={sizeIndicatorVisibility}
-                    />
-                    <div  style={{display:'inline-grid'}}>
-                        <h5 className='text-center fw-bold text-dark m-4 ' >Panel de visualización principal</h5>
+                <SizeIndicator orientation={'vertical'} length={ altura + dimensionesUn } visibilityProp={sizeIndicatorVisibility} fontSize = {dataFontSize} />
 
-                        <div className='d-flex flex-column justify-content-between align-items-center' 
-                        style={{backgroundColor:'white',
-                                height: altura + dimensionesUn,
-                                width: ancho + dimensionesUn, 
-                                textAlign:'center', 
-                                position:'relative',
-                                fontSize: dataFontSize}}
-                        >
+                <div  style={{display:'inline-grid'}}>
+                    <h5 className='paneTitle' style={{fontSize: dataFontSize}}>Panel de visualización principal</h5>
 
-                            <Draggable bounds='parent' >
-                                <span className='hover_colored_border'> 
-                                    {nombreProducto} 
-                                </span>
-                            </Draggable> 
+                    <div 
+                        style={{
+                            backgroundColor:'white',
+                            textAlign:'center', 
+                            position:'relative',
+                            height: altura + dimensionesUn,
+                            width: ancho + dimensionesUn, 
+                            fontSize: dataFontSize
+                        }}
+                    >
 
-                            <Draggable bounds='parent' >
-                                <span className='hover_colored_border'> 
-                                    {marca} 
-                                </span>
-                            </Draggable> 
+                        <Draggable bounds='parent' >
+                            <span className='hover_colored_border'> {nombreProducto} </span>
+                        </Draggable> 
 
-                            <Draggable bounds='parent' >
-                                <span className='hover_colored_border'> 
-                                    {alcohol? 
-                                        alcoholUn.replace("__", alcohol)
-                                    : ''}
-                                </span>
-                            </Draggable> 
-                            
-                            
-                            <div className='d-flex flex-column justify-content-between align-items-center '
+                        <Draggable bounds='parent' >
+                            <span className='hover_colored_border'> {marca} </span>
+                        </Draggable> 
+
+                        <Draggable bounds='parent' >
+                            <span className='hover_colored_border'> 
+                                {alcohol? alcoholUn.replace("__", alcohol) : ''}
+                            </span>
+                        </Draggable> 
+                        
+                        
+                        <div 
                             style={{height: HeigthContainerPesosNetos, width:'100%', textAlign:'center', position:'relative'}}
-                            >
-                                <Draggable bounds='parent' >
-                                    <span className='hover_colored_border'> 
-                                        {pesoNeto? 
-                                            <>
-                                                {pesoNetoLabel +" "+pesoNeto +' '+ pesoNetoUn}
-                                                <br/>
-                                            </>
-                                        : ''}
+                        >
+                            <Draggable bounds='parent' >
+                                <span className='hover_colored_border'> 
+                                    {pesoNeto? 
+                                        <>
+                                            {pesoNetoLabel +" "+pesoNeto +' '+ pesoNetoUn}
+                                            <br/>
+                                        </>
+                                    : ''}
 
 
-                                        {!this.props.etiqueta.pesoDrenadoDisabled?  
-                                            pesoDrenadoLabel +" "+ pesoDrenado +' '+ pesoDrenadoUn
-                                        : ''}
+                                    {!this.props.etiqueta.pesoDrenadoDisabled?  
+                                        pesoDrenadoLabel +" "+ pesoDrenado +' '+ pesoDrenadoUn
+                                    : ''}
 
-                                    </span>
-                                </Draggable> 
-                            </div>
-                            
-
+                                </span>
+                            </Draggable> 
                         </div>
-                        <SizeIndicator
-                            length={ancho + dimensionesUn}
-                            visibilityProp={sizeIndicatorVisibility}
-                        />
+                        
+
                     </div>
-                    
+                    <SizeIndicator length={ancho + dimensionesUn} visibilityProp={sizeIndicatorVisibility}  fontSize = {dataFontSize}/>
+
+
                 </div>
                 
             </div>
+                
         )
     };
 

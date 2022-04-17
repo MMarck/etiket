@@ -1,5 +1,5 @@
-/*
-*
+/** 
+ * 
 */
 export const ddNormalStyle={
     option: (provided, state)=>({
@@ -46,4 +46,19 @@ export const ddNormalStyle={
       ...provided,
       borderRadius: "8px",
     }),
+}
+
+/**
+ * Funcion para imprimir en forma de lista separada por comas
+ * una lista de objetos JSON, de cada objeto se imprimira
+ * el atributo value
+ */
+export const JSON_String  = (list) => {
+  var string=''
+   list.map(element => {
+    string += element.value +', '
+  }); 
+  string = string.substring(0, string.length-2)
+  //console.log(su)
+  return string;
 }
