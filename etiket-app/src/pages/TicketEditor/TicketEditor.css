@@ -8,6 +8,14 @@
   max-height: 90vh;
 }
 
+#Previewer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  z-index: 0;
+}
+
 #PreviewContainer{
   width: 100%;
   height: 100%;

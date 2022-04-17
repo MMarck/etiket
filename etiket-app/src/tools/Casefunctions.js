@@ -33,5 +33,5 @@ export function getDataFontSize(area) {
     if(area >= 2581){
         return '12.7mm';
     }
-    return '8mm'
+    return '1em'
 } 

@@ -1,5 +1,5 @@
 .sizeIndicatorWapper {
-/* opacity: 0.4; */
+    opacity: 0.4;
 }
 
 .sizeIndicatorWapper:hover {
@@ -13,7 +13,6 @@ opacity: 1.0;
 }
 
 .verticalIndicator{
-    /* d-flex align-items-center justify-content-center */
     display: flex;
     align-items: center;
     justify-content: center;

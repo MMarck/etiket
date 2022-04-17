@@ -38,7 +38,7 @@ class PrototypeBack extends Component{
         let alergenos = this.props.etiqueta.alergenos
 
         return(
-            <div className='mx-4 d-flex align-items-center flex-column'>
+            <div className='prototypeContainer'>
                 <h5 className='paneTitle' style={{fontSize: dataFontSize}}>Panel de información</h5>
                 <div  
                      style={{

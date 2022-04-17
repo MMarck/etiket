@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Component } from 'react';
 import SizeIndicator from '../SizeIndicator/SizeIndicator'
 import Draggable from 'react-draggable'; 
+import './PrototypeFront.css'
 
 
 const mapStateToProps = state => ({
@@ -39,7 +40,7 @@ class PrototypeFront extends Component{
         let pesoDrenadoUn = this.props.etiqueta.pesoDrenadoUn.value;
         let pesoDrenadoLabel = this.props.etiqueta.pesoDrenadoLabel.value;
         let dimensionesUn = this.props.etiqueta.dimensionesUn.value;
-        let sizeIndicatorVisibility =  this.props.sizeIndicatorVisibility;
+        let sizeIndicatorVisibility =  this.props.etiqueta.sizeIndicatorVisibility;
         let nombreProducto = this.props.etiqueta.nombreProducto;
         let marca = this.props.etiqueta.marca;
         let alcohol = this.props.etiqueta.alcohol;
@@ -52,12 +53,29 @@ class PrototypeFront extends Component{
         pesoNetoUn = pesoNetoUn? pesoNetoUn:'';
 
         return(
-            <div className='mx-4 d-flex align-items-center '>
+            <div className='mx-4 d-flex  '>
 
-                <SizeIndicator orientation={'vertical'} length={ altura + dimensionesUn } visibilityProp={sizeIndicatorVisibility} fontSize = {dataFontSize} />
+                <div style={{overflow: 'hidden', width:'30px'}}>
+                    {/* Copia invisible del titulo */}
+                    <h5 className='paneTitle' style={{fontSize: dataFontSize, visibility:'hidden'}}>.</h5>
+                    <SizeIndicator 
+                    orientation={'vertical'}
+                    length={ altura + dimensionesUn }
+                    visibilityProp={sizeIndicatorVisibility}
+                    fontSize = {dataFontSize}
+                    />
+                    {/* Copia invisible del indicador horizontal  */}
+                    <SizeIndicator length={ancho + dimensionesUn} visibilityProp={'hidden'}/>
+                    {/* Aclaracion: estas copias son para que el indicador 
+                    vertical pueda estar a la misma altura que el 
+                    prototipo frontal */}
+                </div>
+                
+                <div className='prototypeContainer'>
 
-                <div  style={{display:'inline-grid'}}>
-                    <h5 className='paneTitle' style={{fontSize: dataFontSize}}>Panel de visualización principal</h5>
+                    <h5 className='paneTitle' style={{fontSize: dataFontSize}}>
+                        Panel de visualización principal
+                    </h5>
 
                     <div 
                         style={{

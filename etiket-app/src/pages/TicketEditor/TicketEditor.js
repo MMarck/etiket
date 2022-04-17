@@ -34,7 +34,7 @@ class TicketEditor extends Component{
     */
     zoomIn(){
         this.setState({'zoom':this.state.zoom + 0.1}, ()=>{ //actualizar la variable en el estado
-            let visualizer = document.getElementById('ticketContainer');//obtener control del visualizador
+            let visualizer = document.getElementById('Previewer');//obtener control del visualizador
             visualizer.style.transform = 'scale('+ this.state.zoom +')';//aplica el valor 
 
             if( this.state.zoom >= 1.2){
@@ -55,7 +55,7 @@ class TicketEditor extends Component{
     */
     zoomOut(){
         this.setState({'zoom':this.state.zoom - 0.1}, ()=>{ //actualizar la variable en el estado
-            let visualizer = document.getElementById('ticketContainer');//obtener control del visualizador
+            let visualizer = document.getElementById('Previewer');//obtener control del visualizador
             visualizer.style.transform = 'scale('+ this.state.zoom +')';//aplica el valor 
 
 
@@ -85,22 +85,12 @@ class TicketEditor extends Component{
                 <Link to={"/misEtiquetas"}>
                     <img src={pathIcons+"back.png"} alt="Regresar" className="backBtn "/>
                 </Link>
-                {/* <span> {"this.props.etiqueta.nombre"} </span> */}
 
                 <div id='PreviewContainer'> 
-                    <div id='ticketContainer' className='d-flex justify-content-center align-items-center m-0' style={{ zIndex:0}}>
-                        <PrototypeFront sizeIndicatorVisibility= {'hidden'}/>
+                    <div id='Previewer'>
+                        <PrototypeFront />
 
-                        <PrototypeBack
-                            ingredients={this.props.etiqueta.ingredientes}
-                            allergens = {this.props.etiqueta.alergenos}
-                            conservationMethod = {this.props.etiqueta.metodoConservacion}
-                            life = {this.props.etiqueta.vidaUtil}
-                            direction = {this.props.etiqueta.direccion}
-                            instructions = {this.props.etiqueta.instrucciones}
-                            ticketWidth={this.props.etiqueta.ancho}
-                            ticketheight={this.props.etiqueta.altura}
-                        />
+                        <PrototypeBack/>
                     </div>
                 </div>
 
@@ -126,90 +116,3 @@ export default connect(
     mapDispatchToProps()
   )(TicketEditor);
 
-
-/*
- * Componente para dibujar la parte TRASERA de la etiqueta rectangular
-*/
-function TicketRectangularBack ({ingredients, allergens, conservationMethod, life, direction, instructions, ticketheight, ticketWidth}){
-    ingredients= ingredients? ingredients: '';
-    allergens= allergens? allergens: '';
-    conservationMethod= conservationMethod? conservationMethod: '';
-    life= life? life:'';
-    direction= direction? direction: '';
-    instructions= instructions? instructions: '';
-    ticketheight = ticketheight? ticketheight:'100mm';
-    ticketWidth = ticketWidth? ticketWidth:'100mm';
-
-    return(
-        <div>
-            <h5 className='text-center fw-bold text-dark m-4 ' >Panel de información</h5>
-            <div className='row' 
-            style={{backgroundColor:'white', height: ticketheight, width: ticketWidth, textAlign:'center', position:'relative'}}
-            >
-
-                
-
-                    <Draggable  bounds='parent'>
-                        <div className='col-12 my-2 p-2 hover_colored_border' style={{ height: '50%', width:'40%' ,fontSize:'0.5em', textAlign:'left', backgroundColor:'white', position:'none'}} >
-                        
-                            <span> <strong>Metodo de conservacion:</strong> {conservationMethod}</span>
-                            <br/><br/>
-                            <span> <strong>Vida Util:</strong> {life} </span>
-                            <br/><br/>
-                            <span> <strong>Direccion:</strong>{direction}</span>
-                            <br/><br/>
-                            <span> <strong>Instrucciones:</strong> {instructions}</span>
-                            <br/><br/>
-                            
-                        </div>
-                    </Draggable>
-
-                    <Draggable  bounds='parent' >
-                        <div className='col-12 my-2 p-2 hover_colored_border' style={{ height: '50%', width:'40%', fontSize:'0.7em',  textAlign:'left', backgroundColor:'white'}} >
-                            <span> <strong>Ingredientes:</strong> {ingredients}</span>
-                            <br/><br/>
-                            <span> <strong>CONTIENE:</strong> {allergens}</span>
-                        </div>
-                    </Draggable>
-                
-
-            </div>
-            <SizeIndicator visibilityProp={'hidden'}/>
-
-        </div>
-    )
-}
-
-
-/*
- * Componente para dibujar la parte DELANTERA de la etiqueta rectangular
-*/
-function SizeIndicator ({length, orientation, visibilityProp}){
-    length = length? length:'100mm';
-    orientation = orientation? orientation:'horizontal';
-    visibilityProp = visibilityProp? visibilityProp:'visible';
-
-    if(orientation === 'horizontal'){
-        return(
-            <div  className=' d-inline-block text-center my-2' style={{visibility:visibilityProp}}>
-                <div className='px-2' style={{display: 'inline-block', position: 'relative', zIndex: '2', color: 'gray',}} >{length}</div>
-                <div className='line' style={{position: 'relative', top: '-20px', width: length, height: '2px', backgroundColor: 'gray'}}/>
-            </div>
-        )
-    }
-
-    if(orientation === 'vertical'){
-        return(
-            <div  className='d-flex align-items-center justify-content-center' 
-            style={{width: '2px', height: length, margin:'0px 18px', backgroundColor: 'gray', transform: 'translateY(12px)'}}>
-                <div className='px-2' style={{ position: 'relative',right:'10px',  zIndex: '2', color: 'gray', transform: 'rotate(-90deg)'}} >
-                    {length}
-                </div>
-            </div>
-
-            
-        )
-    }
-
-
-}

@@ -23,7 +23,7 @@ function SizeIndicator ({length, orientation, visibilityProp, font_size}){
     if(orientation === 'vertical'){
         return(
             <div  className='sizeIndicatorWapper verticalIndicator' 
-            style={{visibility:visibilityProp, width: '2px', height: length, margin:'0px 18px', backgroundColor: 'gray', transform: 'translateY(12px)'}}>
+            style={{visibility:visibilityProp, width: '2px', height: length, margin:'0px 18px', backgroundColor: 'gray'}}>
                 <div className='px-2' style={{ position: 'relative',right:'10px',  zIndex: '2', color: 'gray', transform: 'rotate(-90deg)', fontSize: font_size}} >
                     {length}
                 </div>
