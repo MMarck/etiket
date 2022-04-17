@@ -1,8 +1,41 @@
 var passport = require('passport');
 var UsersModel = require('../models/UsersModel.js');
+var RefreshModel= require("../models/refreshTokensModel.js")
+var refreshTokensController = require('../controllers/refreshTokensController.js');
 var jwt=require("jsonwebtoken")
 const path = require('path')
 require('dotenv').config({path:path.resolve(__dirname,"../config/.env")}); 
+
+
+const generateAccessToken = (user)=>{
+    const accessToken=jwt.sign(
+        { id:user._id}, 
+        process.env.JWT_SECRET,
+        {expiresIn:"15m"}
+    );
+    return accessToken;
+}
+
+const generateRefreshToken = (user)=>{
+    const refreshToken=jwt.sign(
+        { id:user._id}, 
+        process.env.JWT_REFRESH_SECRET,
+    );
+    return refreshToken;
+}
+
+const saveResfreshToken=(token)=>{
+    var refreshTokens = new RefreshModel({
+        token : token
+    });
+
+    refreshTokens.save(function (err) {
+        if (err) {
+            console.log(err.message)
+            throw err.message
+        }
+    });
+}
 
 /**
  * UsersController.js
@@ -57,7 +90,8 @@ module.exports = {
     create: function (req, res) {
         var Users = new UsersModel({
 			email : req.body.email,
-			nombre : req.body.nombre
+			firstName : req.body.firstName,
+            lastName : req.body.lastName
         });
 
         UsersModel.register(Users,req.body.password,function(err,user){
@@ -69,27 +103,98 @@ module.exports = {
             }
             
             passport.authenticate("local")(req,res,function(){
-                return res.status(201).json();
+                return res.status(201).json({
+                    message: "Se ha creado el usuario correctamente"
+                });
             })
 
         });
     },
 
-    auth: function(req, res, next) {
+    login: function(req, res, next) {
         /* look at the 2nd parameter to the below call */
         passport.authenticate('local', function(err, user, info) {
           if (err) { return next(err); }
           if (!user) { return res.status(400).json({message:"Error, correo o contraseña no son correctos"}); }
           req.logIn(user, function(err) {
             if (err) { return next(err); }
-            const accessToken=jwt.sign({id:req.user._id}, process.env.JWT_SECRET);
-            return res.status(202).json({message:"correcto", user:accessToken})
+            const accessToken=generateAccessToken(req.user)
+            const refreshToken=generateRefreshToken(req.user)
+
+            var refreshTokens = new RefreshModel({
+                token : refreshToken
+            });
+        
+            refreshTokens.save(function (err) {
+                if (err) {
+                    return res.status(400).json({
+                        message:"Error al guardar refresh token",
+                        error:err})
+                }
+            });
+
+            return res.status(202).json({accessToken:accessToken, refreshToken: refreshToken})
+            
           });
         })(req, res, next);
     },
 
+    logout:function(req,res,next){
+
+    },
+
+    RefreshJwt: function(req,res,next){
+        const refreshToken=req.body.token;
+
+        if(!refreshToken) return res.status(401).json("¡No estás autenticado!")
+        RefreshModel.findOne({token: refreshToken}, function (err, refreshTokens) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Error when getting refreshTokens.',
+                    error: err
+                });
+            }
+
+            if (!refreshTokens) {
+                return res.status(404).json({
+                    message: '¡Resfresh Token no es válido!'
+                });
+            }
+
+            jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err,user)=>{
+                if (err){
+                    return res.status(403).json("Token is not valid");
+                }
+                RefreshModel.findOneAndRemove({token:resfreshToken}, function (err) {
+                    if (err) {
+                        return res.status(500).json({
+                            message: 'Error when deleting the refreshToken.',
+                            error: err
+                        });
+                    }
+                });
+
+                const newAccessToken=generateAccessToken(user);
+                const newRefreshToken=generateRefreshToken(user);
+
+                try {
+                    saveResfreshToken(newRefreshToken)
+                } catch (e) {
+                    return res.status(400).json({message:"Error al guardar refresh token"})
+                }
+
+                return res.status(200).json({
+                    accessToken: newAccessToken, refreshToken: newRefreshToken
+                })
+
+            })
+        });
+        (req, res, next);
+        
+    },
+
     verifyJwt: function(req,res,next){
-        const authHeader=req.headers.authorization;
+        const authHeader=req.headers.authorization.split(" ")[1];
         if (authHeader){
             jwt.verify(authHeader,process.env.JWT_SECRET, (err, userId)=>{
                 if (err){
