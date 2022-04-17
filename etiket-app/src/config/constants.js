@@ -1,18 +1,27 @@
+/**
+ * Ruta raiz para los iconos
+ */
 export const pathIcons = '/images/icons/';
 
 export const backendURL="http://localhost:3000/";
 
+/**
+ * Unidades para el tamanio de los prototipos
+ */
 export const unidades=[
   {
-      value: "mm",
-      label: "Milímetros",
+    value: "mm",
+    label: "Milímetros",
   },
   {
-      value: "cm",
-      label: "Centímetros",
+    value: "cm",
+    label: "Centímetros",
   }
 ];
 
+/**
+ * Unidades de masa para el contenido de neto en los prototipos
+ */
 export const unidadesMasa=[
   {
     value: "ug",
@@ -43,12 +52,12 @@ export const unidadesMasa=[
     label: "L",
   },
   {
-    value: "cm",
+    value: 'cm³',
     label: <span>cm&#179;</span>
   }
 ]
 
-const conservacionUn=[
+export const conservacionUn=[
   {
     value: "Mantener",
     label: "Mantener"
@@ -124,10 +133,6 @@ export const caducidades=[
   {
     value: "Fecha de vencimiento",
     label: "Fecha de vencimiento"
-  },
-  {
-    value: "Fecha de elaboración",
-    label: "Fecha de elaboración",
   },
   {
       value: "Consumir preferentemente antes del",
@@ -221,27 +226,316 @@ export const unidadesAlcohol=[
 ]
 
 export const alergenos=[
-  { value: "tartrazina", label: "Tartrazina"},
-  { value: "fenil", label: "Fenilcetronuricos: Fenilanina"},
-  { value: "gluten", label: "Gluten"},
-  { value: "crustaceos",label: "Crustáceos"},
-  { value: "huevo", label: "Huevo"},
-  { value: "pescado", label: "Pescado"},
-  { value: "mani", label: "Maní"},
-  { value: "soya", label: "Soya"},
-  { value: "leche", label: "Leche"},
-  { value: "lactosa", label: "Lactosa"},
-  { value: "nueces", label: "Nueces"},
-  { value: "almendras", label: "Almendras"},
-  { value: "avellanas", label: "Avellanas"},
-  { value: "anacardos", label: "Anacardos"},
-  { value: "nuecesMacadamia", label: "Nueces Macadamia"},
-  { value: "apio", label: "Apio"},
-  { value: "mostaza",  label: "Mostaza"},
-  { value: "altramuces", label: "Altramuces"},
-  { value: "sesamo", label: "Sésamo"},
-  { value: "regaliz", label: "Regaliz"}
+  { value: "MANÍ", label: "Maní"},
+  { value: "HUEVO", label: "Huevo"},
+  { value: "LECHE", label: "Leche"},
+  { value: "LACTOSA",label: "Lactosa"},
+  { value: "GLÚTEN", label: "Glúten"},
+  { value: "NUECES", label: "Nueces"},
+  { value: "SOYA", label: "Soya"},
+  { value: "PESCADO", label: "Pescado"},
+  { value: "MARISCOS", label: "Mariscos"},
+  { value: "CRUSTÁCEOS", label: "Crustáceos"},
+  { value: "SEMILLAS DE SÉSAMO", label: "Semillas de sésamo"},
+  { value: "MOLUSCOS", label: "Moluscos"},
+  { value: "APIO", label: "Apio"},
+  { value: "MOSTAZA", label: "Mostaza"},
+  { value: "DIÓXIDO DE AZUFRE", label: "Dióxido de azufre"},
+  { value: "SULFITOS", label: "Sulfitos"},
+  { value: "CEREALES QUE CONTIENEN GLÚTEN",  label: "Cereales que contienen glúten"},
+  { value: "AJONJOLÍ", label: "Altramuces"},
+  { value: "COCO", label: "Coco"},
+  { value: "ALMENDRA", label: "Almendra"},
+  { value: "AVELLANA", label: "Avellana"},
+  { value: "MACADAMIA", label: "Macadamia"},
 ]
+
+export const ddMultipleStyle={
+  clearIndicator: (provided, state)=>({
+    ...provided,
+    color: state.isFocused ? "#1ED796":"white"
+  }),
+  option: (provided, state)=>({
+    ...provided,
+    backgroundColor: state.isSelected ? '#1ED796':state.isFocused ? "#1dd79633":"#404040",
+    color: "white",
+    cursor: "Pointer",
+  }),
+  menuList: (provided, state) =>({
+    ...provided,
+    border: "2px solid #404040",
+    backgroundColor: "#404040",
+    borderRadius: "5px",
+  }),
+  control: (provided, state) =>({
+    border: state.isDisabled ? "2px solid #00000048":"2px solid #404040",
+    backgroundColor: state.isDisabled ? "#00000048":"#404040",
+    display: "flex",
+    cursor: "Pointer",
+    borderRadius: "8px",
+      
+  }),
+  input: (provided,state)=>({
+    ...provided,
+    color: "white"
+  }),
+  placeholder: (provided,state)=>({
+    ...provided,
+    color: "white"
+  }),
+  singleValue: (provided,state)=>({
+    ...provided,
+    color: "white"
+  }),
+  dropdownIndicator: (provided, state)=>({
+    ...provided,
+    "&:hover":{
+        color: "#1ED796"
+    }
+  }),
+  menu: (provided, state)=>({
+    ...provided,
+    borderRadius: "8px",
+  }),
+}
+
+export const ddNormalStyle={
+  option: (provided, state)=>({
+    ...provided,
+    backgroundColor: state.isSelected ? '#1ED796':state.isFocused ? "#1dd79633":"#404040",
+    color: "white",
+    cursor: "Pointer",
+  }),
+  menuList: (provided, state) =>({
+    ...provided,
+    border: "2px solid #404040",
+    backgroundColor: "#404040",
+    borderRadius: "5px",
+  }),
+  control: (provided, state) =>({
+    border: state.isDisabled ? "2px solid #00000048":"2px solid #404040",
+    backgroundColor: state.isDisabled ? "#00000048":"#404040",
+    display: "flex",
+    cursor: "Pointer",
+    width:"10vw",
+    maxWidth: "30vw",
+    borderRadius: "8px",
+      
+  }),
+  input: (provided,state)=>({
+    ...provided,
+    color: "white"
+  }),
+  placeholder: (provided,state)=>({
+    ...provided,
+    color: "white"
+  }),
+  singleValue: (provided,state)=>({
+    ...provided,
+    color: "white"
+  }),
+  dropdownIndicator: (provided, state)=>({
+    ...provided,
+    "&:hover":{
+        color: "#1ED796"
+    }
+  }),
+  menu: (provided, state)=>({
+    ...provided,
+    borderRadius: "8px",
+  }),
+}
+
+export const ddLargeStyle={
+  option: (provided, state)=>({
+    ...provided,
+    backgroundColor: state.isSelected ? '#1ED796':state.isFocused ? "#1dd79633":"#404040",
+    color: "white",
+    cursor: "Pointer",
+  }),
+  menuList: (provided, state) =>({
+    ...provided,
+    border: "2px solid #404040",
+    backgroundColor: "#404040",
+    borderRadius: "5px",
+  }),
+  control: (provided, state) =>({
+    border: state.isDisabled ? "2px solid #00000048":"2px solid #404040",
+    backgroundColor: state.isDisabled ? "#00000048":"#404040",
+    display: "flex",
+    cursor: "Pointer",
+    width:"14vw",
+    maxWidth: "30vw",
+    borderRadius: "8px",
+      
+  }),
+  input: (provided,state)=>({
+    ...provided,
+    color: "white"
+  }),
+  placeholder: (provided,state)=>({
+    ...provided,
+    color: "white"
+  }),
+  singleValue: (provided,state)=>({
+    ...provided,
+    color: "white"
+  }),
+  dropdownIndicator: (provided, state)=>({
+    ...provided,
+    "&:hover":{
+        color: "#1ED796"
+    }
+  }),
+  menu: (provided, state)=>({
+    ...provided,
+    borderRadius: "8px",
+  }),
+}
+
+export const ddLargeStyleSmallFont={
+  option: (provided, state)=>({
+    ...provided,
+    backgroundColor: state.isSelected ? '#1ED796':state.isFocused ? "#1dd79633":"#404040",
+    color: "white",
+    cursor: "Pointer",
+  }),
+  menuList: (provided, state) =>({
+    ...provided,
+    border: "2px solid #404040",
+    backgroundColor: "#404040",
+    borderRadius: "5px",
+  }),
+  control: (provided, state) =>({
+    border: state.isDisabled ? "2px solid #00000048":"2px solid #404040",
+    backgroundColor: state.isDisabled ? "#00000048":"#404040",
+    display: "flex",
+    cursor: "Pointer",
+    width:"14vw",
+    maxWidth: "30vw",
+    borderRadius: "8px",
+      
+  }),
+  input: (provided,state)=>({
+    ...provided,
+    color: "white"
+  }),
+  placeholder: (provided,state)=>({
+    ...provided,
+    color: "white"
+  }),
+  singleValue: (provided,state)=>({
+    ...provided,
+    color: "white",
+    fontSize: "0.65em"
+  }),
+  dropdownIndicator: (provided, state)=>({
+    ...provided,
+    "&:hover":{
+        color: "#1ED796"
+    }
+  }),
+  menu: (provided, state)=>({
+    ...provided,
+    borderRadius: "8px",
+  }),
+}
+
+export const ddLargestStyle={
+  option: (provided, state)=>({
+    ...provided,
+    backgroundColor: state.isSelected ? '#1ED796':state.isFocused ? "#1dd79633":"#404040",
+    color: "white",
+    cursor: "Pointer",
+  }),
+  menuList: (provided, state) =>({
+    ...provided,
+    border: "2px solid #404040",
+    backgroundColor: "#404040",
+    borderRadius: "5px",
+  }),
+  control: (provided, state) =>({
+    border: state.isDisabled ? "2px solid #00000048":"2px solid #404040",
+    backgroundColor: state.isDisabled ? "#00000048":"#404040",
+    display: "flex",
+    cursor: "Pointer",
+    width:"15.41vw",
+    maxWidth: "30vw",
+    borderRadius: "8px",
+      
+  }),
+  input: (provided,state)=>({
+    ...provided,
+    color: "white"
+  }),
+  placeholder: (provided,state)=>({
+    ...provided,
+    color: "white",
+    fontSize: "1em"
+  }),
+  singleValue: (provided,state)=>({
+    ...provided,
+    color: "white",
+    fontSize: "0.65em"
+  }),
+  dropdownIndicator: (provided, state)=>({
+    ...provided,
+    "&:hover":{
+        color: "#1ED796"
+    }
+  }),
+  menu: (provided, state)=>({
+    ...provided,
+    borderRadius: "8px",
+  }),
+}
+
+export const ddSmallStyle={
+  option: (provided, state)=>({
+    ...provided,
+    backgroundColor: state.isSelected ? '#1ED796':state.isFocused ? "#1dd79633":"#404040",
+    color: "white",
+    cursor: "Pointer",
+  }),
+  menuList: (provided, state) =>({
+    ...provided,
+    border: "2px solid #404040",
+    backgroundColor: "#404040",
+    borderRadius: "5px",
+  }),
+  control: (provided,state) =>({
+    border: state.isDisabled ? "2px solid #00000048":"2px solid #404040",
+    backgroundColor: state.isDisabled ? "#00000048":"#404040",
+    display: "flex",
+    cursor: "Pointer",
+    minWidth: "none",
+    width: "5vw",
+    borderRadius: "8px",
+  }),
+  input: (provided,state)=>({
+    ...provided,
+    color: "white"
+  }),
+  placeholder: (provided,state)=>({
+    ...provided,
+    color: "white"
+  }),
+  singleValue: (provided,state)=>({
+    ...provided,
+    color: "white"
+  }),
+  dropdownIndicator: (provided, state)=>({
+    ...provided,
+    "&:hover":{
+        color: "#1ED796"
+    }
+  }),
+  menu: (provided, state)=>({
+    ...provided,
+    borderRadius: "8px",
+  })
+}
+
 
 /*
  * PAISES 

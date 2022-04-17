@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { pesosDrenados } from '../config/constants';
 
 const Initial_State={
   isDisabled: false,
@@ -12,7 +13,7 @@ const Initial_State={
   pesoNeto: "",
   pesoNetoUn:{label:"g", value:"g"},
   pesoDrenadoDisabled:true,
-  pesoDrenadoLabel: {},
+  pesoDrenadoLabel: pesosDrenados[0],
   pesoDrenado: "",
   pesoDrenadoUn:{},
   alcohol:"",
