@@ -26,7 +26,7 @@ router.get('/login', function(req, res) {
  */
 router.post('/', UsersController.create);
 
-router.post("/login", UsersController.auth);
+router.post("/login", UsersController.login);
 
 router.post("/:id",UsersController.verifyJwt,(req,res)=>{
     //Esto tendría el id del usuario en req.user

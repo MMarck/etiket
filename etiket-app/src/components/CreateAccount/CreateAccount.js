@@ -31,7 +31,8 @@ class CreateAccount extends Component {
       const jsonData={
         email: this.state.email,
         password: this.state.password,
-        nombre: this.state.nombre + " " + this.state.apellido
+        firstName: this.state.nombre,
+        lastName: this.state.apellido
       }
       fetch(backendURL+"UsersDB",{
         method:"POST",
