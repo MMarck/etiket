@@ -2,15 +2,19 @@ import './SizeIndicator.css'
 /*
  * Componente para dibujar la parte DELANTERA de la etiqueta rectangular
 */
-function SizeIndicator ({length, orientation, visibilityProp}){
+function SizeIndicator ({length, orientation, visibilityProp, font_size}){
     length = length? length:'100mm';
     orientation = orientation? orientation:'horizontal';
     visibilityProp = visibilityProp? visibilityProp:'visible';
+    font_size = font_size? font_size:'1em';
 
     if(orientation === 'horizontal'){
         return(
-            <div  className='sizeIndicatorWapper d-inline-block text-center my-2' style={{visibility:visibilityProp,  width: length}}>
-                <div className='px-2' style={{display: 'inline-block', position: 'relative', zIndex: '2', color: 'gray',}} >{length}</div>
+            <div  
+                className='sizeIndicatorWapper horizontalIndicator' 
+                style={{visibility:visibilityProp,  width: length}}
+            >
+                <div className='px-2' style={{display: 'inline-block', position: 'relative', zIndex: '2', color: 'gray', fontSize: font_size}} >{length}</div>
                 <div className='line' style={{position: 'relative', top: '-20px', width: length, height: '2px', backgroundColor: 'gray'}}/>
             </div>
         )
@@ -18,9 +22,9 @@ function SizeIndicator ({length, orientation, visibilityProp}){
 
     if(orientation === 'vertical'){
         return(
-            <div  className='sizeIndicatorWapper d-flex align-items-center justify-content-center' 
+            <div  className='sizeIndicatorWapper verticalIndicator' 
             style={{visibility:visibilityProp, width: '2px', height: length, margin:'0px 18px', backgroundColor: 'gray', transform: 'translateY(12px)'}}>
-                <div className='px-2' style={{ position: 'relative',right:'10px',  zIndex: '2', color: 'gray', transform: 'rotate(-90deg)'}} >
+                <div className='px-2' style={{ position: 'relative',right:'10px',  zIndex: '2', color: 'gray', transform: 'rotate(-90deg)', fontSize: font_size}} >
                     {length}
                 </div>
             </div>    
