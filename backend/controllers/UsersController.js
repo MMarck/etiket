@@ -139,12 +139,8 @@ module.exports = {
         })(req, res, next);
     },
 
-    logout:function(req,res,next){
-
-    },
-
-    RefreshJwt: function(req,res,next){
-        const refreshToken=req.body.token;
+    RefreshJwt: function(req,res){
+        const refreshToken=req.body.refreshToken;
 
         if(!refreshToken) return res.status(401).json("¡No estás autenticado!")
         RefreshModel.findOne({token: refreshToken}, function (err, refreshTokens) {
@@ -165,7 +161,7 @@ module.exports = {
                 if (err){
                     return res.status(403).json("Token is not valid");
                 }
-                RefreshModel.findOneAndRemove({token:resfreshToken}, function (err) {
+                RefreshModel.findOneAndRemove({token:refreshToken}, function (err) {
                     if (err) {
                         return res.status(500).json({
                             message: 'Error when deleting the refreshToken.',
@@ -177,11 +173,17 @@ module.exports = {
                 const newAccessToken=generateAccessToken(user);
                 const newRefreshToken=generateRefreshToken(user);
 
-                try {
-                    saveResfreshToken(newRefreshToken)
-                } catch (e) {
-                    return res.status(400).json({message:"Error al guardar refresh token"})
-                }
+                var refreshTokenModel = new RefreshModel({
+                    token : newRefreshToken
+                });
+
+                refreshTokenModel.save(function (err) {
+                    if (err) {
+                        return res.status(400).json({
+                            message:"Error al guardar refresh token",
+                            error:err})
+                    }
+                });
 
                 return res.status(200).json({
                     accessToken: newAccessToken, refreshToken: newRefreshToken
@@ -189,7 +191,6 @@ module.exports = {
 
             })
         });
-        (req, res, next);
         
     },
 
@@ -206,6 +207,24 @@ module.exports = {
         } else {
             res.status(401).json("You are not authenticated!")
         }
+    },
+
+    logout: function(req,res){
+        const refreshToken= req.body.refreshToken;
+        RefreshModel.findOneAndRemove({token:refreshToken}, function (err, token) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Error when deleting the refreshToken.',
+                    error: err
+                });
+            }
+            if (!token){
+                return res.status(404).json({
+                    message: ""
+                })
+            }
+        });
+        return res.status(200).json({message:"Se cerró la sesión correctamente."})
     },
 
     /**

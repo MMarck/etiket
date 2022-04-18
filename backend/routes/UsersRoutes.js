@@ -28,6 +28,10 @@ router.post('/', UsersController.create);
 
 router.post("/login", UsersController.login);
 
+router.post("/refresh",UsersController.RefreshJwt);
+
+router.post("/logout", UsersController.verifyJwt,UsersController.logout)
+
 router.post("/:id",UsersController.verifyJwt,(req,res)=>{
     //Esto tendría el id del usuario en req.user
     //El chiste sería ver si el id existe
