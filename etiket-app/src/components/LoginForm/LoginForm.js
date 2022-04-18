@@ -1,31 +1,56 @@
-
+import axios from "axios";
+import { backendURL } from '../../config/constants.js'
+import { withRouter } from "../../tools/withRouter";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import "./LoginForm.css";
 
 const LoginForm = () => {
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const google = ()=>{
     window.open("http://localhost:5000/auth/google", "_self")
   }
 
+  function login(e){
+    e.preventDefault();
+    const jsonData={
+      email: email,
+      password:password
+    }
+
+    axios.post(backendURL+"UsersDB/login",jsonData)
+    .then((response)=>{
+      console.log(response.data)
+    })
+    .catch((error)=>{
+      if (error.response){
+        alert(error.response.data.error.message)
+      } else if (error.request){
+        console.log(error.request);
+      } else {
+        console.log("Error", error.message)
+      }
+    })
+  }
 
   return (
     <div className="d-flex flex-column w-50 small">
         
         <span id="avisoDeIngreso"><b>Ingresa a Solinal</b> Etiqueta</span>
         
-        <form id="LoginForm" className="w-100">
+        <form id="LoginForm" className="w-100" onSubmit={(e)=>login(e)} >
             <label htmlFor="usuario">Usuario</label><br/>
-            <input className="inputText  mb-4" id="usuario" type="text" name="correo" placeholder="Ingrese su usuario"/>
+            <input className="inputText  mb-4" value={email} id="usuario" type="text" name="correo" placeholder="Ingrese su usuario" onChange={(e)=>setEmail(e.target.value)}/>
 
             <br/>
             <label htmlFor="password">Contraseña</label><br/>
-            <input className="inputText mb-4" type="password" id="password" name="password" placeholder="Ingrese su contraseña"/>
+            <input className="inputText mb-4" value={password} type="password" id="password" name="password" placeholder="Ingrese su contraseña" onChange={(e)=>setPassword(e.target.value)}/>
 
             <br/>
-            <Link to="/">
-              <button className="ligthButton">Iniciar sesión</button>
-            </Link>
+            <button type="submit" className="ligthButton">Iniciar sesión</button>
 
         </form>
 

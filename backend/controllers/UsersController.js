@@ -96,7 +96,7 @@ module.exports = {
 
         UsersModel.register(Users,req.body.password,function(err,user){
             if (err){
-                return res.status(500).json({
+                return res.status(404).json({
                     message: "Error creando usuario",
                     error: err
                 })

@@ -1,4 +1,4 @@
-
+import axios from "axios";
 import { backendURL } from '../../config/constants.js'
 import { withRouter } from "../../tools/withRouter";
 import { Component } from "react";
@@ -34,6 +34,22 @@ class CreateAccount extends Component {
         firstName: this.state.nombre,
         lastName: this.state.apellido
       }
+
+      axios.post(backendURL+"UsersDB",jsonData)
+      .then((response)=>{
+        alert(response.data.message)
+        this.props.navigate("/login")
+      })
+      .catch((error)=>{
+        if (error.response){
+          alert(error.response.data.error.message)
+        } else if (error.request){
+          console.log(error.request);
+        } else {
+          console.log("Error", error.message)
+        }
+      })
+      /*
       fetch(backendURL+"UsersDB",{
         method:"POST",
         mode:"cors",
@@ -51,7 +67,7 @@ class CreateAccount extends Component {
           .then(data=>alert(data.error.message ));
         }
         })
-      
+      */
 
     }
   }

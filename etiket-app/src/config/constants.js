@@ -3,7 +3,7 @@
  */
 export const pathIcons = '/images/icons/';
 
-export const backendURL="http://localhost:3000/";
+export const backendURL="http://localhost:3002/";
 
 /**
  * Unidades para el tamanio de los prototipos
