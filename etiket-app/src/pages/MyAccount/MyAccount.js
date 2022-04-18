@@ -80,7 +80,7 @@ function MyAccount(){
               <div className="d-flex  justify-content-start align-items-center">
                 <span className="m-2 me-5">GRATIS</span>
                 
-                <CambiarPlanModal/>
+                <ChangePlanModal/>
 
               </div>
 
@@ -280,7 +280,7 @@ function ConfirmacionBorrarCuentaModal() {
  *  Este componente renderiza un boton y maneja la visulizacion del modal
  *  para el cambio de plan
 */
-function CambiarPlanModal() {
+function ChangePlanModal() {
   const [show, setShow] = useState(false);
   const [flag_emprendedor_empresa, setFlag_emprendedor_empresa] = useState(true);
 
@@ -300,6 +300,7 @@ function CambiarPlanModal() {
 
 
       <Modal 
+        id='ChangePlanModal'
         show={show} 
         onHide={handleClose} 
         size="md" 

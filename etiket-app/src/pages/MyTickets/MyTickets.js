@@ -118,7 +118,7 @@ class MyTickets extends Component{
 
         {/* Componente modal cuya visibilidad depende del valor de la variable showPackagesTypes 
         que se encuentra en el esta del componente */}
-        <Modal show={this.state.showPackagesTypes} onHide={() =>{this.setState({showPackagesTypes:false})}} size="lg" centered>
+        <Modal id='packegaOptionMenu' show={this.state.showPackagesTypes} onHide={() =>{this.setState({showPackagesTypes:false})}} size="lg" centered>
 
           <Modal.Header closeButton className="newTicketModal-header">
             <Modal.Title>

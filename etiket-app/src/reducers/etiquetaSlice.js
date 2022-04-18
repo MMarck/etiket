@@ -35,7 +35,24 @@ const Initial_State={
   marcaPos: {x:0, y:0},
   ingPos: {x:0, y:0},
   algPos: {x:0, y:0},
-  infNutPos: {x:0, y:0}
+  infNutPos: {x:0, y:0},
+  /* valores de la tabla nutricional */
+  tipoTabla:'',
+  tamanioPorcion: 0,
+  porcionPorEnvase: 0,
+  grasaTotal: 0,
+  grasaSaturada: 0,
+  grasasTrans: 0,
+  acidosMono: 0,
+  acidosPoli: 0,
+  colesterol: 0,
+  sodio: 0,
+  carbohidratos: 0,
+  azucares: 0,
+  proteina: 0,
+  fibra: 0,
+  energiaTotalJulios: 0,
+  energiaTotalCalorias: 0,
 }
 
 export const etiquetaSlice = createSlice({

@@ -38,6 +38,7 @@ import {
   ddLargestStyle,
   ddSmallStyle
 } from '../../config/constants';
+import NutritionFacts_modal from '../NutritionFacts_modal/NutritionFacts_modal';
 
 
 
@@ -298,12 +299,16 @@ class Sidebar extends Component{
           } />
 
           <SidebarItem icon="nutritionfacts.png" alt="nutritionfacts" dataTip="Información nutricional" isDisabled={isDisabled} content={
-            <div >
+            <div className='d-flex flex-column'>
               <div className='sidebarContHeader'>
                 <p className='sidebarTitle'>Información Nutricional</p>
                 <p className='sidebarSubTitle'>Para elaborar la tabla nutricional, hay que realizar algunos cálculos.</p>
               </div>
-              <button className='darkButton-twhite'> INGRESAR DATOS </button>
+              
+              {/* Esta estiqueta renderiza un boton con toda la logica para 
+              mostrar/ocultar el modal (popUp) para crear la etiqueta
+              de informacion nutricional */}
+              <NutritionFacts_modal/>
             </div>
           } />
 

@@ -42,18 +42,17 @@
     flex: 1 0 auto;
 }
 
-#Modal-header{
+#ChangePlanModal #Modal-header{
     border: none;
     padding: 1em 2em 1em 5em;
     
 }
 
-#Modal-header h4{
+#ChangePlanModal #Modal-header h4{
     color: var(--Sblack);
 }
 
-#modal-body{
-    /* w-100 h-100 d-flex flex-column justify-content-center align-items-center */
+#ChangePlanModal #modal-body{
     display: flex;
     flex-direction: column;
     justify-content: center;

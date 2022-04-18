@@ -10,9 +10,9 @@ import './PrototypeFront.css'
 const mapStateToProps = state => ({
     etiqueta: state.etiqueta
     });
-    const mapDispatchToProps = () => ({ 
-        replace
-    });
+const mapDispatchToProps = () => ({ 
+    replace
+});
 
 /*
 * Componente para dibujar la vista DELANTERA de la etiqueta, las variables que utiliza estan mapeadas

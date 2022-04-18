@@ -13,9 +13,11 @@
 }
 
 /* Aclaracion: la clase "modal-dialog" y "modal-content" es agregada automaticamente por la libreria react-bootstrap */
-.modal-dialog, .modal-content{
+#packegaOptionMenu .modal-dialog, #packegaOptionMenu .modal-content{
     width: fit-content;
 }
+
+
 
 /* Aclaracion: la clase "css-1xqpobx-Control" la coloca la clase react-select automaticamente */
 #countryTicket .css-1xqpobx-Control{
