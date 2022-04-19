@@ -1,7 +1,6 @@
-import LoginForm from "../LoginForm/LoginForm";
 import { Component} from "react";
+import { Outlet } from 'react-router-dom';
 import './HomeBody.css';
-import {Link, Outlet} from 'react-router-dom';
 
 
 class HomeBody extends Component {

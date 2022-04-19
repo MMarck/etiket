@@ -1,32 +1,19 @@
 import { Component } from 'react';
-import ReactTooltip from "react-tooltip";
-import SidebarItem from "../SidebarItem/SidebarItem";
-import CustomCheckbox from "../CustomCheckbox/CustomCheckbox";
-import {Link} from 'react-router-dom';
-import Select from 'react-select';
 import { connect } from 'react-redux';
 import {replace} from "../../reducers/etiquetaSlice";
-import './NutritionFacts_form.css';
-
+import './NutritionFactsForm.css';
+import Select from 'react-select';
 
 /**
  * Importacion de datos constantes
  */
 import { 
-  pathIcons,
-  unidades,
-  unidadesMasa,
-  pesosNetos,
-  pesosDrenados,
-} from '../../config/constants';
-
-/**
- * Importacion de estilos constantes
- */
-import { 
-  ddNormalStyle,
-  ddSmallStyle
-} from '../../config/constants';
+    ddNormalStyle, 
+    ddSmallStyle, 
+    pathIcons, 
+    tiposTablas, 
+    unidadesPorcion
+ } from '../../config/constants';
 
 
 
@@ -108,7 +95,7 @@ class NutritionFacts_form extends Component{
             res=res+","+element.label;
         });
         res=res.slice(1);
-    } else if(e.length==1) {
+    } else if(e.length===1) {
         res=e[0].label
     }
     this.setState({[estado]:res})
@@ -150,12 +137,19 @@ class NutritionFacts_form extends Component{
 
 
   render(){
-      let max_width_information= '50%';
-      let max_width_inputs= '50%';
+    let max_width_information= '50%';
+    let max_width_inputs= '50%';
+
+    let tamanioPorcion = this.props.etiqueta.tamanioPorcion;
+    let tamanioPorcionUn = this.props.etiqueta.tamanioPorcionUn;
+    let tipoTabla = this.props.etiqueta.tipoTabla;
+    let porcionPorEnvase = this.props.etiqueta.porcionPorEnvase;
+    let porcionEnvaseUn = this.props.etiqueta.porcionEnvaseUn;
+    let porcionPorEnvaseDisabled = this.props.etiqueta.porcionPorEnvaseDisabled;
+    let pesoDrenadoDisabled = this.props.etiqueta.pesoDrenadoDisabled;
     
-    const isDisabled=this.props.isDisabled
     return (
-      <div id='' style={{backgroundColor:'#e6e6e6', width:'50px', height:'100%', padding:'10px'}} > 
+      <div id='' className='semi-bordered-left' style={{backgroundColor:'#e6e6e6', width:'50px', padding:'10px'}} > 
         <div className='d-flex gap-2 mb-4' > 
           <img  alt="nutritionfacts" src={pathIcons + 'nutritionfacts.png'} width={'25px'} /> 
           <p className='sidebarTitle'>Vamos a desarrollar la tabla nutricional de tu producto</p>
@@ -170,9 +164,12 @@ class NutritionFacts_form extends Component{
                 </div>
 
                 <div style={{maxWidth: max_width_inputs}}>
-                    <input 
-                        type="text" 
+                    <Select
                         onChange={(e)=> this.handleStateChange("tipoTabla",e.target.value)}
+                        defaultValue={ tipoTabla }
+                        styles={ddNormalStyle}
+                        options={tiposTablas}
+                        className='ddMenu'
                     />
                 </div>
             </div>
@@ -184,11 +181,22 @@ class NutritionFacts_form extends Component{
                     <p>Tamaño de la porción</p>
                 </div>
                 
-                <div style={{maxWidth: max_width_inputs}}>
+                <div style={{maxWidth: max_width_inputs, display:'flex'}}>
                     <input 
-                        type="text" 
                         onChange={(e)=> this.handleStateChange("tamanioPorcion",e.target.value)}
+                        className=" gRInput numberInput"
+                        style={{marginRight:'10px'}}
+                        type="text"
+                        value={tamanioPorcion}
                     />
+                    <Select
+                        onChange={(e)=> this.handleStateChange("tamanioPorcionUn",e.target.value)}
+                        defaultValue={ tamanioPorcionUn }
+                        styles={ddSmallStyle}
+                        options={unidadesPorcion}
+                        className='ddMenu'
+                    />
+
                 </div>
             </div>
 
@@ -200,9 +208,31 @@ class NutritionFacts_form extends Component{
                 </div>
 
                 <div style={{maxWidth: max_width_inputs}}>
-                    <input 
-                        type="text" 
+                    
+                    <Select 
+                        onChange={(e)=> this.handleStateChange("porcionPorEnvaseUn",e)}
+                        className='ddMenu'
+                        styles={ddNormalStyle} 
+                        options={porcionEnvaseUn} 
+                        defaultValue={this.props.etiqueta.porcionEnvaseUn} 
+                        isDisabled={porcionPorEnvaseDisabled}
+                    />
+                    <input
                         onChange={(e)=> this.handleStateChange("porcionPorEnvase",e.target.value)}
+                        value={porcionPorEnvase}
+                        className=" gRInput numberInput"
+                        name='porcionPorEnvase'
+                        type="text"
+                        onKeyPress={this.numberFilter}
+                        disabled={pesoDrenadoDisabled}
+                    />
+                    <Select
+                        onChange={(e)=> this.handleStateChange("porcionPorEnvaseUn",e)}
+                        className='ddMenu'
+                        styles={ddSmallStyle}
+                        options={porcionEnvaseUn}
+                        defaultValue={this.props.etiqueta.porcionPorEnvaseUn}
+                        isDisabled={pesoDrenadoDisabled}
                     />
                 </div>
             </div>
@@ -210,11 +240,11 @@ class NutritionFacts_form extends Component{
             {/* LABEL */}
             <div  className='d-flex' >
                 <div style={{maxWidth: max_width_information}}>
-                    <p>Parámetro</p>
+                    <p><b>Parámetro</b></p>
                 </div>
 
                 <div style={{maxWidth: max_width_inputs}}>
-                    <p>Resultado</p>
+                    <p><b>Resultado</b></p>
                 </div>
             </div>
 
@@ -404,6 +434,12 @@ class NutritionFacts_form extends Component{
                 </div>
             </div>
 
+
+            <button onClick={console.log("guardando etiqueta en BD")}
+                className=' btn-secondary darkButton fw-bolder p-2 my-4'
+            >
+                GUARDAR CAMBIOS
+            </button>
 
         </div>
         

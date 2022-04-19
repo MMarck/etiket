@@ -40,7 +40,7 @@ function MyAccount(){
             </div>
 
             <div className="d-flex  justify-content-between align-items-center w-50">
-              <img src={userIcon} width={'50px'}  height={'50px'}/> 
+              <img src={userIcon} width={'50px'}  height={'50px'} alt={'imagen de usuario'} /> 
               
               <div className="d-flex  flex-column justify-content-start ms-2">
                 <span className="opacity-50">Foto de perfil</span>
@@ -212,7 +212,7 @@ const ConfirmacionCorreoModal = ({closeParent}) => {
                solicita otro enlace.
             </small>
 
-            <a style={{color:'black'}}> Volver al restablecimiento de contraseña</a>
+            <Link to={'/miCuenta'} style={{color:'black'}} > Volver al restablecimiento de contraseña</Link>
           </div>
 
         </Modal.Body>

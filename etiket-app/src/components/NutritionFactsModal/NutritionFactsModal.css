@@ -1,0 +1,49 @@
+@import url('../../config/constants.css');
+
+/* Aclaracion: la clase "modal-dialog" y "modal-content" es agregada automaticamente por la libreria react-bootstrap */
+#NutritionFactsModal .modal-dialog{
+    width: 100%; /* hasta el max-width seteado por la clase modal-lg (800px) */
+}
+
+#NutritionFactsModal #Modal-header{
+    z-index: 1;
+    position: absolute;
+    right: 1px;
+    border:0;
+}
+
+#NutritionFactsModal #Modal-body{
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    border-radius: 20%;
+}
+
+#NutritionFactsModal #Modal-body div{
+    flex: 1 0 auto;
+
+}
+
+#NutritionFactsModal .modal-content {
+    -webkit-border-radius: var(--BorderRadio);
+    -moz-border-radius: var(--BorderRadio);
+    border-radius: var(--BorderRadio); 
+}
+
+/* es neceasario darle border-radius a los elementos
+internos del componente modal para que este tambien 
+tenga una radio */
+#NutritionFactsModal .semi-bordered-left {
+    -webkit-border-radius: var(--BorderRadio) 0px 0px var(--BorderRadio);
+    -moz-border-radius: var(--BorderRadio) 0px 0px var(--BorderRadio);
+    border-radius: var(--BorderRadio) 0px 0px var(--BorderRadio); 
+}
+
+/* es neceasario darle border-radius a los elementos
+internos del componente modal para que este tambien 
+tenga una radio */
+#NutritionFactsModal .semi-bordered-right {
+    -webkit-border-radius: 0px var(--BorderRadio) var(--BorderRadio) 0px;
+    -moz-border-radius: 0px var(--BorderRadio) var(--BorderRadio) 0px;
+    border-radius: 0px var(--BorderRadio) var(--BorderRadio) 0px; 
+}

@@ -55,10 +55,10 @@ export const ddNormalStyle={
  */
 export const JSON_String  = (list) => {
   var string=''
-   list.map(element => {
+  list.forEach(element => {
     string += element.value +', '
-  }); 
+  });
   string = string.substring(0, string.length-2)
-  //console.log(su)
+  
   return string;
 }

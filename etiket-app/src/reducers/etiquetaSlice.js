@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { pesosDrenados } from '../config/constants';
+import { pesosDrenados, porcionEnvaseUn, tiposTablas, unidadesPorcion } from '../config/constants';
 
 const Initial_State={
   isDisabled: false,
@@ -37,9 +37,12 @@ const Initial_State={
   algPos: {x:0, y:0},
   infNutPos: {x:0, y:0},
   /* valores de la tabla nutricional */
-  tipoTabla:'',
+  tipoTabla: tiposTablas[0],
   tamanioPorcion: 0,
+  tamanioPorcionUn: unidadesPorcion[0],
+  porcionPorEnvaseDisabled:true,
   porcionPorEnvase: 0,
+  porcionPorEnvaseUn: porcionEnvaseUn[0],
   grasaTotal: 0,
   grasaSaturada: 0,
   grasasTrans: 0,

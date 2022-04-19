@@ -3,12 +3,10 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import PrototypeFront from '../../components/PrototypeFront/PrototypeFront';
 import PrototypeBack from '../../components/PrototypeBack/PrototypeBack';
-import Draggable from 'react-draggable'; 
 import './TicketEditor.css';
 import { Link } from 'react-router-dom'
+import { pathIcons } from '../../config/constants';
 
-const pathIcons = '../images/icons/';
-const returnImage = '../../images/icons/return.png'
 
 const mapStateToProps = state => ({
     etiqueta: state.etiqueta
@@ -95,7 +93,7 @@ class TicketEditor extends Component{
                 </div>
 
                 <div className='d-flex flex-column justify-content-center align-items-center gap-2' >
-                    <span className='p-2'  onClick={()=>this.props.erase()}  style={{cursor:"pointer"}} ><img src={returnImage} alt='return ' width={'10px'}  />  BORRAR TODO</span>
+                    <span className='p-2'  onClick={()=>this.props.erase()}  style={{cursor:"pointer"}} ><img src={pathIcons+'return.png'} alt='return ' width={'10px'}  />  BORRAR TODO</span>
 
                     <div className='d-flex gap-3'>
                         <button type="button" className='darkButton-twhite'> EXPORTAR EN PDF</button>    

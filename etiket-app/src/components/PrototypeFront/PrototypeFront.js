@@ -20,10 +20,6 @@ const mapDispatchToProps = () => ({
 */
 class PrototypeFront extends Component{
     
-    constructor(props){
-        super(props)
-    }
-
     render(){
         //Declaracion de variables 
         let ticketArea = unitTocm(this.props.etiqueta.altura, this.props.etiqueta.dimensionesUn.value ) * unitTocm(this.props.etiqueta.ancho, this.props.etiqueta.dimensionesUn.value );

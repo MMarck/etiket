@@ -38,7 +38,7 @@ import {
   ddLargestStyle,
   ddSmallStyle
 } from '../../config/constants';
-import NutritionFacts_modal from '../NutritionFacts_modal/NutritionFacts_modal';
+import NutritionFactsModal from '../NutritionFactsModal/NutritionFactsModal';
 
 
 
@@ -308,7 +308,7 @@ class Sidebar extends Component{
               {/* Esta estiqueta renderiza un boton con toda la logica para 
               mostrar/ocultar el modal (popUp) para crear la etiqueta
               de informacion nutricional */}
-              <NutritionFacts_modal/>
+              <NutritionFactsModal/>
             </div>
           } />
 

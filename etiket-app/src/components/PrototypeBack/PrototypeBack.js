@@ -93,7 +93,7 @@ class PrototypeBack extends Component{
                         </Draggable>
                     :''}
 
-                    { metodoConservacion || vidaUtil || direccion || instrucciones || fabricacionUn || caducacionUn?
+                    { metodoConservacion || vidaUtil || direccion || instrucciones || fabricacionUn || caducacionUn || alergenos?
                         <Draggable  bounds='parent' >
                             <div className='draggable-group-1 hover_colored_border' >
                                 
