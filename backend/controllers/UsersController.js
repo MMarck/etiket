@@ -197,11 +197,11 @@ module.exports = {
     verifyJwt: function(req,res,next){
         const authHeader=req.headers.authorization.split(" ")[1];
         if (authHeader){
-            jwt.verify(authHeader,process.env.JWT_SECRET, (err, userId)=>{
+            jwt.verify(authHeader,process.env.JWT_SECRET, (err, user)=>{
                 if (err){
                     return res.status(403).json("Token is not valid");
                 }
-                req.user=userId;
+                req.user=user.id;
                 next();
             })
         } else {

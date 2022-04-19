@@ -1,17 +1,25 @@
 import axios from "axios";
 import { backendURL } from '../../config/constants.js'
 import { withRouter } from "../../tools/withRouter";
-import { Link } from "react-router-dom";
+import { useCookies } from 'react-cookie';
+import { Link, useNavigate  } from "react-router-dom";
 import { useState } from "react";
 import "./LoginForm.css";
 
 const LoginForm = () => {
 
+  const navigate  = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [cookies, setCookie] = useCookies(['user']);
 
   const google = ()=>{
     window.open("http://localhost:5000/auth/google", "_self")
+  }
+
+  const handleCookies=(accessToken, refreshToken)=> {
+    setCookie("accessToken", accessToken, {path: "/"});
+    setCookie("refreshToken", refreshToken, {path: "/"});
   }
 
   function login(e){
@@ -23,7 +31,8 @@ const LoginForm = () => {
 
     axios.post(backendURL+"UsersDB/login",jsonData)
     .then((response)=>{
-      console.log(response.data)
+      handleCookies(response.data.accessToken, response.data.refreshToken)
+      navigate("/")
     })
     .catch((error)=>{
       if (error.response){
@@ -31,7 +40,7 @@ const LoginForm = () => {
       } else if (error.request){
         console.log(error.request);
       } else {
-        console.log("Error", error.message)
+        console.log("Error", error)
       }
     })
   }
@@ -84,4 +93,4 @@ const LoginForm = () => {
   )
 }
 
-export default LoginForm
+export default withRouter(LoginForm)

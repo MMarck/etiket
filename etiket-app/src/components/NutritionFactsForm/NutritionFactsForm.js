@@ -7,7 +7,13 @@ import Select from 'react-select';
 /**
  * Importacion de datos constantes
  */
-import { ddNormalStyle, ddSmallStyle, pathIcons, tiposTablas, unidadesPorcion, porcionEnvaseUn } from '../../config/constants';
+import { 
+    ddNormalStyle, 
+    ddSmallStyle, 
+    pathIcons, 
+    tiposTablas, 
+    unidadesPorcion
+ } from '../../config/constants';
 
 
 
