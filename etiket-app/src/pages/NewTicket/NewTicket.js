@@ -29,9 +29,9 @@ class NewTicket extends Component{
 
   createNewTicket = ()=>{
     //armar objeto Etiqueta
-    let type = this.props.newTicket.type;
-    let country = this.props.newTicket.country;
-    let name = document.getElementById("ticketName").value
+    //let type = this.props.newTicket.type;
+    //let country = this.props.newTicket.country;
+    //let name = document.getElementById("ticketName").value
     
     //crear etiqueta en la base de datos
 

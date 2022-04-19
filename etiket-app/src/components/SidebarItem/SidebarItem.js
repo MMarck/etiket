@@ -18,11 +18,11 @@ class SidebarItem extends Component{
 
     render(){
         const isOpen=this.state.isOpen
-        const isDisabled=this.state.isDisabled
-        const content=this.state.content
-        const alt=this.state.alt
-        const dataTip=this.state.dataTip
-        const icon=this.state.icon
+        //const isDisabled=this.state.isDisabled
+        //const content=this.state.content
+        //const alt=this.state.alt
+        //const dataTip=this.state.dataTip
+        //const icon=this.state.icon
 
         return(
             <div className={this.props.isDisabled ? "sideBarItem sideBarItemDisabled" : "sideBarItem"}>

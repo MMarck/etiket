@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import {replace} from "../../reducers/etiquetaSlice";
-import './NutritionFacts_Previewer.css';
+import './NutritionFactsPreviewer.css';
 
 
 
@@ -55,7 +55,7 @@ class NutritionFacts_Previewer extends Component{
     //let tamanioPorcion = this.props.etiqueta.tamanioPorcion;
      
     return (
-        <div id='Previewer' style={{backgroundColor:'white', width:'50px', height:'100%', display:'flex', flexDirection:'column'}}>
+        <div id='Previewer' className='semi-bordered-right' style={{backgroundColor:'white', width:'50px', height:'100%', display:'flex', flexDirection:'column'}}>
 
             <p style={{ margin:'3em 2em 0em 2em'}}> 
                 <b>Este es un ejemplo de como va a quedar la tabla nutricional de tu producto </b>

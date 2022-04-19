@@ -57,6 +57,145 @@ export const unidadesMasa=[
   }
 ]
 
+/**
+ * Unidades para las porciones en la tabla de informacion nutricional
+ */
+ export const unidadesPorcion=[
+  {
+    value: 'mg',
+    label: 'mg'
+  },
+  {
+    value: 'g',
+    label: 'g'
+  },
+  {
+    value: 'kg',
+    label: 'kg'
+  },
+  {
+    value: 'ml',
+    label: 'ml'
+  },
+  {
+    value: 'l',
+    label: 'l'
+  },
+  {
+    value: 'L',
+    label: 'L'
+  },
+  {
+    value: 'und',
+    label: 'und'
+  },
+  {
+    value: 'unidad',
+    label: 'unidad'
+  },
+  {
+    value: 'unidades',
+     label: 'unidades'
+  },
+  {
+    value: 'cda',
+    label: 'cda'
+  },
+  {
+    value: 'cdas',
+    label: 'cdas'
+  },
+  {
+    value: 'cucharada',
+    label: 'cucharada'
+  },
+  {
+    value: 'cucharadas',
+    label: 'cucharadas'
+  },
+  {
+    value: 'cdta',
+    label: 'cdta'
+  },
+  {
+    value: 'cdtas',
+    label: 'cdtas'
+  },
+  {
+    value: 'cucharadita',
+    label: 'cucharadita'
+  },
+  {
+    value: 'cucharaditas',
+    label: 'cucharaditas'
+  },
+  {
+    value: 'pieza',
+    label: 'pieza'
+  },
+  {
+    value: 'piezas',
+    label: 'piezas'
+  },
+  {
+    value: 'porción',
+    label: 'porción'
+  },
+  {
+    value: 'porciones',
+    label: 'porciones'
+  },
+  {
+    value: 'tz',
+    label: 'tz'
+  },
+  {
+    value: 'taza',
+    label: 'taza'
+  },
+  {
+    value: 'tazas',
+    label: 'tazas'
+  },
+  {
+    value: 'gota',
+    label: 'gota'
+  },
+  {
+    value: 'gotas',
+    label: 'gotas'
+  },
+  {
+    value: 'rebanada',
+    label: 'rebanada'
+  },
+  {
+    value: 'rebanadas',
+    label: 'rebanadas'
+  }
+ ];
+
+/**
+ * Unidades para las porciones en la tabla de informacion nutricional
+ */
+ export const tiposTablas=[
+  {
+    value: "Formato estándar",
+    label: "Formato estandar",
+  },
+  {
+    value: "Formato tabular",
+    label: "Formato tabular",
+  },
+  {
+    value: "Estándar vertical (lado a lado)",
+    label: "Estándar vertical",
+  }
+];
+
+
+
+
 export const conservacionUn=[
   {
     value: "Mantener",
@@ -225,6 +364,19 @@ export const unidadesAlcohol=[
   }
 ]
 
+/**
+ * Opciones para porciones por envase
+ */
+ export const porcionEnvaseUn=[
+  {
+    value: "aprox.",
+    label: "aprox.",
+  },
+  {
+    value: "aproximadamente",
+    label: "aproximadamente",
+  }
+];
 export const alergenos=[
   { value: "MANÍ", label: "Maní"},
   { value: "HUEVO", label: "Huevo"},

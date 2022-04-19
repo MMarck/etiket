@@ -2,9 +2,9 @@ import { Component } from 'react';
 import { Modal } from 'react-bootstrap';
 import { replace } from '../../reducers/etiquetaSlice'; 
 import { connect } from 'react-redux';
-import NutritionFacts_form from '../NutritionFacts_form/NutritionFacts_form'
-import NutritionFacts_Previewer from '../NutritionFacts_Previewer/NutritionFacts_Previewer'
-import './NutritionFacts_modal.css'
+import NutritionFactsForm from '../NutritionFactsForm/NutritionFactsForm'
+import NutritionFactsPreviewer from '../NutritionFactsPreviewer/NutritionFactsPreviewer'
+import './NutritionFactsModal.css'
 
 
 class NutritionFacts_modal extends Component{
@@ -50,11 +50,11 @@ class NutritionFacts_modal extends Component{
 
                   {/* Este componebnte renderiza un fomrulario para modificar
                   los datos de la etiqueta nutricional */}
-                  <NutritionFacts_form/>
+                  <NutritionFactsForm/>
 
                   {/* Este componente renderiza los datos procesados en una 
                   etiqueta de informacion nutricional */}
-                  <NutritionFacts_Previewer/>
+                  <NutritionFactsPreviewer/>
 
                 </Modal.Body>
         

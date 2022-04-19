@@ -14,7 +14,6 @@ import './App.css';
 
 
 import { useEffect, useState } from 'react';
-import store from './store';
 import { createBrowserHistory } from "history";
 
 const history = createBrowserHistory();
