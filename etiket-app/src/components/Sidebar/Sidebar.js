@@ -120,7 +120,7 @@ class Sidebar extends Component{
             res=res+","+element.label;
         });
         res=res.slice(1);
-    } else if(e.length==1) {
+    } else if(e.length===1) {
         res=e[0].label
     }
     this.setState({[estado]:res})

@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Routes, Navigate} from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 import MyAccount from '../pages/MyAccount/MyAccount';
 import Dashboard from '../pages/Dashboard/Dashboard';
 import WallPaperWelcome from '../pages/WallpaperWelcome/WallpaperWelcome';
@@ -14,21 +15,58 @@ import './App.css';
 
 
 import { useEffect, useState } from 'react';
-import store from './store';
+import { backendURL } from '../config/constants.js'
 import { createBrowserHistory } from "history";
+import axios from 'axios';
 
 const history = createBrowserHistory();
 
+function IsLoggedIn({isLoggedIn,children,redirectTo}){
+  if (!isLoggedIn) {
+    return <Navigate to={redirectTo} replace />;
+  }
+
+  return children;
+  
+}
+
 function App() {
+  const [cookies, setCookie] = useCookies(['user']);
   //cambiar por el estado global
   var [user, setUser] = useState(null);
+  const [isLogged,setLogged]=useState(false)
+  
+  function checkLogin(){
+    const header={
+      "Authorization":"Bearer "+cookies.accessToken
+    }
+    const jsonData={}
+    axios.post(backendURL+"UsersDB/auth",jsonData,{
+      headers:header
+    })
+    .then((response)=>{
+      console.log("1")
+      setLogged(true)
+      console.log(isLogged)
+    })
+    .catch((error)=>{
+      console.log("2")
+      console.log(error)
+      setLogged(false)
+    })
+  }
 
   // Hook para lanzar codigo antes que el el render
   useEffect( () =>{
+    
+    checkLogin()
+    console.log(isLogged)
+
     /*
     * Metodo para redirigir al usuario al metodo de autenticacion con google,
     * requiere el proyecto autentication ejecutandose
     */
+    /*
     const getUser = () => {
       fetch("http://localhost:5000/auth/login/success", {
         method: "GET",
@@ -52,7 +90,7 @@ function App() {
       })
     }
 
-    getUser();
+    getUser();*/
     }, []);
 
   return (
@@ -73,7 +111,11 @@ function App() {
         
         </Route> 
       
-        <Route path="/" element={true? <Dashboard/>: <Navigate to='/login'/>}>
+        <Route exact path="/" element={
+          <IsLoggedIn isLoggedIn={isLogged} redirectTo="/login">
+            <Dashboard/>
+          </IsLoggedIn>
+        }>
           <Route index element={<WallPaperWelcome/>}/>
           <Route path='miCuenta' element={<MyAccount/>}/>
           <Route path='misEtiquetas' element={<MyTickets/>}/>
