@@ -39,7 +39,6 @@ router.post("/auth",UsersController.verifyJwt,(req,res)=>{
     //Y devolver acorde una respuesta, se usaría para la auth
     //en cada vez que se entra a una página
     const id=req.user;
-    console.log(id)
     UsersModel.findOne({_id: id}, function (err, Users) {
         if (err) {
             return res.status(500).json({

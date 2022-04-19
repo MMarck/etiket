@@ -1,7 +1,7 @@
 import axios from "axios";
 import { backendURL } from '../../config/constants.js'
 import { withRouter } from "../../tools/withRouter";
-import { useCookies } from 'react-cookie';
+import Cookies from 'js-cookie';
 import { Link, useNavigate  } from "react-router-dom";
 import { useState } from "react";
 import "./LoginForm.css";
@@ -11,15 +11,14 @@ const LoginForm = () => {
   const navigate  = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [cookies, setCookie] = useCookies(['user']);
 
   const google = ()=>{
     window.open("http://localhost:5000/auth/google", "_self")
   }
 
   const handleCookies=(accessToken, refreshToken)=> {
-    setCookie("accessToken", accessToken, {path: "/"});
-    setCookie("refreshToken", refreshToken, {path: "/"});
+    Cookies.set("accessToken", accessToken);
+    Cookies.set("refreshToken", refreshToken);
   }
 
   function login(e){
