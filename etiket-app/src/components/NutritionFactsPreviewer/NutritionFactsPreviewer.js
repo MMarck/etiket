@@ -49,247 +49,251 @@ class NutritionFacts_Previewer extends Component{
     let fibra = this.props.etiqueta.fibra;
     let azucares = this.props.etiqueta.azucares;
     let proteina = this.props.etiqueta.proteina;
-    //let tamanioPorcion = this.props.etiqueta.tamanioPorcion;
-    //let tamanioPorcion = this.props.etiqueta.tamanioPorcion;
-    //let tamanioPorcion = this.props.etiqueta.tamanioPorcion;
-    //let tamanioPorcion = this.props.etiqueta.tamanioPorcion;
      
     return (
-        <div id='Previewer' className='semi-bordered-right' style={{backgroundColor:'white', width:'50px', height:'100%', display:'flex', flexDirection:'column'}}>
+        <div id='NutritionFactsPreviewer' className='semi-bordered-right'>
 
             <p style={{ margin:'3em 2em 0em 2em'}}> 
                 <b>Este es un ejemplo de como va a quedar la tabla nutricional de tu producto </b>
             </p>
-            
-            <section class="performance-facts" style={{overflow:'auto', height:'100%'}}>
-            <header class="performance-facts__header">
-                <h1 class="performance-facts__title">Información Nutricional</h1>
+
+            <section className="performance-facts" style={{overflow:'auto', height:'100%'}}>
+                
+            {/* Seccion 1 - Titulo y totales */}
+            <header className="performance-facts__header">
+                <h1 className="performance-facts__title">Información Nutricional</h1>
                 <p>Tamaño de la porción: {tamanioPorcion} g</p> {/* //PENDIENTE AÑADIR UNIDAD */}
                 <p>Porciones por envase: {porcionPorEnvase}</p>
             </header>
-            <table class="performance-facts__table">
-                <thead>
+
+            {/* Seccion 2 - energia */}
+            <table className="performance-facts__table">
+                
+                <thead className='separator-botton-1'>
                     <tr>
-                        <th colspan="3" class="small-info">
-                        Cantidad por porción %VDR
+                        <th colspan="2" className="small-info">
+                            Cantidad por porción
                         </th>
+                        <td className="small-info">
+                            <b>% Valor Diario</b>
+                        </td>
                     </tr>
                 </thead>
+
                 <tbody>
-                <tr>
+
+                <tr className='separator-botton-1'>
                     <th colspan="2">
-                    <b>Energia (Calorias) 545kJ (130 kcal)</b>
-                    7%
+                        <b>Energia (Calorias)</b>
+                        <span className='fw-light'> 168kJ (40 kcal) </span>
                     </th>
                     <td>
-                    Energia de grasa (Calorias de grasa)
-                    168kJ (40 kcal)
+                        7%
                     </td>
                 </tr>
-                <tr class="thick-row">
-                    <td colspan="3" class="small-info">
-                    <b>%VDR</b>
-                    </td>
-                </tr>
-                <tr>
+
+                <tr className='separator-botton-2'>
                     <th colspan="2">
-                    <b>Grasa total</b>
-                    4g
+                        <b>Energia de grasa (Calorias de grasa)</b> 
+                        <span className='fw-light'> 168kJ (40 kcal) </span>
                     </th>
                     <td>
-                    <b>{grasaTotal}%</b>
+                        7%
                     </td>
                 </tr>
-                <tr>
-                    <td class="blank-cell">
+
+                <tr className="separator-botton-1" >
+                    <th colspan="2"></th>
+                    <td  className="small-info">
+                        <b>% Valor Diario</b>
+                    </td>
+                </tr>
+
+                {/* Grasa total */}
+                <tr className="separator-botton-1" >
+                    <th colspan="2">
+                        Grasa total
+                        <span className='fw-light'> 4g </span>
+                    </th>
+                    <td>
+                        <b>{grasaTotal}%</b>
+                    </td>
+                </tr>
+
+               <AcidosSubTable 
+                    data={[
+                        {label:'Acidos grasos saturados',        magnitude:4, unit:'g', percentage: grasaSaturada},
+                        {label:'Acidos grasos trans',            magnitude:0, unit:'g', percentage: grasasTrans},
+                        {label:'Acidos grasos mono insaturados', magnitude:4, unit:'g', percentage: acidosMono},
+                        {label:'Acidos grasos poli insaturados', magnitude:4, unit:'g', percentage: acidosPoli},
+                    ]} 
+               />
+
+                <tr className="separator-botton-1" >
+                    <th colspan="2">
+                        <b>Colesterol</b>
+                        <span className='fw-light'> 4g </span>
+                    </th>
+                    
+                    <td>
+                        <b>{colesterol}%</b>
+                    </td>
+                </tr>
+
+                <tr className="separator-botton-1" >
+                    <th colspan="2">
+                        <b>Sodio</b>
+                        <span className='fw-light'> 200g </span>
+                    </th>
+
+                    <td>
+                        <b>{sodio}%</b>
+                    </td>
+                </tr>
+
+                <tr className="separator-botton-1" >
+                    <th colspan="2">
+                        <b>Carbohidratos totales</b>
+                        <span className='fw-light'> 200g </span>
+                    </th>
+                    <td>
+                        <b>{carbohidratos}%</b>
+                    </td>
+                </tr>
+
+                <tr className="separator-botton-1" >
+                    <td className="blank-cell">
                     </td>
                     <th>
-                    Acidos grasos saturados
-                    4g
+                        fibra
+                        <span className='fw-light'> 1g </span>
                     </th>
                     <td>
-                    <b>{grasaSaturada}%</b>
+                        <b>{fibra}%</b>
                     </td>
                 </tr>
-                <tr>
-                    <td class="blank-cell">
+
+                <tr className="separator-botton-1" >
+                    <td className="blank-cell">
                     </td>
                     <th>
-                    Acidos grasos trans
-                    0g
+                        Azucares
+                        <span className='fw-light'> 20g </span>
                     </th>
                     <td>
-                        <b>{grasasTrans}%</b>
+                        <b>{azucares}%</b>
                     </td>
                 </tr>
-                <tr>
-                    <td class="blank-cell">
-                    </td>
-                    <th>
-                    Acidos grasos mono insaturados 
-                    0g
-                    </th>
-                    <td>
-                        <b>{acidosMono}%</b>
-                    </td>
-                </tr><tr>
-                    <td class="blank-cell">
-                    </td>
-                    <th>
-                    Acidos grasos poli insaturados
-                    0g
-                    </th>
-                    <td>
-                        <b>{acidosPoli}%</b>
-                    </td>
-                </tr>
-                <tr>
+
+                <tr className="thick-end">
                     <th colspan="2">
-                    <b>Colesterol</b>
-                    0mg
-                    </th>
-                    <td>
-                    <b>{colesterol}%</b>
-                    </td>
-                </tr>
-                <tr>
-                    <th colspan="2">
-                    <b>Sodio</b>
-                    200mg
-                    </th>
-                    <td>
-                    <b>{sodio}%</b>
-                    </td>
-                </tr>
-                <tr>
-                    <th colspan="2">
-                    <b>Carbohidratos totales</b>
-                    20g
-                    </th>
-                    <td>
-                    <b>{carbohidratos}%</b>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="blank-cell">
-                    </td>
-                    <th>
-                    fibra
-                    1g
-                    </th>
-                    <td>
-                    <b>{fibra}%</b>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="blank-cell">
-                    </td>
-                    <th>
-                    Azucares
-                    10g
-                    </th>
-                    <td>
-                    <b>{azucares}%</b>
-                    </td>
-                </tr>
-                <tr class="thick-end">
-                    <th colspan="2">
-                    <b>Proteina</b>
-                    2g
+                        <b>Proteína</b>
+                        <span className='fw-light'> 2g </span>
                     </th>
                     <td>
                         <b>{proteina}%</b>
                     </td>
                 </tr>
+
                 </tbody>
+
             </table>
 
-            <table class="performance-facts__table--grid">
+            {/* Seccion 3 - Vitaminas */}
+            <table className="performance-facts__table">
                 <tbody>
-                <tr>
-                    <td colspan="2">
-                    Vitamin A
-                    10%
-                    </td>
-                    <td>
-                    Vitamin C
-                    0%
-                    </td>
-                </tr>
-                <tr class="thin-end">
-                    <td colspan="2">
-                    Calcium
-                    10%
-                    </td>
-                    <td>
-                    Iron
-                    6%
-                    </td>
-                </tr>
+
+                    <VitaminasSubTable 
+                        data={[
+                            {label:'Vitamina A', percentage: 10},
+                            {label:'Vitamina B', percentage: 2},
+                            {label:'Vitamina C', percentage: 3},
+                            {label:'Vitamina D', percentage: 3},
+                        ]} 
+                    />
+
                 </tbody>
             </table>
 
-            <p class="small-info">* Percent Daily Values are based on a 2,000 calorie diet. Your daily values may be higher or lower depending on your calorie needs:</p>
-
-            <table class="performance-facts__table--small small-info">
-                <thead>
-                <tr>
-                    <td colspan="2"></td>
-                    <th>Calories:</th>
-                    <th>2,000</th>
-                    <th>2,500</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th colspan="2">Total Fat</th>
-                    <td>Less than</td>
-                    <td>65g</td>
-                    <td>80g</td>
-                </tr>
-                <tr>
-                    <td class="blank-cell"></td>
-                    <th>Saturated Fat</th>
-                    <td>Less than</td>
-                    <td>20g</td>
-                    <td>25g</td>
-                </tr>
-                <tr>
-                    <th colspan="2">Cholesterol</th>
-                    <td>Less than</td>
-                    <td>300mg</td>
-                    <td>300 mg</td>
-                </tr>
-                <tr>
-                    <th colspan="2">Sodium</th>
-                    <td>Less than</td>
-                    <td>2,400mg</td>
-                    <td>2,400mg</td>
-                </tr>
-                <tr>
-                    <th colspan="3">Total Carbohydrate</th>
-                    <td>300g</td>
-                    <td>375g</td>
-                </tr>
-                <tr>
-                    <td class="blank-cell"></td>
-                    <th colspan="2">Dietary Fiber</th>
-                    <td>25g</td>
-                    <td>30g</td>
-                </tr>
-                </tbody>
-            </table>
-
-            <p class="small-info">
-                Calories per gram:
+            <p className="small-info mt-4">
+                * Los porcentajes de los valores diarios estan basados en una dieta de
+                8380 kJ (2000 kcal)
             </p>
-            <p class="small-info text-center">
-                Fat 9
-                &bull;
-                Carbohydrate 4
-                &bull;
-                Protein 4
-            </p>
+
+
+
+            {/* Seccion 4 - Inforacion adicional */}
+            {true?
+                <table className="performance-facts__table small-info">
+                    <thead>
+                        <tr style={{textAlign:"end"}} className="separator-botton-1">
+                            <td colspan="2"></td>
+                            <th className='fw-light' > Calorías: </th>
+                            <th className='fw-light' >2,000 </th>
+                            <th className='fw-light' >2,500 </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <th colspan="2" className='fw-light'>
+                                Grasa total
+                            </th>
+                            <td>Menos de</td>
+                            <td>65g</td>
+                            <td>80g</td>
+                        </tr>
+
+                        <tr>
+                            <td className="blank-cell"></td>
+                            <th className='fw-light'>
+                                Grasa saturada
+                            </th>
+                            <td>Menos de</td>
+                            <td>20g</td>
+                            <td>25g</td>
+                        </tr>
+
+                        <tr>
+                            <th colspan="2" className='fw-light'>
+                                Colesterol
+                            </th>
+                            <td>Menos de</td>
+                            <td>300mg</td>
+                            <td>300 mg</td>
+                        </tr>
+
+                        <tr>
+                            <th colspan="2" className='fw-light'>
+                                Sodio
+                            </th>
+                            <td>Menos de</td>
+                            <td>2,400mg</td>
+                            <td>2,400mg</td>
+                        </tr>
+
+                        <tr>
+                            <th colspan="3" className='fw-light'>
+                                Carbohidratos totales
+                            </th>
+                            <td>300g</td>
+                            <td>375g</td>
+                        </tr>
+                        
+                        <tr>
+                            <td className="blank-cell"></td>
+                            <th colspan="2" className='fw-light'>
+                                Fibra dietetica
+                            </th>
+                            <td>25g</td>
+                            <td>30g</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            :
+            ''}
 
             </section>
         </div>
@@ -303,3 +307,48 @@ export default connect(
   mapDispatchToProps()
 )(NutritionFacts_Previewer);
 
+function AcidosSubTable(params){
+    let acidList=[]
+
+    params.data.forEach(element => { 
+        
+        acidList.push(
+            <tr className="separator-botton-1" >
+                <td className="blank-cell">
+                </td>
+
+                <th>
+                    {element.label}
+                    <span className='fw-light'> {element.magnitude} {element.unit} </span>
+                </th>
+                <td>
+                    <b>{element.percentage}%</b>
+                </td>
+            </tr>
+        )
+    })
+
+    return ( acidList ) 
+
+}
+
+function VitaminasSubTable(params){
+    let vitaminasList=[]
+
+    params.data.forEach(element => { 
+        
+        vitaminasList.push(
+            <tr className="separator-botton-1" >
+                <th>
+                    <span className='fw-light'> {element.label} </span>
+                </th>
+                <td>
+                    {element.percentage}%
+                </td>
+            </tr>
+        )
+    })
+
+    return ( vitaminasList ) 
+
+}

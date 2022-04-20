@@ -6,7 +6,7 @@ var UsersController = require('../controllers/UsersController.js');
 var UsersModel = require('../models/UsersModel.js');
 
 
-//Initial route http://localhost:3000/UsersDB
+//Initial route http://localhost:3002/UsersDB
 
 /*
  * GET

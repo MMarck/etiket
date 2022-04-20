@@ -30,6 +30,8 @@ app.use('/UsersDB', UsersDBRoutes);
 app.use('/Tickets', TicketsRoutes);
 app.use("/Rtokens", RefreshtokensRoutes);
 
+//setear puerto por defecto
+app.listen(process.env.DEFAULT_PORT);
 
 // requires the model with Passport-Local Mongoose plugged in
 const User = require('./models/UsersModel');

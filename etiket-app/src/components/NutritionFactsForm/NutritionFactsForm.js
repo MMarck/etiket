@@ -149,7 +149,7 @@ class NutritionFacts_form extends Component{
     let pesoDrenadoDisabled = this.props.etiqueta.pesoDrenadoDisabled;
     
     return (
-      <div id='' className='semi-bordered-left' style={{backgroundColor:'#e6e6e6', width:'50px', padding:'10px'}} > 
+      <div id='' className='semi-bordered-left' style={{backgroundColor:'#e6e6e6', padding:'10px'}} > 
         <div className='d-flex gap-2 mb-4' > 
           <img  alt="nutritionfacts" src={pathIcons + 'nutritionfacts.png'} width={'25px'} /> 
           <p className='sidebarTitle'>Vamos a desarrollar la tabla nutricional de tu producto</p>

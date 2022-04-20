@@ -37,7 +37,7 @@ class NutritionFacts_modal extends Component{
                 id='NutritionFactsModal'
                 show={this.state.show} 
                 onHide={handleClose} 
-                size="lg" 
+                size="xl" 
                 centered 
                 style={{fontSize:'0.8rem'}} 
               >

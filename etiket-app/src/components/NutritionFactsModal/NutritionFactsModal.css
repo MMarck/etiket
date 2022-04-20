@@ -2,7 +2,7 @@
 
 /* Aclaracion: la clase "modal-dialog" y "modal-content" es agregada automaticamente por la libreria react-bootstrap */
 #NutritionFactsModal .modal-dialog{
-    width: 100%; /* hasta el max-width seteado por la clase modal-lg (800px) */
+    width: 100%; /* hasta el max-width seteado por la clase .modal-lg (800px) o .modal-lg  (1140px) */
 }
 
 #NutritionFactsModal #Modal-header{
