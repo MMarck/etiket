@@ -2,11 +2,10 @@ import { createSlice } from '@reduxjs/toolkit'
 import { pesosDrenados, porcionEnvaseUn, tiposTablas, unidadesPorcion } from '../config/constants';
 
 const Initial_State={
-  isDisabled: false,
   ancho: "10",
   altura: "10",
-  sizeIndicatorVisibility: 'hidden',
   dimensionesUn: {label:"Centímetros",value:"cm"},
+  sizeIndicatorVisibility: 'hidden',
   nombreProducto: '',
   marca: "",
   pesoNetoLabel: {label:"Contenido neto", value: "Contenido neto"},
@@ -21,11 +20,11 @@ const Initial_State={
   ingredientes: '',
   alergenos: [],
   conservacionUn: {label:"Mantener", value:"Mantener"},
-  metodoConservacion: {label:"En refrigeración", value:""},
+  metodoConservacion: {label:"En refrigeración", value:"En refrigeración"},
   vidaUtil:'',
   vidaUtilUn: {label: "Días", value: "Días"},
   fabricacion: handleDateChange(new Date()),
-  fabricacionUn:{label: "Fecha de elaboración", value: ""},
+  fabricacionUn:{label: "Fecha de elaboración", value: "Fecha de elaboración"},
   caducacion: handleDateChange(new Date()),
   caducacionUn:{label: "Fecha de caducación", value: ""},
   direccion: '',

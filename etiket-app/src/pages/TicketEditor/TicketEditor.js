@@ -6,6 +6,7 @@ import PrototypeBack from '../../components/PrototypeBack/PrototypeBack';
 import './TicketEditor.css';
 import { Link } from 'react-router-dom'
 import { pathIcons } from '../../config/constants';
+import Sidebar from '../../components/Sidebar/Sidebar';
 
 
 const mapStateToProps = state => ({
@@ -78,31 +79,34 @@ class TicketEditor extends Component{
 
     render(){
         return(
-
-            <div id='TicketEditorContainer' >
-                <Link to={"/misEtiquetas"}>
-                    <img src={pathIcons+"back.png"} alt="Regresar" className="backBtn "/>
-                </Link>
-
-                <div id='PreviewContainer'> 
-                    <div id='Previewer'>
-                        <PrototypeFront />
-
-                        <PrototypeBack/>
-                    </div>
-                </div>
-
-                <div className='d-flex flex-column justify-content-center align-items-center gap-2' >
-                    <span className='p-2'  onClick={()=>this.props.erase()}  style={{cursor:"pointer"}} ><img src={pathIcons+'return.png'} alt='return ' width={'10px'}  />  BORRAR TODO</span>
-
-                    <div className='d-flex gap-3'>
-                        <button type="button" className='darkButton-twhite'> EXPORTAR EN PDF</button>    
-                        <button type="button" className='darkButton-twhite' > EXPORTAR EN PNG</button>   
-                        <button type="button" className='colored-button' onClick={this.zoomIn}> zoom in </button>    
-                    <button type="button" className='colored-button' onClick={this.zoomOut}> zoom out</button>   
-                    </div>
+            <div id='masterContainer'>
+                <Sidebar/>
+                <div id='TicketEditorContainer' >
                     
-                     
+                    <Link to={"/misEtiquetas"}>
+                        <img src={pathIcons+"back.png"} alt="Regresar" className="backBtn "/>
+                    </Link>
+
+                    <div id='PreviewContainer'> 
+                        <div id='Previewer'>
+                            <PrototypeFront />
+
+                            <PrototypeBack/>
+                        </div>
+                    </div>
+
+                    <div className='d-flex flex-column justify-content-center align-items-center gap-2' >
+                        <span className='p-2'  onClick={()=>this.props.erase()}  style={{cursor:"pointer"}} ><img src={pathIcons+'return.png'} alt='return ' width={'10px'}  />  BORRAR TODO</span>
+
+                        <div className='d-flex gap-3'>
+                            <button type="button" className='darkButton-twhite'> EXPORTAR EN PDF</button>    
+                            <button type="button" className='darkButton-twhite' > EXPORTAR EN PNG</button>   
+                            <button type="button" className='colored-button' onClick={this.zoomIn}> zoom in </button>    
+                        <button type="button" className='colored-button' onClick={this.zoomOut}> zoom out</button>   
+                        </div>
+                        
+                        
+                    </div>
                 </div>
             </div>
       )

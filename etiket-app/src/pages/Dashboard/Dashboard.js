@@ -7,7 +7,7 @@ import './Dashboard.css';
 function Dashboard(){
     return(
       <div className='d-flex h-100 w-100'>
-        <Sidebar/>
+        <Sidebar isDisabled={true}/>
 
         <div id='Wallpaper' >
 

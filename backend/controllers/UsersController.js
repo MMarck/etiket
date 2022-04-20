@@ -9,7 +9,10 @@ require('dotenv').config({path:path.resolve(__dirname,"../config/.env")});
 
 const generateAccessToken = (user)=>{
     const accessToken=jwt.sign(
-        { id:user._id}, 
+        { 
+            id:user._id,
+            email: user.email
+        }, 
         process.env.JWT_SECRET,
         {expiresIn:"15m"}
     );
@@ -18,24 +21,15 @@ const generateAccessToken = (user)=>{
 
 const generateRefreshToken = (user)=>{
     const refreshToken=jwt.sign(
-        { id:user._id}, 
+        { 
+            id:user._id,
+            email: user.email
+        }, 
         process.env.JWT_REFRESH_SECRET,
     );
     return refreshToken;
 }
 
-const saveResfreshToken=(token)=>{
-    var refreshTokens = new RefreshModel({
-        token : token
-    });
-
-    refreshTokens.save(function (err) {
-        if (err) {
-            console.log(err.message)
-            throw err.message
-        }
-    });
-}
 
 /**
  * UsersController.js
@@ -118,10 +112,12 @@ module.exports = {
           if (!user) { return res.status(400).json({message:"Error, correo o contraseña no son correctos"}); }
           req.logIn(user, function(err) {
             if (err) { return next(err); }
+            console.log(req.user)
             const accessToken=generateAccessToken(req.user)
             const refreshToken=generateRefreshToken(req.user)
 
             var refreshTokens = new RefreshModel({
+                email: req.body.email,
                 token : refreshToken
             });
         
@@ -201,7 +197,7 @@ module.exports = {
                 if (err){
                     return res.status(403).json("Token is not valid");
                 }
-                req.user=user.id;
+                req.user=user;
                 next();
             })
         } else {

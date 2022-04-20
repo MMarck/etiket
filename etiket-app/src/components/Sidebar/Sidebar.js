@@ -54,34 +54,7 @@ class Sidebar extends Component{
   constructor(props){
     super(props)
     this.state={
-      isDisabled: false,
-      date: new Date(),
-      pesoDrenadoDisabled:true,
-      pesoDrenado: {},
-      pesoDrenadoUn:{},
-      alcohol:"",
-      alcoholUn:{},
-      ingredientes: '',
-      alergenos: '',
-      metodoConservacion: '',
-      vidaUtil:'',
-      direccion: '',
-      instrucciones: ''
     }
-    this.updateStateVariable = this.updateStateVariable.bind(this);
-  }
-
-  setNewDate(date){
-    this.setState({
-      date: date
-    })
-  }
-
-  updateStateVariable(event){
-    const { value, name } = event.target;
-    this.setState({
-        [name]: value
-    })
   }
 
   numberFilter(event) {
@@ -89,18 +62,6 @@ class Sidebar extends Component{
     if (!/^\d{0,3}(\.\d{0,2})?$/.test(value)){
        event.preventDefault();
     }
-  }
-
-  handleChangeValoresDimensiones(e,estado,labelEstado){
-    this.setState({[estado]:parseFloat(e)+this.state["dimensionesUn"]["value"], [labelEstado]:e})
-  }
-
-  handleChangeUnidadesDimensiones(e){
-    this.setState({ ancho: parseFloat(this.state["ancho"])+e.value , altura: parseFloat(this.state["altura"])+e.value, dimensionesUn:e});
-  }
-
-  handleChangeDropdown(e,estado){
-    this.setState({[estado]:e})
   }
 
   handlePesoDrenadoDisable(){
@@ -111,19 +72,6 @@ class Sidebar extends Component{
       this.handleStateChange("pesoDrenado","")
     }
     
-  }
-
-  handleChangeMultiples(e,estado){
-    var res="";
-    if (e.length>1) {
-        e.forEach(element => {
-            res=res+","+element.label;
-        });
-        res=res.slice(1);
-    } else if(e.length===1) {
-        res=e[0].label
-    }
-    this.setState({[estado]:res})
   }
   
   handleStateChange(stateName,value){

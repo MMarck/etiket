@@ -3,6 +3,7 @@ const res = require('express/lib/response');
 var passport = require('passport');
 var router = express.Router();
 var TicketsController = require('../controllers/TicketsController');
+var UsersController=require("../controllers/UsersController");
 
 
 //Initial route http://localhost:3000/Ticket
@@ -24,16 +25,9 @@ router.get('/login', function(req, res) {
 /*
  * POST - crear un nueva etiqueta
  */
-router.post('/', TicketsController.create);
+router.post('/',UsersController.verifyJwt, TicketsController.create);
 
 router.post("/login", TicketsController.auth);
-
-router.post("/:id",TicketsController.verifyJwt,(req,res)=>{
-    //Esto tendría el id del usuario en req.user
-    //El chiste sería ver si el id existe
-    //Y devolver acorde una respuesta, se usaría para la auth
-    //en cada vez que se entra a una página
-});
 
 /*
  * PUT
