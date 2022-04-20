@@ -7,7 +7,7 @@ var UsersModel = require('../models/UsersModel.js');
 var RefreshtokensModel = require('../models/refreshTokensModel.js');
 
 
-//Initial route http://localhost:3000/UsersDB
+//Initial route http://localhost:3002/UsersDB
 
 /*
  * GET
