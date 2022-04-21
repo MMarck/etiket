@@ -13,7 +13,6 @@ import TicketEditor from '../pages/TicketEditor/TicketEditor';
 import './App.css';
 
 
-import { useEffect, useState } from 'react';
 import { createBrowserHistory } from "history";
 import PrivateRoute from '../tools/PrivateRoute';
 
@@ -21,43 +20,6 @@ const history = createBrowserHistory();
 
 
 function App() {
-  //cambiar por el estado global
-  var [user, setUser] = useState(null);
-  const [isLogged,setLogged]=useState(false)
-
-  // Hook para lanzar codigo antes que el el render
-  useEffect( () =>{
-
-    /*
-    * Metodo para redirigir al usuario al metodo de autenticacion con google,
-    * requiere el proyecto autentication ejecutandose
-    */
-    /*
-    const getUser = () => {
-      fetch("http://localhost:5000/auth/login/success", {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          Accept: "aplication/json",
-          "Content-Type": "aplication/json",
-          "Access-control-Allow-Credentials": true,
-        }
-      })
-      .then( response =>{
-        if( response.status === 200 ) return response.json();
-        throw new Error("La autenticacion ha fallado");
-      })
-      .then(resObject => {
-        setUser(resObject.user)
-        console.log(resObject.user)
-      })
-      .catch((err)=>{
-        console.log(err)
-      })
-    }
-
-    getUser();*/
-    }, []);
 
   return (
     

@@ -1,4 +1,5 @@
 import { unitTocm, getDataFontSize } from '../../tools/Casefunctions';
+import { setPosition, getPosition } from '../../tools/Statefunctions';
 import { replace } from '../../reducers/etiquetaSlice'
 import { connect } from 'react-redux';
 import { Component } from 'react';
@@ -14,12 +15,32 @@ const mapDispatchToProps = () => ({
     replace
 });
 
+
+
+
+
+
 /*
 * Componente para dibujar la vista DELANTERA de la etiqueta, las variables que utiliza estan mapeadas
 * en props mediante el metodo connect de react redux al objeto etiqueta del store global
 */
 class PrototypeFront extends Component{
+
     
+    componentDidMount(){
+        setPosition('nombreProducto', this.props.etiqueta.nombreProductoPos)
+        setPosition('pesosContainer', this.props.etiqueta.pesosPos)
+        setPosition('marca', this.props.etiqueta.marcaPos)
+    }
+    
+    handleStateChange(stateName,value){
+        const payload={
+            stateName: stateName,
+            value: value
+        }
+        this.props.replace(payload);
+    }
+
     render(){
         //Declaracion de variables 
         let ticketArea = unitTocm(this.props.etiqueta.altura, this.props.etiqueta.dimensionesUn.value ) * unitTocm(this.props.etiqueta.ancho, this.props.etiqueta.dimensionesUn.value );
@@ -41,6 +62,8 @@ class PrototypeFront extends Component{
         let marca = this.props.etiqueta.marca;
         let alcohol = this.props.etiqueta.alcohol;
         let alcoholUn = this.props.etiqueta.alcoholUn.value;
+
+        
         
         //Condicionales para evitar valores nulos
         pesoDrenadoLabel = pesoDrenadoLabel? pesoDrenadoLabel:'';
@@ -72,51 +95,75 @@ class PrototypeFront extends Component{
                     <h5 className='paneTitle' style={{fontSize: dataFontSize}}>
                         Panel de visualización principal
                     </h5>
-
+                    
                     <div 
                         style={{
+                            border: '1px #F3F3F3 solid',
                             backgroundColor:'white',
-                            textAlign:'center', 
                             position:'relative',
+                            textAlign:'center', 
                             height: altura + dimensionesUn,
                             width: ancho + dimensionesUn, 
-                            fontSize: dataFontSize
+                            fontSize: dataFontSize,
+                            zIndex:1
                         }}
                     >
 
-                        <Draggable bounds='parent' >
-                            <span className='hover_colored_border'> {nombreProducto} </span>
-                        </Draggable> 
+                        <Draggable  bounds='parent'  >
+                            <div 
+                                onMouseLeave={()=>{this.handleStateChange('nombreProductoPos', getPosition('nombreProducto'))}}
+                                className='draggable-container' 
+                                id='nombreProducto' 
+                            >
+                                <b>{nombreProducto}</b>
+                            </div>
+                        </Draggable>
 
                         <Draggable bounds='parent' >
-                            <span className='hover_colored_border'> {marca} </span>
-                        </Draggable> 
-
-                        <Draggable bounds='parent' >
-                            <span className='hover_colored_border'> 
-                                {alcohol? alcoholUn.replace("__", alcohol) : ''}
-                            </span>
-                        </Draggable> 
-                        
+                            <div 
+                                onMouseLeave={()=>{this.handleStateChange('marcaPos', getPosition('marca'))}}
+                                className='draggable-container' 
+                                id='marca' 
+                            >
+                                <b>{marca}</b>
+                            </div>
+                        </Draggable>                        
                         
                         <div 
-                            style={{height: HeigthContainerPesosNetos, width:'100%', textAlign:'center', position:'relative'}}
+                            style={{
+                                height: HeigthContainerPesosNetos, 
+                                width:'100%', 
+                                textAlign:'center', 
+                                position:'absolute',
+                                bottom: '0px',
+                                zIndex:-1,
+                            }}
+
                         >
                             <Draggable bounds='parent' >
-                                <span className='hover_colored_border'> 
+                                <div 
+                                    onMouseLeave={()=>{this.handleStateChange('pesosPos', getPosition('pesosContainer'))}}
+                                    className='draggable-container' 
+                                    id='pesosContainer'
+                                > 
                                     {pesoNeto? 
                                         <>
-                                            {pesoNetoLabel +" "+pesoNeto +' '+ pesoNetoUn}
+                                            <b>{pesoNetoLabel +" "+pesoNeto +' '+ pesoNetoUn}</b>
                                             <br/>
                                         </>
                                     : ''}
 
 
                                     {!this.props.etiqueta.pesoDrenadoDisabled?  
-                                        pesoDrenadoLabel +" "+ pesoDrenado +' '+ pesoDrenadoUn
+                                        <>
+                                            <b>{pesoDrenadoLabel +" "+ pesoDrenado +' '+ pesoDrenadoUn}</b>
+                                            <br/>
+                                        </>
                                     : ''}
 
-                                </span>
+                                    <b>{alcohol? alcoholUn.replace("__", alcohol) : ''}</b>
+
+                                </div>
                             </Draggable> 
                         </div>
                         
@@ -136,7 +183,7 @@ class PrototypeFront extends Component{
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps()
   )(PrototypeFront);
 
 

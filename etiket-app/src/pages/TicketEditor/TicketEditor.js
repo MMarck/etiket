@@ -1,11 +1,13 @@
 import { replace, erase } from '../../reducers/etiquetaSlice'
-import { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PrototypeFront from '../../components/PrototypeFront/PrototypeFront';
 import PrototypeBack from '../../components/PrototypeBack/PrototypeBack';
 import './TicketEditor.css';
 import { Link } from 'react-router-dom'
 import { pathIcons } from '../../config/constants';
+import {  exportComponentAsPNG, exportComponentAsPDF } from 'react-component-export-image';
+
 
 
 const mapStateToProps = state => ({
@@ -15,15 +17,17 @@ const mapDispatchToProps = () => ({
     replace,
     erase,
 });
-class TicketEditor extends Component{
+class TicketEditor extends  React.Component {
 
     constructor(props){
         super(props);
+        this.componentRef = React.createRef();
         this.state = {
-            zoom : 1
+            zoom : 1,
         }
         this.zoomIn = this.zoomIn.bind(this);
         this.zoomOut = this.zoomOut.bind(this);
+
     }
 
 
@@ -85,9 +89,8 @@ class TicketEditor extends Component{
                 </Link>
 
                 <div id='PreviewContainer'> 
-                    <div id='Previewer'>
+                    <div id='Previewer' ref={this.componentRef}>
                         <PrototypeFront />
-
                         <PrototypeBack/>
                     </div>
                 </div>
@@ -96,10 +99,24 @@ class TicketEditor extends Component{
                     <span className='p-2'  onClick={()=>this.props.erase()}  style={{cursor:"pointer"}} ><img src={pathIcons+'return.png'} alt='return ' width={'10px'}  />  BORRAR TODO</span>
 
                     <div className='d-flex gap-3'>
-                        <button type="button" className='darkButton-twhite'> EXPORTAR EN PDF</button>    
-                        <button type="button" className='darkButton-twhite' > EXPORTAR EN PNG</button>   
+                        <button 
+                            onClick={() => exportComponentAsPDF(this.componentRef)}
+                            className='darkButton-twhite' 
+                            type="button" 
+                        > 
+                            EXPORTAR EN PDF
+                        </button>
+
+                        <button 
+                            onClick={() => exportComponentAsPNG(this.componentRef)} 
+                            className='darkButton-twhite'
+                            type="button" 
+                        >
+                            EXPORTAR EN PNG
+                        </button>   
+
                         <button type="button" className='colored-button' onClick={this.zoomIn}> zoom in </button>    
-                    <button type="button" className='colored-button' onClick={this.zoomOut}> zoom out</button>   
+                        <button type="button" className='colored-button' onClick={this.zoomOut}> zoom out</button>   
                     </div>
                     
                      

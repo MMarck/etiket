@@ -14,6 +14,7 @@
   align-items: center;
   margin: 0;
   z-index: 0;
+  background-color: transparent;
 }
 
 #PreviewContainer{
@@ -155,7 +156,10 @@
   transform: rotate(45deg);
 }
 
-.hover_colored_border:hover{
+.draggable-container{
+  width: fit-content;
+}
+.draggable-container:hover{
   border: 1px solid var(--Sgreen);
   cursor: move;
 }

@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { pesosDrenados, porcionEnvaseUn, tiposTablas, unidadesPorcion } from '../config/constants';
+import { 
+  pesosDrenados,
+  porcionEnvaseUn, 
+  tiposTablas, 
+  unidadesPorcion 
+} from '../config/constants';
 
 const Initial_State={
   isDisabled: false,
@@ -30,12 +35,12 @@ const Initial_State={
   caducacionUn:{label: "Fecha de caducación", value: ""},
   direccion: '',
   instrucciones: '',
-  pesosPos: {x:0,y:0},
-  nombrePos: {x:0,y:0},
-  marcaPos: {x:0, y:0},
+  nombreProductoPos: {x:'3.5cm',y:"1cm"},
+  marcaPos: {x:'3.5cm',y:"1.5cm"},
+  pesosPos: {x:'3.5cm',y:"0cm"},
   ingPos: {x:0, y:0},
-  algPos: {x:0, y:0},
   infNutPos: {x:0, y:0},
+  algPos: {x:0, y:0},
   /* valores de la tabla nutricional */
   tipoTabla: tiposTablas[0],
   tamanioPorcion: 0,

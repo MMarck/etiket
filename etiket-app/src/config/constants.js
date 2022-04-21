@@ -305,30 +305,30 @@ export const caducidades=[
 
 export const pesosNetos=[
   {
-    value: "Contenido neto",
+    value: "Contenido neto:",
     label: "Contenido neto"
   },
   {
-    value: "Peso neto",
+    value: "Peso neto:",
     label: "Peso neto"
   }
 ]
 
 export const pesosDrenados=[
   {
-    value: "Peso drenado",
+    value: "Peso drenado:",
     label: "Peso drenado"
   },
   {
-    value: "Peso escurrido",
+    value: "Peso escurrido:",
     label: "Peso escurrido"
   },
   {
-    value: "Masa drenada",
+    value: "Masa drenada:",
     label: "Masa drenada"
   },
   {
-    value: "Masa escurrida",
+    value: "Masa escurrida:",
     label: "Masa escurrida"
   }
 ]

@@ -62,3 +62,30 @@ export const JSON_String  = (list) => {
   
   return string;
 }
+
+/**
+ * 
+ * @param {string, id del elemento que se desea la posicion} item 
+ * @returns tupla (json) con las posiciones en px, ejemplo: {x: '100px', y: '100px'}
+ */
+ export const getPosition = (item) => {
+  //obtener propiedad trasform, esto devuelve una cadena de la forma "translate(0px, 0px)"
+  let transformProperty = document.getElementById(item).style.transform; 
+  //se convierte a una lista con 2 elementos 
+  let coords = transformProperty.replace("translate(",'').replace(")",'').split(',')
+  let x = coords[0];
+  let y = coords[1];
+  
+  return {x:x, y:y}
+}
+
+/**
+ * 
+ * @param {string, id del elemento a cambiar de posicion} item 
+ * @param {tupla (json) con las clave x, y 
+ * con las  * posiciones en pixeles, ejemplo: {x: '100px', y: '100px'
+ * } } position 
+ */
+export const setPosition = (item, position ) => {
+    document.getElementById(item).style.transform = 'translate('+ position.x +','+ position.y +')'
+}
