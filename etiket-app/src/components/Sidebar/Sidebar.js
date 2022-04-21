@@ -5,8 +5,12 @@ import SidebarItem from "../SidebarItem/SidebarItem";
 import CustomCheckbox from "../CustomCheckbox/CustomCheckbox";
 import {Link} from 'react-router-dom';
 import Select from 'react-select';
+import { withRouter } from "../../tools/withRouter";
+import axios from "axios";
+import { backendURL } from '../../config/constants.js'
 import { connect } from 'react-redux';
 import {replace} from "../../reducers/etiquetaSlice";
+import Cookies from 'js-cookie';
 import DatePicker from 'react-date-picker/dist/entry.nostyle';
 
 /**
@@ -54,6 +58,8 @@ class Sidebar extends Component{
   constructor(props){
     super(props)
     this.state={
+      accessToken:Cookies.get("accessToken") || "",
+      refreshToken: Cookies.get("refreshToken") || ""
     }
   }
 
@@ -108,6 +114,23 @@ class Sidebar extends Component{
     return date
   }
 
+  logout(){
+    const header={
+      "Authorization":"Bearer "+this.state.accessToken
+    }
+    const jsonData={
+      "refreshToken":this.state.refreshToken
+    }
+    axios.post(backendURL+"UsersDB/logout",jsonData,{
+      headers:header
+    })
+    .then((res)=>{
+      this.props.navigate("/login")
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
+  }
 
   render(){
     
@@ -128,9 +151,7 @@ class Sidebar extends Component{
                 <button className='colored-button userSubBtn' > Mis etiquetas</button>
               </Link>
               <br/>
-              <Link to={'/login'} > 
-                <button className='colored-button userSubBtn' > Cerrar sesión</button>
-              </Link>
+              <button className='colored-button userSubBtn' onClick={()=>this.logout()}> Cerrar sesión</button>
             </div>
           </ReactTooltip>
           
@@ -327,4 +348,4 @@ class Sidebar extends Component{
 export default connect(
   mapStateToProps,
   mapDispatchToProps()
-)(Sidebar);
+)(withRouter(Sidebar));

@@ -21,9 +21,6 @@ const history = createBrowserHistory();
 
 
 function App() {
-  //cambiar por el estado global
-  var [user, setUser] = useState(null);
-  const [isLogged,setLogged]=useState(false)
 
   // Hook para lanzar codigo antes que el el render
   useEffect( () =>{
