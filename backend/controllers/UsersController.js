@@ -9,7 +9,10 @@ require('dotenv').config({path:path.resolve(__dirname,"../config/.env")});
 
 const generateAccessToken = (user)=>{
     const accessToken=jwt.sign(
-        { id:user._id}, 
+        { 
+            id:user._id,
+            email: user.email
+        }, 
         process.env.JWT_SECRET,
         {expiresIn:"15m"}
     );
@@ -18,24 +21,15 @@ const generateAccessToken = (user)=>{
 
 const generateRefreshToken = (user)=>{
     const refreshToken=jwt.sign(
-        { id:user._id}, 
+        { 
+            id:user._id,
+            email: user.email
+        }, 
         process.env.JWT_REFRESH_SECRET,
     );
     return refreshToken;
 }
 
-const saveResfreshToken=(token)=>{
-    var refreshTokens = new RefreshModel({
-        token : token
-    });
-
-    refreshTokens.save(function (err) {
-        if (err) {
-            console.log(err.message)
-            throw err.message
-        }
-    });
-}
 
 /**
  * UsersController.js
@@ -122,6 +116,7 @@ module.exports = {
             const refreshToken=generateRefreshToken(req.user)
 
             var refreshTokens = new RefreshModel({
+                email: req.body.email,
                 token : refreshToken
             });
         
@@ -201,7 +196,7 @@ module.exports = {
                 if (err){
                     return res.status(403).json("Token is not valid");
                 }
-                req.user=user.id;
+                req.user=user;
                 next();
             })
         } else {
@@ -211,20 +206,31 @@ module.exports = {
 
     logout: function(req,res){
         const refreshToken= req.body.refreshToken;
-        RefreshModel.findOneAndRemove({token:refreshToken}, function (err, token) {
-            if (err) {
-                return res.status(500).json({
-                    message: 'Error when deleting the refreshToken.',
-                    error: err
+        if (refreshToken){
+            jwt.verify(refreshToken,process.env.JWT_REFRESH_SECRET,(err,user)=>{
+                if (err){
+                    return res.status(403).json("Token is not valid");
+                }
+                RefreshModel.findOneAndRemove({token:refreshToken, user:user.email}, function (err, token) {
+                    if (err) {
+                        return res.status(500).json({
+                            message: 'Error when deleting the refreshToken.',
+                            error: err
+                        });
+                    }
+                    if (!token){
+                        return res.status(404).json({
+                            message: "No ha iniciado sesión nunca."
+                        })
+                    }
+                    return res.status(200).json({message:"Se cerró la sesión correctamente."})
                 });
-            }
-            if (!token){
-                return res.status(404).json({
-                    message: ""
-                })
-            }
-        });
-        return res.status(200).json({message:"Se cerró la sesión correctamente."})
+            })
+        } else{
+            return res.status(401).json("¡Nunca has iniciado sesión!")
+        }
+        
+       
     },
 
     /**

@@ -5,8 +5,12 @@ import SidebarItem from "../SidebarItem/SidebarItem";
 import CustomCheckbox from "../CustomCheckbox/CustomCheckbox";
 import {Link} from 'react-router-dom';
 import Select from 'react-select';
+import { withRouter } from "../../tools/withRouter";
+import axios from "axios";
+import { backendURL } from '../../config/constants.js'
 import { connect } from 'react-redux';
 import {replace} from "../../reducers/etiquetaSlice";
+import Cookies from 'js-cookie';
 import DatePicker from 'react-date-picker/dist/entry.nostyle';
 
 /**
@@ -54,34 +58,9 @@ class Sidebar extends Component{
   constructor(props){
     super(props)
     this.state={
-      isDisabled: false,
-      date: new Date(),
-      pesoDrenadoDisabled:true,
-      pesoDrenado: {},
-      pesoDrenadoUn:{},
-      alcohol:"",
-      alcoholUn:{},
-      ingredientes: '',
-      alergenos: '',
-      metodoConservacion: '',
-      vidaUtil:'',
-      direccion: '',
-      instrucciones: ''
+      accessToken:Cookies.get("accessToken") || "",
+      refreshToken: Cookies.get("refreshToken") || ""
     }
-    this.updateStateVariable = this.updateStateVariable.bind(this);
-  }
-
-  setNewDate(date){
-    this.setState({
-      date: date
-    })
-  }
-
-  updateStateVariable(event){
-    const { value, name } = event.target;
-    this.setState({
-        [name]: value
-    })
   }
 
   numberFilter(event) {
@@ -89,18 +68,6 @@ class Sidebar extends Component{
     if (!/^\d{0,3}(\.\d{0,2})?$/.test(value)){
        event.preventDefault();
     }
-  }
-
-  handleChangeValoresDimensiones(e,estado,labelEstado){
-    this.setState({[estado]:parseFloat(e)+this.state["dimensionesUn"]["value"], [labelEstado]:e})
-  }
-
-  handleChangeUnidadesDimensiones(e){
-    this.setState({ ancho: parseFloat(this.state["ancho"])+e.value , altura: parseFloat(this.state["altura"])+e.value, dimensionesUn:e});
-  }
-
-  handleChangeDropdown(e,estado){
-    this.setState({[estado]:e})
   }
 
   handlePesoDrenadoDisable(){
@@ -111,19 +78,6 @@ class Sidebar extends Component{
       this.handleStateChange("pesoDrenado","")
     }
     
-  }
-
-  handleChangeMultiples(e,estado){
-    var res="";
-    if (e.length>1) {
-        e.forEach(element => {
-            res=res+","+element.label;
-        });
-        res=res.slice(1);
-    } else if(e.length===1) {
-        res=e[0].label
-    }
-    this.setState({[estado]:res})
   }
   
   handleStateChange(stateName,value){
@@ -160,6 +114,23 @@ class Sidebar extends Component{
     return date
   }
 
+  logout(){
+    const header={
+      "Authorization":"Bearer "+this.state.accessToken
+    }
+    const jsonData={
+      "refreshToken":this.state.refreshToken
+    }
+    axios.post(backendURL+"UsersDB/logout",jsonData,{
+      headers:header
+    })
+    .then((res)=>{
+      this.props.navigate("/login")
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
+  }
 
   render(){
     
@@ -180,9 +151,7 @@ class Sidebar extends Component{
                 <button className='colored-button userSubBtn' > Mis etiquetas</button>
               </Link>
               <br/>
-              <Link to={'/login'} > 
-                <button className='colored-button userSubBtn' > Cerrar sesión</button>
-              </Link>
+              <button className='colored-button userSubBtn' onClick={()=>this.logout()}> Cerrar sesión</button>
             </div>
           </ReactTooltip>
           
@@ -379,4 +348,4 @@ class Sidebar extends Component{
 export default connect(
   mapStateToProps,
   mapDispatchToProps()
-)(Sidebar);
+)(withRouter(Sidebar));

@@ -7,11 +7,10 @@ import {
 } from '../config/constants';
 
 const Initial_State={
-  isDisabled: false,
   ancho: "10",
   altura: "10",
-  sizeIndicatorVisibility: 'hidden',
   dimensionesUn: {label:"Centímetros",value:"cm"},
+  sizeIndicatorVisibility: 'hidden',
   nombreProducto: '',
   marca: "",
   pesoNetoLabel: {label:"Contenido neto", value: "Contenido neto"},
@@ -41,6 +40,7 @@ const Initial_State={
   ingPos: {x:0, y:0},
   infNutPos: {x:0, y:0},
   algPos: {x:0, y:0},
+  alcolPos:{x:'4cm',y:"0cm"},
   /* valores de la tabla nutricional */
   tipoTabla: tiposTablas[0],
   tamanioPorcion: 0,

@@ -67,10 +67,12 @@ class PrototypeBack extends Component{
                         textAlign:'center',
                         height: altura + dimensionesUn, 
                         width: ancho + dimensionesUn,
-                        fontSize: dataFontSize
+                        fontSize: dataFontSize,
+                        border: '1px lightgray solid',
+                        overflow:'hidden'
                     }}
                 >
-                    { metodoConservacion || vidaUtil || direccion || instrucciones || fabricacionUn || caducacionUn?
+                    { conservacionUn || vidaUtil || direccion || instrucciones || fabricacionUn || caducacionUn?
                         <Draggable  bounds='parent'>
                             <div 
                                 onMouseLeave={()=>{this.handleStateChange('ingPos', getPosition('ingPos'))}}
@@ -79,7 +81,7 @@ class PrototypeBack extends Component{
                             >
                             
                                 <span>  
-                                    {this.props.etiqueta.metodoConservacion.value?
+                                    {this.props.etiqueta.metodoConservacion.value !==''?
                                         <>
                                             <b>Metodo de conservacion: </b> {conservacionUn} {metodoConservacion}
                                         </>

@@ -1,13 +1,13 @@
+import {  exportComponentAsPNG, exportComponentAsPDF } from 'react-component-export-image';
 import { replace, erase } from '../../reducers/etiquetaSlice'
-import React from 'react';
+import { pathIcons } from '../../config/constants';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'
 import PrototypeFront from '../../components/PrototypeFront/PrototypeFront';
 import PrototypeBack from '../../components/PrototypeBack/PrototypeBack';
+import Sidebar from '../../components/Sidebar/Sidebar';
+import React from 'react';
 import './TicketEditor.css';
-import { Link } from 'react-router-dom'
-import { pathIcons } from '../../config/constants';
-import {  exportComponentAsPNG, exportComponentAsPDF } from 'react-component-export-image';
-
 
 
 const mapStateToProps = state => ({
@@ -83,22 +83,25 @@ class TicketEditor extends  React.Component {
     render(){
         return(
 
-            <div id='TicketEditorContainer' >
-                <Link to={"/misEtiquetas"}>
-                    <img src={pathIcons+"back.png"} alt="Regresar" className="backBtn "/>
-                </Link>
+            <div id='masterContainer'>
+                <Sidebar/>
+                <div id='TicketEditorContainer' >
+                    
+                    <Link to={"/misEtiquetas"}>
+                        <img src={pathIcons+"back.png"} alt="Regresar" className="backBtn "/>
+                    </Link>
 
-                <div id='PreviewContainer'> 
-                    <div id='Previewer' ref={this.componentRef}>
-                        <PrototypeFront />
-                        <PrototypeBack/>
+                    <div id='PreviewContainer'> 
+                        <div id='Previewer' ref={this.componentRef}>
+                            <PrototypeFront />
+                            <PrototypeBack/>
+                        </div>
                     </div>
-                </div>
 
-                <div className='d-flex flex-column justify-content-center align-items-center gap-2' >
-                    <span className='p-2'  onClick={()=>this.props.erase()}  style={{cursor:"pointer"}} ><img src={pathIcons+'return.png'} alt='return ' width={'10px'}  />  BORRAR TODO</span>
+                    <div className='d-flex flex-column justify-content-center align-items-center gap-2' >
+                        <span className='p-2'  onClick={()=>this.props.erase()}  style={{cursor:"pointer"}} ><img src={pathIcons+'return.png'} alt='return ' width={'10px'}  />  BORRAR TODO</span>
 
-                    <div className='d-flex gap-3'>
+                        <div className='d-flex gap-3'>
                         <button 
                             onClick={() => exportComponentAsPDF(this.componentRef)}
                             className='darkButton-twhite' 
@@ -117,9 +120,11 @@ class TicketEditor extends  React.Component {
 
                         <button type="button" className='colored-button' onClick={this.zoomIn}> zoom in </button>    
                         <button type="button" className='colored-button' onClick={this.zoomOut}> zoom out</button>   
+                        
+                        </div>
+                        
+                        
                     </div>
-                    
-                     
                 </div>
             </div>
       )

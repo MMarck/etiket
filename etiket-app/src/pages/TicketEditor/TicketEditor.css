@@ -1,5 +1,12 @@
 @import '../../config/constants.css';
 
+#masterContainer{
+  display: flex;
+  height: 100vh;
+  width:100%;
+  background-color: var(--Sgray);
+}
+
 #TicketEditorContainer{
   display: flex;
   flex-direction: column;

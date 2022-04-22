@@ -16,13 +16,10 @@ class PrivateRoute extends Component {
         })
         .then((response)=>{
             // For success, update state like
-            console.log("1")
             this.setState({ isLoading: false, isLoggedIn: true });
         })
         .catch((error)=>{
             // For fail, update state like
-            console.log(this.state.accessToken)
-            console.log("2")
             console.log(error)
             this.setState({ isLoading: false, isLoggedIn: false });
         });
@@ -37,9 +34,6 @@ class PrivateRoute extends Component {
             isLoading: true,
             isLoggedIn: false
         };
-
-        // Your axios call here
-        
         
 
     }

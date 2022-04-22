@@ -209,6 +209,10 @@ class NutritionFacts_Previewer extends Component{
                             {label:'Vitamina B', percentage: 2},
                             {label:'Vitamina C', percentage: 3},
                             {label:'Vitamina D', percentage: 3},
+                            {label:'Vitamina C', percentage: 3},
+                            {label:'Vitamina D', percentage: 3},
+                            {label:'Vitamina C', percentage: 3},
+                            {label:'Vitamina D', percentage: 3},
                         ]} 
                     />
 

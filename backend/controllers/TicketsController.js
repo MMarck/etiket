@@ -56,11 +56,91 @@ module.exports = {
      */
     create: function (req, res) {
         var Ticket = new TicketsModel({
-			name : req.body.name,
-            type: req.body.type
+            user: req.user.id,
+			nameProyecto : req.body.nameProyecto,
+            tipo: req.body.tipo,
+            nombreEtiqueta: req.body.nombreEtiqueta,
+            marca: req.body.marca,
+            dimensiones: {
+                ancho:req.body.dimensiones.ancho,
+                altura:req.body.dimensiones.altura,
+                unidad:req.body.dimensiones.unidad,
+                sizeIndicatorVisibility:req.body.dimensiones.sizeIndicatorVisibility
+            },
+            pesoNeto:{
+                valor:req.body.pesoNeto.valor,
+                label:req.body.pesoNeto.label,
+                unidad:req.body.pesoNeto.unidad
+            },
+            pesoDrenado:{
+                valor:req.body.pesoDrenado.valor,
+                label:req.body.pesoDrenado.label,
+                unidad:req.body.pesoDrenado.unidad,
+                isDisabled:req.body.pesoDrenado.isDisabled
+            },
+            alcohol:{
+                valor:req.body.alcohol.valor,
+                unidad:req.body.alcohol.unidad
+            },
+            ingredientes:req.body.ingredientes,
+            alergenos:req.body.alergenos,
+            conservacion:{
+                metodo:req.body.conservacion.metodo,
+                unidad:req.body.conservacion.unidad
+            },
+            vidaUtil:{
+                valor:req.body.vidaUtil.metodo,
+                unidad:req.body.vidaUtil.unidad
+            },
+            fabricacion:{
+                valor:req.body.fabricacion.metodo,
+                unidad:req.body.fabricacion.unidad
+            },
+            caducacion:{
+                valor:req.body.caducacion.metodo,
+                unidad:req.body.caducacion.unidad
+            },
+            direccion: req.body.direccion,
+            instrucciones: req.body.instrucciones,
+            posicion:{
+                pesos:{
+                    x:req.body.posicion.pesos.x,
+                    y:req.body.posicion.pesos.y
+                },
+                nombre:{
+                    x:req.body.posicion.nombre.x,
+                    y:req.body.posicion.nombre.y
+                },
+                ingredientes:{
+                    x:req.body.posicion.ingredientes.x,
+                    y:req.body.posicion.ingredientes.y
+                },
+                alergenos:{
+                    x:req.body.posicion.alergenos.x,
+                    y:req.body.posicion.alergenos.y
+                },
+                infNut:{
+                    x:req.body.posicion.infNut.x,
+                    y:req.body.posicion.infNut.y
+                }
+            },
+            TablaNutri:{
+                tipo: req.body.TablaNutri.tipo,
+                tamanioPorcion: req.body.TablaNutri.tamanioPorcion,
+                porcionPorEnvase: req.body.TablaNutri.porcionPorEnvase,
+                grasas: req.body.TablaNutri.grasas,
+                acidosPoli: req.body.TablaNutri.acidosPoli,
+                colesterol: req.body.TablaNutri.colesterol,
+                sodio:req.body.TablaNutri.sodio,
+                carbohidratos: req.body.TablaNutri.carbohidratos,
+                azucares:req.body.TablaNutri.azucares,
+                proteinas:req.body.TablaNutri.proteinas,
+                fibra:req.body.TablaNutri.fibra,
+                energiaTotal:req.body.TablaNutri.energiaTotal
+            }
         });
 
-        TicketsModel.create(Ticket,function(err,user){
+        TicketsModel.create(Ticket,function(err,ticket){
             if (err){
                 return res.status(500).json({
                     message: "Error creando Etiqueta",
@@ -68,13 +148,25 @@ module.exports = {
                 })
             }
             
-            passport.authenticate("local")(req,res,function(){
-                return res.status(201).json();
-            })
+            return res.status(201).json(ticket);
 
         });
     },
 
+    verifyJwt: function(req,res,next){
+        const authHeader=req.headers.authorization.split(" ")[1];
+        if (authHeader){
+            jwt.verify(authHeader,process.env.JWT_SECRET, (err, user)=>{
+                if (err){
+                    return res.status(403).json("Token is not valid");
+                }
+                req.user=user;
+                next();
+            })
+        } else {
+            res.status(401).json("You are not authenticated!")
+        }
+    },
     
     /**
      * TicketsController.update()

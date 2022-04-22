@@ -49,9 +49,10 @@ function App() {
             <Route path='nuevoProyecto' element={<NewTicket/>}/>
             <Route path='crearEtiqueta' element={<CrearEtiqueta/>}/>
             <Route path='cambiarClave' element={<ChangePassword/>}/>
-            <Route path='editarEtiqueta/:id' element={<TicketEditor/>}/>
           </Route>
         </Route>
+
+        <Route path='/editarEtiqueta/:id' element={<TicketEditor/>}/>
        
       
       </Routes>

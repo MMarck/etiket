@@ -31,6 +31,7 @@ class PrototypeFront extends Component{
         setPosition('nombreProducto', this.props.etiqueta.nombreProductoPos)
         setPosition('pesosContainer', this.props.etiqueta.pesosPos)
         setPosition('marca', this.props.etiqueta.marcaPos)
+        setPosition('alcohol', this.props.etiqueta.alcolPos)
     }
     
     handleStateChange(stateName,value){
@@ -105,7 +106,9 @@ class PrototypeFront extends Component{
                             height: altura + dimensionesUn,
                             width: ancho + dimensionesUn, 
                             fontSize: dataFontSize,
-                            zIndex:1
+                            zIndex:1,
+                            border: '1px lightgray solid',
+                            overflow:'hidden'
                         }}
                     >
 
@@ -136,7 +139,7 @@ class PrototypeFront extends Component{
                                 textAlign:'center', 
                                 position:'absolute',
                                 bottom: '0px',
-                                zIndex:-1,
+                                zIndex:-1
                             }}
 
                         >
@@ -161,10 +164,22 @@ class PrototypeFront extends Component{
                                         </>
                                     : ''}
 
-                                    <b>{alcohol? alcoholUn.replace("__", alcohol) : ''}</b>
+                                    
 
                                 </div>
                             </Draggable> 
+
+                            <Draggable bounds='parent' >
+                                <div 
+                                    onMouseLeave={()=>{this.handleStateChange('alcolPos', getPosition('alcohol'))}}
+                                    className='draggable-container' 
+                                    id='alcohol' 
+                                >
+                                    <b>{alcohol? alcoholUn.replace("__", alcohol) : ''}</b>
+                                </div>
+                            </Draggable>  
+
+
                         </div>
                         
 
