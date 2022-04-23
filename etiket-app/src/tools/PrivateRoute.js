@@ -1,26 +1,30 @@
 import { Component } from "react";
-import { BrowserRouter as Router, Route, Outlet , Navigate} from 'react-router-dom';
+import { BrowserRouter as Outlet , Navigate} from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { backendURL } from '../config/constants.js'
-import axios from 'axios';
+import request from "../tools/ApiSetup"
 
 class PrivateRoute extends Component {
     
     componentDidMount(){
+
+
         const header={
             "Authorization":"Bearer "+this.state.accessToken
         }
         const jsonData={}
-        axios.post(backendURL+"UsersDB/auth",jsonData,{
+        console.log(header)
+        request.post(backendURL+"UsersDB/auth",jsonData,{
             headers:header
         })
         .then((response)=>{
             // For success, update state like
+            console.log("Se llamó a auth")
             this.setState({ isLoading: false, isLoggedIn: true });
         })
         .catch((error)=>{
             // For fail, update state like
-            console.log(error)
+            console.log("Se llamó a auth")
             this.setState({ isLoading: false, isLoggedIn: false });
         });
     }

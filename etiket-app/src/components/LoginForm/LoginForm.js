@@ -27,8 +27,8 @@ const LoginForm = () => {
       email: email,
       password:password
     }
-
-    axios.post(backendURL+"UsersDB/login",jsonData)
+    const axiosLogin=axios.create()
+    axiosLogin.post(backendURL+"UsersDB/login",jsonData)
     .then((response)=>{
       handleCookies(response.data.accessToken, response.data.refreshToken)
       navigate("/")

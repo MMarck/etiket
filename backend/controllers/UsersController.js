@@ -169,7 +169,8 @@ module.exports = {
                 const newRefreshToken=generateRefreshToken(user);
 
                 var refreshTokenModel = new RefreshModel({
-                    token : newRefreshToken
+                    token : newRefreshToken,
+                    email: user.email
                 });
 
                 refreshTokenModel.save(function (err) {
@@ -190,6 +191,7 @@ module.exports = {
     },
 
     verifyJwt: function(req,res,next){
+        console.log(req.headers.authorization)
         const authHeader=req.headers.authorization.split(" ")[1];
         if (authHeader){
             jwt.verify(authHeader,process.env.JWT_SECRET, (err, user)=>{
