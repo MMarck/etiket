@@ -18,12 +18,10 @@ class PrivateRoute extends Component {
         })
         .then((response)=>{
             // For success, update state like
-            console.log("Se llamó a auth")
             this.setState({ isLoading: false, isLoggedIn: true });
         })
         .catch((error)=>{
             // For fail, update state like
-            console.log("Se llamó a auth")
             this.setState({ isLoading: false, isLoggedIn: false });
         });
     }
