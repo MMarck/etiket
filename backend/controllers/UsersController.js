@@ -10,11 +10,11 @@ require('dotenv').config({path:path.resolve(__dirname,"../config/.env")});
 const generateAccessToken = (user)=>{
     const accessToken=jwt.sign(
         { 
-            id:user._id,
+            id:user.id,
             email: user.email
         }, 
         process.env.JWT_SECRET,
-        {expiresIn:"15m"}
+        {expiresIn:"5s"}
     );
     return accessToken;
 }
@@ -22,7 +22,7 @@ const generateAccessToken = (user)=>{
 const generateRefreshToken = (user)=>{
     const refreshToken=jwt.sign(
         { 
-            id:user._id,
+            id:user.id,
             email: user.email
         }, 
         process.env.JWT_REFRESH_SECRET,
@@ -164,7 +164,6 @@ module.exports = {
                         });
                     }
                 });
-
                 const newAccessToken=generateAccessToken(user);
                 const newRefreshToken=generateRefreshToken(user);
 

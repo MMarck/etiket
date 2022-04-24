@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { BrowserRouter as Outlet , Navigate} from 'react-router-dom';
+import { Outlet , Navigate} from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { backendURL } from '../config/constants.js'
 import request from "../tools/ApiSetup"
@@ -13,7 +13,6 @@ class PrivateRoute extends Component {
             "Authorization":"Bearer "+this.state.accessToken
         }
         const jsonData={}
-        console.log(header)
         request.post(backendURL+"UsersDB/auth",jsonData,{
             headers:header
         })

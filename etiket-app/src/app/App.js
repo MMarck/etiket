@@ -11,7 +11,6 @@ import LoginForm from '../components/LoginForm/LoginForm';
 import ChangePassword from '../pages/ChangePassword/ChangePassword';
 import TicketEditor from '../pages/TicketEditor/TicketEditor';
 import './App.css';
-import { useEffect, useState } from 'react';
 import { createBrowserHistory } from "history";
 import PrivateRoute from '../tools/PrivateRoute';
 
@@ -20,11 +19,6 @@ const history = createBrowserHistory();
 
 function App() {
 
-  // Hook para lanzar codigo antes que el render
-  useEffect( () =>{
-
-
-  }, []);
 
   return (
     

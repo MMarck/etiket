@@ -22,9 +22,7 @@ request.interceptors.request.use( async (config)=>{
                 const res = await axiosRefresh.post(backendURL+"UsersDB/refresh",{refreshToken:Cookies.get("refreshToken")})
                 Cookies.set("accessToken", res.data.accessToken);
                 Cookies.set("refreshToken", res.data.refreshToken);
-                console.log(config.headers.authorization)
-                config.headers.authorization="Bearer "+res.data.accessToken;
-                console.log(config.headers.authorization)
+                config.headers["Authorization"]="Bearer "+res.data.accessToken;
             } catch (error) {
                 console.log(error)
                 return Promise.reject(error);
@@ -41,6 +39,6 @@ request.interceptors.request.use( async (config)=>{
     }
     
 
-  });
+});
 
 export default request
