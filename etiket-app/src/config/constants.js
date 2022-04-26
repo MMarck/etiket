@@ -721,3 +721,119 @@ export const countries=[
 export const Nutrientes = {
   grasaTotal: 65
 }
+
+/*
+* Nueva etiqueta por defecto
+*/
+
+export const newLabelDefault=(id,nombre,tipo)=>{
+  const res={
+    "user": id,
+    "nombreProyecto" : nombre,
+    "tipo": tipo,
+    "nombreEtiqueta": "",
+    "marca": "",
+    "dimensiones": {
+        "ancho":"10",
+        "altura":"10",
+        "unidad":{"label":"Centímetros","value":"cm"},
+        "sizeIndicatorVisibility":"hidden"
+    },
+    "pesoNeto":{
+        "valor":"",
+        "label":{"label":"Contenido neto", "value": "Contenido neto"},
+        "unidad":{"label":"g", "value":"g"}
+    },
+    "pesoDrenado":{
+        "valor":"",
+        "label":{"label":"Contenido drenado", "value": "Contenido drenado"},
+        "unidad":{"label":"g", "value":"g"},
+        "isDisabled":"true"
+    },
+    "alcohol":{
+        "valor":"",
+        "unidad":{"value":"Alcohol __% (Vol.)", "label":"Alcohol __% (Vol.)"}
+    },
+    "ingredientes":[],
+    "alergenos":[],
+    "conservacion":{
+        "metodo":{"label":"En refrigeración", "value":"En refrigeración"},
+        "unidad":{"label":"Mantener", "value":"Mantener"}
+    },
+    "vidaUtil":{
+        "valor":"",
+        "unidad":{"label": "Días", "value": "Días"}
+    },
+    "fabricacion":{
+        "valor":handleDateChange(new Date()),
+        "unidad":{"label": "Fecha de elaboración", "value": "Fecha de elaboración"}
+    },
+    "caducacion":{
+        "valor":handleDateChange(new Date()),
+        "unidad":{"label": "Fecha de caducacion", "value": "Fecha de caducacion"}
+    },
+    "direccion": "",
+    "instrucciones": "",
+    "posicion":{
+        "pesos":{
+            "x":0,
+            "y":0
+        },
+        "nombre":{
+            "x":0,
+            "y":0
+        },
+        "ingredientes":{
+            "x":0,
+            "y":0
+        },
+        "alergenos":{
+            "x":0,
+            "y":0
+        },
+        "infNut":{
+            "x":0,
+            "y":0
+        }
+    },
+    "TablaNutri":{
+        "tipo": {"label":"Formato estándar", "value":"Formato estándar"},
+        "tamanioPorcion": {
+            "valor":0,
+            "unidad":{"label":"mg", "value":"mg"}
+        },
+        "porcionPorEnvase": {
+            "valor":0,
+            "unidad":{"label":"aprox.", "value":"aprox."},
+            "porcionPorEnvaseDisabled":"true"
+        },
+        "grasas": {
+            "total":0,
+            "saturada":0,
+            "trans":0
+        },
+        "acidosPoli": 0,
+        "colesterol": 0,
+        "sodio":0,
+        "carbohidratos": 0,
+        "azucares":0,
+        "proteinas":0,
+        "fibra":0,
+        "energiaTotal":0
+    }
+  }
+  return res;
+}
+
+function handleDateChange(value){
+
+  const yyyy = value.getFullYear();
+  let mm = value.getMonth() + 1; 
+  let dd = value.getDate();
+
+  if (dd < 10) dd = '0' + dd;
+  if (mm < 10) mm = '0' + mm;
+
+  const date = dd + '/' + mm + '/' + yyyy
+  return date
+}

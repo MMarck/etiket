@@ -6,6 +6,10 @@ import { connect } from 'react-redux';
 import { replace } from "../../reducers/NewTicketSlice";
 import { Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import { backendURL } from '../../config/constants.js';
+import request from "../../tools/ApiSetup";
+import jwt_decode from 'jwt-decode';
 import Select from 'react-select';
 import './MyTickets.css';
 
@@ -23,12 +27,34 @@ const mapDispatchToProps = () => ({
 
 class MyTickets extends Component{
 
+  componentDidMount(){
+    const header={
+      "Authorization":"Bearer "+this.state.accessToken
+    }
+    const jsonData={"user":jwt_decode(this.state.accessToken).id}
+    request.post(backendURL+"Labels/getLabels",jsonData,{
+        headers:header
+    })
+    .then((res)=>{
+      this.setState({labels:res.data})
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
+  }
+
   constructor(props){
     super(props);
     this.state = {
-      showPackagesTypes : false
+      isPaid:true,
+      accessToken:Cookies.get("accessToken") || "",
+      refreshToken: Cookies.get("refreshToken") || "",
+      showPackagesTypes : false,
+      labels: []
     }
 
+    
+    
     //carga inicial de las etiquetas
     this.getTickets = this.getTickets.bind(this);
     this.props.setTickets(this.getTickets());
@@ -51,7 +77,7 @@ class MyTickets extends Component{
           {/* Esta seccion muestra un mensaje de aviso cuando ya se ha 
             llegado al limite de creacion de etiquetas 
             cargar limite del usuario de acuerdo a su plan (2 por defecto)*/}
-          {this.props.ticketList.length >= 2? 
+          {this.state.labels.length >= 2? 
             <div className='w-75 d-flex flex-column justify-content-center align-items-center gap-2'>
               <span className='text-danger text-center'>
                 En tu cuenta gratuita solo puedes diseñar hasta 2 etiquetas.
@@ -73,25 +99,25 @@ class MyTickets extends Component{
             dicha etiqueta para modificarlo*/
 
             //PENDIENTE SOLO LOS USUARIOS PREMIUM PUEDEN ELIMINAR ETIQUETAS
-            this.props.ticketList.map((object, index) =>  
+            this.state.labels.map((label) =>  
               <Link 
-                to = {'/editarEtiqueta/'+ index}
+                to = {'/editarEtiqueta/'+ label.id}
                 className='etiquetaContainer'
-                key={index} //prop para evitar renderizar 2 veces el mismo elemento, PENDIENTE cambiar por el id de la etiqueta
+                key={label.id} //prop para evitar renderizar 2 veces el mismo elemento, PENDIENTE cambiar por el id de la etiqueta
               >
                 <div className='previewEtiqueta'>
                   <img 
-                  src={imagePath(object.packageType)}
-                  alt={object.packageType}
+                  src={imagePath(label.tipo)}
+                  alt={label.tipo}
                   width='60px'/>
                 </div>
               
-                <span className='flex-shrink-1 '>{object.name}</span>
+                <span className='flex-shrink-1 '>{label.nombreProyecto}</span>
               </Link>
             )
             }
 
-            {(this.props.ticketList.length > 0 && this.props.ticketList.length < 2)?
+            {(this.state.labels.length > 0)?
               <button id='BotonMasNuevaEtiqueta' onClick={() => this.setState({showPackagesTypes:true})}>
                 +
               </button>
@@ -100,12 +126,12 @@ class MyTickets extends Component{
 
           </div>
 
-          {this.props.ticketList.length === 0 ?
+          {this.state.labels.length === 0 ?
             <span className='opacity-50'>No tienes ninguna etiqueta diseñada. Te parece si empezamos ?</span>
             :'' 
           }
 
-          { this.props.ticketList.length === 0 ?
+          { this.state.labels.length === 0 ?
             <button className='rounded fs-6 btn-dark' onClick={() => this.setState({showPackagesTypes:true})}>
               CREAR ETIQUETA
             </button>

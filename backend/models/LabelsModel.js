@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
-var TicketsSchema = new Schema({
+var LabelsSchema = new Schema({
 	"user": {"type":mongoose.Schema.Types.ObjectId, "ref":"Users"},
-	'nameProyecto' : String,
+	'nombreProyecto' : String,
 	'tipo' : String,
 	"nombreEtiqueta": String,
 	"marca": String,
@@ -101,4 +101,4 @@ var TicketsSchema = new Schema({
 
 });
 
-module.exports = mongoose.model('Tickets', TicketsSchema, "Tickets");
+module.exports = mongoose.model('Labels', LabelsSchema, "Labels");

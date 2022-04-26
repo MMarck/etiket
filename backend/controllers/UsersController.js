@@ -14,7 +14,7 @@ const generateAccessToken = (user)=>{
             email: user.email
         }, 
         process.env.JWT_SECRET,
-        {expiresIn:"5s"}
+        {expiresIn:"30m"}
     );
     return accessToken;
 }
@@ -212,7 +212,7 @@ module.exports = {
                 if (err){
                     return res.status(403).json("Token is not valid");
                 }
-                RefreshModel.findOneAndRemove({token:refreshToken, user:user.email}, function (err, token) {
+                RefreshModel.findOneAndRemove({token:refreshToken, email:user.email}, function (err, token) {
                     if (err) {
                         return res.status(500).json({
                             message: 'Error when deleting the refreshToken.',
