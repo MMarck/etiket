@@ -1,9 +1,9 @@
 
 
-/*
+/** 
  * Funcion para convertir cualquier medida en cualquier
  * unidad a cm
-*/
+ */
 export function unitTocm(value, unit) {
     if(unit === "mm"){
         return parseFloat(value) / 10;
@@ -13,10 +13,10 @@ export function unitTocm(value, unit) {
     }
 } 
 
-/*
+/**
  * Funcion para obtener el tamanio de letra
  * en funcion de un area en cm2 (centimetro cuadrados)
-*/
+ */
 export function getDataFontSize(area) {
     if(area < 32){
         return '1.6mm';
@@ -35,3 +35,22 @@ export function getDataFontSize(area) {
     }
     return '1em'
 } 
+
+function enIncrementosde(value, increment){
+    return parseFloat(value)
+}
+/***
+ * 
+ */
+export function getReportFormat(type, value){
+    switch(type){
+        case 'grasaTotal': case 'grasaSaturada':
+            if(value < 0.5) return 0;
+            if(value < 3) return enIncrementosde(value);
+            if(value >= 3 ) return parseInt(value);
+            break;
+
+
+        
+    }
+}

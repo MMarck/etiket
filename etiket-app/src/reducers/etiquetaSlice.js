@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { 
   pesosDrenados,
-  porcionEnvaseUn, 
+  AproxOptions, 
   tiposTablas, 
   unidadesPorcion 
 } from '../config/constants';
@@ -47,8 +47,8 @@ const Initial_State={
   tamanioPorcionUn: unidadesPorcion[0],
   porcionPorEnvaseDisabled:true,
   porcionPorEnvase: 0,
-  porcionPorEnvaseUn: porcionEnvaseUn[0],
-  grasaTotal: 0,
+  porcionPorEnvaseUn: AproxOptions[0],
+  grasaTotal: {peso:0, vdr:0},
   grasaSaturada: 0,
   grasasTrans: 0,
   acidosMono: 0,

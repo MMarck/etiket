@@ -1,3 +1,4 @@
+import CustomCheckbox from "../CustomCheckbox/CustomCheckbox";
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import {replace} from "../../reducers/etiquetaSlice";
@@ -12,8 +13,11 @@ import {
     ddSmallStyle, 
     pathIcons, 
     tiposTablas, 
-    unidadesPorcion
+    unidadesPorcion,
+    AproxOptions,
+    Nutrientes
  } from '../../config/constants';
+import { getReportFormat } from "../../tools/Casefunctions";
 
 
 
@@ -135,6 +139,16 @@ class NutritionFacts_form extends Component{
     return date
   }
 
+  setNutritionsFacts(type, value){
+    //aplicar redondedo
+    let report = getReportFormat(type, value);
+
+    //obtener VDR (valor diario recomendado)
+    let vdr = Math.ceil( report / Nutrientes[type] * 100 );
+
+    this.handleStateChange(type,{peso: report, vdr:vdr})
+  }
+
 
   render(){
     let max_width_information= '50%';
@@ -144,9 +158,8 @@ class NutritionFacts_form extends Component{
     let tamanioPorcionUn = this.props.etiqueta.tamanioPorcionUn;
     let tipoTabla = this.props.etiqueta.tipoTabla;
     let porcionPorEnvase = this.props.etiqueta.porcionPorEnvase;
-    let porcionEnvaseUn = this.props.etiqueta.porcionEnvaseUn;
+    let porcionPorEnvaseUn = this.props.etiqueta.porcionPorEnvaseUn;
     let porcionPorEnvaseDisabled = this.props.etiqueta.porcionPorEnvaseDisabled;
-    let pesoDrenadoDisabled = this.props.etiqueta.pesoDrenadoDisabled;
     
     return (
       <div id='' className='semi-bordered-left' style={{backgroundColor:'#e6e6e6', padding:'10px'}} > 
@@ -165,7 +178,7 @@ class NutritionFacts_form extends Component{
 
                 <div style={{maxWidth: max_width_inputs}}>
                     <Select
-                        onChange={(e)=> this.handleStateChange("tipoTabla",e.target.value)}
+                        onChange={(e)=> this.handleStateChange("tipoTabla",e)}
                         defaultValue={ tipoTabla }
                         styles={ddNormalStyle}
                         options={tiposTablas}
@@ -190,7 +203,7 @@ class NutritionFacts_form extends Component{
                         value={tamanioPorcion}
                     />
                     <Select
-                        onChange={(e)=> this.handleStateChange("tamanioPorcionUn",e.target.value)}
+                        onChange={(e)=> this.handleStateChange("tamanioPorcionUn",e)}
                         defaultValue={ tamanioPorcionUn }
                         styles={ddSmallStyle}
                         options={unidadesPorcion}
@@ -207,14 +220,24 @@ class NutritionFacts_form extends Component{
                     <p>Porciones por envase</p>
                 </div>
 
-                <div style={{maxWidth: max_width_inputs}}>
+                <div className='d-flex justify-content-center' style={{maxWidth: max_width_inputs}}>
                     
-                    <Select 
+
+                    <div 
+                        onChange={()=>{this.handleStateChange('porcionPorEnvaseDisabled', !porcionPorEnvaseDisabled)}}
+                        style={{alignSelf:'flex-end', marginBottom:"1vh"}} 
+                        id='pesosCheckbox'
+                    >
+                        <CustomCheckbox isChecked={!porcionPorEnvaseDisabled}/>
+
+                    </div>
+
+                    <Select
                         onChange={(e)=> this.handleStateChange("porcionPorEnvaseUn",e)}
                         className='ddMenu'
-                        styles={ddNormalStyle} 
-                        options={porcionEnvaseUn} 
-                        defaultValue={this.props.etiqueta.porcionEnvaseUn} 
+                        styles={ddSmallStyle}
+                        options={AproxOptions}
+                        defaultValue={porcionPorEnvaseUn}
                         isDisabled={porcionPorEnvaseDisabled}
                     />
                     <input
@@ -224,15 +247,7 @@ class NutritionFacts_form extends Component{
                         name='porcionPorEnvase'
                         type="text"
                         onKeyPress={this.numberFilter}
-                        disabled={pesoDrenadoDisabled}
-                    />
-                    <Select
-                        onChange={(e)=> this.handleStateChange("porcionPorEnvaseUn",e)}
-                        className='ddMenu'
-                        styles={ddSmallStyle}
-                        options={porcionEnvaseUn}
-                        defaultValue={this.props.etiqueta.porcionPorEnvaseUn}
-                        isDisabled={pesoDrenadoDisabled}
+                        disabled={porcionPorEnvaseDisabled}
                     />
                 </div>
             </div>
@@ -258,7 +273,7 @@ class NutritionFacts_form extends Component{
                 <div style={{maxWidth: max_width_inputs}}>
                     <input 
                         type="text" 
-                        onChange={(e)=> this.handleStateChange("grasaTotal",e.target.value)}
+                        onChange={(e)=> this.setNutritionsFacts("grasaTotal",e.target.value)} 
                     />
                 </div>
             </div>

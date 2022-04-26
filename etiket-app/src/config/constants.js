@@ -367,7 +367,7 @@ export const unidadesAlcohol=[
 /**
  * Opciones para porciones por envase
  */
- export const porcionEnvaseUn=[
+ export const AproxOptions=[
   {
     value: "aprox.",
     label: "aprox.",
@@ -714,3 +714,10 @@ export const countries=[
     label: "Bolivia"
   }
 ]
+
+/**
+ * Nutrientes a declararse en la informacion nutricional
+ */
+export const Nutrientes = {
+  grasaTotal: 65
+}

@@ -113,10 +113,10 @@ class NutritionFacts_Previewer extends Component{
                 <tr className="separator-botton-1" >
                     <th colspan="2">
                         Grasa total
-                        <span className='fw-light'> 4g </span>
+                        <span className='fw-light'> {grasaTotal.peso}g </span>
                     </th>
                     <td>
-                        <b>{grasaTotal}%</b>
+                        <b>{grasaTotal.vdr}%</b>
                     </td>
                 </tr>
 
