@@ -25,7 +25,7 @@ const Initial_State={
   ingredientes: '',
   alergenos: [],
   conservacionUn: {label:"Mantener", value:"Mantener"},
-  metodoConservacion: {label:"En refrigeración", value:""},
+  metodoConservacion: {label:"En refrigeración", value:"En refrigeración"},
   vidaUtil:'',
   vidaUtilUn: {label: "Días", value: "Días"},
   fabricacion: handleDateChange(new Date()),

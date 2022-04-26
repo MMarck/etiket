@@ -1,5 +1,5 @@
 var passport = require('passport');
-var TicketsModel = require('../models/TicketsModel');
+var LabelsModel = require('../models/LabelsModel');
 var jwt = require("jsonwebtoken");
 const path = require('path');
 require('dotenv').config({path:path.resolve(__dirname,"../config/.env")}); 
@@ -15,7 +15,8 @@ module.exports = {
      * TicketsController.list()
      */
     list: function (req, res) {
-        TicketsModel.find(function (err, tickets) {
+        const userId=req.body.user
+        LabelsModel.find({user:userId},function (err, labels) {
             if (err) {
                 return res.status(500).json({
                     message: 'Error when getting Tickets.',
@@ -23,7 +24,20 @@ module.exports = {
                 });
             }
 
-            return res.json(tickets);
+            if (!labels){
+                return res.json([])
+            }
+            const resJson=[]
+            labels.forEach(i => {
+                let json={
+                    nombreProyecto: i.nombreProyecto,
+                    tipo: i.tipo,
+                    id: i._id
+                }
+                resJson.push(json)
+            });
+
+            return res.json(resJson);
         });
     },
 
@@ -33,7 +47,7 @@ module.exports = {
     show: function (req, res) {
         var id = req.params.id;
 
-        TicketsModel.findOne({_id: id}, function (err, Ticket) {
+        LabelsModel.findOne({_id: id}, function (err, Ticket) {
             if (err) {
                 return res.status(500).json({
                     message: 'Error when getting Tickets.',
@@ -55,9 +69,9 @@ module.exports = {
      * TicketsController.create()
      */
     create: function (req, res) {
-        var Ticket = new TicketsModel({
+        var Ticket = new LabelsModel({
             user: req.user.id,
-			nameProyecto : req.body.nameProyecto,
+			nombreProyecto : req.body.nombreProyecto,
             tipo: req.body.tipo,
             nombreEtiqueta: req.body.nombreEtiqueta,
             marca: req.body.marca,
@@ -140,7 +154,7 @@ module.exports = {
             }
         });
 
-        TicketsModel.create(Ticket,function(err,ticket){
+        LabelsModel.create(Ticket,function(err,ticket){
             if (err){
                 return res.status(500).json({
                     message: "Error creando Etiqueta",
@@ -174,7 +188,7 @@ module.exports = {
      update: function (req, res) {
         var id = req.params.id;
 
-        TicketsModel.findOne({_id: id}, function (err, Ticket) {
+        LabelsModel.findOne({_id: id}, function (err, Ticket) {
             if (err) {
                 return res.status(500).json({
                     message: 'Error when getting Ticket',
@@ -211,7 +225,7 @@ module.exports = {
     remove: function (req, res) {
         var id = req.params.id;
 
-        TicketsModel.findByIdAndRemove(id, function (err, Ticket) {
+        LabelsModel.findByIdAndRemove(id, function (err, Ticket) {
             if (err) {
                 return res.status(500).json({
                     message: 'Error when deleting the Users.',
@@ -241,21 +255,6 @@ module.exports = {
                 }
             );
         })(req, res, next);
-    },
-
-    verifyJwt: function(req,res,next){
-        const authHeader=req.headers.authorization;
-        if (authHeader){
-            jwt.verify(authHeader,process.env.JWT_SECRET, (err, userId)=>{
-                if (err){
-                    return res.status(403).json("Token is not valid");
-                }
-                req.user=userId;
-                next();
-            })
-        } else {
-            res.status(401).json("You are not authenticated!")
-        }
-    },
+    }
 
 };

@@ -10,7 +10,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var UsersDBRoutes = require('./routes/UsersRoutes');
-var TicketsRoutes = require('./routes/TicketsRoutes');
+var LabelsRoutes = require('./routes/LabelsRoutes');
 var RefreshtokensRoutes = require("./routes/refreshTokensRoutes");
 
 var app = express();
@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/UsersDB', UsersDBRoutes);
-app.use('/Tickets', TicketsRoutes);
+app.use('/Labels', LabelsRoutes);
 app.use("/Rtokens", RefreshtokensRoutes);
 
 //setear puerto por defecto
