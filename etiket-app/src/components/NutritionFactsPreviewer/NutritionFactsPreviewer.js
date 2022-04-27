@@ -57,7 +57,7 @@ class NutritionFacts_Previewer extends Component{
                 <b>Este es un ejemplo de como va a quedar la tabla nutricional de tu producto </b>
             </p>
 
-            <section className="performance-facts" style={{overflow:'auto', height:'100%'}}>
+            <section className="performance-facts" style={{overflow:'auto', height:'100'}}>
                 
             {/* Seccion 1 - Titulo y totales */}
             <header className="performance-facts__header">
@@ -75,7 +75,7 @@ class NutritionFacts_Previewer extends Component{
                             Cantidad por porción
                         </th>
                         <td className="small-info">
-                            <b>% Valor Diario</b>
+                            <b> Valor Diario</b>
                         </td>
                     </tr>
                 </thead>
@@ -88,7 +88,7 @@ class NutritionFacts_Previewer extends Component{
                         <span className='fw-light'> 168kJ (40 kcal) </span>
                     </th>
                     <td>
-                        7%
+                        7
                     </td>
                 </tr>
 
@@ -98,14 +98,14 @@ class NutritionFacts_Previewer extends Component{
                         <span className='fw-light'> 168kJ (40 kcal) </span>
                     </th>
                     <td>
-                        7%
+                        7
                     </td>
                 </tr>
 
                 <tr className="separator-botton-1" >
                     <th colspan="2"></th>
                     <td  className="small-info">
-                        <b>% Valor Diario</b>
+                        <b> Valor Diario</b>
                     </td>
                 </tr>
 
@@ -116,7 +116,7 @@ class NutritionFacts_Previewer extends Component{
                         <span className='fw-light'> {grasaTotal.report} </span>
                     </th>
                     <td>
-                        <b>{grasaTotal.vdr}%</b>
+                        <b>{grasaTotal.vdr}</b>
                     </td>
                 </tr>
 
@@ -152,7 +152,7 @@ class NutritionFacts_Previewer extends Component{
                     </th>
                     
                     <td>
-                        <b>{colesterol.vdr}%</b>
+                        <b>{colesterol.vdr}</b>
                     </td>
                 </tr>
 
@@ -163,7 +163,7 @@ class NutritionFacts_Previewer extends Component{
                     </th>
 
                     <td>
-                        <b>{sodio.vdr}%</b>
+                        <b>{sodio.vdr}</b>
                     </td>
                 </tr>
 
@@ -173,7 +173,7 @@ class NutritionFacts_Previewer extends Component{
                         <span className='fw-light'> {carbohidratos.report} </span>
                     </th>
                     <td>
-                        <b>{carbohidratos.vdr}%</b>
+                        <b>{carbohidratos.vdr}</b>
                     </td>
                 </tr>
 
@@ -185,7 +185,7 @@ class NutritionFacts_Previewer extends Component{
                         <span className='fw-light'> {fibra.report}</span>
                     </th>
                     <td>
-                        <b>{fibra.vdr}%</b>
+                        <b>{fibra.vdr}</b>
                     </td>
                 </tr>
 
@@ -197,7 +197,7 @@ class NutritionFacts_Previewer extends Component{
                         <span className='fw-light'> {azucares.report} </span>
                     </th>
                     <td>
-                        <b>{azucares.vdr}%</b>
+                        <b>{azucares.vdr}</b>
                     </td>
                 </tr>
 
@@ -207,7 +207,7 @@ class NutritionFacts_Previewer extends Component{
                         <span className='fw-light'> {proteina.report}</span>
                     </th>
                     <td>
-                        <b>{proteina.vdr}%</b>
+                        <b>{proteina.vdr}</b>
                     </td>
                 </tr>
 
@@ -339,10 +339,10 @@ function AcidosSubTable(params){
 
                 <th>
                     {element.label}
-                    <span className='fw-light'> {element.magnitude} {element.unit} </span>
+                    <span className='fw-light'> {element.mass} </span>
                 </th>
                 <td>
-                    <b>{element.percentage}%</b>
+                    <b>{element.percentage}</b>
                 </td>
             </tr>
         )
@@ -360,10 +360,10 @@ function VitaminasSubTable(params){
         vitaminasList.push(
             <tr className="separator-botton-1" >
                 <th>
-                    <span className='fw-light'> {element.label} {element.mass} </span>
+                    <span className='fw-light'> {element.label} </span>
                 </th>
                 <td>
-                    {element.percentage}%
+                    {element.percentage}
                 </td>
             </tr>
         )

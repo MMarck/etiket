@@ -36,11 +36,30 @@ export function getDataFontSize(area) {
     return '1em'
 } 
 
-function enIncrementosde(value, increment){
+/* function enIncrementosde(value, increment){
     return parseFloat(value)
 }
-/***
- * 
+ */
+function enIncrementosde(x, corte) {
+    if (x === 0) 
+        return 0;
+    if (x % corte === 0) 
+        return x;
+    if(x > parseInt(x/corte) * corte && x <= (parseInt(x/corte)+1) * corte) 
+        return (parseInt(x/corte)+1) * corte
+        //pendiente: si se deseara cortes de valores no divisibles para 5, 
+        //se debera cambiar este return por el valor mas cercano a (10 * corte)
+        // escalon(0.7, 0.6) => 1.2
+}
+
+/**
+ * Funcion para obtener el peso de un nutriente en el formato provisto por
+ * el ministerio.
+ * @param {string} type : tipo de nutriente
+ * @param {int} value : peso del nutriente
+ * @returns tupla de la forma  {result, report}, donde result es un entero con el peso del 
+ *          nutriente en el formato del ministerio y report es una cadena con el peso del 
+ *          nutriente con el formato del ministerio
  */
 export function getReportFormat(type, value){
     var result, report;
@@ -51,7 +70,7 @@ export function getReportFormat(type, value){
                 report='cero';
             }
             if(value < 3){
-                result = enIncrementosde(value);
+                result = enIncrementosde(value, 0.5);
                 report =  result.toString()
             } 
             if(value >= 3 ){
@@ -82,11 +101,11 @@ export function getReportFormat(type, value){
             }
             if(value >= 0.005 && value <= 140){
                 result = value;
-                report = enIncrementosde(value).toString()
+                report = enIncrementosde(value, 0.5).toString()
             } 
             if(value >= 0.005 ){
-                result = enIncrementosde(value);
-                report = enIncrementosde(value).toString();
+                result = enIncrementosde(value, 0.5);
+                report = enIncrementosde(value, 0.5).toString();
             }
             break;
         default:

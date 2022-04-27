@@ -145,9 +145,12 @@ class NutritionFacts_form extends Component{
 
     //aplicar redondedo
     let {result, report} = getReportFormat(type, value);
-    
+    console.log({result, report} )
     //obtener VDR (valor diario recomendado)
     let vdr = Math.ceil( result / Nutrientes[type] * 100 );
+
+    if(type === 'grasasTrans' || type === 'acidosMono' || type === 'acidosPoli')
+        vdr = ''
 
     this.handleStateChange(type,{report: report, vdr:vdr})
   }
