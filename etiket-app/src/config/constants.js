@@ -719,7 +719,12 @@ export const countries=[
  * Nutrientes a declararse en la informacion nutricional
  */
 export const Nutrientes = {
-  grasaTotal: 65
+  grasaTotal: 65,
+  grasaSaturada: 20,
+  colesterol:0.3,
+  sodio: 2.4,
+  carbohidratos: 300,
+  proteina: 50
 }
 
 /*

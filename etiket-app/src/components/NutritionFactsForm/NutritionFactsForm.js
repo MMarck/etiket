@@ -139,14 +139,17 @@ class NutritionFacts_form extends Component{
     return date
   }
 
-  setNutritionsFacts(type, value){
+  setNutritionsFacts(type, value, unit){
+    //PENDIENTE
+    //transformar cualquier valor unidad : gramos 
+
     //aplicar redondedo
-    let report = getReportFormat(type, value);
-
+    let {result, report} = getReportFormat(type, value);
+    
     //obtener VDR (valor diario recomendado)
-    let vdr = Math.ceil( report / Nutrientes[type] * 100 );
+    let vdr = Math.ceil( result / Nutrientes[type] * 100 );
 
-    this.handleStateChange(type,{peso: report, vdr:vdr})
+    this.handleStateChange(type,{report: report, vdr:vdr})
   }
 
 
@@ -273,7 +276,7 @@ class NutritionFacts_form extends Component{
                 <div style={{maxWidth: max_width_inputs}}>
                     <input 
                         type="text" 
-                        onChange={(e)=> this.setNutritionsFacts("grasaTotal",e.target.value)} 
+                        onChange={(e)=> this.setNutritionsFacts("grasaTotal",e.target.value, 'g')} 
                     />
                 </div>
             </div>
@@ -288,7 +291,7 @@ class NutritionFacts_form extends Component{
                 <div style={{maxWidth: max_width_inputs}}>
                     <input 
                         type="text" 
-                        onChange={(e)=> this.handleStateChange("grasaSaturada",e.target.value)}
+                        onChange={(e)=> this.setNutritionsFacts("grasaSaturada",e.target.value, 'g')}
                     />
                 </div>
             </div>
@@ -303,7 +306,7 @@ class NutritionFacts_form extends Component{
                 <div style={{maxWidth: max_width_inputs}}>
                     <input 
                         type="text" 
-                        onChange={(e)=> this.handleStateChange("grasasTrans",e.target.value)}
+                        onChange={(e)=> this.setNutritionsFacts("grasasTrans",e.target.value,'g')}
                     />
                 </div>
             </div>
@@ -318,7 +321,7 @@ class NutritionFacts_form extends Component{
                 <div style={{maxWidth: max_width_inputs}}>
                     <input 
                         type="text" 
-                        onChange={(e)=> this.handleStateChange("acidosMono",e.target.value)}
+                        onChange={(e)=> this.setNutritionsFacts("acidosMono",e.target.value,'g')}
                     />
                 </div>
             </div>
@@ -333,7 +336,7 @@ class NutritionFacts_form extends Component{
                 <div style={{maxWidth: max_width_inputs}}>
                     <input 
                         type="text" 
-                        onChange={(e)=> this.handleStateChange("acidosPoli",e.target.value)}
+                        onChange={(e)=> this.setNutritionsFacts("acidosPoli",e.target.value,'g')}
                     />
                 </div>
             </div>
@@ -348,7 +351,7 @@ class NutritionFacts_form extends Component{
                 <div style={{maxWidth: max_width_inputs}}>
                     <input 
                         type="text" 
-                        onChange={(e)=> this.handleStateChange("colesterol",e.target.value)}
+                        onChange={(e)=> this.setNutritionsFacts("colesterol",e.target.value,'g')}
                     />
                 </div>
             </div>
@@ -363,7 +366,7 @@ class NutritionFacts_form extends Component{
                 <div style={{maxWidth: max_width_inputs}}>
                     <input 
                         type="text" 
-                        onChange={(e)=> this.handleStateChange("sodio",e.target.value)}
+                        onChange={(e)=> this.setNutritionsFacts("sodio",e.target.value,'g')}
                     />
                 </div>
             </div>
@@ -378,7 +381,7 @@ class NutritionFacts_form extends Component{
                 <div style={{maxWidth: max_width_inputs}}>
                     <input 
                         type="text" 
-                        onChange={(e)=> this.handleStateChange("carbohidratos",e.target.value)}
+                        onChange={(e)=> this.setNutritionsFacts("carbohidratos",e.target.value,'g')}
                     />
                 </div>
             </div>
@@ -393,7 +396,7 @@ class NutritionFacts_form extends Component{
                 <div style={{maxWidth: max_width_inputs}}>
                     <input 
                         type="text" 
-                        onChange={(e)=> this.handleStateChange("azucares",e.target.value)}
+                        onChange={(e)=> this.setNutritionsFacts("azucares",e.target.value,'g')}
                     />
                 </div>
             </div>
@@ -408,7 +411,7 @@ class NutritionFacts_form extends Component{
                 <div style={{maxWidth: max_width_inputs}}>
                     <input 
                         type="text" 
-                        onChange={(e)=> this.handleStateChange("proteina",e.target.value)}
+                        onChange={(e)=> this.setNutritionsFacts("proteina",e.target.value)}
                     />
                 </div>
             </div>
