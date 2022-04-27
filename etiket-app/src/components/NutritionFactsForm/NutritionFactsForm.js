@@ -141,16 +141,16 @@ class NutritionFacts_form extends Component{
 
   setNutritionsFacts(type, value, unit){
     //PENDIENTE
-    //transformar cualquier valor unidad : gramos 
+    //transformar cualquier valor unidad : gramos y hacer que getReportFormat trabaje con todos los decimales
 
     //aplicar redondedo
-    let {result, report} = getReportFormat(type, value);
-    console.log({result, report} )
-    //obtener VDR (valor diario recomendado)
-    let vdr = Math.ceil( result / Nutrientes[type] * 100 );
+    let {result, report} = getReportFormat(type, value, unit);
 
-    if(type === 'grasasTrans' || type === 'acidosMono' || type === 'acidosPoli')
-        vdr = ''
+    //obtener VDR (valor diario recomendado)
+    let vdr = ''
+    let nutriente =   Object.keys(Nutrientes).find( e => e === type)
+    
+    vdr = nutriente?  Math.ceil( result / Nutrientes[type] * 100 )+'%' : '';
 
     this.handleStateChange(type,{report: report, vdr:vdr})
   }
@@ -414,7 +414,7 @@ class NutritionFacts_form extends Component{
                 <div style={{maxWidth: max_width_inputs}}>
                     <input 
                         type="text" 
-                        onChange={(e)=> this.setNutritionsFacts("proteina",e.target.value)}
+                        onChange={(e)=> this.setNutritionsFacts("proteina",e.target.value,'g')}
                     />
                 </div>
             </div>
