@@ -190,7 +190,6 @@ module.exports = {
     },
 
     verifyJwt: function(req,res,next){
-        console.log(req.headers.authorization)
         const authHeader=req.headers.authorization.split(" ")[1];
         if (authHeader){
             jwt.verify(authHeader,process.env.JWT_SECRET, (err, user)=>{

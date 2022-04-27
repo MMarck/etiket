@@ -3,6 +3,7 @@ var Schema   = mongoose.Schema;
 
 var LabelsSchema = new Schema({
 	"user": {"type":mongoose.Schema.Types.ObjectId, "ref":"Users"},
+	"country":String,
 	'nombreProyecto' : String,
 	'tipo' : String,
 	"nombreEtiqueta": String,

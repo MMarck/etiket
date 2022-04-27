@@ -9,6 +9,20 @@ require('dotenv').config({path:path.resolve(__dirname,"../config/.env")});
  *
  * @description :: Logica del lado del servidor para el manejo de etiquetas
  */
+
+ function handleDateChange(value){
+
+    const yyyy = value.getFullYear();
+    let mm = value.getMonth() + 1; 
+    let dd = value.getDate();
+  
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+  
+    const date = dd + '/' + mm + '/' + yyyy
+    return date
+}
+
 module.exports = {
 
     /**
@@ -71,86 +85,98 @@ module.exports = {
     create: function (req, res) {
         var Ticket = new LabelsModel({
             user: req.user.id,
+            country: req.body.country,
 			nombreProyecto : req.body.nombreProyecto,
             tipo: req.body.tipo,
-            nombreEtiqueta: req.body.nombreEtiqueta,
-            marca: req.body.marca,
+            nombreEtiqueta: "",
+            marca:"",
             dimensiones: {
-                ancho:req.body.dimensiones.ancho,
-                altura:req.body.dimensiones.altura,
-                unidad:req.body.dimensiones.unidad,
-                sizeIndicatorVisibility:req.body.dimensiones.sizeIndicatorVisibility
+                ancho:"10",
+                altura:"10",
+                unidad:{"label":"Centímetros","value":"cm"},
+                sizeIndicatorVisibility:"hidden"
             },
             pesoNeto:{
-                valor:req.body.pesoNeto.valor,
-                label:req.body.pesoNeto.label,
-                unidad:req.body.pesoNeto.unidad
+                valor:"",
+                label:{"label":"Contenido neto", "value": "Contenido neto"},
+                unidad:{"label":"g", "value":"g"}
             },
             pesoDrenado:{
-                valor:req.body.pesoDrenado.valor,
-                label:req.body.pesoDrenado.label,
-                unidad:req.body.pesoDrenado.unidad,
-                isDisabled:req.body.pesoDrenado.isDisabled
+                valor:"",
+                label:{"label":"Contenido drenado", "value": "Contenido drenado"},
+                unidad:{"label":"g", "value":"g"},
+                isDisabled:"true"
             },
             alcohol:{
-                valor:req.body.alcohol.valor,
-                unidad:req.body.alcohol.unidad
+                valor:"",
+                unidad:{"value":"Alcohol __% (Vol.)", "label":"Alcohol __% (Vol.)"}
             },
-            ingredientes:req.body.ingredientes,
-            alergenos:req.body.alergenos,
+            ingredientes:[],
+            alergenos:[],
             conservacion:{
-                metodo:req.body.conservacion.metodo,
-                unidad:req.body.conservacion.unidad
+                metodo:{"label":"En refrigeración", "value":"En refrigeración"},
+                unidad:{"label":"Mantener", "value":"Mantener"}
             },
             vidaUtil:{
-                valor:req.body.vidaUtil.metodo,
-                unidad:req.body.vidaUtil.unidad
+                valor:"",
+                unidad:{"label": "Días", "value": "Días"}
             },
             fabricacion:{
-                valor:req.body.fabricacion.metodo,
-                unidad:req.body.fabricacion.unidad
+                valor:handleDateChange(new Date()),
+                unidad:{"label": "Fecha de elaboración", "value": "Fecha de elaboración"}
             },
             caducacion:{
-                valor:req.body.caducacion.metodo,
-                unidad:req.body.caducacion.unidad
+                valor:handleDateChange(new Date()),
+                unidad:{"label": "Fecha de caducacion", "value": "Fecha de caducacion"}
             },
-            direccion: req.body.direccion,
-            instrucciones: req.body.instrucciones,
+            direccion: "",
+            instrucciones: "",
             posicion:{
                 pesos:{
-                    x:req.body.posicion.pesos.x,
-                    y:req.body.posicion.pesos.y
+                    x:0,
+                    y:0
                 },
                 nombre:{
-                    x:req.body.posicion.nombre.x,
-                    y:req.body.posicion.nombre.y
+                    x:0,
+                    y:0
                 },
                 ingredientes:{
-                    x:req.body.posicion.ingredientes.x,
-                    y:req.body.posicion.ingredientes.y
+                    x:0,
+                    y:0
                 },
                 alergenos:{
-                    x:req.body.posicion.alergenos.x,
-                    y:req.body.posicion.alergenos.y
+                    x:0,
+                    y:0
                 },
                 infNut:{
-                    x:req.body.posicion.infNut.x,
-                    y:req.body.posicion.infNut.y
+                    x:0,
+                    y:0
                 }
             },
             TablaNutri:{
-                tipo: req.body.TablaNutri.tipo,
-                tamanioPorcion: req.body.TablaNutri.tamanioPorcion,
-                porcionPorEnvase: req.body.TablaNutri.porcionPorEnvase,
-                grasas: req.body.TablaNutri.grasas,
-                acidosPoli: req.body.TablaNutri.acidosPoli,
-                colesterol: req.body.TablaNutri.colesterol,
-                sodio:req.body.TablaNutri.sodio,
-                carbohidratos: req.body.TablaNutri.carbohidratos,
-                azucares:req.body.TablaNutri.azucares,
-                proteinas:req.body.TablaNutri.proteinas,
-                fibra:req.body.TablaNutri.fibra,
-                energiaTotal:req.body.TablaNutri.energiaTotal
+                tipo: {"label":"Formato estándar", "value":"Formato estándar"},
+                tamanioPorcion: {
+                    "valor":0,
+                    "unidad":{"label":"mg", "value":"mg"}
+                },
+                porcionPorEnvase: {
+                    "valor":0,
+                    "unidad":{"label":"aprox.", "value":"aprox."},
+                    "porcionPorEnvaseDisabled":"true"
+                },
+                grasas: {
+                    "total":0,
+                    "saturada":0,
+                    "trans":0
+                },
+                acidosPoli: 0,
+                colesterol: 0,
+                sodio:0,
+                carbohidratos: 0,
+                azucares:0,
+                proteinas:0,
+                fibra:0,
+                energiaTotal:0
             }
         });
 
@@ -162,7 +188,7 @@ module.exports = {
                 })
             }
             
-            return res.status(201).json(ticket);
+            return res.status(201).json({message: "Etiqueta creada correctamente"});
 
         });
     },

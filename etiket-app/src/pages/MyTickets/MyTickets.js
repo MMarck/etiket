@@ -1,9 +1,9 @@
 import { countries, pathIcons } from '../../config/constants';
 import { ddNormalStyle } from '../../tools/Statefunctions';
-import { setTickets } from "../../reducers/TicketListSlice";
+import {replace} from "../../reducers/etiquetaSlice";
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import { replace } from "../../reducers/NewTicketSlice";
+import { useSelector, useDispatch } from 'react-redux'
 import { Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
@@ -15,12 +15,10 @@ import './MyTickets.css';
 
 
 const mapStateToProps = state => ({
-  newTicket: state.newTicket,
-  ticketList: state.ticketList
+  etiqueta: state.etiqueta
 });
 const mapDispatchToProps = () => ({ 
-  replace,
-  setTickets
+  replace
 });
 
 
@@ -56,9 +54,17 @@ class MyTickets extends Component{
     
     
     //carga inicial de las etiquetas
-    this.getTickets = this.getTickets.bind(this);
-    this.props.setTickets(this.getTickets());
   }
+
+  handleStateChange(stateName,value){
+    const payload={
+      stateName: stateName,
+      value: value
+    }
+
+    this.props.replace(payload);
+  }
+
 
   render(){
     return(
@@ -164,7 +170,7 @@ class MyTickets extends Component{
                 styles={ddNormalStyle} 
                 options={countries} 
                 defaultValue={countries[0]}
-                onChange={(e)=>{this.props.replace(["country",e.value])}}
+                onChange={(e)=>{this.handleStateChange("country",e.value)}}
               />
             </div>
 
@@ -182,7 +188,6 @@ class MyTickets extends Component{
                 description='Bebidas, cajas de pizza, galletas, empaques doypack' 
                 imagePath= {imagePath('rectangular')}
                 altImageText='Empaque Rectangular'
-                setTypeTicket= {this.props.replace}
               /> 
 
               <PackageOption 
@@ -191,7 +196,6 @@ class MyTickets extends Component{
                 description='Yogurt, cerveza, latas de atún, vino' 
                 imagePath= {imagePath('botella')}
                 altImageText='Empaque Botellas'
-                setTypeTicket= {this.props.replace}
               />
               <PackageOption 
                 packageType="irregular"
@@ -199,7 +203,6 @@ class MyTickets extends Component{
                 description='Conos de helados, sanduches preparados'
                 imagePath= {imagePath('irregular')}
                 altImageText='Empaque Irregular'
-                setTypeTicket= {this.props.replace}
               />
               <PackageOption 
                 packageType="circular"
@@ -207,7 +210,6 @@ class MyTickets extends Component{
                 description='Jamones, quesos, masas, en empaques redondos'
                 imagePath= {imagePath('circular')}
                 altImageText='Empaque Circular'
-                setTypeTicket= {this.props.replace}
               /> 
               
             </div>
@@ -265,14 +267,19 @@ const imagePath = (type) => {
 * packageType: tipo de paquete para guardar en el estado global (store) newTicket
 * setTypeTicket: funcion para escribir en el estado global (puntero de la funcion)
 */
-const PackageOption = ({title, description, imagePath, altImageText,  packageType, setTypeTicket}) => {
+const PackageOption = ({title, description, imagePath, altImageText,  packageType, setPackageType}) => {
   
+  const dispatch = useDispatch()
+
   //Aclaracion: la clase "modal-dialog" y "modal-content" es agregada automaticamente por la libreria react-bootstrap
   return (
     <Link 
       to='/nuevoProyecto'
       className = 'packageOption' 
-      onClick = {()=>{ setTypeTicket(["type", packageType])}}//setear tipo de paquete en el store
+      onClick = {()=>dispatch(replace({
+        stateName: "tipo",
+        value: packageType
+      }))}//setear tipo de paquete en el store
     >
       <div className='packageOption-image'>
         <img src={imagePath} alt={altImageText} />

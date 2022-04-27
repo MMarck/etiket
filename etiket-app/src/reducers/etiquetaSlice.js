@@ -7,6 +7,9 @@ import {
 } from '../config/constants';
 
 const Initial_State={
+  nombreProyecto:"",
+  country: "Ecuador",
+  tipo: "rectangular",
   ancho: "10",
   altura: "10",
   dimensionesUn: {label:"Centímetros",value:"cm"},

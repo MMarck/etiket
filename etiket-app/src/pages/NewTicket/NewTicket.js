@@ -2,12 +2,16 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ReactTooltip from "react-tooltip";
-import replace from '../../reducers/NewTicketSlice'
+import {replace} from "../../reducers/etiquetaSlice";
+import request from "../../tools/ApiSetup"
+import { backendURL } from '../../config/constants.js'
+import Cookies from 'js-cookie';
+import { withRouter } from "../../tools/withRouter";
 import './NewTicket.css';
 
 
 const mapStateToProps = state => ({
-  newTicket: state.newTicket
+  etiqueta: state.etiqueta
 });
 const mapDispatchToProps = () => ({ 
   replace
@@ -24,22 +28,57 @@ class NewTicket extends Component{
 
   constructor(props){
     super(props);
-    this.createNewTicket = this.createNewTicket.bind(this)
+
+    this.state = {
+      accessToken:Cookies.get("accessToken") || "",
+      refreshToken: Cookies.get("refreshToken") || "",
+    };
   } 
 
-  createNewTicket = ()=>{
+  createNewTicket (e){
     //armar objeto Etiqueta
     //let type = this.props.newTicket.type;
     //let country = this.props.newTicket.country;
     //let name = document.getElementById("ticketName").value
-    
-    //crear etiqueta en la base de datos
+    const header={
+      "Authorization":"Bearer "+this.state.accessToken
+    }
+    const nombreProyecto=document.getElementById("labelName").value
 
-    //redirigir a /misEtiquetas
-    /* lo mejor seria hacerlo de manera programatica pero,
-    por el momenento hare que el boton que llama a esta funcion sea 
-    un link */
-    /* navigate("/success", { replace: true }); */
+
+
+    
+
+    if (nombreProyecto===""){
+      alert("¡Debe poner un nombre!")
+    } else{
+      const jsonData={
+        "country":this.props.etiqueta.country,
+        "tipo":this.props.etiqueta.tipo,
+        "nombreProyecto":nombreProyecto
+      }
+      //crear etiqueta en la base de datos
+      request.post(backendURL+"Labels",jsonData,{
+        headers:header
+      })
+      .then((res)=>{
+        //redirigir a /misEtiquetas
+        alert(res.data.message)
+        this.props.navigate("/misEtiquetas")
+      })
+      .catch((error)=>{
+        if (error.response){
+          alert(error.response.data.error.message)
+        } else if (error.request){
+          console.log(error.request);
+        } else {
+          console.log("Error", error.message)
+        }
+      })
+      
+    }
+
+    
   }
 
   render(){
@@ -52,7 +91,7 @@ class NewTicket extends Component{
         <ReactTooltip place="bottom" type="dark" effect="solid"  data-for='name'/>
         <input
           className="ligth-input m-4 fs-6 bg-transparent" 
-          id="ticketName" 
+          id="labelName" 
           type="text" 
           name="name" 
           placeholder="Nombre del proyecto"
@@ -61,11 +100,9 @@ class NewTicket extends Component{
 
         {/* Este boton debe verificar que el nombre no se repita para el usuario y luego mandar la 
         query para crear el esqueleto de etiqueta en la base de datos */}
-        <Link to='/misEtiquetas'>
-          <button className='btn-dark rounded fs-7' onClick={this.createNewTicket}>
-            continuar
-          </button>
-        </Link>
+        <button className='btn-dark rounded fs-7' onClick={(e)=>{this.createNewTicket(e)}}>
+          continuar
+        </button>
       </div>
     );
   }
@@ -74,4 +111,4 @@ class NewTicket extends Component{
 export default connect(
   mapStateToProps,
   mapDispatchToProps()
-)(NewTicket);
+)(withRouter(NewTicket));
