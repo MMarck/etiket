@@ -3,7 +3,7 @@ import { ddNormalStyle } from '../../tools/Statefunctions';
 import {replace} from "../../reducers/etiquetaSlice";
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
@@ -104,22 +104,34 @@ class MyTickets extends Component{
             TicketEditor el cual lee el id en la URL y carga los de dato de 
             dicha etiqueta para modificarlo*/
 
-            //PENDIENTE SOLO LOS USUARIOS PREMIUM PUEDEN ELIMINAR ETIQUETAS
-            this.state.labels.map((label) =>  
-              <Link 
-                to = {'/editarEtiqueta/'+ label.id}
-                className='etiquetaContainer'
-                key={label.id} //prop para evitar renderizar 2 veces el mismo elemento, PENDIENTE cambiar por el id de la etiqueta
-              >
-                <div className='previewEtiqueta'>
-                  <img 
-                  src={imagePath(label.tipo)}
-                  alt={label.tipo}
-                  width='60px'/>
-                </div>
-              
-                <span className='flex-shrink-1 '>{label.nombreProyecto}</span>
-              </Link>
+            
+            this.state.labels.map((label) => 
+              <div style={{display: 'flex'}}>
+                <Link 
+                  to = {'/editarEtiqueta/'+ label.id}
+                  className='etiquetaContainer'
+                  key={label.id} //prop para evitar renderizar 2 veces el mismo elemento, PENDIENTE cambiar por el id de la etiqueta
+                >
+                  <div className='previewEtiqueta'>
+                    <img 
+                    src={imagePath(label.tipo)}
+                    alt={label.tipo}
+                    width='60px'/>
+                  </div>
+                
+                  <span className='flex-shrink-1 '>{label.nombreProyecto}</span>
+                </Link>
+
+                {true?//PENDIENTE SOLO LOS USUARIOS PREMIUM PUEDEN ELIMINAR ETIQUETAS
+                  <button 
+                    type="button" 
+                    class="btn-close bg-danger " 
+                    aria-label="Close"
+                    /* onClick={eliminarEtiqueta()} */>
+                  </button>
+                :''}
+
+              </div> 
             )
             }
 

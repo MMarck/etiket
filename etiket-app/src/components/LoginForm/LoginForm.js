@@ -79,10 +79,10 @@ const LoginForm = () => {
 
         </div> 
 
-        <div className='signupButton facebook mx-auto mt-2 small'>
+        {/* <div className='signupButton facebook mx-auto mt-2 small'>
           <span className="icon"></span>
           <span>Inicia sesion con Facebook</span>
-        </div>
+        </div> */}
 
         <hr/>
 

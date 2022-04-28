@@ -102,6 +102,15 @@ class TicketEditor extends  React.Component {
                         <span className='p-2'  onClick={()=>this.props.erase()}  style={{cursor:"pointer"}} ><img src={pathIcons+'return.png'} alt='return ' width={'10px'}  />  BORRAR TODO</span>
 
                         <div className='d-flex gap-3'>
+
+                        <button 
+                            onClick={() => exportComponentAsPNG(this.componentRef)} 
+                            className='darkButton-twhite'
+                            type="button" 
+                        >
+                            GUARDAR CAMBIOS
+                        </button> 
+
                         <button 
                             onClick={() => exportComponentAsPDF(this.componentRef)}
                             className='darkButton-twhite' 
