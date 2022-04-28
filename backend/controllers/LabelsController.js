@@ -59,23 +59,24 @@ module.exports = {
      * TicketsController.show()
      */
     show: function (req, res) {
-        var id = req.params.id;
+        const labelId = req.body.labelId;
+        const userId=req.user.id;
 
-        LabelsModel.findOne({_id: id}, function (err, Ticket) {
+        LabelsModel.findOne({_id: labelId, user:userId}, function (err, label) {
             if (err) {
                 return res.status(500).json({
-                    message: 'Error when getting Tickets.',
+                    message: 'Error when getting labels.',
                     error: err
                 });
             }
 
-            if (!Ticket) {
+            if (!label) {
                 return res.status(404).json({
-                    message: 'No such Ticket'
+                    message: 'No such label'
                 });
             }
 
-            return res.json(Ticket);
+            return res.json(label);
         });
     },
 

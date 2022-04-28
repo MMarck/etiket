@@ -51,7 +51,11 @@ function App() {
           </Route>
         </Route>
 
-        <Route path='/editarEtiqueta/:id' element={<TicketEditor/>}/>
+        <Route path='/editarEtiqueta/:id' element={
+          <PrivateRoute redirectTo="/login"/>
+        }>
+          <Route path='/editarEtiqueta/:id' element={<TicketEditor/>}/>
+        </Route>
        
       
       </Routes>

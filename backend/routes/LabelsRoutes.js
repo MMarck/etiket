@@ -25,6 +25,8 @@ router.post('/',UsersController.verifyJwt, TicketsController.create);
 
 router.post("/getLabels",UsersController.verifyJwt, TicketsController.list);
 
+router.post("/getLabelbyId",UsersController.verifyJwt, TicketsController.show)
+
 /*
  * PUT
  */
