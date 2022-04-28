@@ -51,11 +51,7 @@ class NutritionFacts_Previewer extends Component{
     let proteina = this.props.etiqueta.proteina;
      
     return (
-        <div id='NutritionFactsPreviewer' className='semi-bordered-right'>
-
-            <p style={{ margin:'3em 2em 0em 2em'}}> 
-                <b>Este es un ejemplo de como va a quedar la tabla nutricional de tu producto </b>
-            </p>
+        
 
             <section className="performance-facts" style={{overflow:'auto', height:'100'}}>
                 
@@ -112,7 +108,7 @@ class NutritionFacts_Previewer extends Component{
                 {/* Grasa total */}
                 <tr className="separator-botton-1" >
                     <th colspan="2">
-                        Grasa total
+                        <b>Grasa total</b>
                         <span className='fw-light'> {grasaTotal.report} </span>
                     </th>
                     <td>
@@ -316,7 +312,7 @@ class NutritionFacts_Previewer extends Component{
             ''}
 
             </section>
-        </div>
+        
     );
 
   };

@@ -7,6 +7,7 @@ import { replace } from '../../reducers/etiquetaSlice'
 import SizeIndicator from '../SizeIndicator/SizeIndicator'
 import Draggable from 'react-draggable'; 
 import './PrototypeBack.css';
+import NutritionFactsPreviewer from '../NutritionFactsPreviewer/NutritionFactsPreviewer';
 
 const mapStateToProps = state => ({
     etiqueta: state.etiqueta
@@ -152,6 +153,13 @@ class PrototypeBack extends Component{
                                     :''}</b>
                                 </span>
                             </div>
+                        </Draggable>
+                    :''}
+
+                    
+                    { false?
+                        <Draggable  bounds='parent' >
+                            <NutritionFactsPreviewer />
                         </Draggable>
                     :''}
     

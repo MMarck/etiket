@@ -11,7 +11,22 @@ export function unitTocm(value, unit) {
     if(unit === "cm"){
         return parseFloat(value);
     }
+    return value;
 } 
+
+/** 
+ * Funcion para convertir cualquier masa en cualquier
+ * unidad a g
+ */
+ export function unitTog(value, unit) {
+    if(unit === "mg"){
+        return parseFloat(value) * 1000;
+    }
+
+    return value;
+} 
+
+
 
 /**
  * Funcion para obtener el tamanio de letra
@@ -54,7 +69,7 @@ function enIncrementosde(x, corte) {
 
 /**
  * Funcion para obtener el peso de un nutriente en el formato provisto por
- * el ministerio.
+ * el ministerio. Cada caso debe ajustar los calculos a las unidades pertinentes
  * @param {string} type : tipo de nutriente
  * @param {int} value : peso del nutriente
  * @returns tupla de la forma  {result, report}, donde result es un entero con el peso del 
@@ -62,53 +77,53 @@ function enIncrementosde(x, corte) {
  *          nutriente con el formato del ministerio
  */
 export function getReportFormat(type, value, unit){
-    //uso predeterminado de gramos como unidad de calculo
-    unit = unit? unit:'g'
+
+
+    console.log(value)
 
     var result, report;
     switch(type){
         case 'grasaTotal': case 'grasaSaturada': case 'grasasTrans': case 'acidosMono': case 'acidosPoli':
             if(value < 0.5){
                 result = 0; 
-                report='cero';
+                report='0' + unit;
             }
             else if(value < 3){
                 result = enIncrementosde(value, 0.5);
-                report = result+unit;
+                report = result + unit;
             } 
             else if(value >= 3 ){
                 result = Math.round(value);
-                report =result+unit;
+                report =result + unit;
             }
             break;
 
         case 'colesterol':
-            if(value < 0.002){
+            if(value < 2){
                 result = 0; 
-                report='0g';
+                report='0' + unit;
             }
-            else if(value >= 0.002 && value <= 0.005){
-                result = 0.005;
-                report =  '< 5mg'
+            else if(value >= 2 && value <= 5){
+                result = 5;
+                report =  '< 5' + unit;
             } 
-            else if(value >= 0.005 ){
+            else if(value >= 5 ){
                 result = Math.round(value);
-                report =result+unit;
+                report = result + unit;
             }
             break;
 
         case 'sodio':
-            if(value < 0.005){
+            if(value < 5){
                 result = 0; 
                 report='0';
             }
-            else if(value >= 0.005 && value <= 0.140){
-                result = enIncrementosde(value, 0.005);
+            else if(value >= 5 && value <= 140){
+                result = enIncrementosde(value, 5);
                 report = result+unit;
             } 
-            else if(value > 0.140 ){
-                console.log('result = '+ enIncrementosde(value, 0.01));
-                result = enIncrementosde(value, 0.01);
+            else if(value > 140 ){
+                result = enIncrementosde(value, 10);
                 report = result+unit;
             }
             break;

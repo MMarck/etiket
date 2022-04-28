@@ -140,8 +140,6 @@ class NutritionFacts_form extends Component{
   }
 
   setNutritionsFacts(type, value, unit){
-    //PENDIENTE
-    //transformar cualquier valor unidad : gramos y hacer que getReportFormat trabaje con todos los decimales
 
     //aplicar redondedo
     let {result, report} = getReportFormat(type, value, unit);
@@ -150,7 +148,7 @@ class NutritionFacts_form extends Component{
     let vdr = ''
     let nutriente =   Object.keys(Nutrientes).find( e => e === type)
     
-    vdr = nutriente?  Math.ceil( result / Nutrientes[type] * 100 )+'%' : '';
+    vdr = nutriente?  Math.round( result / Nutrientes[type] * 100 )+'%' : '';
 
     this.handleStateChange(type,{report: report, vdr:vdr})
   }
@@ -354,7 +352,7 @@ class NutritionFacts_form extends Component{
                 <div style={{maxWidth: max_width_inputs}}>
                     <input 
                         type="text" 
-                        onChange={(e)=> this.setNutritionsFacts("colesterol",e.target.value,'g')}
+                        onChange={(e)=> this.setNutritionsFacts("colesterol",e.target.value,'mg')}
                     />
                 </div>
             </div>
