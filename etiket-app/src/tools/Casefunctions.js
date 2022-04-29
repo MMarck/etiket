@@ -62,9 +62,6 @@ function enIncrementosde(x, corte) {
         return x;
     if(x > parseInt(x/corte) * corte && x <= (parseInt(x/corte)+1) * corte) 
         return parseFloat( (parseInt(x/corte)+1) * corte )
-        //pendiente: si se deseara cortes de valores no divisibles para 5, 
-        //se debera cambiar este return por el valor mas cercano a (10 * corte)
-        // escalon(0.7, 0.6) => 1.2
 }
 
 /**
@@ -77,10 +74,6 @@ function enIncrementosde(x, corte) {
  *          nutriente con el formato del ministerio
  */
 export function getReportFormat(type, value, unit){
-
-
-    console.log(value)
-
     var result, report;
     switch(type){
         case 'grasaTotal': case 'grasaSaturada': case 'grasasTrans': case 'acidosMono': case 'acidosPoli':
@@ -127,7 +120,7 @@ export function getReportFormat(type, value, unit){
                 report = result+unit;
             }
             break;
-        case 'carbohidratos': case 'azucares': case 'proteina':
+        case 'fibra': case 'carbohidratos': case 'azucares': case 'proteina':
             if(value < 0.5){
                 result = 0; 
                 report='0';

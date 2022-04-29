@@ -10,7 +10,8 @@ import './PrototypeBack.css';
 import NutritionFactsPreviewer from '../NutritionFactsPreviewer/NutritionFactsPreviewer';
 
 const mapStateToProps = state => ({
-    etiqueta: state.etiqueta
+    etiqueta: state.etiqueta,
+    LabelEditor: state.LabelEditorSlice,
   });
 const mapDispatchToProps = () => ({ 
     replace
@@ -73,6 +74,16 @@ class PrototypeBack extends Component{
                         overflow:'hidden'
                     }}
                 >
+                    {this.props.LabelEditor.showNutritionFacts?
+                        <Draggable  bounds='parent'>
+                            <div>
+                                {/* <NutritionFactsPreviewer width='50px' height='50px'/> */}
+                            </div>
+                        </Draggable>
+                    :''}
+                    
+
+
                     { conservacionUn || vidaUtil || direccion || instrucciones || fabricacionUn || caducacionUn?
                         <Draggable  bounds='parent'>
                             <div 

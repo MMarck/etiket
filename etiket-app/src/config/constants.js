@@ -62,6 +62,10 @@ export const unidadesMasa=[
  */
  export const unidadesPorcion=[
   {
+    value: 'g',
+    label: 'g'
+  },
+  {
     value: 'mg',
     label: 'mg'
   },

@@ -1,17 +1,17 @@
-import { Component } from 'react';
-import './Sidebar.css';
-import ReactTooltip from "react-tooltip";
-import SidebarItem from "../SidebarItem/SidebarItem";
-import CustomCheckbox from "../CustomCheckbox/CustomCheckbox";
-import {Link} from 'react-router-dom';
-import Select from 'react-select';
-import { withRouter } from "../../tools/withRouter";
-import axios from "axios";
 import { backendURL } from '../../config/constants.js'
+import { withRouter } from "../../tools/withRouter";
+import { Component } from 'react';
 import { connect } from 'react-redux';
 import {replace} from "../../reducers/etiquetaSlice";
-import Cookies from 'js-cookie';
+import {Link} from 'react-router-dom';
+import CustomCheckbox from "../CustomCheckbox/CustomCheckbox";
+import ReactTooltip from "react-tooltip";
+import SidebarItem from "../SidebarItem/SidebarItem";
 import DatePicker from 'react-date-picker/dist/entry.nostyle';
+import Cookies from 'js-cookie';
+import Select from 'react-select';
+import axios from "axios";
+import './Sidebar.css';
 
 /**
  * Importacion de datos constantes
