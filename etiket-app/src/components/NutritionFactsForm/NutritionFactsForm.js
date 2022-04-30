@@ -1,9 +1,10 @@
-import CustomCheckbox from "../CustomCheckbox/CustomCheckbox";
+import { replaceLE } from "../../reducers/LabelEditorSlice";
 import { Component } from 'react';
+import { replace } from "../../reducers/etiquetaSlice";
 import { connect } from 'react-redux';
-import {replace} from "../../reducers/etiquetaSlice";
-import './NutritionFactsForm.css';
+import CustomCheckbox from "../CustomCheckbox/CustomCheckbox";
 import Select from 'react-select';
+import './NutritionFactsForm.css';
 
 /**
  * Importacion de datos constantes
@@ -22,10 +23,12 @@ import { getReportFormat } from "../../tools/Casefunctions";
 
 
 const mapStateToProps = state => ({
-  etiqueta: state.etiqueta
+  etiqueta: state.etiqueta,
+  LabelEditorSlice: state.LabelEditorSlice
 });
 const mapDispatchToProps = () => ({ 
-  replace
+  replace,
+  replaceLE
 });
 
 class NutritionFacts_form extends Component{
@@ -140,8 +143,6 @@ class NutritionFacts_form extends Component{
   }
 
   setNutritionsFacts(type, value, unit){
-    //PENDIENTE
-    //transformar cualquier valor unidad : gramos y hacer que getReportFormat trabaje con todos los decimales
 
     //aplicar redondedo
     let {result, report} = getReportFormat(type, value, unit);
@@ -150,7 +151,7 @@ class NutritionFacts_form extends Component{
     let vdr = ''
     let nutriente =   Object.keys(Nutrientes).find( e => e === type)
     
-    vdr = nutriente?  Math.ceil( result / Nutrientes[type] * 100 )+'%' : '';
+    vdr = nutriente?  Math.round( result / Nutrientes[type] * 100 )+'%' : '';
 
     this.handleStateChange(type,{report: report, vdr:vdr})
   }
@@ -253,7 +254,6 @@ class NutritionFacts_form extends Component{
                         name='porcionPorEnvase'
                         type="text"
                         onKeyPress={this.numberFilter}
-                        disabled={porcionPorEnvaseDisabled}
                     />
                 </div>
             </div>
@@ -354,7 +354,7 @@ class NutritionFacts_form extends Component{
                 <div style={{maxWidth: max_width_inputs}}>
                     <input 
                         type="text" 
-                        onChange={(e)=> this.setNutritionsFacts("colesterol",e.target.value,'g')}
+                        onChange={(e)=> this.setNutritionsFacts("colesterol",e.target.value,'mg')}
                     />
                 </div>
             </div>
@@ -429,7 +429,7 @@ class NutritionFacts_form extends Component{
                 <div style={{maxWidth: max_width_inputs}}>
                     <input 
                         type="text" 
-                        onChange={(e)=> this.handleStateChange("fibra",e.target.value)}
+                        onChange={(e)=> this.setNutritionsFacts("fibra",e.target.value, 'g')}
                     />
                 </div>
             </div>
@@ -456,7 +456,7 @@ class NutritionFacts_form extends Component{
             </div>
 
 
-            <button onClick={console.log("guardando etiqueta en BD")}
+            <button onClick={()=>{this.props.replaceLE(['showNutritionFacts', true]) }}
                 className=' btn-secondary darkButton fw-bolder p-2 my-4'
             >
                 GUARDAR CAMBIOS

@@ -54,7 +54,15 @@ class NutritionFacts_modal extends Component{
 
                   {/* Este componente renderiza los datos procesados en una 
                   etiqueta de informacion nutricional */}
-                  <NutritionFactsPreviewer/>
+                  <div id='NutritionFactsPreviewer' className='semi-bordered-right'>
+
+                    <p style={{ margin:'3em 2em 0em 2em'}}> 
+                      <b>Este es un ejemplo de como va a quedar la tabla nutricional de tu producto </b>
+                    </p>
+
+                    <NutritionFactsPreviewer/>
+
+                  </div>
 
                 </Modal.Body>
         
