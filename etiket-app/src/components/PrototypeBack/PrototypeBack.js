@@ -81,7 +81,7 @@ class PrototypeBack extends Component{
                             >
                             
                                 <span>  
-                                    {this.props.etiqueta.metodoConservacion.value !==''?
+                                    {this.props.etiqueta.metodoConservacion.value !=='' || this.props.etiqueta.conservacionUn.value!=="" ?
                                         <>
                                             <b>Metodo de conservacion: </b> {conservacionUn} {metodoConservacion}
                                         </>
@@ -113,7 +113,7 @@ class PrototypeBack extends Component{
                                 </span>
 
                                 <span>  
-                                    {fabricacionUn?
+                                    {fabricacion!==""?
                                         <>
                                             <b>{fabricacionUn}: </b> {fabricacion} 
                                         </>
@@ -121,7 +121,7 @@ class PrototypeBack extends Component{
                                 </span>
 
                                 <span>  
-                                    {caducacionUn?
+                                    {caducacion!==""?
                                         <>
                                             <b>{caducacionUn}: </b> {caducacion} 
                                         </>
@@ -141,7 +141,7 @@ class PrototypeBack extends Component{
                             >
                                 
                                 <span>  
-                                    {ingredientes?
+                                    {ingredientes.length > 0?
                                         "Ingredientes: " + ingredientes
                                     :''}
                                 </span>

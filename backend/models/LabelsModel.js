@@ -51,24 +51,32 @@ var LabelsSchema = new Schema({
 	"instrucciones":String,
 	"posicion":{
 		"pesos":{
-			"x":Number,
-			"y":Number
+			"x":String,
+			"y":String
 		},
 		"nombre":{
-			"x":Number,
-			"y":Number
+			"x":String,
+			"y":String
+		},
+		"marca":{
+			"x":String,
+			"y":String
 		},
 		"ingredientes":{
-			"x":Number,
-			"y":Number
+			"x":String,
+			"y":String
 		},
 		"alergenos":{
-			"x":Number,
-			"y":Number
+			"x":String,
+			"y":String
 		},
 		"infNut":{
-			"x":Number,
-			"y":Number
+			"x":String,
+			"y":String
+		},
+		"alcohol":{
+			"x":String,
+			"y":String
 		}
 	},
 	"TablaNutri":{
@@ -83,17 +91,18 @@ var LabelsSchema = new Schema({
 			"unidad":{"value":String, "label":String}
 		},
 		"grasas":{
-			"total":Number,
-			"saturada":Number,
-			"trans":Number,
+			"total":{"report":String, "vdr":String},
+			"saturada":{"report":String, "vdr":String},
+			"trans":{"report":String, "vdr":String},
 		},
-		"acidosPoli":Number,
-		"colesterol":Number,
-		"sodio":Number,
-		"carbohidratos":Number,
-		"azucares":Number,
-		"proteinas":Number,
-		"fibra":Number,
+		"acidosMono":{"report":String, "vdr":String},
+		"acidosPoli":{"report":String, "vdr":String},
+		"colesterol":{"report":String, "vdr":String},
+		"sodio":{"report":String, "vdr":String},
+		"carbohidratos":{"report":String, "vdr":String},
+		"azucares":{"report":String, "vdr":String},
+		"proteina":{"report":String, "vdr":String},
+		"fibra":{"report":String, "vdr":String},
 		"energiaTotal":{
 			"julios":Number,
 			"calorias":Number

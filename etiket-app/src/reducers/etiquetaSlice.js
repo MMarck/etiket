@@ -8,14 +8,14 @@ import {
 
 const Initial_State={
   nombreProyecto:"",
+  nombreProducto: "",
   country: "Ecuador",
   tipo: "rectangular",
+  marca: "",
   ancho: "10",
   altura: "10",
   dimensionesUn: {label:"Centímetros",value:"cm"},
   sizeIndicatorVisibility: 'hidden',
-  nombreProducto: '',
-  marca: "",
   pesoNetoLabel: {label:"Contenido neto", value: "Contenido neto"},
   pesoNeto: "",
   pesoNetoUn:{label:"g", value:"g"},
@@ -80,11 +80,67 @@ export const etiquetaSlice = createSlice({
       state[action.payload.stateName] = action.payload.value;
     },
     erase: (state) => Initial_State,
+    loadLabel: (state,action)=>{
+      state["nombreProyecto"]=action.payload.nombreProyecto;
+      state["nombreProducto"]=action.payload.nombreEtiqueta;
+      state["country"]=action.payload.country;
+      state["tipo"]=action.payload.tipo;
+      state["marca"]=action.payload.marca;
+      state["ancho"]=action.payload.dimensiones.ancho;
+      state["alto"]=action.payload.dimensiones.alto;
+      state["dimensionesUn"]=action.payload.dimensiones.unidad;
+      state["sizeIndicatorVisibility"]=action.payload.dimensiones.sizeIndicatorVisibility;
+      state["pesoNetoLabel"]=action.payload.pesoNeto.label;
+      state["pesoNeto"]=action.payload.pesoNeto.valor;
+      state["pesoNetoUn"]=action.payload.pesoNeto.unidad;
+      state["pesoDrenadoDisabled"]=action.payload.pesoDrenado.isDisabled;
+      state["pesoDrenadoLabel"]=action.payload.pesoDrenado.label;
+      state["pesoDrenado"]=action.payload.pesoDrenado.valor;
+      state["pesoDrenadoUn"]=action.payload.pesoDrenado.unidad;
+      state["alcohol"]=action.payload.alcohol.valor;
+      state["alcoholUn"]=action.payload.alcohol.unidad;
+      state["ingredientes"]=action.payload.ingredientes;
+      state["alergenos"]=action.payload.alergenos;
+      state["conservacionUn"]=action.payload.conservacion.unidad;
+      state["metodoConservacion"]=action.payload.conservacion.metodo;
+      state["vidaUtil"]=action.payload.vidaUtil.valor;
+      state["vidaUtilUn"]=action.payload.vidaUtil.unidad;
+      state["fabricacion"]=action.payload.fabricacion.valor;
+      state["fabricacionUn"]=action.payload.fabricacion.unidad;
+      state["caducacion"]=action.payload.caducacion.valor;
+      state["caducacionUn"]=action.payload.caducacion.unidad;
+      state["direccion"]=action.payload.direccion;
+      state["instrucciones"]=action.payload.instrucciones;
+      state["nombreProductoPos"]=action.payload.posicion.nombre;
+      state["marcaPos"]=action.payload.posicion.marca;
+      state["pesosPos"]=action.payload.posicion.pesos;
+      state["ingPos"]=action.payload.posicion.ingredientes;
+      state["infNutPos"]=action.payload.posicion.infNut;
+      state["algPos"]=action.payload.posicion.alergenos;
+      state["alcolPos"]=action.payload.posicion.alcohol;
+      state["tipoTabla"]=action.payload.TablaNutri.tipo;
+      state["tamanioPorcion"]=action.payload.TablaNutri.tamanioPorcion.valor;
+      state["tamanioPorcionUn"]=action.payload.TablaNutri.tamanioPorcion.unidad;
+      state["porcionPorEnvaseDisabled"]=action.payload.TablaNutri.porcionPorEnvase.isDisabled;
+      state["porcionPorEnvase"]=action.payload.TablaNutri.porcionPorEnvase.valor;
+      state["porcionPorEnvaseUn"]=action.payload.TablaNutri.porcionPorEnvase.unidad;
+      state["grasaTotal"]=action.payload.TablaNutri.grasas.total;
+      state["grasaSaturada"]=action.payload.TablaNutri.grasas.saturada;
+      state["grasasTrans"]=action.payload.TablaNutri.grasas.trans;
+      state["acidosMono"]=action.payload.TablaNutri.acidosMono;
+      state["acidosPoli"]=action.payload.TablaNutri.acidosPoli;
+      state["colesterol"]=action.payload.TablaNutri.colesterol;
+      state["azucares"]=action.payload.TablaNutri.azucares;
+      state["proteina"]=action.payload.TablaNutri.proteina;
+      state["fibra"]=action.payload.TablaNutri.fibra;
+      state["energiaTotalJulios"]=action.payload.TablaNutri.energiaTotal.julios;
+      state["energiaTotalCalorias"]=action.payload.TablaNutri.energiaTotal.calorias;
+    }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { replace, erase } = etiquetaSlice.actions
+export const { replace, erase, loadLabel } = etiquetaSlice.actions
 
 export default etiquetaSlice.reducer
 

@@ -42,11 +42,11 @@ class CreateAccount extends Component {
       })
       .catch((error)=>{
         if (error.response){
-          alert(error.response.data.error.message)
+          alert(error.response)
         } else if (error.request){
           console.log(error.request);
         } else {
-          console.log("Error", error.message)
+          console.log("Error", error)
         }
       })
       /*

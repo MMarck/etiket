@@ -56,12 +56,11 @@ module.exports = {
     },
 
     /**
-     * TicketsController.show()
+     * LabelsController.show()
      */
     show: function (req, res) {
         const labelId = req.body.labelId;
         const userId=req.user.id;
-
         LabelsModel.findOne({_id: labelId, user:userId}, function (err, label) {
             if (err) {
                 return res.status(500).json({
@@ -84,7 +83,7 @@ module.exports = {
      * TicketsController.create()
      */
     create: function (req, res) {
-        var Ticket = new LabelsModel({
+        var Label = new LabelsModel({
             user: req.user.id,
             country: req.body.country,
 			nombreProyecto : req.body.nombreProyecto,
@@ -115,19 +114,19 @@ module.exports = {
             ingredientes:[],
             alergenos:[],
             conservacion:{
-                metodo:{"label":"En refrigeración", "value":"En refrigeración"},
-                unidad:{"label":"Mantener", "value":"Mantener"}
+                metodo:{"label":"", "value":""},
+                unidad:{"label":"", "value":""}
             },
             vidaUtil:{
                 valor:"",
                 unidad:{"label": "Días", "value": "Días"}
             },
             fabricacion:{
-                valor:handleDateChange(new Date()),
+                valor:"",
                 unidad:{"label": "Fecha de elaboración", "value": "Fecha de elaboración"}
             },
             caducacion:{
-                valor:handleDateChange(new Date()),
+                valor:"",
                 unidad:{"label": "Fecha de caducacion", "value": "Fecha de caducacion"}
             },
             direccion: "",
@@ -141,6 +140,10 @@ module.exports = {
                     x:0,
                     y:0
                 },
+                marca:{
+                    x:0,
+                    y:0
+                },
                 ingredientes:{
                     x:0,
                     y:0
@@ -150,6 +153,10 @@ module.exports = {
                     y:0
                 },
                 infNut:{
+                    x:0,
+                    y:0
+                },
+                alcohol:{
                     x:0,
                     y:0
                 }
@@ -166,22 +173,23 @@ module.exports = {
                     "porcionPorEnvaseDisabled":"true"
                 },
                 grasas: {
-                    "total":0,
-                    "saturada":0,
-                    "trans":0
+                    "total":{"report":"", "vdr":""},
+                    "saturada":{"report":"", "vdr":""},
+                    "trans":{"report":"", "vdr":""}
                 },
-                acidosPoli: 0,
-                colesterol: 0,
-                sodio:0,
-                carbohidratos: 0,
-                azucares:0,
-                proteinas:0,
-                fibra:0,
-                energiaTotal:0
+                acidosMono: {"report":"", "vdr":""},
+                acidosPoli: {"report":"", "vdr":""},
+                colesterol: {"report":"", "vdr":""},
+                sodio:{"report":"", "vdr":""},
+                carbohidratos: {"report":"", "vdr":""},
+                azucares:{"report":"", "vdr":""},
+                proteina:{"report":"", "vdr":""},
+                fibra:{"report":"", "vdr":""},
+                energiaTotal:{"julios":0, "calorias":0}
             }
         });
 
-        LabelsModel.create(Ticket,function(err,ticket){
+        LabelsModel.create(Label,function(err,label){
             if (err){
                 return res.status(500).json({
                     message: "Error creando Etiqueta",
@@ -215,33 +223,49 @@ module.exports = {
      update: function (req, res) {
         var id = req.params.id;
 
-        LabelsModel.findOne({_id: id}, function (err, Ticket) {
+        LabelsModel.findOne({_id: id, user: req.user.id}, function (err, label) {
             if (err) {
                 return res.status(500).json({
-                    message: 'Error when getting Ticket',
+                    message: 'Error when getting label',
                     error: err.json()
                 });
             }
 
-            if (!Ticket) {
+            if (!label) {
                 return res.status(404).json({
-                    message: 'No such Ticket'
+                    message: 'No such label'
                 });
             }
 
-            Ticket.userId = req.body.userId ? req.body.userId : Users.userId;
-			Ticket.name = req.body.name ? req.body.name : Users.name;
-			Ticket.type = req.body.type ? req.body.type : Users.type;
+            label.country = req.body.country;
+			label.nombreProyecto = req.body.nombreProyecto;
+            label.tipo = req.body.tipo;
+            label.nombreEtiqueta = req.body.nombreEtiqueta;
+            label.marca = req.body.marca;
+            label.dimensiones = req.body.dimensiones;
+            label.pesoNeto = req.body.pesoNeto;
+            label.pesoDrenado = req.body.pesoDrenado;
+            label.alcohol = req.body.alcohol;
+            label.ingredientes = req.body.ingredientes;
+            label.alergenos = req.body.alergenos;
+            label.conservacion = req.body.conservacion;
+            label.vidaUtil = req.body.vidaUtil;
+            label.fabricacion = req.body.fabricacion;
+            label.caducacion = req.body.caducacion;
+            label.direccion = req.body.direccion;
+            label.instrucciones = req.body.instrucciones;
+            label.posicion = req.body.posicion;
+            label.TablaNutri =req.body.TablaNutri;
 			
-            Ticket.save(function (err, Ticket) {
+            label.save(function (err, label) {
                 if (err) {
                     return res.status(500).json({
-                        message: 'Error when updating Ticket.',
+                        message: 'Error when updating label.',
                         error: err
                     });
                 }
 
-                return res.json(Ticket);
+                return res.status(200).json({message: "Se ha guardado correctamente"});
             });
         });
     },

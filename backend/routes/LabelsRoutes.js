@@ -2,7 +2,7 @@ var express = require('express');
 const res = require('express/lib/response');
 var passport = require('passport');
 var router = express.Router();
-var TicketsController = require('../controllers/LabelsController');
+var LabelsController = require('../controllers/LabelsController');
 var UsersController=require("../controllers/UsersController");
 
 
@@ -11,30 +11,30 @@ var UsersController=require("../controllers/UsersController");
 /*
  * GET
  */
-router.get('/', TicketsController.list);
+router.get('/', LabelsController.list);
 
 /*
  * GET
  */
-router.get('/:id', TicketsController.show);
+router.get('/:id', LabelsController.show);
 
 /*
  * POST - crear un nueva etiqueta
  */
-router.post('/',UsersController.verifyJwt, TicketsController.create);
+router.post('/',UsersController.verifyJwt, LabelsController.create);
 
-router.post("/getLabels",UsersController.verifyJwt, TicketsController.list);
+router.post("/getLabels",UsersController.verifyJwt, LabelsController.list);
 
-router.post("/getLabelbyId",UsersController.verifyJwt, TicketsController.show)
+router.post("/getLabelbyId",UsersController.verifyJwt, LabelsController.show);
 
 /*
  * PUT
  */
-router.put('/:id', TicketsController.update);
+router.put('/:id', UsersController.verifyJwt, LabelsController.update);
 
 /*
  * DELETE
  */
-router.delete('/:id', TicketsController.remove);
+router.delete('/:id', LabelsController.remove);
 
 module.exports = router;

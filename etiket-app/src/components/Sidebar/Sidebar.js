@@ -109,9 +109,14 @@ class Sidebar extends Component{
   }
 
   getDateObject(value){
-    value=value.split("/")
-    const date=new Date(parseInt(value[2]),parseInt(value[1]) -1,parseInt(value[0]))
-    return date
+    if (value==="") {
+      return ""
+    } else {
+      value=value.split("/")
+      const date=new Date(parseInt(value[2]),parseInt(value[1]) -1,parseInt(value[0]))
+      return date
+    }
+    
   }
 
   logout(){
