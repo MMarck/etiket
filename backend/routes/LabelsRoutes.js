@@ -35,6 +35,6 @@ router.put('/:id', UsersController.verifyJwt, LabelsController.update);
 /*
  * DELETE
  */
-router.delete('/:id', LabelsController.remove);
+router.delete('/:id', UsersController.verifyJwt, LabelsController.remove);
 
 module.exports = router;

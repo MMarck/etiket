@@ -71,7 +71,8 @@ class PrototypeBack extends Component{
                         width: ancho + dimensionesUn,
                         fontSize: dataFontSize,
                         border: '1px lightgray solid',
-                        overflow:'hidden'
+                        overflow:'hidden',
+                        marginRight: "0.5vw"
                     }}
                 >
                     {this.props.LabelEditor.showNutritionFacts?

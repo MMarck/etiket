@@ -65,6 +65,29 @@ class MyTickets extends Component{
     this.props.replace(payload);
   }
 
+  eliminarEtiqueta(id,index){
+    const header={
+      "Authorization":"Bearer "+this.state.accessToken
+    }
+    request.delete(backendURL+"Labels/"+id,{
+      headers:header
+    })
+    .then((res)=>{
+      const newArray=Array.from(this.state.labels);
+      newArray.splice(index,1);
+      this.setState({labels:newArray});
+      alert("Se ha eliminado la etiqueta con éxito")
+    })
+    .catch((error)=>{
+      if (error.response){
+        alert(error.response.data.error.message)
+      } else if (error.request){
+        console.log(error.request);
+      } else {
+        console.log("Error", error)
+      }
+    })
+  }
 
   render(){
     return(
@@ -105,7 +128,7 @@ class MyTickets extends Component{
             dicha etiqueta para modificarlo*/
 
             
-            this.state.labels.map((label) => 
+            this.state.labels.map((label,index) => 
               <div style={{display: 'flex'}}>
                 <Link 
                   to = {'/editarEtiqueta/'+ label.id}
@@ -127,7 +150,7 @@ class MyTickets extends Component{
                     type="button" 
                     class="btn-close bg-danger " 
                     aria-label="Close"
-                    /* onClick={eliminarEtiqueta()} */>
+                    onClick={()=>this.eliminarEtiqueta(label.id,index)} >
                   </button>
                 :''}
 
