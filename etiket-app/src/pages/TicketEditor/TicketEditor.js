@@ -13,7 +13,6 @@ import PrototypeBack from '../../components/PrototypeBack/PrototypeBack';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import React from 'react';
 import './TicketEditor.css';
-import axios from 'axios';
 import { setPosition } from '../../tools/Statefunctions';
 
 
@@ -245,7 +244,7 @@ class TicketEditor extends  React.Component {
                 <Sidebar/>
                 <div id='TicketEditorContainer' >
                     
-                    <Link to={"/misEtiquetas"}>
+                    <Link to={"/misEtiquetas"} style={{width:"fit-content"}}>
                         <img src={pathIcons+"back.png"} alt="Regresar" className="backBtn "/>
                     </Link>
 

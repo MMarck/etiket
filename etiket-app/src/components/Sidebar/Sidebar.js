@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import {replace} from "../../reducers/etiquetaSlice";
 import {Link} from 'react-router-dom';
 import CustomCheckbox from "../CustomCheckbox/CustomCheckbox";
+import IngredientesModal from '../IngredientesModal/IngredientesModal.js';
 import ReactTooltip from "react-tooltip";
 import SidebarItem from "../SidebarItem/SidebarItem";
 import DatePicker from 'react-date-picker/dist/entry.nostyle';
@@ -143,7 +144,7 @@ class Sidebar extends Component{
     return (
       <div id='SidebarContainer' className='' >
         <div id="userIcon" className=''> 
-          <button onClick={()=>{console.log(this.props.etiqueta)}}> ver etiqueta</button>
+
           <img id="userImg" alt="User" src={pathIcons + 'user.png'} width={'50px'} data-tip data-for='userMenu' /> 
 
 
@@ -258,7 +259,24 @@ class Sidebar extends Component{
           } />
 
           <SidebarItem icon="ingredientes.png" alt="ingredientes" dataTip="Ingredientes" isDisabled={isDisabled} content={
-            <></>
+            <div id='ingredientes'>
+              <div className='sidebarContHeader'>
+                <p className='sidebarTitle'>Ingredientes</p>
+                <p className='sidebarSubTitle'>Deben declararse todos los ingredientes por orden decreciente de proporciones. Copie y pegue su lista desde un archivo csv o escríbalos directamente.</p>
+              </div>
+              <div id="ingCont">
+                <table className="ingTable">
+                  <thead>
+                    <tr>
+                      <th>Ingrediente</th>
+                      <th>Porcentaje</th>
+                    </tr>
+                  </thead>
+                  
+                </table>
+                <IngredientesModal/>
+              </div>
+            </div>
           } />
 
           <SidebarItem icon="alergenos.png" alt="alergenos" dataTip="Alérgenos" isDisabled={isDisabled} content={
