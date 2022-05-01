@@ -1,5 +1,6 @@
 import {  exportComponentAsPNG, exportComponentAsPDF } from 'react-component-export-image';
-import { replace, erase, loadLabel } from '../../reducers/etiquetaSlice'
+import { replace, erase, loadLabel } from '../../reducers/etiquetaSlice';
+import { replaceLE } from '../../reducers/LabelEditorSlice';
 import { pathIcons } from '../../config/constants';
 import { connect } from 'react-redux';
 import { withRouter } from "../../tools/withRouter";
@@ -13,15 +14,18 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import React from 'react';
 import './TicketEditor.css';
 import axios from 'axios';
+import { setPosition } from '../../tools/Statefunctions';
 
 
 const mapStateToProps = state => ({
-    etiqueta: state.etiqueta
+    etiqueta: state.etiqueta,
+    LabelEditor : state.LabelEditorSlice
   });
 const mapDispatchToProps = () => ({ 
     replace,
     erase,
-    loadLabel
+    loadLabel,
+    replaceLE
 });
 class TicketEditor extends  React.Component {
 
@@ -175,52 +179,62 @@ class TicketEditor extends  React.Component {
     }
 
 
-    /*
-    * Función permite aumentar el zoom aplicado como propiedad css al contenedor de las etiquetas
-    */
+    /**
+     * Función permite aumentar el zoom aplicado como propiedad css al contenedor de las etiquetas 
+     */
     zoomIn(){
-        this.setState({'zoom':this.state.zoom + 0.1}, ()=>{ //actualizar la variable en el estado
-            let visualizer = document.getElementById('Previewer');//obtener control del visualizador
-            visualizer.style.transform = 'scale('+ this.state.zoom +')';//aplica el valor 
+        var zoom = this.props.LabelEditor.zoom + 0.1;
 
-            if( this.state.zoom >= 1.2){
-                visualizer.style.paddingTop = this.state.zoom * 7 + "vh";
-                visualizer.style.paddingLeft = this.state.zoom * 7 + "vw";
+        this.props.replaceLE(['zoom', zoom ]) //actualizar la variable en el estado
+        let visualizer = document.getElementById('Previewer');//obtener control del visualizador
+        visualizer.style.transform = 'scale('+ zoom +')';//aplica el valor 
 
-            }
-             if( this.state.zoom >= 1.4){
-                visualizer.style.paddingTop = this.state.zoom * 12 + "vh";
-                visualizer.style.paddingLeft = this.state.zoom * 14 + "vw";
-            }
+        if( zoom >= 1.2){
+            visualizer.style.paddingTop = zoom * 7 + "vh";
+            visualizer.style.paddingLeft = zoom * 7 + "vw";
 
-        }); 
+        }
+            if( zoom >= 1.4){
+            visualizer.style.paddingTop = zoom * 12 + "vh";
+            visualizer.style.paddingLeft = zoom * 14 + "vw";
+        }
+
+        
     }
 
-    /*
-    * Función permite disminuir el zoom aplicado como propiedad css al contenedor de las etiquetas
-    */
-    zoomOut(){
-        this.setState({'zoom':this.state.zoom - 0.1}, ()=>{ //actualizar la variable en el estado
-            let visualizer = document.getElementById('Previewer');//obtener control del visualizador
-            visualizer.style.transform = 'scale('+ this.state.zoom +')';//aplica el valor 
+    /**
+     * Función permite disminuir el zoom aplicado como propiedad css al contenedor de las etiquetas
+     */
+     zoomOut(){
+        var zoom = this.props.LabelEditor.zoom - 0.1;
 
+        this.props.replaceLE(['zoom', zoom ]) //actualizar la variable en el estado
+        let visualizer = document.getElementById('Previewer');//obtener control del visualizador
+        visualizer.style.transform = 'scale('+ zoom +')';//aplica el valor 
 
-            if( this.state.zoom < 1.2){
-                visualizer.style.paddingTop = "0vh";
-                visualizer.style.paddingLeft = "0vw";
+        if( zoom < 1.2){
+            visualizer.style.paddingTop = "0vh";
+            visualizer.style.paddingLeft = "0vw";
 
-            }else if( this.state.zoom >= 1.2 && this.state.zoom < 1.4){
-                visualizer.style.paddingTop = this.state.zoom * 7 + "vh";
-                visualizer.style.paddingLeft = this.state.zoom * 7 + "vw";
+        }else if( zoom >= 1.2 && zoom < 1.4){
+            visualizer.style.paddingTop = zoom * 7 + "vh";
+            visualizer.style.paddingLeft = zoom * 7 + "vw";
 
-            }else if( this.state.zoom >= 1.4){
-                visualizer.style.paddingTop = this.state.zoom * 12 + "vh";
-                visualizer.style.paddingLeft = this.state.zoom * 14 + "vw";
-            }
-
-        }); 
+        }else if( zoom >= 1.4){
+            visualizer.style.paddingTop = zoom * 12 + "vh";
+            visualizer.style.paddingLeft = zoom * 14 + "vw";
+        }
+        
     }
 
+    resetElementPosition(){
+        setPosition('nombreProducto');
+        setPosition('pesosContainer');
+        setPosition('marca');
+        setPosition('alcohol');
+        setPosition('ingPos');
+        setPosition('algPos');
+    }
     
 
 
@@ -243,7 +257,14 @@ class TicketEditor extends  React.Component {
                     </div>
 
                     <div className='d-flex flex-column justify-content-center align-items-center gap-2' >
-                        <span className='p-2'  onClick={()=>this.props.erase()}  style={{cursor:"pointer"}} ><img src={pathIcons+'return.png'} alt='return ' width={'10px'}  />  BORRAR TODO</span>
+                        <span 
+                            onClick={()=>{this.props.erase(); this.resetElementPosition()}}
+                            style={{cursor:"pointer"}} 
+                            className='p-2'
+                        >
+                            <img src={pathIcons+'return.png'} alt='return ' width={'10px'}  />
+                            BORRAR TODO
+                        </span>
 
                         <div className='d-flex gap-3'>
 

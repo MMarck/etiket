@@ -5,3 +5,41 @@
     align-items: center;
     justify-content: center;
 }
+
+#PrototypeFront{
+    border: 1px #F3F3F3 solid;
+    background-color:white;
+    position: relative;
+    text-align: center;
+    padding: 5px;
+    z-index: 1;
+    border: 1px lightgray solid;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.prototypeSection1{
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 33%;
+    height: 35%;
+    width: 100%;
+}
+
+.prototypeSection2{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 33%;
+    width: 100%;
+
+    position: absolute;
+    bottom: 0px;
+    z-index: -1;
+}

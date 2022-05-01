@@ -36,18 +36,11 @@ class NewTicket extends Component{
   } 
 
   createNewTicket (e){
-    //armar objeto Etiqueta
-    //let type = this.props.newTicket.type;
-    //let country = this.props.newTicket.country;
-    //let name = document.getElementById("ticketName").value
     const header={
       "Authorization":"Bearer "+this.state.accessToken
     }
     const nombreProyecto=document.getElementById("labelName").value
 
-
-
-    
 
     if (nombreProyecto===""){
       alert("¡Debe poner un nombre!")

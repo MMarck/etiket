@@ -19,3 +19,24 @@
     
 
 }
+
+#PrototypeBack{
+    display: flex;
+    justify-content: center;
+    border: 1px #F3F3F3 solid;
+    background-color:white;
+    position: relative;
+    text-align: center;
+    border: 1px lightgray solid;
+    overflow: hidden;
+}
+
+#prototypeSection3{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 33%;
+    width: 50%;
+}
+

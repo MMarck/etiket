@@ -62,118 +62,153 @@ class PrototypeBack extends Component{
             <div className='prototypeContainer'>
                 <h5 className='paneTitle' style={{fontSize: dataFontSize}}>Panel de información</h5>
                 <div  
-                     style={{
-                        border: '1px #F3F3F3 solid',
-                        backgroundColor:'white', 
-                        position:'relative',
-                        textAlign:'center',
+                    id='PrototypeBack'
+                    style={{
                         height: altura + dimensionesUn, 
                         width: ancho + dimensionesUn,
                         fontSize: dataFontSize,
-                        border: '1px lightgray solid',
-                        overflow:'hidden'
                     }}
                 >
-                    {this.props.LabelEditor.showNutritionFacts?
-                        <Draggable  bounds='parent'>
-                            <div>
-                                {/* <NutritionFactsPreviewer width='50px' height='50px'/> */}
-                            </div>
-                        </Draggable>
-                    :''}
+
+                    <div className='prototypeSection3'>
+                        {this.props.LabelEditor.showNutritionFacts?
+                            <Draggable  bounds='#PrototypeBack' scale={this.props.LabelEditor.zoom} >
+                                <div>
+                                    <NutritionFactsPreviewer width='50px' height='50px'/> 
+                                </div>
+                            </Draggable>
+                        :''}
+                        
+
+
+                        { vidaUtil || fabricacionUn || caducacionUn || conservacionUn ||  direccion || instrucciones?
+                            <Draggable  bounds='#PrototypeBack' scale={this.props.LabelEditor.zoom} >
+                                <div 
+                                    onMouseLeave={()=>{this.handleStateChange('ingPos', getPosition('ingPos'))}}
+                                    className='draggable-group-1 draggable-container'    
+                                    id='ingPos'
+                                >
+                                
+                                    <span>  
+                                        {this.props.etiqueta.metodoConservacion.value !==''  ?
+                                            <>
+                                                <b>Metodo de conservacion: </b> {conservacionUn} {metodoConservacion}
+                                            </>
+                                        :''}
+                                    </span>
+
+                                    <span>  
+                                        {vidaUtil?
+                                            <>
+                                                <b>Vida Util: </b> {vidaUtil} {vidaUtilUn}
+                                            </>
+                                        :''}
+                                    </span>
+
+                                    <span>  
+                                        {direccion?
+                                            <>
+                                                <b>Dirección: </b> {direccion} 
+                                            </>
+                                        :''}
+                                    </span>
+
+                                    <span>  
+                                        {instrucciones?
+                                            <>
+                                                <b>Instrucciones: </b> {instrucciones} 
+                                            </>
+                                        :''}
+                                    </span>
+
+                                    <span>  
+                                        {fabricacion!==""?
+                                            <>
+                                                <b>{fabricacionUn}: </b> {fabricacion} 
+                                            </>
+                                        :''}
+                                    </span>
+
+                                    <span>  
+                                        {caducacion!==""?
+                                            <>
+                                                <b>{caducacionUn}: </b> {caducacion} 
+                                            </>
+                                        :''}
+                                    </span>
+                                    
+                                </div>
+                            </Draggable>
+                        :''}
+                    </div>
+
+                    <div className='prototypeSection3'>
+                        { ingredientes || alergenos?
+                            <Draggable  bounds='#PrototypeBack' scale={this.props.LabelEditor.zoom} >
+                                <div 
+                                    onMouseLeave={()=>{this.handleStateChange('algPos', getPosition('algPos'))}}
+                                    className='draggable-group-1 draggable-container'    
+                                    id='algPos'
+                                >
+                                    
+                                    <span>  
+                                        {ingredientes.length > 0?
+                                            "Ingredientes: " + ingredientes
+                                        :''}
+                                    </span>
+                                    
+                                    <span><b>
+                                        {alergenos.length > 0?
+                                            "CONTIENE " + JSON_String( alergenos )
+                                        :''}</b>
+                                    </span>
+                                </div>
+                            </Draggable>
+                        :''}
+
+                        { instrucciones?
+                            <Draggable  bounds='#PrototypeBack' scale={this.props.LabelEditor.zoom} >
+                                <div 
+                                    /* onMouseLeave={()=>{this.handleStateChange('ingPos', getPosition('ingPos'))}} */
+                                    className='draggable-group-1 draggable-container'    
+                                    /* id='ingPos' */
+                                >
+                                    <span>  
+                                        {instrucciones?
+                                            <>
+                                                <b>Instrucciones: </b> {instrucciones} 
+                                            </>
+                                        :''}
+                                    </span>
+
+                                </div>
+                            </Draggable>
+                        :''}
+
+                        { direccion?
+                            <Draggable  bounds='#PrototypeBack' scale={this.props.LabelEditor.zoom} >
+                                <div 
+                                    /* onMouseLeave={()=>{this.handleStateChange('ingPos', getPosition('ingPos'))}} */
+                                    className='draggable-group-1 draggable-container'    
+                                    /* id='ingPos' */
+                                >
+
+                                    <span>  
+                                        {direccion?
+                                            <>
+                                                <b>Dirección: </b> {direccion} 
+                                            </>
+                                        :''}
+                                    </span>
+
+                                </div>
+                            </Draggable>
+                        :''}
+
+
+                    </div>
+
                     
-
-
-                    { conservacionUn || vidaUtil || direccion || instrucciones || fabricacionUn || caducacionUn?
-                        <Draggable  bounds='parent'>
-                            <div 
-                                onMouseLeave={()=>{this.handleStateChange('ingPos', getPosition('ingPos'))}}
-                                className='draggable-group-1 draggable-container'    
-                                id='ingPos'
-                            >
-                            
-                                <span>  
-                                    {this.props.etiqueta.metodoConservacion.value !=='' || this.props.etiqueta.conservacionUn.value!=="" ?
-                                        <>
-                                            <b>Metodo de conservacion: </b> {conservacionUn} {metodoConservacion}
-                                        </>
-                                    :''}
-                                </span>
-
-                                <span>  
-                                    {vidaUtil?
-                                        <>
-                                            <b>Vida Util: </b> {vidaUtil} {vidaUtilUn}
-                                        </>
-                                    :''}
-                                </span>
-
-                                <span>  
-                                    {direccion?
-                                        <>
-                                            <b>Dirección: </b> {direccion} 
-                                        </>
-                                    :''}
-                                </span>
-
-                                <span>  
-                                    {instrucciones?
-                                        <>
-                                            <b>Instrucciones: </b> {instrucciones} 
-                                        </>
-                                    :''}
-                                </span>
-
-                                <span>  
-                                    {fabricacion!==""?
-                                        <>
-                                            <b>{fabricacionUn}: </b> {fabricacion} 
-                                        </>
-                                    :''}
-                                </span>
-
-                                <span>  
-                                    {caducacion!==""?
-                                        <>
-                                            <b>{caducacionUn}: </b> {caducacion} 
-                                        </>
-                                    :''}
-                                </span>
-                                
-                            </div>
-                        </Draggable>
-                    :''}
-
-                    { ingredientes || alergenos?
-                        <Draggable  bounds='parent' >
-                            <div 
-                                onMouseLeave={()=>{this.handleStateChange('algPos', getPosition('algPos'))}}
-                                className='draggable-group-1 draggable-container'    
-                                id='algPos'
-                            >
-                                
-                                <span>  
-                                    {ingredientes.length > 0?
-                                        "Ingredientes: " + ingredientes
-                                    :''}
-                                </span>
-                                
-                                <span><b>
-                                    {alergenos.length > 0?
-                                        "CONTIENE " + JSON_String( alergenos )
-                                    :''}</b>
-                                </span>
-                            </div>
-                        </Draggable>
-                    :''}
-
-                    
-                    { false?
-                        <Draggable  bounds='parent' >
-                            <NutritionFactsPreviewer />
-                        </Draggable>
-                    :''}
-    
                 </div>
                 
                 <SizeIndicator visibilityProp={'hidden'}/>
