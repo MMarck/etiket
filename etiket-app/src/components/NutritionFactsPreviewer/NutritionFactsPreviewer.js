@@ -14,6 +14,8 @@ const mapDispatchToProps = () => ({
   replace
 });
 
+const defaultNutritionFact = {report:'', vdr:''};
+
 class NutritionFacts_Previewer extends Component{
     
 
@@ -23,17 +25,17 @@ class NutritionFacts_Previewer extends Component{
     let porcionPorEnvase = this.props.etiqueta.porcionPorEnvase;
     let porcionPorEnvaseUn = this.props.etiqueta.porcionPorEnvaseUn.value;
     let porcionPorEnvaseDisabled = this.props.etiqueta.porcionPorEnvaseDisabled;
-    let grasaTotal = this.props.etiqueta.grasaTotal;
-    let grasaSaturada = this.props.etiqueta.grasaSaturada;
-    let grasasTrans = this.props.etiqueta.grasasTrans;
-    let acidosMono = this.props.etiqueta.acidosMono;
-    let acidosPoli = this.props.etiqueta.acidosPoli;
-    let colesterol = this.props.etiqueta.colesterol;
-    let sodio = this.props.etiqueta.sodio;
-    let carbohidratos = this.props.etiqueta.carbohidratos;
-    let fibra = this.props.etiqueta.fibra;
-    let azucares = this.props.etiqueta.azucares;
-    let proteina = this.props.etiqueta.proteina;
+    let grasaTotal = this.props.etiqueta.grasaTotal? this.props.etiqueta.grasaTotal: defaultNutritionFact;
+    let grasaSaturada = this.props.etiqueta.grasaSaturada? this.props.etiqueta.grasaSaturada: defaultNutritionFact;
+    let grasasTrans = this.props.etiqueta.grasasTrans? this.props.etiqueta.grasasTrans: defaultNutritionFact;
+    let acidosMono = this.props.etiqueta.acidosMono? this.props.etiqueta.acidosMono: defaultNutritionFact;
+    let acidosPoli = this.props.etiqueta.acidosPoli? this.props.etiqueta.acidosPoli: defaultNutritionFact;
+    let colesterol = this.props.etiqueta.colesterol? this.props.etiqueta.colesterol: defaultNutritionFact;
+    let sodio = this.props.etiqueta.sodio? this.props.etiqueta.sodio: defaultNutritionFact;
+    let carbohidratos = this.props.etiqueta.carbohidratos? this.props.etiqueta.carbohidratos: defaultNutritionFact;
+    let fibra = this.props.etiqueta.fibra? this.props.etiqueta.fibra: defaultNutritionFact;
+    let azucares = this.props.etiqueta.azucares? this.props.etiqueta.azucares: defaultNutritionFact;
+    let proteina = this.props.etiqueta.proteina? this.props.etiqueta.proteina: defaultNutritionFact;
      
     return (
         
@@ -43,12 +45,20 @@ class NutritionFacts_Previewer extends Component{
                 style= {{
                     overflow:'hidden',
                     height: this.props.height, 
-                    width: this.props.width
+                    width: this.props.width,
+                    fontFamily: 'Local Helvetica'
                 }}
             >
             {/* Seccion 1 - Titulo y totales */}
             <header className="performance-facts__header">
-                <h1 className="performance-facts__title">Información Nutricional</h1>
+                <h1 
+                    className="performance-facts__title"
+                    style={{fontFamily: 'Local Helvetica-Bold'}}
+                >
+                    Información Nutricional
+                </h1>
+
+
                 <p>Tamaño de la porción: {tamanioPorcion} {tamanioPorcionUn}</p> 
                 <p>
                     Porciones por envase: {porcionPorEnvase} {!porcionPorEnvaseDisabled? porcionPorEnvaseUn:''}
@@ -110,30 +120,33 @@ class NutritionFacts_Previewer extends Component{
                     </td>
                 </tr>
 
-               <AcidosSubTable 
-                    data={[
-                        {label:'Acidos grasos saturados',
-                        mass: grasaSaturada.report, 
-                        percentage: grasaSaturada.vdr
-                        },
+                <AcidoTableRow 
+                    label='Acidos grasos saturados'
+                    mass = {grasaSaturada.report}
+                    percentage = {grasaSaturada.vdr} 
+                />
+                <AcidoTableRow 
+                    label= 'Acidos grasos trans'
+                    mass = {grasasTrans.report}
+                    percentage = {grasasTrans.vdr} 
+                />
 
-                        {label:'Acidos grasos trans',
-                        mass: grasasTrans.report, 
-                        percentage: grasasTrans.vdr
-                        },
+                {parseFloat(grasaTotal.report) > 3?
+                <>
+                    <AcidoTableRow 
+                        label= 'Acidos grasos mono insaturados'
+                        mass = {acidosMono.report}
+                        percentage = {acidosMono.vdr} 
+                    />
+                    <AcidoTableRow 
+                        label= 'Acidos grasos poli insaturados'
+                        mass = {acidosPoli.report}
+                        percentage = {acidosPoli.vdr} 
+                    />
+                </>
+                :''}
 
-                        {label:'Acidos grasos mono insaturados', 
-                        mass: acidosMono.report, 
-                        percentage: acidosMono.vdr
-                        },
 
-                        {label:'Acidos grasos poli insaturados',
-                        mass: acidosPoli.report,
-                        percentage: acidosPoli.vdr
-                        }
-
-                    ]} 
-               />
 
                 <tr className="separator-botton-1" >
                     <th colspan="2">
@@ -336,6 +349,23 @@ function AcidosSubTable(params){
     })
 
     return ( acidList ) 
+
+}
+
+function AcidoTableRow({label, mass, percentage}){
+    return ( 
+    <tr className="separator-botton-1" >
+        <td className="blank-cell">
+        </td>
+
+        <th>
+            <span className='fw-normal'>{label} {mass} </span>
+        </th>
+        <td>
+            <b>{percentage}</b>
+        </td>
+    </tr> 
+    );
 
 }
 

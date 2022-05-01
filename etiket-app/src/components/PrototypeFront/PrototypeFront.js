@@ -106,9 +106,13 @@ class PrototypeFront extends Component{
                             height: altura + dimensionesUn,
                             width: ancho + dimensionesUn, 
                             fontSize: dataFontSize,
+                            padding: '5px',
                             zIndex:1,
                             border: '1px lightgray solid',
-                            overflow:'hidden'
+                            overflow:'hidden',
+                            display: 'flex',
+                            alignItems: 'center',
+                            flexDirection: 'column'
                         }}
                     >
 

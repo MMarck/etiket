@@ -8,3 +8,13 @@
     --fondoWeb: "../../../public/images/fondo-web.png";
     --BorderRadio: 10px;
 }
+
+@font-face {
+    font-family: "Local Helvetica";
+    src: url("../../public/fonts/Helvetica.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Local Helvetica-Bold";
+    src: url("../../public/fonts/Helvetica-Bold.ttf") format("truetype");
+}

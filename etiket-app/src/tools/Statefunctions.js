@@ -87,5 +87,6 @@ export const JSON_String  = (list) => {
  * } } position 
  */
 export const setPosition = (item, position ) => {
+    position = position? position : {x:'0px',y:'0px'}
     document.getElementById(item).style.transform = 'translate('+ position.x +','+ position.y +')'
 }
