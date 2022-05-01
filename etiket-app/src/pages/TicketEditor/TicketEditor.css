@@ -165,6 +165,7 @@
 
 .draggable-container{
   width: fit-content;
+  height: fit-content;
 }
 .draggable-container:hover{
   border: 1px solid var(--Sgreen);
