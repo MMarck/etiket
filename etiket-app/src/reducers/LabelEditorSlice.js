@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 export const LabelEditorSlice = createSlice({
   name: 'LabelEditorSlice',
   initialState: {
-    showNutritionFacts: false
+    showNutritionFacts: false,
+    zoom:1
   },
   reducers: {
     replaceLE: (state,action) => {

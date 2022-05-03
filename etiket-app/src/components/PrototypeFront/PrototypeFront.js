@@ -9,7 +9,8 @@ import './PrototypeFront.css'
 
 
 const mapStateToProps = state => ({
-    etiqueta: state.etiqueta
+    etiqueta: state.etiqueta,
+    LabelEditor : state.LabelEditorSlice,
     });
 const mapDispatchToProps = () => ({ 
     replace
@@ -19,11 +20,10 @@ const mapDispatchToProps = () => ({
 
 
 
-
-/*
-* Componente para dibujar la vista DELANTERA de la etiqueta, las variables que utiliza estan mapeadas
-* en props mediante el metodo connect de react redux al objeto etiqueta del store global
-*/
+/**
+ * Componente para dibujar la vista DELANTERA de la etiqueta, las variables que utiliza estan mapeadas 
+ * en props mediante el metodo connect de react redux al objeto etiqueta del store global
+ */
 class PrototypeFront extends Component{
 
     
@@ -98,56 +98,41 @@ class PrototypeFront extends Component{
                     </h5>
                     
                     <div 
+                        id='PrototypeFront'
                         style={{
-                            border: '1px #F3F3F3 solid',
-                            backgroundColor:'white',
-                            position:'relative',
-                            textAlign:'center', 
                             height: altura + dimensionesUn,
                             width: ancho + dimensionesUn, 
-                            fontSize: dataFontSize,
-                            padding: '5px',
-                            zIndex:1,
-                            border: '1px lightgray solid',
-                            overflow:'hidden',
-                            display: 'flex',
-                            alignItems: 'center',
-                            flexDirection: 'column'
+                            fontSize: dataFontSize
                         }}
                     >
+                        <div className= 'prototypeSection1'>
 
-                        <Draggable  bounds='parent'  >
-                            <div 
-                                onMouseLeave={()=>{this.handleStateChange('nombreProductoPos', getPosition('nombreProducto'))}}
-                                className='draggable-container' 
-                                id='nombreProducto' 
-                            >
-                                <b>{nombreProducto}</b>
-                            </div>
-                        </Draggable>
+                            <Draggable  bounds='#PrototypeFront' scale={this.props.LabelEditor.zoom} >
+                                <div 
+                                    onMouseLeave={()=>{this.handleStateChange('nombreProductoPos', getPosition('nombreProducto'))}}
+                                    className='draggable-container' 
+                                    id='nombreProducto' 
+                                >
+                                    <b>{nombreProducto}</b>
+                                </div>
+                            </Draggable>
 
-                        <Draggable bounds='parent' >
-                            <div 
-                                onMouseLeave={()=>{this.handleStateChange('marcaPos', getPosition('marca'))}}
-                                className='draggable-container' 
-                                id='marca' 
-                            >
-                                <b>{marca}</b>
-                            </div>
-                        </Draggable>                        
+                             <Draggable  bounds='#PrototypeFront' scale={this.props.LabelEditor.zoom} >
+                                <div 
+                                    onMouseLeave={()=>{this.handleStateChange('marcaPos', getPosition('marca'))}}
+                                    className='draggable-container' 
+                                    id='marca' 
+                                >
+                                    <b>{marca}</b>
+                                </div>
+                            </Draggable>                        
+                        </div>
                         
                         <div 
-                            style={{
-                                height: HeigthContainerPesosNetos, 
-                                width:'100%', 
-                                textAlign:'center', 
-                                position:'absolute',
-                                bottom: '0px',
-                                zIndex:-1
-                            }}
-
+                            className='prototypeSection2'
+                            style={{ height: HeigthContainerPesosNetos }}
                         >
-                            <Draggable bounds='parent' >
+                             <Draggable  bounds='parent' scale={this.props.LabelEditor.zoom} >
                                 <div 
                                     onMouseLeave={()=>{this.handleStateChange('pesosPos', getPosition('pesosContainer'))}}
                                     className='draggable-container' 
@@ -173,7 +158,7 @@ class PrototypeFront extends Component{
                                 </div>
                             </Draggable> 
 
-                            <Draggable bounds='parent' >
+                            <Draggable  bounds='parent' scale={this.props.LabelEditor.zoom} >
                                 <div 
                                     onMouseLeave={()=>{this.handleStateChange('alcolPos', getPosition('alcohol'))}}
                                     className='draggable-container' 

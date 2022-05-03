@@ -144,6 +144,7 @@ class Sidebar extends Component{
     return (
       <div id='SidebarContainer' className='' >
         <div id="userIcon" className=''> 
+
           <img id="userImg" alt="User" src={pathIcons + 'user.png'} width={'50px'} data-tip data-for='userMenu' /> 
 
 

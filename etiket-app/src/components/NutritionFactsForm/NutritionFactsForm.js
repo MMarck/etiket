@@ -32,39 +32,6 @@ const mapDispatchToProps = () => ({
 });
 
 class NutritionFacts_form extends Component{
-    
-  constructor(props){
-    super(props)
-    this.state={
-      isDisabled: false,
-      date: new Date(),
-      pesoDrenadoDisabled:true,
-      pesoDrenado: {},
-      pesoDrenadoUn:{},
-      alcohol:"",
-      alcoholUn:{},
-      ingredientes: '',
-      alergenos: '',
-      metodoConservacion: '',
-      vidaUtil:'',
-      direccion: '',
-      instrucciones: ''
-    }
-    this.updateStateVariable = this.updateStateVariable.bind(this);
-  }
-
-  setNewDate(date){
-    this.setState({
-      date: date
-    })
-  }
-
-  updateStateVariable(event){
-    const { value, name } = event.target;
-    this.setState({
-        [name]: value
-    })
-  }
 
   numberFilter(event) {
     var value = event.target.value + event.key;
@@ -73,40 +40,6 @@ class NutritionFacts_form extends Component{
     }
   }
 
-  handleChangeValoresDimensiones(e,estado,labelEstado){
-    this.setState({[estado]:parseFloat(e)+this.state["dimensionesUn"]["value"], [labelEstado]:e})
-  }
-
-  handleChangeUnidadesDimensiones(e){
-    this.setState({ ancho: parseFloat(this.state["ancho"])+e.value , altura: parseFloat(this.state["altura"])+e.value, dimensionesUn:e});
-  }
-
-  handleChangeDropdown(e,estado){
-    this.setState({[estado]:e})
-  }
-
-  handlePesoDrenadoDisable(){
-    if (this.props.etiqueta.pesoDrenadoDisabled) {
-      this.handleStateChange("pesoDrenadoDisabled",!this.props.etiqueta.pesoDrenadoDisabled);
-    } else {
-      this.handleStateChange("pesoDrenadoDisabled",!this.props.etiqueta.pesoDrenadoDisabled);
-      this.handleStateChange("pesoDrenado","")
-    }
-    
-  }
-
-  handleChangeMultiples(e,estado){
-    var res="";
-    if (e.length>1) {
-        e.forEach(element => {
-            res=res+","+element.label;
-        });
-        res=res.slice(1);
-    } else if(e.length===1) {
-        res=e[0].label
-    }
-    this.setState({[estado]:res})
-  }
   
   handleStateChange(stateName,value){
     const payload={
@@ -117,30 +50,6 @@ class NutritionFacts_form extends Component{
     this.props.replace(payload);
   }
 
-  handleDateChange(stateName,value){
-
-    const yyyy = value.getFullYear();
-    let mm = value.getMonth() + 1; 
-    let dd = value.getDate();
-
-    if (dd < 10) dd = '0' + dd;
-    if (mm < 10) mm = '0' + mm;
-
-    const date = dd + '/' + mm + '/' + yyyy
-
-    const payload={
-      stateName: stateName,
-      value: date
-    }
-
-    this.props.replace(payload)
-  }
-
-  getDateObject(value){
-    value=value.split("/")
-    const date=new Date(parseInt(value[2]),parseInt(value[1]) -1,parseInt(value[0]))
-    return date
-  }
 
   setNutritionsFacts(type, value, unit){
 
@@ -233,7 +142,6 @@ class NutritionFacts_form extends Component{
                     <div 
                         onChange={()=>{this.handleStateChange('porcionPorEnvaseDisabled', !porcionPorEnvaseDisabled)}}
                         style={{alignSelf:'flex-end', marginBottom:"1vh"}} 
-                        id='pesosCheckbox'
                     >
                         <CustomCheckbox isChecked={!porcionPorEnvaseDisabled}/>
 

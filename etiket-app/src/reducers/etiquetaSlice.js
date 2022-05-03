@@ -22,7 +22,7 @@ const Initial_State={
   pesoDrenadoDisabled:true,
   pesoDrenadoLabel: pesosDrenados[0],
   pesoDrenado: "",
-  pesoDrenadoUn:{},
+  pesoDrenadoUn:{label:"g", value:""},
   alcohol:"",
   alcoholUn:{value:"Alcohol __% (Vol.)", label:"Alcohol __% (Vol.)"},
   ingredientes: [],
@@ -37,14 +37,15 @@ const Initial_State={
   caducacionUn:{label: "Fecha de caducación", value: ""},
   direccion: '',
   instrucciones: '',
-  nombreProductoPos: {x:'3.5cm',y:"1cm"},
-  marcaPos: {x:'3.5cm',y:"1.5cm"},
-  pesosPos: {x:'3.5cm',y:"0cm"},
-  ingPos: {x:0, y:0},
-  infNutPos: {x:0, y:0},
-  algPos: {x:0, y:0},
-  alcolPos:{x:'4cm',y:"0cm"},
+  nombreProductoPos: {x:'',y:''},
+  marcaPos: {x:'',y:''},
+  pesosPos: {x:'',y:''},
+  ingPos: {x:'', y:''},
+  infNutPos: {x:'', y:''},
+  algPos: {x:'', y:''},
+  alcolPos:{x:'',y:''},
   /* valores de la tabla nutricional */
+  valoresRecomendadosDisabled: false,
   tipoTabla: tiposTablas[0],
   tamanioPorcion: 0,
   tamanioPorcionUn: unidadesPorcion[0],
@@ -79,8 +80,15 @@ export const etiquetaSlice = createSlice({
     replace: (state,action) => {
       state[action.payload.stateName] = action.payload.value;
     },
-    erase: (state) => Initial_State,
+    erase: (state) => {
+      let initial_State = {...Initial_State};
+      initial_State.nombreProyecto = state.nombreProyecto;
+      initial_State.country = state.country;
+      initial_State.tipo = state.tipo;
+      return initial_State
+    },
     loadLabel: (state,action)=>{
+      console.log(action.payload)
       state["nombreProyecto"]=action.payload.nombreProyecto;
       state["nombreProducto"]=action.payload.nombreEtiqueta;
       state["country"]=action.payload.country;

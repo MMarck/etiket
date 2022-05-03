@@ -36,6 +36,7 @@ class NutritionFacts_Previewer extends Component{
     let fibra = this.props.etiqueta.fibra? this.props.etiqueta.fibra: defaultNutritionFact;
     let azucares = this.props.etiqueta.azucares? this.props.etiqueta.azucares: defaultNutritionFact;
     let proteina = this.props.etiqueta.proteina? this.props.etiqueta.proteina: defaultNutritionFact;
+    let valoresRecomendadosDisabled = this.props.etiqueta.valoresRecomendadosDisabled;
      
     return (
         
@@ -242,9 +243,8 @@ class NutritionFacts_Previewer extends Component{
             </p>
 
 
-
             {/* Seccion 4 - Inforacion adicional */}
-            {true?
+            {valoresRecomendadosDisabled?
                 <table className="performance-facts__table small-info">
                     <thead>
                         <tr style={{textAlign:"end"}} className="separator-botton-1">
