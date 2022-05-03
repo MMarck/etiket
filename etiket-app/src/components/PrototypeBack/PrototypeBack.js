@@ -73,7 +73,9 @@ class PrototypeBack extends Component{
                     <div className='prototypeSection3'>
                         {this.props.LabelEditor.showNutritionFacts?
                             <Draggable  bounds='#PrototypeBack' scale={this.props.LabelEditor.zoom} >
-                                <div>
+                                <div 
+                                    style={{ position: 'absolute', top: '1px'}}
+                                >
                                     <NutritionFactsPreviewer width='50px' height='50px'/> 
                                 </div>
                             </Draggable>
@@ -85,15 +87,16 @@ class PrototypeBack extends Component{
                             <Draggable  bounds='#PrototypeBack' scale={this.props.LabelEditor.zoom} >
                                 <div 
                                     onMouseLeave={()=>{this.handleStateChange('ingPos', getPosition('ingPos'))}}
-                                    className='draggable-group-1 draggable-container'    
+                                    className='draggable-group-2 draggable-container'    
+                                    style={{ position: 'absolute', bottom: '1px'}}
                                     id='ingPos'
                                 >
                                 
                                     <span>  
                                         {this.props.etiqueta.metodoConservacion.value !==''  ?
-                                            <>
+                                            <span style={{ whiteSpace: 'normal'}}>
                                                 <b>Metodo de conservacion: </b> {conservacionUn} {metodoConservacion}
-                                            </>
+                                            </span>
                                         :''}
                                     </span>
 

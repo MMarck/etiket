@@ -15,9 +15,15 @@
     height: fit-content;
     max-width: 60%;
     text-align: left;
-    background-color: white;
-    
+    background-color: transparent;
+}
 
+.draggable-group-2{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    background-color: transparent;
+    white-space: nowrap;
 }
 
 #PrototypeBack{
@@ -29,14 +35,14 @@
     text-align: center;
     border: 1px lightgray solid;
     overflow: hidden;
+    padding: 5px;
 }
 
-#prototypeSection3{
+.prototypeSection3{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 33%;
+    justify-content: flex-start;
+    align-items: flex-start;
     width: 50%;
 }
 
