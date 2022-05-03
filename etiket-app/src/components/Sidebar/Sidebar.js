@@ -139,7 +139,7 @@ class Sidebar extends Component{
   }
 
   render(){
-    
+    const ingredientes=this.props.etiqueta.ingredientes
     const isDisabled=this.props.isDisabled
     return (
       <div id='SidebarContainer' className='' >
@@ -271,6 +271,16 @@ class Sidebar extends Component{
                       <th>Porcentaje</th>
                     </tr>
                   </thead>
+                  <tbody style={{textAlign:"center"}}>
+                  {
+                      ingredientes.map((ing,index)=>
+                      <tr>
+                        <td>{ing.valor}</td>
+                        <td>{ing.porcentaje}</td>
+                      </tr>
+                      )
+                    }
+                  </tbody>
                   
                 </table>
                 <IngredientesModal/>

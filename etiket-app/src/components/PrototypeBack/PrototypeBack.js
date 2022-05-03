@@ -155,13 +155,13 @@ class PrototypeBack extends Component{
                                 
                                 <span>  
                                     {ingredientes.length > 0?
-                                        "Ingredientes: " + ingredientes
+                                        "Ingredientes: " + JSON_String(ingredientes,"valor")
                                     :''}
                                 </span>
                                 
                                 <span><b>
                                     {alergenos.length > 0?
-                                        "CONTIENE " + JSON_String( alergenos )
+                                        "CONTIENE " + JSON_String( alergenos, "value" )
                                     :''}</b>
                                 </span>
                             </div>

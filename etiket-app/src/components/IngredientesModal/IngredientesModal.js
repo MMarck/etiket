@@ -12,9 +12,36 @@ class IngredientesModal extends Component{
           show: false,
           showTextArea: false,
           showFileInput: false,
-          showOptions: true
+          showOptions: true,
+          ingTextForm: ""
         }
     }
+
+    handleStateChange(stateName,value){
+        const payload={
+          stateName: stateName,
+          value: value
+        }
+    
+        this.props.replace(payload);
+    }
+
+    handleSubmitText(e){
+        e.preventDefault();
+        const ing=this.state.ingTextForm;
+        if (ing==="") {
+            alert("¡Escriba algo primero!")
+        } else {
+            const lines=ing.split("\n")
+            const ingFinal=[]
+            lines.forEach(i => {
+                i=i.split(",")
+                ingFinal.push({"valor":i[0],"porcentaje":i[1]})
+            });
+            this.handleStateChange("ingredientes",ingFinal)
+            alert("Se ha procesado correctamente")
+        }
+    }      
 
     render(){
         const handleClose = () => this.setState({'show':false});
@@ -23,6 +50,10 @@ class IngredientesModal extends Component{
         const handleTextArea = () => this.setState({'showTextArea':!this.state.showTextArea});
         
         const handleOptions = () => this.setState({'showOptions':!this.state.showOptions});
+
+        const handleIngText = (e) => this.setState({'ingTextForm':e});
+
+
 
         return(
             <>
@@ -64,7 +95,12 @@ class IngredientesModal extends Component{
                         </div>
                     || (this.state.showTextArea) &&
                         <div>
-                            <textarea id="ingTextArea"/>
+                            <form id='ingText' onSubmit={(e)=>this.handleSubmitText(e)}>
+                                <textarea id="ingTextArea" onChange={(e)=>handleIngText(e.target.value)} rows="4" cols="50" placeholder='Ingredientes, Porcentaje'/>
+                                <button type="submit" className='darkButton-twhite' style={{width:'fit-content', height:'fit-content', fontSize:'0.8em', margin:'auto'}} onClick={handleShow}> 
+                                    PROCESAR TEXTO
+                                </button>
+                            </form>
                         </div>
                         
                     }

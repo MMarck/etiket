@@ -53,10 +53,10 @@ export const ddNormalStyle={
  * una lista de objetos JSON, de cada objeto se imprimira
  * el atributo value
  */
-export const JSON_String  = (list) => {
+export const JSON_String  = (list,key) => {
   var string=''
   list.forEach(element => {
-    string += element.value +', '
+    string += element[key] +', '
   });
   string = string.substring(0, string.length-2)
   

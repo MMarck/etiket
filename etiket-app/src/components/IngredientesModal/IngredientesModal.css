@@ -10,6 +10,12 @@
     gap: 1vw;
 }
 
+#ingText{
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+}
+
 .backBtnIng{
     margin: -12px;
 }

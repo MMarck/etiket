@@ -25,7 +25,7 @@ const Initial_State={
   pesoDrenadoUn:{},
   alcohol:"",
   alcoholUn:{value:"Alcohol __% (Vol.)", label:"Alcohol __% (Vol.)"},
-  ingredientes: '',
+  ingredientes: [],
   alergenos: [],
   conservacionUn: {label:"Mantener", value:"Mantener"},
   metodoConservacion: {label:"En refrigeración", value:""},
