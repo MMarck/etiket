@@ -8,7 +8,6 @@ var passport = require('passport');
 var indexRouter = require('./routes/index');
 var UsersDBRoutes = require('./routes/UsersRoutes');
 var LabelsRoutes = require('./routes/LabelsRoutes');
-var RefreshtokensRoutes = require("./routes/refreshTokensRoutes");
 
 var app = express();
 const nodb = require("./models");
@@ -25,7 +24,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/UsersDB', UsersDBRoutes);
 app.use('/Labels', LabelsRoutes);
-app.use("/Rtokens", RefreshtokensRoutes);
 
 //setear puerto por defecto
 app.listen(process.env.DEFAULT_PORT);
