@@ -3,12 +3,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors')
-var mongoose = require('mongoose');
 var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var UsersDBRoutes = require('./routes/UsersRoutes');
 var LabelsRoutes = require('./routes/LabelsRoutes');
 var RefreshtokensRoutes = require("./routes/refreshTokensRoutes");
@@ -24,8 +21,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Rutas generales
 app.use('/', indexRouter);
-app.use('/users', usersRouter); //BORRAR TODO RELACIONADO
 app.use('/UsersDB', UsersDBRoutes);
 app.use('/Labels', LabelsRoutes);
 app.use("/Rtokens", RefreshtokensRoutes);
