@@ -1,12 +1,12 @@
-import { BrowserRouter as Router, Route, Routes, Navigate} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import MyAccount from '../pages/MyAccount/MyAccount';
 import Dashboard from '../pages/Dashboard/Dashboard';
 import WallPaperWelcome from '../pages/WallpaperWelcome/WallpaperWelcome';
 import NewTicket from '../pages/NewTicket/NewTicket';
 import MyTickets from '../pages/MyTickets/MyTickets';
-import HomeBody from '../components/HomeBody/HomeBody'
-import ResetPassword from '../components/ResetPassword/ResetPassword';
-import CreateAccount from '../components/CreateAccount/CreateAccount';
+import HomeBody from '../pages/HomeBody/HomeBody'
+import ResetPassword from '../pages/ResetPassword/ResetPassword';
+import CreateAccount from '../pages/CreateAccount/CreateAccount';
 import LoginForm from '../components/LoginForm/LoginForm';
 import ChangePassword from '../pages/ChangePassword/ChangePassword';
 import TicketEditor from '../pages/TicketEditor/TicketEditor';

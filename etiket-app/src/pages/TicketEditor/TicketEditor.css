@@ -31,15 +31,6 @@
   overflow: auto;
 }
 
-.sidebarRect{
-    overflow: auto;
-    overflow-y: scroll;
-    max-height: 90vh;
-    display: flex;
-    flex-direction: column;
-    flex-shrink: 0;
-}
-
 .dContent{
     padding: 5px;
     display: flex;

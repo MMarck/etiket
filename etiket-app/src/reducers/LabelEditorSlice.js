@@ -1,3 +1,9 @@
+/**
+ * Este reducer declara un estado global que es usado para guardar datos
+ * del editor de etiquetas, por ejemplo el zoom o la visibilidad de los 
+ * indicadores de tamaño de etiqueta
+ */
+
 import { createSlice } from '@reduxjs/toolkit'
 
 export const LabelEditorSlice = createSlice({
@@ -16,7 +22,6 @@ export const LabelEditorSlice = createSlice({
         ejemplo de seteo de datos : replaceLE(['showNutritionFacts', true])
         
         */
-       console.log(action.payload)
         state[action.payload[0]] = action.payload[1]
       }
   },
