@@ -24,7 +24,7 @@ router.get('/login', function(req, res) {
 });
 
 /*
- * POST
+ * POST - Crear usuario, logear usuario, obtener token de refresco, logout de usuario y autenticación de usuario
  */
 router.post('/', UsersController.create);
 
@@ -81,12 +81,12 @@ router.post("/auth",UsersController.verifyJwt,(req,res)=>{
 });
 
 /*
- * PUT
+ * PUT - Se planea usar esto para actualizar un usuario, lo más probable será para el nombre
  */
 router.put('/:id', UsersController.update);
 
 /*
- * DELETE
+ * DELETE - Se planea usar esto para eliminar un usuario.
  */
 router.delete('/:id', UsersController.remove);
 
