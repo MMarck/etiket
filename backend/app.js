@@ -25,7 +25,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/users', usersRouter); //BORRAR TODO RELACIONADO
 app.use('/UsersDB', UsersDBRoutes);
 app.use('/Labels', LabelsRoutes);
 app.use("/Rtokens", RefreshtokensRoutes);

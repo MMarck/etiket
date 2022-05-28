@@ -10,18 +10,6 @@ require('dotenv').config({path:path.resolve(__dirname,"../config/.env")});
  * @description :: Logica del lado del servidor para el manejo de etiquetas
  */
 
- function handleDateChange(value){
-
-    const yyyy = value.getFullYear();
-    let mm = value.getMonth() + 1; 
-    let dd = value.getDate();
-  
-    if (dd < 10) dd = '0' + dd;
-    if (mm < 10) mm = '0' + mm;
-  
-    const date = dd + '/' + mm + '/' + yyyy
-    return date
-}
 
 module.exports = {
 
@@ -201,21 +189,6 @@ module.exports = {
 
         });
     },
-
-    verifyJwt: function(req,res,next){
-        const authHeader=req.headers.authorization.split(" ")[1];
-        if (authHeader){
-            jwt.verify(authHeader,process.env.JWT_SECRET, (err, user)=>{
-                if (err){
-                    return res.status(403).json("Token is not valid");
-                }
-                req.user=user;
-                next();
-            })
-        } else {
-            res.status(401).json("You are not authenticated!")
-        }
-    },
     
     /**
      * TicketsController.update()
@@ -286,26 +259,5 @@ module.exports = {
 
             return res.status(204).json();
         });
-    },
-
-    auth: function(req, res, next) {
-        /* look at the 2nd parameter to the below call */
-        passport.authenticate('local', function(err, user, info) {
-            if (err) { 
-                return next(err); 
-            }
-            if (!user) { 
-                return res.status(400).json({message:"Error, correo o contraseña no son correctos"}); 
-            }
-            req.logIn(user, function(err) {
-                    if (err) { 
-                        return next(err); 
-                    }
-                    const accessToken=jwt.sign({id:req.user._id}, process.env.JWT_SECRET);
-                    return res.status(202).json({message:"correcto", user:accessToken})
-                }
-            );
-        })(req, res, next);
     }
-
 };
