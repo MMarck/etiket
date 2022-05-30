@@ -1,24 +1,28 @@
+/**
+ * Documento para el componente App. declara el arbol de urls de la aplicacion
+ * a las correspondientes vistas
+ */
+
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import { createBrowserHistory } from "history";
 import MyAccount from '../pages/MyAccount/MyAccount';
 import Dashboard from '../pages/Dashboard/Dashboard';
 import WallPaperWelcome from '../pages/WallpaperWelcome/WallpaperWelcome';
-import NewTicket from '../pages/NewTicket/NewTicket';
-import MyTickets from '../pages/MyTickets/MyTickets';
+import NewTicket from '../pages/NewLabel/NewLabel';
+import MyLabels from '../pages/MyLabels/MyLabels';
 import HomeBody from '../pages/HomeBody/HomeBody'
 import ResetPassword from '../pages/ResetPassword/ResetPassword';
 import CreateAccount from '../pages/CreateAccount/CreateAccount';
 import LoginForm from '../components/LoginForm/LoginForm';
 import ChangePassword from '../pages/ChangePassword/ChangePassword';
-import TicketEditor from '../pages/TicketEditor/TicketEditor';
-import './App.css';
-import { createBrowserHistory } from "history";
+import TicketEditor from '../pages/LabelEditor/LabelEditor';
 import PrivateRoute from '../tools/PrivateRoute';
+import './App.css';
 
 const history = createBrowserHistory();
 
 
 function App() {
-
 
   return (
     
@@ -44,9 +48,8 @@ function App() {
           <Route exact path='/' element={<Dashboard/>}>
             <Route index element={<WallPaperWelcome/>}/>
             <Route path='miCuenta' element={<MyAccount/>}/>
-            <Route path='misEtiquetas' element={<MyTickets/>}/>
+            <Route path='misEtiquetas' element={<MyLabels/>}/>
             <Route path='nuevoProyecto' element={<NewTicket/>}/>
-            <Route path='crearEtiqueta' element={<CrearEtiqueta/>}/>
             <Route path='cambiarClave' element={<ChangePassword/>}/>
           </Route>
         </Route>
@@ -66,11 +69,3 @@ function App() {
 
 export default App;
 
-
-
-function CrearEtiqueta(){
-  return(
-    
-      <h1>Crear Etiqueta</h1>
-  );
-}

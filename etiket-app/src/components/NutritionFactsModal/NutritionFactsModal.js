@@ -12,12 +12,12 @@ import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
 
 class NutritionFacts_modal extends Component{
   
-/**
- * Esta funcion permite cambiar el estado global en un componente
- * que tenga el metodo replace
- * @param {clave a modificar} stateName 
- * @param {valor a setear en la clave} value 
- */
+  /**
+   * Abstracion del modificador de estado global (o reducer) 
+   * llamado "replace" 
+   * @param {String} stateName 
+   * @param {*} value 
+   */
   handleStateChange(stateName,value){
     const payload={
       stateName: stateName,
@@ -98,10 +98,23 @@ class NutritionFacts_modal extends Component{
     }
   
   }
-  
+
+/**
+ * Declaracion de las variables del estado global que se usaran 
+ * en este componente a traves de sus props
+ * 
+ * @param {*} state: Se llena automaticamente
+ * @returns null
+ */
 const mapStateToProps = state => ({
   etiqueta: state.etiqueta
 });
+
+/**
+ * Declaracion de metodos para modificar el estado global que se
+ * usaran en este componente a traves de sus props
+ * @returns null
+ */
 const mapDispatchToProps = () => ({ 
     replace
 });

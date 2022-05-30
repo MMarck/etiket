@@ -1,3 +1,8 @@
+/* Contantes de Javascript usadas en distintas funciones y 
+componentes del sistema */
+
+
+
 /**
  * Ruta raiz para los iconos
  */

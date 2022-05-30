@@ -45,15 +45,10 @@ import {
 } from '../../config/constants';
 import NutritionFactsModal from '../NutritionFactsModal/NutritionFactsModal';
 
-
-
-const mapStateToProps = state => ({
-  etiqueta: state.etiqueta
-});
-const mapDispatchToProps = () => ({ 
-  replace
-});
-
+/**
+ * Componente para renderizar la barra lateral para el ingreso de datos 
+ * que modifican una etiqueta en el editor de etiquetas 
+ */
 class Sidebar extends Component{
     
   constructor(props){
@@ -378,6 +373,30 @@ class Sidebar extends Component{
 
   };
 }
+
+
+
+/**
+ * Declaracion de las variables del estado global que se usaran 
+ * en este componente a traves de sus props
+ * 
+ * @param {*} state: Se llena automaticamente
+ * @returns null
+ */
+ const mapStateToProps = state => ({
+  etiqueta: state.etiqueta
+});
+
+/**
+ * Declaracion de metodos para modificar el estado global que se
+ * usaran en este componente a traves de sus props
+ * @returns null
+ */
+const mapDispatchToProps = () => ({ 
+  replace
+});
+
+
 
 export default connect(
   mapStateToProps,

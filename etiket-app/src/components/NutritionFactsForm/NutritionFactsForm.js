@@ -1,3 +1,15 @@
+/**
+ * Formulario para el ingreso de datos de "nutrition facts" 
+ * o "informacion nutricional", este componente renderiza 
+ * las entradas de texto necesarias para que el usuario ingrese
+ * informacion sobre su producto y aplica las nomas del ARCSA 
+ * para el reporte de dicha informacion. 
+ * 
+ * La logica del reporte de informacion se encuentra en el 
+ * documento src/tools/CaseFunctions.js
+ */
+
+import { getReportFormat } from "../../tools/Casefunctions";
 import { replaceLE } from "../../reducers/LabelEditorSlice";
 import { Component } from 'react';
 import { replace } from "../../reducers/etiquetaSlice";
@@ -6,9 +18,6 @@ import CustomCheckbox from "../CustomCheckbox/CustomCheckbox";
 import Select from 'react-select';
 import './NutritionFactsForm.css';
 
-/**
- * Importacion de datos constantes
- */
 import { 
     ddNormalStyle, 
     ddSmallStyle, 
@@ -18,20 +27,10 @@ import {
     AproxOptions,
     Nutrientes
  } from '../../config/constants';
-import { getReportFormat } from "../../tools/Casefunctions";
 
-
-
-const mapStateToProps = state => ({
-  etiqueta: state.etiqueta,
-  LabelEditorSlice: state.LabelEditorSlice
-});
-const mapDispatchToProps = () => ({ 
-  replace,
-  replaceLE
-});
 
 class NutritionFacts_form extends Component{
+
 
   numberFilter(event) {
     var value = event.target.value + event.key;
@@ -40,7 +39,12 @@ class NutritionFacts_form extends Component{
     }
   }
 
-  
+  /**
+   * Abstracion del modificador de estado global (o reducer) 
+   * llamado "replace" 
+   * @param {String} stateName 
+   * @param {*} value 
+   */
   handleStateChange(stateName,value){
     const payload={
       stateName: stateName,
@@ -50,7 +54,15 @@ class NutritionFacts_form extends Component{
     this.props.replace(payload);
   }
 
-
+  /**
+   * Esta funcion toma los datos ingresados por el usuario y aplica las normas del ARCSA
+   * para reporte de informacion nutricional, para luego guardar los resultados en el 
+   * estado global
+   * 
+   * @param {String} type : tipo de macronutriente, este valor se usa para el calculo del valor diario recomendado
+   * @param {number} value : magnitud ingresada por el usuario
+   * @param {String} unit : unidad asociada a la magnitud y se usa tambien para reportar el resultado
+   */
   setNutritionsFacts(type, value, unit){
 
     //aplicar redondedo
@@ -62,6 +74,7 @@ class NutritionFacts_form extends Component{
     
     vdr = nutriente?  Math.round( result / Nutrientes[type] * 100 )+'%' : '';
 
+    //guarda el valor del calulo y un string con formato correcto para reportar el valor
     this.handleStateChange(type,{report: report, vdr:vdr})
   }
 
@@ -378,6 +391,30 @@ class NutritionFacts_form extends Component{
   };
 }
 
+
+/**
+ * Declaracion de las variables del estado global que se usaran 
+ * en este componente a traves de sus props
+ * 
+ * @param {*} state: Se llena automaticamente
+ * @returns null
+ */
+ const mapStateToProps = state => ({
+    etiqueta: state.etiqueta,
+    LabelEditorSlice: state.LabelEditorSlice
+  });
+  
+  /**
+   * Declaracion de metodos para modificar el estado global que se
+   * usaran en este componente a traves de sus props
+   * @returns null
+   */
+  const mapDispatchToProps = () => ({ 
+    replace,
+    replaceLE
+  });
+
+  
 export default connect(
   mapStateToProps,
   mapDispatchToProps()

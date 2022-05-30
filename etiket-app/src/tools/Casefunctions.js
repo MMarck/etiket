@@ -51,9 +51,11 @@ export function getDataFontSize(area) {
     return '1em'
 } 
 
-/* function enIncrementosde(value, increment){
-    return parseFloat(value)
-}
+/**
+ * Funcion para aplicar la regla de "declarar en incrementos de x valor"
+ * @param {number} x 
+ * @param {number} corte 
+ * @returns 
  */
 function enIncrementosde(x, corte) {
     if (x === 0) 

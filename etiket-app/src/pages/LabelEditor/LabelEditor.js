@@ -12,7 +12,7 @@ import PrototypeFront from '../../components/PrototypeFront/PrototypeFront';
 import PrototypeBack from '../../components/PrototypeBack/PrototypeBack';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import React from 'react';
-import './TicketEditor.css';
+import './LabelEditor.css';
 import { setPosition } from '../../tools/Statefunctions';
 
 
@@ -26,7 +26,7 @@ const mapDispatchToProps = () => ({
     loadLabel,
     replaceLE
 });
-class TicketEditor extends  React.Component {
+class LabelEditor extends  React.Component {
 
     componentDidMount(){
         const header={
@@ -242,7 +242,7 @@ class TicketEditor extends  React.Component {
 
             <div id='masterContainer'>
                 <Sidebar/>
-                <div id='TicketEditorContainer' >
+                <div id='LabelEditorContainer' >
                     
                     <Link to={"/misEtiquetas"} style={{width:"fit-content"}}>
                         <img src={pathIcons+"back.png"} alt="Regresar" className="backBtn "/>
@@ -307,5 +307,5 @@ class TicketEditor extends  React.Component {
 export default connect(
     mapStateToProps,
     mapDispatchToProps()
-  )(withRouter(TicketEditor));
+  )(withRouter(LabelEditor));
 
