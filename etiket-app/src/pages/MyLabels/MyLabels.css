@@ -19,11 +19,6 @@
 
 
 
-/* Aclaracion: la clase "css-1xqpobx-Control" la coloca la clase react-select automaticamente */
-#countryTicket .css-1xqpobx-Control{
-    width: 100%;
-}
-
 .backBtn{
     width:2vw;
     margin-left:1vw;
@@ -128,8 +123,4 @@
     font-size: 0.7rem;
 }
 
-.newTicketModal-header{
-    border: none;
-    padding: 1em 1em 0 1em;
-}
 

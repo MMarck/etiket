@@ -40,9 +40,9 @@ class PrototypeFront extends Component{
 
     render(){
         //Declaracion de variables 
-        let ticketArea = unitTocm(this.props.etiqueta.altura, this.props.etiqueta.dimensionesUn.value ) * unitTocm(this.props.etiqueta.ancho, this.props.etiqueta.dimensionesUn.value );
-        let HeigthContainerPesosNetos = ticketArea > 10? '30%': '100%';//10 cm2 (centimetros cuadrados)
-        let dataFontSize = getDataFontSize( ticketArea );//area en cm2 (centimetros cuadrados)
+        let labelArea = unitTocm(this.props.etiqueta.altura, this.props.etiqueta.dimensionesUn.value ) * unitTocm(this.props.etiqueta.ancho, this.props.etiqueta.dimensionesUn.value );
+        let HeigthContainerPesosNetos = labelArea > 10? '30%': '100%';//10 cm2 (centimetros cuadrados)
+        let dataFontSize = getDataFontSize( labelArea );//area en cm2 (centimetros cuadrados)
 
         //Variables para accortar el texto
         let altura = this.props.etiqueta.altura;

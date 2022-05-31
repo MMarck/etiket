@@ -40,8 +40,8 @@ class PrototypeBack extends Component{
 
     render(){
         //Declaracion de variables 
-        let ticketArea = unitTocm(this.props.etiqueta.altura, this.props.etiqueta.dimensionesUn.value ) * unitTocm(this.props.etiqueta.ancho, this.props.etiqueta.dimensionesUn.value );
-        let dataFontSize = getDataFontSize( ticketArea );//area en cm2 (centimetros cuadrados)
+        let labelArea = unitTocm(this.props.etiqueta.altura, this.props.etiqueta.dimensionesUn.value ) * unitTocm(this.props.etiqueta.ancho, this.props.etiqueta.dimensionesUn.value );
+        let dataFontSize = getDataFontSize( labelArea );//area en cm2 (centimetros cuadrados)
 
         let altura = this.props.etiqueta.altura;
         let ancho = this.props.etiqueta.ancho;
