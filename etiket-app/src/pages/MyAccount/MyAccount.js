@@ -7,7 +7,9 @@ import {  Link} from 'react-router-dom';
 
 const userIcon = '../../images/icons/user.png';
 
-
+/**
+ * Componente para rendeizar la vista de cuenta de usuario
+*/
 function MyAccount(){
     return(
       <div className='columnContainer' >
@@ -114,7 +116,10 @@ function MyAccount(){
 
 export default MyAccount;
 
-
+/**
+ * componente para renderizar un modal que se usa 
+ * exclusivamente en el componente MyAccount
+ */
 function CambiarCorreoModal() {
   const [show, setShow] = useState(false);
 
@@ -167,7 +172,10 @@ function CambiarCorreoModal() {
   );
 }
 
-
+/**
+ * componente para renderizar un modal que se usa 
+ * exclusivamente en el componente MyAccount
+ */
 const ConfirmacionCorreoModal = ({closeParent}) => {
   const [show, setShow] = useState(false);
 
@@ -222,7 +230,10 @@ const ConfirmacionCorreoModal = ({closeParent}) => {
   );
 }
 
-
+/**
+ * componente para renderizar un modal que se usa 
+ * exclusivamente en el componente MyAccount
+ */
 function ConfirmacionBorrarCuentaModal() {
   const [show, setShow] = useState(false);
 
@@ -371,7 +382,12 @@ function ChangePlanModal() {
   );
 }
 
-
+/**
+ * Abtraccion de la declaracion de un radio button, se hizo asi
+ * para mejorar la lecuta en el componente modal
+ * @param {*} param0 
+ * @returns 
+ */
 const  RadioButton = ({group, title, description, planName})=> {
   return (
     <div className=''>

@@ -1,3 +1,5 @@
+/* Este Documento continene el esqueleto del estado global para las etiquetas */
+
 import { createSlice } from '@reduxjs/toolkit'
 import { 
   pesosDrenados,

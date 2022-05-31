@@ -3,7 +3,11 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import './Dashboard.css';
 
 
-
+/**
+ *  Componente que se ajusta a su contendor y se usa para
+ * encapsular a otras vistas 
+ *
+ */
 function Dashboard(){
     return(
       <div className='d-flex h-100 w-100'>
@@ -15,7 +19,7 @@ function Dashboard(){
 
             <Outlet/>{/*  Este componente pertenece a react-router-dom y 
                     permite alternar entre las rutas hijas declararas 
-                    en un compontente Router */}
+                    en un compontente Router en App.js */}
 
         </div>
         

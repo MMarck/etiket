@@ -11,7 +11,7 @@ import { backendURL } from '../../config/constants.js';
 import request from "../../tools/ApiSetup";
 import jwt_decode from 'jwt-decode';
 import Select from 'react-select';
-import './MyTickets.css';
+import './MyLabels.css';
 
 
 const mapStateToProps = state => ({
@@ -23,7 +23,7 @@ const mapDispatchToProps = () => ({
 
 
 
-class MyTickets extends Component{
+class MyLabels extends Component{
 
   componentDidMount(){
     const header={
@@ -50,10 +50,6 @@ class MyTickets extends Component{
       showPackagesTypes : false,
       labels: []
     }
-
-    
-    
-    //carga inicial de las etiquetas
   }
 
   handleStateChange(stateName,value){
@@ -122,9 +118,9 @@ class MyTickets extends Component{
 
 
           <div id='ContenedorEtiquetas'>
-            {/*creacion de los elementos TicketPreview por cada etiqueta 
+            {/*creacion de los elementos LabelPreview por cada etiqueta 
             guardada en estado global (store), cada elemento redirige al componente
-            TicketEditor el cual lee el id en la URL y carga los de dato de 
+            LabelEditor el cual lee el id en la URL y carga los de dato de 
             dicha etiqueta para modificarlo*/
 
             
@@ -187,7 +183,7 @@ class MyTickets extends Component{
         que se encuentra en el esta del componente */}
         <Modal id='packegaOptionMenu' show={this.state.showPackagesTypes} onHide={() =>{this.setState({showPackagesTypes:false})}} size="lg" centered>
 
-          <Modal.Header closeButton className="newTicketModal-header">
+          <Modal.Header closeButton className="newLabelModal-header">
             <Modal.Title>
               <h4><b>Elige el país</b></h4>
               <h5 className="h5-subtitle" >
@@ -200,7 +196,7 @@ class MyTickets extends Component{
           <Modal.Body>
             <div style={{width: 'fit-content', marginBottom:'1em'}}>
               <Select
-                id='countryTicket'
+                id='countryLabel'
                 className='ddMenu' 
                 styles={ddNormalStyle} 
                 options={countries} 
@@ -262,7 +258,7 @@ class MyTickets extends Component{
   * retorna un listado con las etiquetas
   * PENDIENTE CARGAR LAS ETIQUETAS Y VERIFICAR CUENTA DEL USUARIO
   */
-  getTickets() {
+  getLabels() {
     return [{name:'etiqueta1',type:'rectangular'}]
   }
 }
@@ -270,7 +266,7 @@ class MyTickets extends Component{
 export default connect(
   mapStateToProps,
   mapDispatchToProps()
-)(MyTickets);
+)(MyLabels);
 
 const imagePath = (type) => {
 
@@ -299,8 +295,8 @@ const imagePath = (type) => {
 * description: descripcioon de la opcion
 * imagePath: ruta de la imagen para la opcion
 * altImageText: texto alternativo para la imagen 
-* packageType: tipo de paquete para guardar en el estado global (store) newTicket
-* setTypeTicket: funcion para escribir en el estado global (puntero de la funcion)
+* packageType: tipo de paquete para guardar en el estado global (store) newLabel
+* setTypeLabel: funcion para escribir en el estado global (puntero de la funcion)
 */
 const PackageOption = ({title, description, imagePath, altImageText,  packageType, setPackageType}) => {
   

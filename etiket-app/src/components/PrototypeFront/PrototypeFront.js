@@ -7,26 +7,16 @@ import SizeIndicator from '../SizeIndicator/SizeIndicator'
 import Draggable from 'react-draggable'; 
 import './PrototypeFront.css'
 
-
-const mapStateToProps = state => ({
-    etiqueta: state.etiqueta,
-    LabelEditor : state.LabelEditorSlice,
-    });
-const mapDispatchToProps = () => ({ 
-    replace
-});
-
-
-
-
-
 /**
  * Componente para dibujar la vista DELANTERA de la etiqueta, las variables que utiliza estan mapeadas 
  * en props mediante el metodo connect de react redux al objeto etiqueta del store global
  */
 class PrototypeFront extends Component{
 
-    
+    /**
+     * funcion propia del componente, lanza el codigo durante la 
+     * construccion del componente
+     */
     componentDidMount(){
         setPosition('nombreProducto', this.props.etiqueta.nombreProductoPos)
         setPosition('pesosContainer', this.props.etiqueta.pesosPos)
@@ -34,6 +24,12 @@ class PrototypeFront extends Component{
         setPosition('alcohol', this.props.etiqueta.alcolPos)
     }
     
+    /**
+     * Abstracion del modificador de estado global (o reducer) 
+     * llamado "replace" 
+     * @param {String} stateName 
+     * @param {*} value 
+     */
     handleStateChange(stateName,value){
         const payload={
             stateName: stateName,
@@ -184,6 +180,28 @@ class PrototypeFront extends Component{
     };
 
 };
+
+
+/**
+ * Declaracion de las variables del estado global que se usaran 
+ * en este componente a traves de sus props
+ * 
+ * @param {*} state: Se llena automaticamente
+ * @returns null
+ */
+ const mapStateToProps = state => ({
+    etiqueta: state.etiqueta,
+    LabelEditor: state.LabelEditorSlice,
+  });
+
+/**
+ * Declaracion de metodos para modificar el estado global que se
+ * usaran en este componente a traves de sus props
+ * @returns null
+ */
+const mapDispatchToProps = () => ({ 
+    replace
+});
 
 export default connect(
     mapStateToProps,

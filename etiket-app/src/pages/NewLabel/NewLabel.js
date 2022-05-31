@@ -7,7 +7,7 @@ import request from "../../tools/ApiSetup"
 import { backendURL } from '../../config/constants.js'
 import Cookies from 'js-cookie';
 import { withRouter } from "../../tools/withRouter";
-import './NewTicket.css';
+import './NewLabel.css';
 
 
 const mapStateToProps = state => ({
@@ -24,7 +24,7 @@ const pathIcons = '../images/icons/';
 * el pais, luego pide el nombre y adjunta al usuario para crear la etiqueta 
 * en la base de datos, luego redirije a misEtiquetas
 */
-class NewTicket extends Component{
+class NewLabel extends Component{
 
   constructor(props){
     super(props);
@@ -35,7 +35,7 @@ class NewTicket extends Component{
     };
   } 
 
-  createNewTicket (e){
+  createNewLabel (e){
     const header={
       "Authorization":"Bearer "+this.state.accessToken
     }
@@ -93,7 +93,7 @@ class NewTicket extends Component{
 
         {/* Este boton debe verificar que el nombre no se repita para el usuario y luego mandar la 
         query para crear el esqueleto de etiqueta en la base de datos */}
-        <button className='btn-dark rounded fs-7' onClick={(e)=>{this.createNewTicket(e)}}>
+        <button className='btn-dark rounded fs-7' onClick={(e)=>{this.createNewLabel(e)}}>
           continuar
         </button>
       </div>
@@ -104,4 +104,4 @@ class NewTicket extends Component{
 export default connect(
   mapStateToProps,
   mapDispatchToProps()
-)(withRouter(NewTicket));
+)(withRouter(NewLabel));

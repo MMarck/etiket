@@ -6,15 +6,14 @@ import { Link, useNavigate  } from "react-router-dom";
 import { useState } from "react";
 import "./LoginForm.css";
 
+/**
+ * Formulario de inicio de sesion 
+ */
 const LoginForm = () => {
 
   const navigate  = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const google = ()=>{
-    window.open("http://localhost:5000/auth/google", "_self")
-  }
 
   const handleCookies=(accessToken, refreshToken)=> {
     Cookies.set("accessToken", accessToken);
@@ -75,7 +74,7 @@ const LoginForm = () => {
 
         <div className='signupButton google mx-auto mt-2 small'>
           <span className="icon"></span>
-          <span onClick={google}>Inicia sesion con Google</span>
+          <span>Inicia sesion con Google</span>
 
         </div> 
 

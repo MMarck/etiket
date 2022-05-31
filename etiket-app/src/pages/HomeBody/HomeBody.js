@@ -179,7 +179,7 @@ class HomeBody extends Component {
           {isPlanesVisible ?
             <div id="planes" className={isPlanesVisible ? "isShowing":"isNotShowing"}>
               <div id="verPlanes" onClick={()=>this.togglePlanes()}>
-                <img src="/images/icons/flecha-hacia-abajo.png" className="highImgIcon" style={{transform: "rotate(180deg)"}}></img>
+                <img src="/images/icons/flecha-hacia-abajo.png" alt="abajo" className="highImgIcon" style={{transform: "rotate(180deg)"}}></img>
                 <h1 className="highText">VER INFORMACIÓN</h1>
               </div>
               <h1 className="headText" style={{marginTop: "5%"}}>Planes Solinal Etiqueta</h1>
@@ -209,20 +209,20 @@ class HomeBody extends Component {
                 </p>
               </div>
               <div className="infoSquare">
-                <img src="/images/icons/label.png" className="imgInfoIcon"></img>
+                <img src="/images/icons/label.png" alt="etiqueta" className="imgInfoIcon"></img>
                 <p className="squareText">Cree e imprima fácilmente etiquetas para alimentos, suplementos, bebidas alchólicas y no alcohólicas.</p>
               </div>
               <div className="infoSquare">
-                <img src="/images/icons/gavel.png" className="imgInfoIcon"></img>
+                <img src="/images/icons/gavel.png" alt="maso" className="imgInfoIcon"></img>
                 <p className="squareText">Diseñe etiquetas nutricionales espectaculares que cumplan con las normativas de la UE y la FDA.</p>
               </div>
               <div className="infoSquare">
-                <img src="/images/icons/wheat.png" className="imgInfoIcon"></img>
+                <img src="/images/icons/wheat.png" alt="planta" className="imgInfoIcon"></img>
                 <p className="squareText">La función gestión de textos etiquetados destaca los alérgenos de manera automática cuando aparecen en las listas de ingredientes</p>
               </div>
               <div id="verPlanes" onClick={()=>this.togglePlanes()}>
                 <h1 className="highText" style={{marginTop:"40px"}}>VER PLANES</h1>
-                <img src="/images/icons/flecha-hacia-abajo.png" className="highImgIcon"></img>
+                <img src="/images/icons/flecha-hacia-abajo.png" alt="flecha abajo" className="highImgIcon"></img>
               </div>
             </div>  
           }

@@ -1,7 +1,6 @@
 var passport = require('passport');
 var UsersModel = require('../models/UsersModel.js');
 var RefreshModel= require("../models/refreshTokensModel.js")
-var refreshTokensController = require('../controllers/refreshTokensController.js');
 var jwt=require("jsonwebtoken")
 const path = require('path')
 require('dotenv').config({path:path.resolve(__dirname,"../config/.env")}); 

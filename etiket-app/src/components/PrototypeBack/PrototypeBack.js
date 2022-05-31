@@ -9,26 +9,27 @@ import Draggable from 'react-draggable';
 import './PrototypeBack.css';
 import NutritionFactsPreviewer from '../NutritionFactsPreviewer/NutritionFactsPreviewer';
 
-const mapStateToProps = state => ({
-    etiqueta: state.etiqueta,
-    LabelEditor: state.LabelEditorSlice,
-  });
-const mapDispatchToProps = () => ({ 
-    replace
-});
 
-
-/*
- * Componente para dibujar la vista TRASERA de la etiqueta, las variables que utiliza estan mapeadas
- * en props mediante el metodo connect de react redux al objeto etiqueta del store global
-*/
+/**
+ * Componente para dibujar el Panel de informacion de la etiqueta
+ */
 class PrototypeBack extends Component{
     
+    /**
+     * funcion propia del componente, lanza el codigo durante la 
+     * construccion del componente
+     */
     componentDidMount(){
         setPosition('ingPos', this.props.etiqueta.ingPos)
         setPosition('algPos', this.props.etiqueta.algPos)
     }
 
+    /**
+     * Abstracion del modificador de estado global (o reducer) 
+     * llamado "replace" 
+     * @param {String} stateName 
+     * @param {*} value 
+     */
     handleStateChange(stateName,value){
         const payload={
             stateName: stateName,
@@ -220,6 +221,30 @@ class PrototypeBack extends Component{
         )
     }
 }
+
+
+/**
+ * Declaracion de las variables del estado global que se usaran 
+ * en este componente a traves de sus props
+ * 
+ * @param {*} state: Se llena automaticamente
+ * @returns null
+ */
+ const mapStateToProps = state => ({
+    etiqueta: state.etiqueta,
+    LabelEditor: state.LabelEditorSlice,
+  });
+
+/**
+ * Declaracion de metodos para modificar el estado global que se
+ * usaran en este componente a traves de sus props
+ * @returns null
+ */
+const mapDispatchToProps = () => ({ 
+    replace
+});
+
+
 export default connect(
     mapStateToProps,
     mapDispatchToProps()

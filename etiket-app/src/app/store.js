@@ -1,14 +1,18 @@
+/**
+ * Documento de configuracion del estado global Redux,
+ * aca se declara un diccionario de "reducers" que la
+ * libreria usa para inicializar el estado global y que 
+ * posteriormente puede ser usado con las claves declaradas
+ * en este diccionario
+ */
+
 import { configureStore } from '@reduxjs/toolkit'
 import etiquetaReducer from "../reducers/etiquetaSlice"
-import TicketListReducer from '../reducers/TicketListSlice'
-import SessionReducer from '../reducers/SessionSlice'
 import LabelEditorSlice from '../reducers/LabelEditorSlice'
 
 export default configureStore({
   reducer: {
-    session: SessionReducer,
     etiqueta: etiquetaReducer,
-    ticketList: TicketListReducer,
     LabelEditorSlice: LabelEditorSlice
   },
 })

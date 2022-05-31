@@ -1,6 +1,4 @@
 var express = require('express');
-const res = require('express/lib/response');
-var passport = require('passport');
 var router = express.Router();
 var LabelsController = require('../controllers/LabelsController');
 var UsersController=require("../controllers/UsersController");
@@ -8,18 +6,9 @@ var UsersController=require("../controllers/UsersController");
 
 //Initial route http://localhost:3000/Ticket
 
-/*
- * GET
- */
-router.get('/', LabelsController.list);
 
 /*
- * GET
- */
-router.get('/:id', LabelsController.show);
-
-/*
- * POST - crear un nueva etiqueta
+ * POST - crear un nueva etiqueta, obtener información de una etiqueta por id o obtener todas las etiquetas de un usuario
  */
 router.post('/',UsersController.verifyJwt, LabelsController.create);
 
@@ -28,7 +17,7 @@ router.post("/getLabels",UsersController.verifyJwt, LabelsController.list);
 router.post("/getLabelbyId",UsersController.verifyJwt, LabelsController.show);
 
 /*
- * PUT
+ * PUT - Esto es para actualizar o guardar cambios de una etiqueta
  */
 router.put('/:id', UsersController.verifyJwt, LabelsController.update);
 

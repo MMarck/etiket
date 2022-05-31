@@ -3,17 +3,6 @@ import { connect } from 'react-redux';
 import {replace} from "../../reducers/etiquetaSlice";
 import './NutritionFactsPreviewer.css';
 
-
-
-
-
-const mapStateToProps = state => ({
-  etiqueta: state.etiqueta
-});
-const mapDispatchToProps = () => ({ 
-  replace
-});
-
 const defaultNutritionFact = {report:'', vdr:''};
 
 class NutritionFacts_Previewer extends Component{
@@ -323,35 +312,39 @@ class NutritionFacts_Previewer extends Component{
   };
 }
 
+
+
+/**
+ * Declaracion de las variables del estado global que se usaran 
+ * en este componente a traves de sus props
+ * 
+ * @param {*} state: Se llena automaticamente
+ * @returns null
+ */
+ const mapStateToProps = state => ({
+    etiqueta: state.etiqueta
+  });
+  
+  /**
+   * Declaracion de metodos para modificar el estado global que se
+   * usaran en este componente a traves de sus props
+   * @returns null
+   */
+  const mapDispatchToProps = () => ({ 
+    replace
+  });
+  
 export default connect(
   mapStateToProps,
   mapDispatchToProps()
 )(NutritionFacts_Previewer);
 
-function AcidosSubTable(params){
-    let acidList=[]
 
-    params.data.forEach(element => { 
-        
-        acidList.push(
-            <tr className="separator-botton-1" >
-                <td className="blank-cell">
-                </td>
 
-                <th>
-                    <span className='fw-normal'>{element.label} {element.mass} </span>
-                </th>
-                <td>
-                    <b>{element.percentage}</b>
-                </td>
-            </tr>
-        )
-    })
 
-    return ( acidList ) 
-
-}
-
+/**
+ * Componente para contruir las columnas de la tabla de Acidos
+ */
 function AcidoTableRow({label, mass, percentage}){
     return ( 
     <tr className="separator-botton-1" >
@@ -369,6 +362,12 @@ function AcidoTableRow({label, mass, percentage}){
 
 }
 
+/**
+ * Funcion para contruir las filas de la tabla de vitaminas
+ * a partir de un arreglo de vitaminas
+ * @param {Array} params 
+ * @returns 
+ */
 function VitaminasSubTable(params){
     let vitaminasList=[]
 

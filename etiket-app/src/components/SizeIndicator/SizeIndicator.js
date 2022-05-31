@@ -1,7 +1,10 @@
 import './SizeIndicator.css'
-/*
- * Componente para dibujar la parte DELANTERA de la etiqueta rectangular
-*/
+
+
+/**
+ * Este componente dibujar una regla que se ajusta al 
+ * tamaño de su contenedor
+ */
 function SizeIndicator ({length, orientation, visibilityProp, font_size}){
     length = length? length:'100mm';
     orientation = orientation? orientation:'horizontal';

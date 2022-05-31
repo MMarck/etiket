@@ -6,7 +6,9 @@ import { Link } from "react-router-dom";
 import "./CreateAccount.css";
 
 
-
+/**
+ * Vista que renderiza el formulario para crear una cuenta de usuario
+ */
 class CreateAccount extends Component {
 
   constructor(props) {
