@@ -40,12 +40,42 @@ class PrototypeBack extends Component{
 
     render(){
         //Declaracion de variables 
-        let labelArea = unitTocm(this.props.etiqueta.altura, this.props.etiqueta.dimensionesUn.value ) * unitTocm(this.props.etiqueta.ancho, this.props.etiqueta.dimensionesUn.value );
+
+        let dimensionesUn = this.props.etiqueta.dimensionesUn.value;
+        let altura = "10";
+        if (dimensionesUn==="cm") {
+            if (parseFloat(this.props.etiqueta.altura) >= 3.5) {
+                altura = this.props.etiqueta.altura;
+            } else{
+                altura = "10"
+            }
+        } else if (dimensionesUn==="mm"){
+            if (parseFloat(this.props.etiqueta.altura) >= 35) {
+                altura = this.props.etiqueta.altura;
+            } else{
+                altura="100"
+            }
+        }
+        
+        let ancho = this.props.etiqueta.ancho;
+
+        if (dimensionesUn==="cm") {
+            if (parseFloat(this.props.etiqueta.ancho) >= 3.5) {
+                ancho = this.props.etiqueta.ancho;
+            } else {
+                ancho="10"
+            }
+        } else if (dimensionesUn==="mm"){
+            if (parseFloat(this.props.etiqueta.ancho) >= 35) {
+                ancho = this.props.etiqueta.ancho;
+            } else{
+                ancho="100"
+            }
+        }
+
+        let labelArea = unitTocm(altura, dimensionesUn ) * unitTocm(ancho, dimensionesUn );
         let dataFontSize = getDataFontSize( labelArea );//area en cm2 (centimetros cuadrados)
 
-        let altura = this.props.etiqueta.altura;
-        let ancho = this.props.etiqueta.ancho;
-        let dimensionesUn = this.props.etiqueta.dimensionesUn.value;
         let metodoConservacion = this.props.etiqueta.metodoConservacion.label;
         let conservacionUn = this.props.etiqueta.conservacionUn.value;
         let vidaUtil = this.props.etiqueta.vidaUtil;

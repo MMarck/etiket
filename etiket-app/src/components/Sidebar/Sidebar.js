@@ -55,7 +55,9 @@ class Sidebar extends Component{
     super(props)
     this.state={
       accessToken:Cookies.get("accessToken") || "",
-      refreshToken: Cookies.get("refreshToken") || ""
+      refreshToken: Cookies.get("refreshToken") || "",
+      alturaTimeout: null,
+      anchoTimeout: null
     }
   }
 
@@ -167,7 +169,7 @@ class Sidebar extends Component{
             <div id='dimensiones' className='sidebarItem'>
               <div className='sidebarContHeader'>
                 <p className='sidebarTitle'>Dimensiones del empaque</p>
-                <p className='sidebarSubTitle'>Empieza clasificando las dimensiones a tu etiqueta</p>
+                <p className='sidebarSubTitle'>Empieza clasificando las dimensiones a tu etiqueta, recuerda que solo puedes poner como mínimo 3.5 cm o 35 mm de ancho y altura.</p>
               </div>
               <div id='dimensionesCont'>
                 <div id="dimensionesInput">
