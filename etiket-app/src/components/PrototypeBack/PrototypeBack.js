@@ -134,7 +134,7 @@ class PrototypeBack extends Component{
                                     <span>  
                                         {vidaUtil?
                                             <>
-                                                <b>Vida Util: </b> {vidaUtil} {vidaUtilUn}
+                                                <b>Vida Util: </b> {vidaUtil} {vidaUtil==="Ver Paquete"?"":vidaUtilUn}
                                             </>
                                         :''}
                                     </span>

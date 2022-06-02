@@ -78,6 +78,15 @@ class Sidebar extends Component{
     
   }
   
+  handleVerPaquete(stateName){
+    const payload={
+      stateName: stateName,
+      value: "Ver Paquete"
+    }
+
+    this.props.replace(payload);
+  }
+
   handleStateChange(stateName,value){
     const payload={
       stateName: stateName,
@@ -249,7 +258,7 @@ class Sidebar extends Component{
                 <p className='sidebarSubTitle'>En el caso de necesitar, se debe declarar un porcentaje del contenido alcohólico.</p>
               </div>
               <div id="alcoholCont">
-                <input id="alcoholInput" name='alcohol' type="text" onKeyPress={this.numberFilter} className=" gRInput numberInput" onChange={(e)=> this.handleStateChange("alcohol",e.target.value)}></input>
+                <input id="alcoholInput" value={this.props.etiqueta.alcohol} name='alcohol' type="text" onKeyPress={this.numberFilter} className=" gRInput numberInput" onChange={(e)=> this.handleStateChange("alcohol",e.target.value)}></input>
                 <Select className='ddMenu' styles={ddLargeStyle} options={unidadesAlcohol} defaultValue={{value:"Alcohol __% (Vol.)", label:"Alcohol __% (Vol.)"}} onChange={(e)=> this.handleStateChange("alcoholUn",e)}/>
               </div>
             </div>
@@ -320,17 +329,22 @@ class Sidebar extends Component{
               </div>
               <div id="vidaCont">
                 <div id='dias' className='vidaSubCont'>
-                  <input name='vidaUtil' type="text" onKeyPress={this.numberFilter} onChange={(e)=> this.handleStateChange("vidaUtil",e.target.value)} className="form-control gRInput numberInput" id="vidaUtil"/>
-                  <Select className='ddMenu' styles={ddNormalStyle} options={unidadesDias} onChange={(e)=> this.handleStateChange("vidaUtilUn",e)} />
+                  <input name='vidaUtil' value={this.props.etiqueta.vidaUtil==="Ver Paquete" ? "":this.props.etiqueta.vidaUtil} type="text" onKeyPress={this.numberFilter} onChange={(e)=> this.handleStateChange("vidaUtil",e.target.value)} className="form-control gRInput numberInput" id="vidaUtil"/>
+                  <Select className='ddMenu' styles={ddNormalStyle} options={unidadesDias} onChange={(e)=> this.handleStateChange("vidaUtilUn",e)} defaultValue={this.props.etiqueta.vidaUtil}/>
                 </div>
                 <div id='elab' className='vidaSubCont'>
-                  <Select className='ddMenu' styles={ddLargestStyle} options={fabricaciones} onChange={(e)=> this.handleStateChange("fabricacionUn",e)} />
-                  <DatePicker format='d/M/yyyy' onChange={(e)=>this.handleDateChange("fabricacion",e)} value={this.getDateObject(this.props.etiqueta.fabricacion)}/>
+                  <Select className='ddMenu' styles={ddLargestStyle} options={fabricaciones} onChange={(e)=> this.handleStateChange("fabricacionUn",e)} defaultValue={this.props.etiqueta.fabricacionUn}/>
+                  <DatePicker format='d/M/yyyy' onChange={(e)=>this.handleDateChange("fabricacion",e)} value={this.props.etiqueta.fabricacion === "Ver Paquete" ? "" :this.getDateObject(this.props.etiqueta.fabricacion)}/>
                 </div>
                 <div id='cadu' className='vidaSubCont'>
-                  <Select className='ddMenu' styles={ddLargestStyle} options={caducidades} onChange={(e)=> this.handleStateChange("caducacionUn",e)} />
-                  <DatePicker format='d/M/yyyy' onChange={(e)=>this.handleDateChange("caducacion",e)} value={this.getDateObject(this.props.etiqueta.caducacion)}/>
+                  <Select className='ddMenu' styles={ddLargestStyle} options={caducidades} onChange={(e)=> this.handleStateChange("caducacionUn",e)} defaultValue={this.props.etiqueta.caducacionUn}/>
+                  <DatePicker format='d/M/yyyy' onChange={(e)=>this.handleDateChange("caducacion",e)} value={this.props.etiqueta.caducacion === "Ver Paquete" ? "" :this.getDateObject(this.props.etiqueta.caducacion)}/>
                 </div>
+              </div>
+              <div id='lifeCheckbox' style={{alignSelf:'flex-end', marginTop:"1vh"}} onChange={()=>{this.handleVerPaquete("vidaUtil"); this.handleVerPaquete("fabricacion"); this.handleVerPaquete("caducacion")}}>
+                <button className='darkButton-twhite' style={{width:'fit-content', height:'fit-content', fontSize:'0.8em', margin:'auto'}} onClick={()=>{this.handleVerPaquete("vidaUtil"); this.handleVerPaquete("fabricacion"); this.handleVerPaquete("caducacion")}}> 
+                  PONER "VER PAQUETE"
+                </button>
               </div>
             </div>
           } />
