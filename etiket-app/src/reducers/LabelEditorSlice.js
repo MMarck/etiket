@@ -16,7 +16,7 @@ export const LabelEditorSlice = createSlice({
     replaceLE: (state,action) => {
         /* Esta función es para reemplazar una clave en espefico 
         del estado, el parametro action es transformado a un diccionario 
-        con la forma {type: 'NewTicket/replace', payload: [parametro_ingresado_en_replace]}
+        con la forma {type: 'NewLabel/replace', payload: [parametro_ingresado_en_replace]}
         por lo que para acceder a la carga util se debe usar la clave payload 
         
         ejemplo de seteo de datos : replaceLE(['showNutritionFacts', true])

@@ -3,6 +3,7 @@ import { pathIcons } from '../../config/constants';
 import { Modal } from 'react-bootstrap';
 import { replace } from '../../reducers/etiquetaSlice'; 
 import { connect } from 'react-redux';
+import Papa from "papaparse";
 import "./IngredientesModal.css"
 
 class IngredientesModal extends Component{
@@ -13,7 +14,8 @@ class IngredientesModal extends Component{
           showTextArea: false,
           showFileInput: false,
           showOptions: true,
-          ingTextForm: ""
+          ingTextForm: "",
+          ing:[]
         }
     }
 
@@ -41,13 +43,39 @@ class IngredientesModal extends Component{
             this.handleStateChange("ingredientes",ingFinal)
             alert("Se ha procesado correctamente")
         }
-    }      
+    }
+    
+    handleFile(e){
+        let ingFinal=[]
+        Papa.parse(e.target.files[0], {
+            header: false,
+            skipEmptyLines: true,
+            complete: function (results) {
+                let ingArray=results.data
+                ingArray.forEach(i => {
+                    let element={"valor":i[0],"porcentaje":i[1]}
+                    ingFinal.push(element)
+                });
+            },
+        });
+        this.setState({"ing":ingFinal})
+    }
+
+    submitFile(){
+        if (this.state.ing.length===0) {
+            alert("¡No ha subido nada!")
+        } else {
+            this.handleStateChange("ingredientes", this.state.ing)
+        }
+        
+    }
 
     render(){
         const handleClose = () => this.setState({'show':false});
         const handleShow = () => this.setState({'show':true});
 
         const handleTextArea = () => this.setState({'showTextArea':!this.state.showTextArea});
+        const handleFileInput = () => this.setState({"showFileInput":!this.state.showTextArea});
         
         const handleOptions = () => this.setState({'showOptions':!this.state.showOptions});
 
@@ -76,7 +104,11 @@ class IngredientesModal extends Component{
                         handleOptions(); 
                         handleTextArea();
                     }}/>
-                        
+                ||  this.state.showFileInput &&
+                    <img src={pathIcons+"back.png"} alt="Regresar" className="backBtn backBtnIng" onClick={()=>{
+                        handleOptions(); 
+                        handleFileInput();
+                    }}/>
                 }
                 </Modal.Header>
 
@@ -89,7 +121,10 @@ class IngredientesModal extends Component{
                             }}> 
                             INGRESAR DATOS POR TEXTO 
                             </button>
-                            <button className='darkButton-twhite' style={{width:'fit-content', height:'fit-content', fontSize:'0.8em', margin:'auto'}} onClick={handleShow}> 
+                            <button className='darkButton-twhite' style={{width:'fit-content', height:'fit-content', fontSize:'0.8em', margin:'auto'}} onClick={()=>{
+                                handleOptions(); 
+                                handleFileInput();
+                            }}> 
                             INGRESAR DATOS POR ARCHIVO CSV
                             </button>
                         </div>
@@ -102,7 +137,21 @@ class IngredientesModal extends Component{
                                 </button>
                             </form>
                         </div>
-                        
+                    || (this.state.showFileInput) &&
+                        <div>
+                            <p>Suba un archivo .csv donde la primera columna sean los ingredientes y la segunda sea los porcentajes, asegurese de eliminar la fila de encabezado en caso de tenerla</p>
+                            <br></br>
+                            <input
+                                id='csvInput'
+                                name='file'
+                                type="File"
+                                accept='.csv'
+                                onChange={(e)=>{this.handleFile(e)}}
+                            />
+                            <button className='darkButton-twhite' style={{width:'fit-content', height:'fit-content', fontSize:'0.8em', margin:'auto'}} onClick={()=>this.submitFile()}>
+                                PROCESAR ARCHIVO
+                            </button>
+                        </div>
                     }
                     
 

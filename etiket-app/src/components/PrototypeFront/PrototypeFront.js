@@ -40,20 +40,51 @@ class PrototypeFront extends Component{
 
     render(){
         //Declaracion de variables 
-        let ticketArea = unitTocm(this.props.etiqueta.altura, this.props.etiqueta.dimensionesUn.value ) * unitTocm(this.props.etiqueta.ancho, this.props.etiqueta.dimensionesUn.value );
-        let HeigthContainerPesosNetos = ticketArea > 10? '30%': '100%';//10 cm2 (centimetros cuadrados)
-        let dataFontSize = getDataFontSize( ticketArea );//area en cm2 (centimetros cuadrados)
 
         //Variables para accortar el texto
+        let dimensionesUn = this.props.etiqueta.dimensionesUn.value;
         let altura = this.props.etiqueta.altura;
-        let ancho = this.props.etiqueta.ancho
+
+        if (dimensionesUn==="cm") {
+            if (parseFloat(this.props.etiqueta.altura) >= 3.5) {
+                altura = this.props.etiqueta.altura;
+            } else{
+                altura = "10"
+            }
+        } else if (dimensionesUn==="mm"){
+            if (parseFloat(this.props.etiqueta.altura) >= 35) {
+                altura = this.props.etiqueta.altura;
+            } else{
+                altura="100"
+            }
+        }
+        
+        let ancho = this.props.etiqueta.ancho;
+
+        if (dimensionesUn==="cm") {
+            if (parseFloat(this.props.etiqueta.ancho) >= 3.5) {
+                ancho = this.props.etiqueta.ancho;
+            } else {
+                ancho="10"
+            }
+        } else if (dimensionesUn==="mm"){
+            if (parseFloat(this.props.etiqueta.ancho) >= 35) {
+                ancho = this.props.etiqueta.ancho;
+            } else{
+                ancho="100"
+            }
+        }
+
+        let labelArea = unitTocm(altura, dimensionesUn ) * unitTocm(ancho, dimensionesUn );
+        let HeigthContainerPesosNetos = labelArea > 10? '30%': '100%';//10 cm2 (centimetros cuadrados)
+        let dataFontSize = getDataFontSize( labelArea );//area en cm2 (centimetros cuadrados)
+
         let pesoNeto = this.props.etiqueta.pesoNeto;
         let pesoNetoLabel = this.props.etiqueta.pesoNetoLabel.value;
         let pesoNetoUn = this.props.etiqueta.pesoNetoUn.value;
         let pesoDrenado = this.props.etiqueta.pesoDrenado;
         let pesoDrenadoUn = this.props.etiqueta.pesoDrenadoUn.value;
         let pesoDrenadoLabel = this.props.etiqueta.pesoDrenadoLabel.value;
-        let dimensionesUn = this.props.etiqueta.dimensionesUn.value;
         let sizeIndicatorVisibility =  this.props.etiqueta.sizeIndicatorVisibility;
         let nombreProducto = this.props.etiqueta.nombreProducto;
         let marca = this.props.etiqueta.marca;
