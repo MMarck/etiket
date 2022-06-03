@@ -6,6 +6,8 @@ var UsersSchema = new Schema({
 	"email" : String,
 	'firstName' : String,
     "lastName": String,
+	"isVerified": Boolean,
+	"emailToken": String,
 });
 
 const options={usernameField:"email"};

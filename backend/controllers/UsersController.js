@@ -3,7 +3,12 @@ var UsersModel = require('../models/UsersModel.js');
 var RefreshModel= require("../models/refreshTokensModel.js")
 var jwt=require("jsonwebtoken")
 const path = require('path')
+const bcrypt= require('bcrypt')
+const crypto= require('crypto')
+const {getTemplate, sendEmail} =require('../config/mail.config');
 require('dotenv').config({path:path.resolve(__dirname,"../config/.env")}); 
+
+
 
 
 const generateAccessToken = (user)=>{
@@ -28,7 +33,6 @@ const generateRefreshToken = (user)=>{
     );
     return refreshToken;
 }
-
 
 /**
  * UsersController.js
@@ -84,9 +88,13 @@ module.exports = {
         var Users = new UsersModel({
 			email : req.body.email,
 			firstName : req.body.firstName,
-            lastName : req.body.lastName
+            lastName : req.body.lastName,
+            emailToken: crypto.randomBytes(64).toString('hex'),
+            isVerified: false
         });
-
+        console.log("probando")
+        const template= getTemplate(Users.firstName +" "+Users.lastName,req.headers.host, Users.emailToken)
+        sendEmail(Users.email, "Verification Account",template);
         UsersModel.register(Users,req.body.password,function(err,user){
             if (err){
                 return res.status(404).json({
@@ -94,14 +102,18 @@ module.exports = {
                     error: err
                 })
             }
-            
             passport.authenticate("local")(req,res,function(){
                 return res.status(201).json({
                     message: "Se ha creado el usuario correctamente"
+                    
                 });
+
             })
 
         });
+
+
+
     },
 
     login: function(req, res, next) {
