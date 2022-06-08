@@ -1,21 +1,21 @@
 /* Constantes usadas para el estilo en diferentes partes del sistema */
 
 :root {
-    --Sidebar-heigth: 90vh;
-    --Sgreen:#1ED796;
-    --Sblack:#404040;
-    --Sselectedgreen:#6fd8b359;
-    --Sgray:#f5f6f8;
-    --fondoWeb: "../../../public/images/fondo-web.png";
-    --BorderRadio: 10px;
+  --Sidebar-heigth: 90vh;
+  --Sgreen: #1ed796;
+  --Sblack: #404040;
+  --Sselectedgreen: #6fd8b359;
+  --Sgray: #f5f6f8;
+  --fondoWeb: "../../../public/images/fondo-web.png";
+  --BorderRadio: 10px;
 }
 
 @font-face {
-    font-family: "Local Helvetica";
-    src: url("../../public/fonts/Helvetica.ttf") format("truetype");
+  font-family: "Local Helvetica";
+  src: url("../../public/fonts/Helvetica.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: "Local Helvetica-Bold";
-    src: url("../../public/fonts/Helvetica-Bold.ttf") format("truetype");
+  font-family: "Local Helvetica-Bold";
+  src: url("../../public/fonts/Helvetica-Bold.ttf") format("truetype");
 }

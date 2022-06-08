@@ -1,6 +1,6 @@
 import "./CustomCheckbox.css";
 import { useState } from "react";
-import { animated, useSpring, config} from "react-spring";
+import { animated, useSpring, config } from "react-spring";
 
 function CustomCheckbox(props) {
   const [isChecked, setIsChecked] = useState(props.isChecked);
@@ -9,15 +9,15 @@ function CustomCheckbox(props) {
   const checkboxAnimationStyle = useSpring({
     backgroundColor: isChecked ? "#404040" : "#fff",
     borderColor: isChecked ? "#404040" : "#ddd",
-    config: config.gentle
+    config: config.gentle,
   });
 
   const checkmarkAnimationStyle = useSpring({
-    x: isChecked ? 0 : checkmarkLength
+    x: isChecked ? 0 : checkmarkLength,
   });
 
   return (
-    <label style={{cursor:"pointer"}}>
+    <label style={{ cursor: "pointer" }}>
       <input
         className="InputCheckbox"
         type="checkbox"

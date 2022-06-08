@@ -1,14 +1,14 @@
-#WallPaperWelcome{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    flex-grow: 1;
-    width: 100%;
-    height: 100%;
-    color: white;
-    text-align: center;
-    font-weight: bold;
-    font-size: initial;
-    background-repeat: no-repeat;
-    background-size: cover;
+#WallPaperWelcome {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: initial;
+  background-repeat: no-repeat;
+  background-size: cover;
 }

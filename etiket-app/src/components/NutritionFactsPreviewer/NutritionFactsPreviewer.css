@@ -1,6 +1,4 @@
-
-
-#NutritionFactsPreviewer{
+#NutritionFactsPreviewer {
   background-color: white;
   height: 100%;
   display: flex;
@@ -21,7 +19,7 @@ p {
   margin: 0;
 }
 
-td{
+td {
   text-align: right;
 }
 
@@ -41,20 +39,15 @@ td{
   border-bottom: 10px solid black;
   padding: 0 0 0.25rem 0;
   margin: 0 0 0.5rem 0;
-
 }
 .performance-facts__table {
- 
   width: 100%;
-
 }
- 
 
 .blank-cell {
   width: 1rem;
   border-top: 1pt white solid;
 }
-
 
 .small-info {
   font-size: 0.7rem;
@@ -63,12 +56,10 @@ td{
 .performance-facts__table--small {
   border-bottom: 1px solid #999;
   margin: 0 0 0.5rem 0;
-
 }
 
 .performance-facts__table--grid {
   margin: 0 0 0.5rem 0;
-
 }
 
 .text-center {
@@ -80,26 +71,26 @@ td{
 .thin-end {
   border-bottom: 1px solid black;
 }
-  
-.separator-botton-1{
+
+.separator-botton-1 {
   border-bottom: 0.25pt solid black;
   margin-bottom: 2pt;
   padding-bottom: 2pt;
 }
 
-.separator-botton-2{
-  border-bottom: 0.50pt solid black;
+.separator-botton-2 {
+  border-bottom: 0.5pt solid black;
   margin-bottom: 2pt;
   padding-bottom: 2pt;
 }
 
-.separator-botton-3{
+.separator-botton-3 {
   border-bottom: 3pt solid black;
   margin-bottom: 2pt;
   padding-bottom: 2pt;
 }
 
-.separator-botton-4{
+.separator-botton-4 {
   border-bottom: 7pt solid black;
   margin-bottom: 2pt;
   padding-bottom: 2pt;

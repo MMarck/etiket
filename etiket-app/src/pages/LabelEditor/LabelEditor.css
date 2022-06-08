@@ -1,22 +1,22 @@
-@import '../../config/constants.css';
+@import "../../config/constants.css";
 
-#masterContainer{
+#masterContainer {
   display: flex;
   height: 100vh;
-  width:100%;
+  width: 100%;
   background-color: var(--Sgray);
 }
 
-#LabelEditorContainer{
+#LabelEditorContainer {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  width:100%;
+  width: 100%;
   max-height: 90vh;
   overflow: auto;
 }
 
-#Previewer{
+#Previewer {
   display: flex;
   align-items: center;
   margin: 0;
@@ -25,82 +25,79 @@
   justify-content: center;
 }
 
-#PreviewContainer{
+#PreviewContainer {
   width: 100%;
   height: 100%;
   overflow: auto;
 }
 
-.dContent{
-    padding: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
+.dContent {
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 }
 
-.multIcon{
-    color: var(--Sgreen);
-    font-size: 20px;
+.multIcon {
+  color: var(--Sgreen);
+  font-size: 20px;
 }
 
-#ancho, #altura{
-    border: 2px solid var(--Sgreen);
-    padding-left: 10px;
-    padding-top: 0;
-    padding-bottom: 0;
-    border-radius: 0px;
-    font-size: 15px;
+#ancho,
+#altura {
+  border: 2px solid var(--Sgreen);
+  padding-left: 10px;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-radius: 0px;
+  font-size: 15px;
 }
 
-.duInput{
-    display: flex;
-    gap: 5px;
+.duInput {
+  display: flex;
+  gap: 5px;
 }
 
-
-
-.gRContent{
-    padding: 5px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+.gRContent {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
-.gRLabel{
+.gRLabel {
   width: auto;
 }
 
-
-
-.subgRContent{
-    display: flex;
-    justify-content: space-between;
-    gap: 5px;
+.subgRContent {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
 }
 
-.cnInput{
-    justify-content: space-between;
-    align-items: center;
+.cnInput {
+  justify-content: space-between;
+  align-items: center;
 }
 
-#vidaUtil{
+#vidaUtil {
   width: auto;
 }
 
 /* The container */
 .container {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-  
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 /* Hide the browser's default checkbox */
 .container input {
   position: absolute;
@@ -109,7 +106,7 @@
   height: 0;
   width: 0;
 }
-  
+
 /* Create a custom checkbox */
 .checkmark {
   position: absolute;
@@ -119,29 +116,29 @@
   width: 25px;
   background-color: #eee;
 }
-  
+
 /* On mouse-over, add a grey background color */
 .container:hover input ~ .checkmark {
   background-color: #ccc;
 }
-  
+
 /* When the checkbox is checked, add a blue background */
 .container input:checked ~ .checkmark {
   background-color: var(--Sgreen);
 }
-  
+
 /* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
   content: "";
   position: absolute;
   display: none;
 }
-  
+
 /* Show the checkmark when checked */
 .container input:checked ~ .checkmark:after {
   display: block;
 }
-  
+
 /* Style the checkmark/indicator */
 .container .checkmark:after {
   left: 9px;
@@ -155,11 +152,11 @@
   transform: rotate(45deg);
 }
 
-.draggable-container{
+.draggable-container {
   width: fit-content;
   height: fit-content;
 }
-.draggable-container:hover{
+.draggable-container:hover {
   border: 1px solid var(--Sgreen);
   cursor: move;
 }

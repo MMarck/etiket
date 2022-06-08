@@ -1,7 +1,7 @@
 /* Documentos de estilos para elementos que se repitan 
 en toda la aplicacion */
 
-@import '../config/constants.css';
+@import "../config/constants.css";
 
 .App {
   text-align: center;
@@ -43,22 +43,21 @@ en toda la aplicacion */
   }
 }
 
-.colored_border{
-  border: 2px solid #1ED796;
+.colored_border {
+  border: 2px solid #1ed796;
 }
 
-.colored-button{
+.colored-button {
   border-radius: 20px;
   border: none;
 }
 
-.colored-button:hover{
-  background-color: #1ED796;
+.colored-button:hover {
+  background-color: #1ed796;
   border: none;
 }
 
-
-.darkButton-twhite{
+.darkButton-twhite {
   border: none;
   color: white;
   font-weight: bold;
@@ -66,13 +65,12 @@ en toda la aplicacion */
   background-color: var(--Sblack);
 }
 
-#root{
+#root {
   width: 100%;
   height: 100%;
 }
 
-
-.flex-column-center{
+.flex-column-center {
   display: flex;
   flex-direction: column;
   justify-content: center;
