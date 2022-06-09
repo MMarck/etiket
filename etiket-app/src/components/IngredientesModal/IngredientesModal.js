@@ -29,7 +29,7 @@ class IngredientesModal extends Component {
   }
 
   handleSubmitText(e) {
-    let alertLines=[]
+    let alertLines = [];
     e.preventDefault();
     const ing = this.state.ingTextForm;
     if (ing === "") {
@@ -39,25 +39,33 @@ class IngredientesModal extends Component {
       const ingFinal = [];
       for (let i = 0; i < lines.length; i++) {
         let e = lines[i];
-        console.log(e)
-        e = e.match(/(?<=")[^"]+?(?="(?:\s*?,|\s*?$))|(?<=(?:^|,)\s*?)(?:[^,"\s][^,"]*[^,"\s])|(?:[^,"\s])(?![^"]*?"(?:\s*?,|\s*?$))(?=\s*?(?:,|$))/g);
-        console.log(e)
-        if (e.length!==2) {
-          alertLines.push(i+1)
+        console.log(e);
+        e = e.match(
+          /(?<=")[^"]+?(?="(?:\s*?,|\s*?$))|(?<=(?:^|,)\s*?)(?:[^,"\s][^,"]*[^,"\s])|(?:[^,"\s])(?![^"]*?"(?:\s*?,|\s*?$))(?=\s*?(?:,|$))/g
+        );
+        console.log(e);
+        if (e.length !== 2) {
+          alertLines.push(i + 1);
         } else {
-          ingFinal.push({ ing: e[0], percentage: e[1] })
+          ingFinal.push({ ing: e[0], percentage: e[1] });
         }
       }
-      if (alertLines.length!==0) {
-        alert("Hay errores en las lineas:"+alertLines.join(","))
+      if (alertLines.length !== 0) {
+        alert("Hay errores en las lineas:" + alertLines.join(","));
       } else {
-        const ingSorted=ingFinal.sort((a,b)=>{
+        const ingSorted = ingFinal.sort((a, b) => {
           return parseFloat(b["percentage"]) - parseFloat(a["percentage"]);
-        })
-        this.handleStateChange("ingredientes", ingSorted);
-        alert("Se ha procesado correctamente");
+        });
+        let sum = 0;
+        ingSorted.forEach((i) => {
+          sum += parseFloat(i.percentage);
+        });
+        if (sum !== 100) {
+          alert("Revise el documento, los porcentajes no suman 100");
+        } else {
+          this.handleStateChange("ingredientes", ingSorted);
+        }
       }
-      
     }
   }
 
@@ -81,10 +89,18 @@ class IngredientesModal extends Component {
     if (this.state.ing.length === 0) {
       alert("¡No ha subido nada!");
     } else {
-      const ingSorted=this.state.ing.sort((a,b)=>{
+      const ingSorted = this.state.ing.sort((a, b) => {
         return parseFloat(b["percentage"]) - parseFloat(a["percentage"]);
-      })
-      this.handleStateChange("ingredientes", ingSorted);
+      });
+      let sum = 0;
+      ingSorted.forEach((i) => {
+        sum += parseFloat(i.percentage);
+      });
+      if (sum !== 100) {
+        alert("Revise el documento, los porcentajes no suman 100");
+      } else {
+        this.handleStateChange("ingredientes", ingSorted);
+      }
     }
   }
 
@@ -188,6 +204,12 @@ class IngredientesModal extends Component {
               (this.state.showTextArea && (
                 <div>
                   <form id="ingText" onSubmit={(e) => this.handleSubmitText(e)}>
+                    <p>
+                      Escriba los ingredientes separados por sus porcentajes,
+                      cada ingrediente por cada línea. En el caso de poner
+                      ingredientes con sub-ingredientes, por favor, enciérrelo
+                      en comillas dobles.
+                    </p>
                     <textarea
                       id="ingTextArea"
                       onChange={(e) => handleIngText(e.target.value)}
@@ -216,7 +238,7 @@ class IngredientesModal extends Component {
                   <p>
                     Suba un archivo .csv donde la primera columna sean los
                     ingredientes y la segunda sea los porcentajes, asegurese de
-                    eliminar la fila de encabezado en caso de tenerla
+                    eliminar la fila de encabezado en caso de tenerla.
                   </p>
                   <br></br>
                   <input
