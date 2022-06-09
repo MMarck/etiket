@@ -504,8 +504,8 @@ class Sidebar extends Component {
                     <tbody style={{ textAlign: "center" }}>
                       {ingredientes.map((ing, index) => (
                         <tr>
-                          <td>{ing.valor}</td>
-                          <td>{ing.porcentaje}</td>
+                          <td>{ing.ing}</td>
+                          <td>{ing.percentage}</td>
                         </tr>
                       ))}
                     </tbody>

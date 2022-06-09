@@ -29,6 +29,7 @@ class IngredientesModal extends Component {
   }
 
   handleSubmitText(e) {
+    let alertLines=[]
     e.preventDefault();
     const ing = this.state.ingTextForm;
     if (ing === "") {
@@ -36,12 +37,27 @@ class IngredientesModal extends Component {
     } else {
       const lines = ing.split("\n");
       const ingFinal = [];
-      lines.forEach((i) => {
-        i = i.split(",");
-        ingFinal.push({ valor: i[0], porcentaje: i[1] });
-      });
-      this.handleStateChange("ingredientes", ingFinal);
-      alert("Se ha procesado correctamente");
+      for (let i = 0; i < lines.length; i++) {
+        let e = lines[i];
+        console.log(e)
+        e = e.match(/(?<=")[^"]+?(?="(?:\s*?,|\s*?$))|(?<=(?:^|,)\s*?)(?:[^,"\s][^,"]*[^,"\s])|(?:[^,"\s])(?![^"]*?"(?:\s*?,|\s*?$))(?=\s*?(?:,|$))/g);
+        console.log(e)
+        if (e.length!==2) {
+          alertLines.push(i+1)
+        } else {
+          ingFinal.push({ ing: e[0], percentage: e[1] })
+        }
+      }
+      if (alertLines.length!==0) {
+        alert("Hay errores en las lineas:"+alertLines.join(","))
+      } else {
+        const ingSorted=ingFinal.sort((a,b)=>{
+          return parseFloat(b["percentage"]) - parseFloat(a["percentage"]);
+        })
+        this.handleStateChange("ingredientes", ingSorted);
+        alert("Se ha procesado correctamente");
+      }
+      
     }
   }
 
@@ -53,7 +69,7 @@ class IngredientesModal extends Component {
       complete: function (results) {
         let ingArray = results.data;
         ingArray.forEach((i) => {
-          let element = { valor: i[0], porcentaje: i[1] };
+          let element = { ing: i[0], percentage: i[1] };
           ingFinal.push(element);
         });
       },
@@ -65,7 +81,10 @@ class IngredientesModal extends Component {
     if (this.state.ing.length === 0) {
       alert("¡No ha subido nada!");
     } else {
-      this.handleStateChange("ingredientes", this.state.ing);
+      const ingSorted=this.state.ing.sort((a,b)=>{
+        return parseFloat(b["percentage"]) - parseFloat(a["percentage"]);
+      })
+      this.handleStateChange("ingredientes", ingSorted);
     }
   }
 

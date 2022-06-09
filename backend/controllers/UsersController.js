@@ -3,7 +3,6 @@ var UsersModel = require('../models/UsersModel.js');
 var RefreshModel= require("../models/refreshTokensModel.js")
 var jwt=require("jsonwebtoken")
 const path = require('path')
-const bcrypt= require('bcrypt')
 const crypto= require('crypto')
 const {getTemplate, sendEmail} =require('../config/mail.config');
 require('dotenv').config({path:path.resolve(__dirname,"../config/.env")}); 
