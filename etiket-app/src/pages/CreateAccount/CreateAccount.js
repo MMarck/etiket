@@ -9,6 +9,7 @@ import "./CreateAccount.css";
  * Vista que renderiza el formulario para crear una cuenta de usuario
  */
 class CreateAccount extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -21,6 +22,15 @@ class CreateAccount extends Component {
 
   handleChange(event, state) {
     this.setState({ [state]: event.target.value });
+  }
+  
+  emailValidation = () =>{
+    const regEx = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g
+    if (regEx.test(this.state.email)){
+      console.log('correo valido');
+    }else if(!regEx.test(this.state.email) && this.state.email !== ""){
+      console.log('correo no es valido');
+    }
   }
 
   register(e) {
@@ -55,25 +65,6 @@ class CreateAccount extends Component {
             console.log("Error", error);
           }
         });
-      /*
-      fetch(backendURL+"UsersDB",{
-        method:"POST",
-        mode:"cors",
-        headers: { 
-          Accept: 'application/json',
-          'Content-Type': 'application/json'},
-          body: JSON.stringify(jsonData)
-      })
-      .then(response => {
-        if (response.ok) {
-          alert("Se ha creado el usuario")
-          this.props.navigate("/login")
-        } else {
-          response.json()
-          .then(data=>alert(data.error.message ));
-        }
-        })
-      */
     }
   }
 
@@ -95,11 +86,11 @@ class CreateAccount extends Component {
           <label htmlFor="email">Correo</label>
           <br />
           <input
-            value={this.state.email}
+            value={ this.state.email }
             onChange={(e) => this.handleChange(e, "email")}
             className="inputText  mb-4"
             id="usuario"
-            type="text"
+            type="email"
             name="correo"
             placeholder="Ingrese su correo"
           />
@@ -145,7 +136,7 @@ class CreateAccount extends Component {
           </div>
 
           <br />
-          <button type="submit" className="ligthButton w-100">
+          <button type="submit" className="ligthButton w-100" onClick={ this.emailValidation }>
             Crear Usuario
           </button>
 

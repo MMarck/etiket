@@ -1,14 +1,42 @@
 import "./MyAccount.css";
 import { Modal } from "react-bootstrap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { backendURL } from "../../config/constants.js";
+import request from "../../tools/ApiSetup";
+import jwt_decode from "jwt-decode";
+import Cookies from "js-cookie";
 
 const userIcon = "../../images/icons/user.png";
 
+
+
 /**
- * Componente para rendeizar la vista de cuenta de usuario
+ * Componente para renderizar la vista de cuenta de usuario
  */
 function MyAccount() {
+
+  const [user, setUser] = useState('');
+  const [email, setEmail] = useState('');
+
+  useEffect( () => {
+    const header = {
+      Authorization: "Bearer " + Cookies.get("accessToken"),
+    };
+    const jsonData = { user: jwt_decode(Cookies.get("accessToken")).id };
+    request
+      .get(backendURL + "UsersDB/"+ jsonData.user, jsonData, {
+        headers: header,
+      })
+      .then((res) => {
+        setUser(res.data.firstName);
+        setEmail(res.data.email);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  });
+
   return (
     <div className="columnContainer">
       <h1 className="mb-5 fw-bold">Mi cuenta</h1>
@@ -28,6 +56,7 @@ function MyAccount() {
               type="text"
               name="correo"
               placeholder="Cargando usuario"
+              value= { user }
             />
 
             <label htmlFor="usuario">Email</label>
@@ -37,6 +66,7 @@ function MyAccount() {
               type="text"
               name="correo"
               placeholder="Cargando correo"
+              value = { email }
             />
           </div>
 
