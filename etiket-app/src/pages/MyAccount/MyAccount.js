@@ -55,8 +55,7 @@ function MyAccount() {
               id="usuario"
               type="text"
               name="correo"
-              placeholder="Cargando usuario"
-              value= { user }
+              placeholder= { user }
             />
 
             <label htmlFor="usuario">Email</label>
@@ -65,8 +64,7 @@ function MyAccount() {
               id="usuario"
               type="text"
               name="correo"
-              placeholder="Cargando correo"
-              value = { email }
+              placeholder= { email }
             />
           </div>
 

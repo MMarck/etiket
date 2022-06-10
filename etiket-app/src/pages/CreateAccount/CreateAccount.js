@@ -136,14 +136,14 @@ class CreateAccount extends Component {
           </div>
 
           <br />
-          <button type="submit" className="ligthButton w-100" onClick={ this.emailValidation }>
+          <button type="submit" className="ligthButton w-100 cursor-pointer" onClick={ this.emailValidation }>
             Crear Usuario
           </button>
 
           <br />
           <br />
-          <Link to="/" className="w-100">
-            <button className="btn-dark darkButton">Cancelar</button>
+          <Link to="/login" className="w-100">
+            <button className="btn-dark darkButton cursor-pointer">Cancelar</button>
           </Link>
         </form>
 

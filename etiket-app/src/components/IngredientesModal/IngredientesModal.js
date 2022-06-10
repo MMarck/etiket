@@ -94,9 +94,12 @@ class IngredientesModal extends Component {
       });
       let sum = 0;
       ingSorted.forEach((i) => {
+        console.log(parseFloat(i.percentage))
         sum += parseFloat(i.percentage);
       });
+      sum=parseFloat(sum.toFixed(2))
       if (sum !== 100) {
+        console.log(sum)
         alert("Revise el documento, los porcentajes no suman 100");
       } else {
         this.handleStateChange("ingredientes", ingSorted);
