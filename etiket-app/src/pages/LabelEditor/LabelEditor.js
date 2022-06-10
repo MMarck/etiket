@@ -236,13 +236,19 @@ class LabelEditor extends React.Component {
       <div id="masterContainer">
         <Sidebar />
         <div id="LabelEditorContainer">
-          <Link to={"/misEtiquetas"} style={{ width: "fit-content" }}>
-            <img
-              src={pathIcons + "back.png"}
-              alt="Regresar"
-              className="backBtn "
-            />
-          </Link>
+            <Link to={"/misEtiquetas"} style={{ width: "fit-content" }}>
+              <img
+                src={pathIcons + "back.png"}
+                alt="Regresar"
+                className="backBtn "
+              />
+            </Link>
+            <div className="d-flex flex-column justify-content-center align-items-center">
+              <h5 className="paneTitleProject">
+                {this.props.etiqueta.nombreProyecto}
+              </h5>
+            </div>
+
 
           <div id="PreviewContainer">
             <div id="Previewer" ref={this.componentRef}>

@@ -54,6 +54,11 @@
   font-size: 15px;
 }
 
+.paneTitleProject {
+  text-align: center;
+  font-weight: bold;
+  color: black;
+}
 .duInput {
   display: flex;
   gap: 5px;
