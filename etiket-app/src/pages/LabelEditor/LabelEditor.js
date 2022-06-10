@@ -11,8 +11,8 @@ import request from "../../tools/ApiSetup";
 import { backendURL } from "../../config/constants.js";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
-import PrototypeFront from "../../components/PrototypeFront/PrototypeFront";
-import PrototypeBack from "../../components/PrototypeBack/PrototypeBack";
+//import PrototypeFront from "../../components/PrototypeFront/PrototypeFront";
+//import PrototypeBack from "../../components/PrototypeBack/PrototypeBack";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import React from "react";
 import "./LabelEditor.css";
@@ -29,6 +29,7 @@ const mapDispatchToProps = () => ({
   loadLabel,
   replaceLE,
 });
+
 class LabelEditor extends React.Component {
   componentDidMount() {
     const header = {
@@ -54,6 +55,81 @@ class LabelEditor extends React.Component {
           console.log("Error", error.message);
         }
       });
+
+    //Inicializacion del canvas
+    var canvas = new fabric.Canvas("PreviewContainer");
+
+    canvas.setDimensions(
+      {
+        width: "100%",
+        height: "100%",
+      },
+      { cssOnly: true }
+    );
+
+    canvas.setBackgroundColor("#F5F6F8");
+
+    var rect = new fabric.Rect({
+      left: 80,
+      top: 50,
+      fill: "white",
+      width: 50,
+      height: 50,
+      stroke: "gray",
+      rx: 10,
+      ry: 10,
+      hasControls: false,
+    });
+    var circle = new fabric.Circle({
+      radius: 20,
+      fill: "green",
+      left: 180,
+      top: 50,
+    });
+    canvas.add(circle, rect);
+    /////////////////////////////////////////////////////////////////
+
+    canvas.on("mouse:wheel", function (opt) {
+      var delta = opt.e.deltaY;
+      var zoom = canvas.getZoom();
+      zoom *= 0.999 ** delta;
+      if (zoom > 10) zoom = 10;
+      if (zoom < 0.1) zoom = 0.1;
+      canvas.zoomToPoint({ x: opt.e.offsetX, y: opt.e.offsetY }, zoom);
+      opt.e.preventDefault();
+      opt.e.stopPropagation();
+    });
+
+    canvas.on("mouse:down", function (opt) {
+      var evt = opt.e;
+      if (evt.altKey === true) {
+        this.isDragging = true;
+        this.selection = false;
+        this.lastPosX = evt.clientX;
+        this.lastPosY = evt.clientY;
+      }
+    });
+    canvas.on("mouse:move", function (opt) {
+      if (this.isDragging) {
+        var e = opt.e;
+        var vpt = this.viewportTransform;
+        console.log(e.clientX + " - " + e.clientY);
+        vpt[4] += e.clientX - this.lastPosX;
+        vpt[5] += e.clientY - this.lastPosY;
+        this.requestRenderAll();
+        this.lastPosX = e.clientX;
+        this.lastPosY = e.clientY;
+      }
+    });
+    canvas.on("mouse:up", function (opt) {
+      // on mouse up we want to recalculate new interaction
+      // for all objects, so we call setViewportTransform
+      this.setViewportTransform(this.viewportTransform);
+      this.isDragging = false;
+      this.selection = true;
+    });
+
+    this.setState({ canvas: canvas });
   }
 
   constructor(props) {
@@ -63,6 +139,7 @@ class LabelEditor extends React.Component {
       accessToken: Cookies.get("accessToken") || "",
       refreshToken: Cookies.get("refreshToken") || "",
       zoom: 1,
+      canvas: null,
     };
     this.zoomIn = this.zoomIn.bind(this);
     this.zoomOut = this.zoomOut.bind(this);
@@ -233,12 +310,6 @@ class LabelEditor extends React.Component {
   }
 
   render() {
-    //Inicializacion del canvas
-    /* var canvas = new fabric.Canvas("PreviewContainer", {
-      width: 900,
-      height: 400,
-    }); */
-
     return (
       <div id="masterContainer">
         <Sidebar />
@@ -251,14 +322,7 @@ class LabelEditor extends React.Component {
             />
           </Link>
 
-          <canvas
-            id="PreviewContainer"
-            className="koko"
-            ref={this.componentRef}
-            style={{
-              backgroundColor: "white",
-            }}
-          ></canvas>
+          <canvas id="PreviewContainer" ref={this.componentRef} />
 
           <div className="d-flex flex-column justify-content-center align-items-center gap-2">
             <span
@@ -302,22 +366,22 @@ class LabelEditor extends React.Component {
                 EXPORTAR EN PNG
               </button>
 
-              <button
-                type="button"
-                className="colored-button"
-                onClick={this.zoomIn}
-              >
-                {" "}
-                zoom in{" "}
-              </button>
-              <button
-                type="button"
-                className="colored-button"
-                onClick={this.zoomOut}
-              >
-                {" "}
-                zoom out
-              </button>
+              <img
+                src={pathIcons + "zoomin.png"}
+                alt="zoomIn"
+                className="zoomButton"
+                onClick={() => {
+                  this.state.canvas.setZoom(this.state.canvas.getZoom() * 1.1);
+                }}
+              />
+              <img
+                src={pathIcons + "zoomout.png"}
+                alt="zoomOut"
+                className="zoomButton"
+                onClick={() => {
+                  this.state.canvas.setZoom(this.state.canvas.getZoom() / 1.1);
+                }}
+              />
             </div>
           </div>
         </div>
