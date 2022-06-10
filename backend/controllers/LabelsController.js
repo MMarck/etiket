@@ -18,7 +18,7 @@ module.exports = {
      */
     list: function (req, res) {
         const userId=req.body.user
-        LabelsModel.find({user:userId},function (err, labels) {
+        LabelsModel.find({ user:userId },function (err, labels) {
             if (err) {
                 return res.status(500).json({
                     message: 'Error when getting Tickets.',
