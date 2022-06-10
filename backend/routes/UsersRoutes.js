@@ -23,6 +23,8 @@ router.get('/login', function(req, res) {
     res.render('login', {user: req.user});
 });
 
+router.get('/:id/verify/:token', UsersController.verify);
+
 /*
  * POST - Crear usuario, logear usuario, obtener token de refresco, logout de usuario y autenticación de usuario
  */
