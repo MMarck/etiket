@@ -1,6 +1,6 @@
-import { Outlet } from "react-router-dom";
-import Sidebar from "../../components/Sidebar/Sidebar";
-import "./Dashboard.css";
+import { Outlet } from 'react-router-dom';
+import Sidebar from '../../components/Sidebar/Sidebar';
+import './Dashboard.css';
 
 /**
  *  Componente que se ajusta a su contendor y se usa para
@@ -10,15 +10,10 @@ import "./Dashboard.css";
 function Dashboard() {
   return (
     <div className="d-flex h-100 w-100">
-      <Sidebar isDisabled={true} />
+      <Sidebar isDisabled />
 
       <div id="Wallpaper">
-        <img
-          id="AbsoluteLogo"
-          src="/images/solinalLogo.png"
-          alt="logo de solinal"
-          width={"100px"}
-        />
+        <img id="AbsoluteLogo" src="/images/solinalLogo.png" alt="logo de solinal" width="100px" />
 
         <Outlet />
         {/*  Este componente pertenece a react-router-dom y 

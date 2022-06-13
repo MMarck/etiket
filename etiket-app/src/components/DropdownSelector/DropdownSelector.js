@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri";
+import { useState } from 'react';
+import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri';
 
 function DropdownSelector({ title, items = [] }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,9 +11,7 @@ function DropdownSelector({ title, items = [] }) {
       setSelection([item]);
     } else {
       let selectionAfterRemoval = selection;
-      selectionAfterRemoval = selectionAfterRemoval.filter(
-        (current) => current.id !== item.id
-      );
+      selectionAfterRemoval = selectionAfterRemoval.filter((current) => current.id !== item.id);
       setSelection([...selectionAfterRemoval]);
     }
   }
@@ -28,19 +26,13 @@ function DropdownSelector({ title, items = [] }) {
   function getItemSelected() {
     if (selection.length === 0) {
       return { title };
-    } else {
-      return selection[0].value;
     }
+    return selection[0].value;
   }
 
   return (
     <div className="ddSelector">
-      <div
-        tabIndex={0}
-        className="ddHeader"
-        role="button"
-        onClick={() => toggle(!isOpen)}
-      >
+      <div tabIndex={0} className="ddHeader" role="button" onClick={() => toggle(!isOpen)}>
         <div className="ddHeaderTitle">
           <p className="ddHeaderTitleText">{title}</p>
         </div>
@@ -53,12 +45,9 @@ function DropdownSelector({ title, items = [] }) {
           {items.map((item) => (
             <li className="ddListName" key={item.id}>
               <button
-                className={
-                  isItemSelected(item) ? "btnSelected" : "btnNotSelected"
-                }
+                className={isItemSelected(item) ? 'btnSelected' : 'btnNotSelected'}
                 type="button"
-                onClick={() => handleOnClick(item)}
-              >
+                onClick={() => handleOnClick(item)}>
                 <span className="itemText">{item.value}</span>
               </button>
             </li>

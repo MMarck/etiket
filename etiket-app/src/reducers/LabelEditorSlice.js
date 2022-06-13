@@ -4,13 +4,13 @@
  * indicadores de tamaño de etiqueta
  */
 
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 export const LabelEditorSlice = createSlice({
-  name: "LabelEditorSlice",
+  name: 'LabelEditorSlice',
   initialState: {
     showNutritionFacts: false,
-    zoom: 1,
+    zoom: 1
   },
   reducers: {
     replaceLE: (state, action) => {
@@ -23,8 +23,8 @@ export const LabelEditorSlice = createSlice({
         
         */
       state[action.payload[0]] = action.payload[1];
-    },
-  },
+    }
+  }
 });
 export const { replaceLE } = LabelEditorSlice.actions;
 
