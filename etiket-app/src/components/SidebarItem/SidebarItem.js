@@ -1,13 +1,13 @@
-import "./SidebarItem.css";
-import { Component } from "react";
+import './SidebarItem.css';
+import { Component } from 'react';
 
-const pathIcons = "../images/icons/";
+const pathIcons = '../images/icons/';
 
 class SidebarItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false,
+      isOpen: false
     };
   }
 
@@ -16,26 +16,20 @@ class SidebarItem extends Component {
   }
 
   render() {
-    const isOpen = this.state.isOpen;
-    //const isDisabled=this.state.isDisabled
-    //const content=this.state.content
-    //const alt=this.state.alt
-    //const dataTip=this.state.dataTip
-    //const icon=this.state.icon
+    const { isOpen } = this.state;
+    // const isDisabled=this.state.isDisabled
+    // const content=this.state.content
+    // const alt=this.state.alt
+    // const dataTip=this.state.dataTip
+    // const icon=this.state.icon
 
     return (
-      <div
-        className={
-          this.props.isDisabled
-            ? "sideBarItem sideBarItemDisabled"
-            : "sideBarItem"
-        }
-      >
+      <div className={this.props.isDisabled ? 'sideBarItem sideBarItemDisabled' : 'sideBarItem'}>
         <img
           src={pathIcons + this.props.icon}
           alt={this.props.alt}
           data-tip={this.props.dataTip}
-          className={this.props.isDisabled ? "iconDisabled" : "iconEnabled"}
+          className={this.props.isDisabled ? 'iconDisabled' : 'iconEnabled'}
           onClick={() => {
             this.handleIsOpen();
           }}

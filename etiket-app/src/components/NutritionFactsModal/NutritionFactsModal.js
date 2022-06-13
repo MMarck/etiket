@@ -1,11 +1,11 @@
-import { Component } from "react";
-import { Modal } from "react-bootstrap";
-import { replace } from "../../reducers/etiquetaSlice";
-import { connect } from "react-redux";
-import NutritionFactsForm from "../NutritionFactsForm/NutritionFactsForm";
-import NutritionFactsPreviewer from "../NutritionFactsPreviewer/NutritionFactsPreviewer";
-import "./NutritionFactsModal.css";
-import CustomCheckbox from "../CustomCheckbox/CustomCheckbox";
+import { Component } from 'react';
+import { Modal } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { replace } from '../../reducers/etiquetaSlice';
+import NutritionFactsForm from '../NutritionFactsForm/NutritionFactsForm';
+import NutritionFactsPreviewer from '../NutritionFactsPreviewer/NutritionFactsPreviewer';
+import './NutritionFactsModal.css';
+import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
 
 class NutritionFacts_modal extends Component {
   /**
@@ -16,8 +16,8 @@ class NutritionFacts_modal extends Component {
    */
   handleStateChange(stateName, value) {
     const payload = {
-      stateName: stateName,
-      value: value,
+      stateName,
+      value
     };
     this.props.replace(payload);
   }
@@ -25,28 +25,26 @@ class NutritionFacts_modal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      show: false,
+      show: false
     };
   }
 
   render() {
     const handleClose = () => this.setState({ show: false });
     const handleShow = () => this.setState({ show: true });
-    let valoresRecomendadosDisabled =
-      this.props.etiqueta.valoresRecomendadosDisabled;
+    const { valoresRecomendadosDisabled } = this.props.etiqueta;
 
     return (
       <>
         <button
           className="darkButton-twhite"
           style={{
-            width: "fit-content",
-            height: "fit-content",
-            fontSize: "0.8em",
-            margin: "auto",
+            width: 'fit-content',
+            height: 'fit-content',
+            fontSize: '0.8em',
+            margin: 'auto'
           }}
-          onClick={handleShow}
-        >
+          onClick={handleShow}>
           INGRESAR DATOS
         </button>
 
@@ -56,9 +54,8 @@ class NutritionFacts_modal extends Component {
           onHide={handleClose}
           size="xl"
           centered
-          style={{ fontSize: "0.8rem" }}
-        >
-          <Modal.Header closeButton id="Modal-header"></Modal.Header>
+          style={{ fontSize: '0.8rem' }}>
+          <Modal.Header closeButton id="Modal-header" />
 
           <Modal.Body id="Modal-body">
             {/* Este componebnte renderiza un fomrulario para modificar
@@ -66,11 +63,8 @@ class NutritionFacts_modal extends Component {
             <NutritionFactsForm />
 
             <div id="NutritionFactsPreviewer" className="semi-bordered-right">
-              <p style={{ margin: "3em 2em 0em 2em" }}>
-                <b>
-                  Este es un ejemplo de como va a quedar la tabla nutricional de
-                  tu producto{" "}
-                </b>
+              <p style={{ margin: '3em 2em 0em 2em' }}>
+                <b>Este es un ejemplo de como va a quedar la tabla nutricional de tu producto </b>
               </p>
 
               {/* Este componente renderiza los datos procesados en una 
@@ -80,12 +74,11 @@ class NutritionFacts_modal extends Component {
               <div
                 onChange={() => {
                   this.handleStateChange(
-                    "valoresRecomendadosDisabled",
+                    'valoresRecomendadosDisabled',
                     !valoresRecomendadosDisabled
                   );
                 }}
-                style={{ marginBottom: "1vh" }}
-              >
+                style={{ marginBottom: '1vh' }}>
                 <CustomCheckbox isChecked={valoresRecomendadosDisabled} />
                 Ver valores diarios recomendados
               </div>
@@ -105,7 +98,7 @@ class NutritionFacts_modal extends Component {
  * @returns null
  */
 const mapStateToProps = (state) => ({
-  etiqueta: state.etiqueta,
+  etiqueta: state.etiqueta
 });
 
 /**
@@ -114,10 +107,7 @@ const mapStateToProps = (state) => ({
  * @returns null
  */
 const mapDispatchToProps = () => ({
-  replace,
+  replace
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps()
-)(NutritionFacts_modal);
+export default connect(mapStateToProps, mapDispatchToProps())(NutritionFacts_modal);

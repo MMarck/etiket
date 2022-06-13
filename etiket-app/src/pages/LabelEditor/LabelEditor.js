@@ -1,44 +1,40 @@
-import {
-  exportComponentAsPNG,
-  exportComponentAsPDF,
-} from "react-component-export-image";
-import { replace, erase, loadLabel } from "../../reducers/etiquetaSlice";
-import { replaceLE } from "../../reducers/LabelEditorSlice";
-import { pathIcons } from "../../config/constants";
-import { connect } from "react-redux";
-import { withRouter } from "../../tools/withRouter";
-import request from "../../tools/ApiSetup";
-import { backendURL } from "../../config/constants.js";
-import { Link } from "react-router-dom";
-import Cookies from "js-cookie";
-import PrototypeFront from "../../components/PrototypeFront/PrototypeFront";
-import PrototypeBack from "../../components/PrototypeBack/PrototypeBack";
-import Sidebar from "../../components/Sidebar/Sidebar";
-import React from "react";
-import "./LabelEditor.css";
-import { setPosition } from "../../tools/Statefunctions";
+import { exportComponentAsPNG, exportComponentAsPDF } from 'react-component-export-image';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import React from 'react';
+import { replace, erase, loadLabel } from '../../reducers/etiquetaSlice';
+import { replaceLE } from '../../reducers/LabelEditorSlice';
+import { pathIcons, backendURL } from '../../config/constants';
+import { withRouter } from '../../tools/withRouter';
+import request from '../../tools/ApiSetup';
+import PrototypeFront from '../../components/PrototypeFront/PrototypeFront';
+import PrototypeBack from '../../components/PrototypeBack/PrototypeBack';
+import Sidebar from '../../components/Sidebar/Sidebar';
+import './LabelEditor.css';
+import { setPosition } from '../../tools/Statefunctions';
 
 const mapStateToProps = (state) => ({
   etiqueta: state.etiqueta,
-  LabelEditor: state.LabelEditorSlice,
+  LabelEditor: state.LabelEditorSlice
 });
 const mapDispatchToProps = () => ({
   replace,
   erase,
   loadLabel,
-  replaceLE,
+  replaceLE
 });
 class LabelEditor extends React.Component {
   componentDidMount() {
     const header = {
-      Authorization: "Bearer " + this.state.accessToken,
+      Authorization: `Bearer ${this.state.accessToken}`
     };
     const jsonData = {
-      labelId: this.props.params.id,
+      labelId: this.props.params.id
     };
     request
-      .post(backendURL + "Labels/getLabelbyId", jsonData, {
-        headers: header,
+      .post(`${backendURL}Labels/getLabelbyId`, jsonData, {
+        headers: header
       })
       .then((res) => {
         const label = res.data;
@@ -50,7 +46,7 @@ class LabelEditor extends React.Component {
         } else if (error.request) {
           console.log(error.request);
         } else {
-          console.log("Error", error.message);
+          console.log('Error', error.message);
         }
       });
   }
@@ -59,9 +55,9 @@ class LabelEditor extends React.Component {
     super(props);
     this.componentRef = React.createRef();
     this.state = {
-      accessToken: Cookies.get("accessToken") || "",
-      refreshToken: Cookies.get("refreshToken") || "",
-      zoom: 1,
+      accessToken: Cookies.get('accessToken') || '',
+      refreshToken: Cookies.get('refreshToken') || '',
+      zoom: 1
     };
     this.zoomIn = this.zoomIn.bind(this);
     this.zoomOut = this.zoomOut.bind(this);
@@ -73,7 +69,7 @@ class LabelEditor extends React.Component {
 
   saveLabel() {
     const header = {
-      Authorization: "Bearer " + this.state.accessToken,
+      Authorization: `Bearer ${this.state.accessToken}`
     };
     const jsonData = {
       nombreProyecto: this.props.etiqueta.nombreProyecto,
@@ -84,40 +80,40 @@ class LabelEditor extends React.Component {
         ancho: this.props.etiqueta.ancho,
         altura: this.props.etiqueta.altura,
         unidad: this.props.etiqueta.dimensionesUn,
-        sizeIndicatorVisibility: this.props.etiqueta.sizeIndicatorVisibility,
+        sizeIndicatorVisibility: this.props.etiqueta.sizeIndicatorVisibility
       },
       pesoNeto: {
         valor: this.props.etiqueta.pesoNeto,
         label: this.props.etiqueta.pesoNetoLabel,
-        unidad: this.props.etiqueta.pesoNetoUn,
+        unidad: this.props.etiqueta.pesoNetoUn
       },
       pesoDrenado: {
         valor: this.props.etiqueta.pesoDrenado,
         label: this.props.etiqueta.pesoDrenadoLabel,
         unidad: this.props.etiqueta.pesoDrenadoUn,
-        isDisabled: this.props.etiqueta.pesoDrenadoDisabled,
+        isDisabled: this.props.etiqueta.pesoDrenadoDisabled
       },
       alcohol: {
         valor: this.props.etiqueta.alcohol,
-        unidad: this.props.etiqueta.alcoholUn,
+        unidad: this.props.etiqueta.alcoholUn
       },
       ingredientes: this.props.etiqueta.ingredientes,
       alergenos: this.props.etiqueta.alergenos,
       conservacion: {
         metodo: this.props.etiqueta.metodoConservacion,
-        unidad: this.props.etiqueta.conservacionUn,
+        unidad: this.props.etiqueta.conservacionUn
       },
       vidaUtil: {
         valor: this.props.etiqueta.vidaUtil,
-        unidad: this.props.etiqueta.vidaUtilUn,
+        unidad: this.props.etiqueta.vidaUtilUn
       },
       fabricacion: {
         valor: this.props.etiqueta.fabricacion,
-        unidad: this.props.etiqueta.fabricacionUn,
+        unidad: this.props.etiqueta.fabricacionUn
       },
       caducacion: {
         valor: this.props.etiqueta.caducacion,
-        unidad: this.props.etiqueta.caducacionUn,
+        unidad: this.props.etiqueta.caducacionUn
       },
       direccion: this.props.etiqueta.direccion,
       instrucciones: this.props.etiqueta.instrucciones,
@@ -128,24 +124,23 @@ class LabelEditor extends React.Component {
         ingredientes: this.props.etiqueta.ingPos,
         alergenos: this.props.etiqueta.algPos,
         infNut: this.props.etiqueta.infNutPos,
-        alcohol: this.props.etiqueta.alcolPos,
+        alcohol: this.props.etiqueta.alcolPos
       },
       TablaNutri: {
         tipo: this.props.etiqueta.tipoTabla,
         tamanioPorcion: {
           valor: this.props.etiqueta.tamanioPorcion,
-          unidad: this.props.etiqueta.tamanioPorcionUn,
+          unidad: this.props.etiqueta.tamanioPorcionUn
         },
         porcionPorEnvase: {
           valor: this.props.etiqueta.porcionPorEnvase,
           unidad: this.props.etiqueta.porcionPorEnvaseUn,
-          porcionPorEnvaseDisabled:
-            this.props.etiqueta.porcionPorEnvaseDisabled,
+          porcionPorEnvaseDisabled: this.props.etiqueta.porcionPorEnvaseDisabled
         },
         grasas: {
           total: this.props.etiqueta.grasaTotal,
           saturada: this.props.etiqueta.grasaSaturada,
-          trans: this.props.etiqueta.grasaTrans,
+          trans: this.props.etiqueta.grasaTrans
         },
         acidosMono: this.props.etiqueta.acidosMono,
         acidosPoli: this.props.etiqueta.acidosPoli,
@@ -157,14 +152,14 @@ class LabelEditor extends React.Component {
         fibra: this.props.etiqueta.fibra,
         energiaTotal: {
           julios: this.props.etiqueta.energiaTotalJulios,
-          calorias: this.props.etiqueta.energiaTotalCalorias,
-        },
-      },
+          calorias: this.props.etiqueta.energiaTotalCalorias
+        }
+      }
     };
 
     request
-      .put(backendURL + "Labels/" + this.props.params.id, jsonData, {
-        headers: header,
+      .put(`${backendURL}Labels/${this.props.params.id}`, jsonData, {
+        headers: header
       })
       .then((res) => {
         alert(res.data.message);
@@ -175,7 +170,7 @@ class LabelEditor extends React.Component {
         } else if (error.request) {
           console.log(error.request);
         } else {
-          console.log("Error", error.message);
+          console.log('Error', error.message);
         }
       });
   }
@@ -184,19 +179,19 @@ class LabelEditor extends React.Component {
    * Función permite aumentar el zoom aplicado como propiedad css al contenedor de las etiquetas
    */
   zoomIn() {
-    var zoom = this.props.LabelEditor.zoom + 0.1;
+    const zoom = this.props.LabelEditor.zoom + 0.1;
 
-    this.props.replaceLE(["zoom", zoom]); //actualizar la variable en el estado
-    let visualizer = document.getElementById("Previewer"); //obtener control del visualizador
-    visualizer.style.transform = "scale(" + zoom + ")"; //aplica el valor
+    this.props.replaceLE(['zoom', zoom]); // actualizar la variable en el estado
+    const visualizer = document.getElementById('Previewer'); // obtener control del visualizador
+    visualizer.style.transform = `scale(${zoom})`; // aplica el valor
 
     if (zoom >= 1.2) {
-      visualizer.style.paddingTop = zoom * 7 + "vh";
-      visualizer.style.paddingLeft = zoom * 7 + "vw";
+      visualizer.style.paddingTop = `${zoom * 7}vh`;
+      visualizer.style.paddingLeft = `${zoom * 7}vw`;
     }
     if (zoom >= 1.4) {
-      visualizer.style.paddingTop = zoom * 12 + "vh";
-      visualizer.style.paddingLeft = zoom * 14 + "vw";
+      visualizer.style.paddingTop = `${zoom * 12}vh`;
+      visualizer.style.paddingLeft = `${zoom * 14}vw`;
     }
   }
 
@@ -204,31 +199,31 @@ class LabelEditor extends React.Component {
    * Función permite disminuir el zoom aplicado como propiedad css al contenedor de las etiquetas
    */
   zoomOut() {
-    var zoom = this.props.LabelEditor.zoom - 0.1;
+    const zoom = this.props.LabelEditor.zoom - 0.1;
 
-    this.props.replaceLE(["zoom", zoom]); //actualizar la variable en el estado
-    let visualizer = document.getElementById("Previewer"); //obtener control del visualizador
-    visualizer.style.transform = "scale(" + zoom + ")"; //aplica el valor
+    this.props.replaceLE(['zoom', zoom]); // actualizar la variable en el estado
+    const visualizer = document.getElementById('Previewer'); // obtener control del visualizador
+    visualizer.style.transform = `scale(${zoom})`; // aplica el valor
 
     if (zoom < 1.2) {
-      visualizer.style.paddingTop = "0vh";
-      visualizer.style.paddingLeft = "0vw";
+      visualizer.style.paddingTop = '0vh';
+      visualizer.style.paddingLeft = '0vw';
     } else if (zoom >= 1.2 && zoom < 1.4) {
-      visualizer.style.paddingTop = zoom * 7 + "vh";
-      visualizer.style.paddingLeft = zoom * 7 + "vw";
+      visualizer.style.paddingTop = `${zoom * 7}vh`;
+      visualizer.style.paddingLeft = `${zoom * 7}vw`;
     } else if (zoom >= 1.4) {
-      visualizer.style.paddingTop = zoom * 12 + "vh";
-      visualizer.style.paddingLeft = zoom * 14 + "vw";
+      visualizer.style.paddingTop = `${zoom * 12}vh`;
+      visualizer.style.paddingLeft = `${zoom * 14}vw`;
     }
   }
 
   resetElementPosition() {
-    setPosition("nombreProducto");
-    setPosition("pesosContainer");
-    setPosition("marca");
-    setPosition("alcohol");
-    setPosition("ingPos");
-    setPosition("algPos");
+    setPosition('nombreProducto');
+    setPosition('pesosContainer');
+    setPosition('marca');
+    setPosition('alcohol');
+    setPosition('ingPos');
+    setPosition('algPos');
   }
 
   render() {
@@ -236,19 +231,12 @@ class LabelEditor extends React.Component {
       <div id="masterContainer">
         <Sidebar />
         <div id="LabelEditorContainer">
-            <Link to={"/misEtiquetas"} style={{ width: "fit-content" }}>
-              <img
-                src={pathIcons + "back.png"}
-                alt="Regresar"
-                className="backBtn "
-              />
-            </Link>
-            <div className="d-flex flex-column justify-content-center align-items-center">
-              <h5 className="paneTitleProject">
-                {this.props.etiqueta.nombreProyecto}
-              </h5>
-            </div>
-
+          <Link to="/misEtiquetas" style={{ width: 'fit-content' }}>
+            <img src={`${pathIcons}back.png`} alt="Regresar" className="backBtn " />
+          </Link>
+          <div className="d-flex flex-column justify-content-center align-items-center">
+            <h5 className="paneTitleProject">{this.props.etiqueta.nombreProyecto}</h5>
+          </div>
 
           <div id="PreviewContainer">
             <div id="Previewer" ref={this.componentRef}>
@@ -263,56 +251,37 @@ class LabelEditor extends React.Component {
                 this.props.erase();
                 this.resetElementPosition();
               }}
-              style={{ cursor: "pointer" }}
-              className="p-2"
-            >
-              <img
-                src={pathIcons + "return.png"}
-                alt="return "
-                width={"10px"}
-              />
+              style={{ cursor: 'pointer' }}
+              className="p-2">
+              <img src={`${pathIcons}return.png`} alt="return " width="10px" />
               BORRAR TODO
             </span>
 
             <div className="d-flex gap-3">
-              <button
-                onClick={() => this.saveLabel()}
-                className="darkButton-twhite"
-                type="button"
-              >
+              <button onClick={() => this.saveLabel()} className="darkButton-twhite" type="button">
                 GUARDAR CAMBIOS
               </button>
 
               <button
                 onClick={() => exportComponentAsPDF(this.componentRef)}
                 className="darkButton-twhite"
-                type="button"
-              >
+                type="button">
                 EXPORTAR EN PDF
               </button>
 
               <button
                 onClick={() => exportComponentAsPNG(this.componentRef)}
                 className="darkButton-twhite"
-                type="button"
-              >
+                type="button">
                 EXPORTAR EN PNG
               </button>
 
-              <button
-                type="button"
-                className="colored-button"
-                onClick={this.zoomIn}
-              >
-                {" "}
-                zoom in{" "}
+              <button type="button" className="colored-button" onClick={this.zoomIn}>
+                {' '}
+                zoom in{' '}
               </button>
-              <button
-                type="button"
-                className="colored-button"
-                onClick={this.zoomOut}
-              >
-                {" "}
+              <button type="button" className="colored-button" onClick={this.zoomOut}>
+                {' '}
                 zoom out
               </button>
             </div>
@@ -323,7 +292,4 @@ class LabelEditor extends React.Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps()
-)(withRouter(LabelEditor));
+export default connect(mapStateToProps, mapDispatchToProps())(withRouter(LabelEditor));

@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import "./ResetPassword.css";
+import { Link } from 'react-router-dom';
+import './ResetPassword.css';
 
-const ResetPassword = () => {
+function ResetPassword() {
   return (
     <div className="d-flex flex-column w-50 small">
       <span id="avisoDeIngreso">
@@ -9,9 +9,8 @@ const ResetPassword = () => {
       </span>
 
       <p>
-        Puedes recuperar tu contraseña ingresando tu usuario. Te llegará una
-        notificación a tu correo electrónico registrado donde te compartiremos
-        tu contraseña.
+        Puedes recuperar tu contraseña ingresando tu usuario. Te llegará una notificación a tu
+        correo electrónico registrado donde te compartiremos tu contraseña.
       </p>
 
       <form id="resetForm" className="w-100">
@@ -39,6 +38,6 @@ const ResetPassword = () => {
       </form>
     </div>
   );
-};
+}
 
 export default ResetPassword;
