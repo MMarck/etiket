@@ -1,59 +1,57 @@
-@import '../../config/constants.css';
+@import "../../config/constants.css";
 
-
-#LoginBox{
+#LoginBox {
   width: 100%;
 }
 
 #LoginForm > * {
   margin: 0px auto;
 }
-#LoginForm button{
+#LoginForm button {
   width: 100%;
 }
 
-#LoginForm{
-  text-align:left;
+#LoginForm {
+  text-align: left;
   width: 100%;
 }
 
-#loginform label{
+#loginform label {
   font-size: 0.9rem;
   font-weight: bold;
   color: gray;
   margin: 100px auto;
 }
 
-#LoginForm input{
+#LoginForm input {
   width: 100%;
 }
 
-
-.ligthButton{
+.ligthButton {
   border: 2px solid var(--Sgreen);
   background-color: white;
   color: var(--Sgreen);
 }
 
-
-.signupButton{
+.signupButton {
   border-radius: 5px;
   box-shadow: 1px 1px 1px grey;
-  width:fit-content;
-  padding-right:10px;
+  width: fit-content;
+  padding-right: 10px;
   cursor: pointer;
 }
 
 .facebook {
-  background-color: #1B77F0;
+  background-color: #1b77f0;
   color: white;
 }
 .facebook .icon {
-    background: url(https://developers-dot-devsite-v2-prod.appspot.com/identity/sign-in/g-normal.png) transparent 5px 50% no-repeat;
-    display: inline-block;
-    vertical-align: middle;
-    width: 42px;
-    height: 42px;
+  background: url(https://developers-dot-devsite-v2-prod.appspot.com/identity/sign-in/g-normal.png)
+    transparent 5px 50% no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+  width: 42px;
+  height: 42px;
 }
 
 .google {
@@ -61,9 +59,10 @@
 }
 
 .google .icon {
-    background: url(https://developers-dot-devsite-v2-prod.appspot.com/identity/sign-in/g-normal.png) transparent 5px 50% no-repeat;
-    display: inline-block;
-    vertical-align: middle;
-    width: 42px;
-    height: 42px;
+  background: url(https://developers-dot-devsite-v2-prod.appspot.com/identity/sign-in/g-normal.png)
+    transparent 5px 50% no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+  width: 42px;
+  height: 42px;
 }

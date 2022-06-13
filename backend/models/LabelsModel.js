@@ -29,7 +29,7 @@ var LabelsSchema = new Schema({
 		"valor":String,
 		"unidad":{"value":String, "label":String}
 	},
-	"ingredientes":[{"valor":String, "porcentaje":String}],
+	"ingredientes":[{"ing":String, "percentage":String}],
 	"alergenos":[{"value":String, "label":String}],
 	"conservacion":{
 		"metodo":{"value":String, "label":String},

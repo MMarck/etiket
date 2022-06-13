@@ -1,19 +1,19 @@
 .sizeIndicatorWapper {
-    opacity: 0.4;
+  opacity: 0.4;
 }
 
 .sizeIndicatorWapper:hover {
-opacity: 1.0;
+  opacity: 1;
 }
 
-.horizontalIndicator{
-    display: inline-block;
-    text-align: center;
-    margin-top: 2em;
+.horizontalIndicator {
+  display: inline-block;
+  text-align: center;
+  margin-top: 2em;
 }
 
-.verticalIndicator{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.verticalIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
