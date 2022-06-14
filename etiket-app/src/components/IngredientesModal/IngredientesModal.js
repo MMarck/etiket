@@ -46,6 +46,10 @@ class IngredientesModal extends Component {
         console.log(e);
         if (e.length !== 2) {
           alertLines.push(i + 1);
+        } else if (isNum(e[1]) === false) {
+          alertLines.push(i + 1);
+        } else if (parseFloat(e[1]) < 0.01) {
+          alertLines.push(i + 1);
         } else {
           ingFinal.push({ ing: e[0], percentage: e[1] });
         }
