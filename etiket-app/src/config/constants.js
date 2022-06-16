@@ -866,3 +866,9 @@ function handleDateChange(value) {
   const date = dd + "/" + mm + "/" + yyyy;
   return date;
 }
+
+
+/**
+ * factor de zoom para el visualizador de etiquetas
+ */
+export const zoom = 1.1;
