@@ -5,9 +5,8 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "airbnb",
         "eslint:recommended",
-        "plugin:react/recommended",
+        "airbnb",
         "plugin:prettier/recommended"
     ],
     "parserOptions": {
