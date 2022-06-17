@@ -1,23 +1,23 @@
-import "./CustomCheckbox.css";
-import { useState } from "react";
-import { animated, useSpring, config } from "react-spring";
+import './CustomCheckbox.css';
+import { useState } from 'react';
+import { animated, useSpring, config } from 'react-spring';
 
 function CustomCheckbox(props) {
   const [isChecked, setIsChecked] = useState(props.isChecked);
   const [checkmarkLength, setCheckmarkLength] = useState(null);
 
   const checkboxAnimationStyle = useSpring({
-    backgroundColor: isChecked ? "#404040" : "#fff",
-    borderColor: isChecked ? "#404040" : "#ddd",
-    config: config.gentle,
+    backgroundColor: isChecked ? '#404040' : '#fff',
+    borderColor: isChecked ? '#404040' : '#ddd',
+    config: config.gentle
   });
 
   const checkmarkAnimationStyle = useSpring({
-    x: isChecked ? 0 : checkmarkLength,
+    x: isChecked ? 0 : checkmarkLength
   });
 
   return (
-    <label style={{ cursor: "pointer" }}>
+    <label style={{ cursor: 'pointer' }}>
       <input
         className="InputCheckbox"
         type="checkbox"
@@ -27,13 +27,12 @@ function CustomCheckbox(props) {
       />
       <animated.svg
         style={checkboxAnimationStyle}
-        className={`checkbox ${isChecked ? "checkbox--active" : ""}`}
+        className={`checkbox ${isChecked ? 'checkbox--active' : ''}`}
         // This element is purely decorative so
         // we hide it for screen readers
         aria-hidden="true"
         viewBox="0 0 15 11"
-        fill="none"
-      >
+        fill="none">
         <animated.path
           d="M1 4.5L5 9L14 1"
           strokeWidth="2"

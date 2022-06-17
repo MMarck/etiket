@@ -3,21 +3,21 @@
  * a las correspondientes vistas
  */
 
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { createBrowserHistory } from "history";
-import MyAccount from "../pages/MyAccount/MyAccount";
-import Dashboard from "../pages/Dashboard/Dashboard";
-import WallPaperWelcome from "../pages/WallpaperWelcome/WallpaperWelcome";
-import NewLabel from "../pages/NewLabel/NewLabel";
-import MyLabels from "../pages/MyLabels/MyLabels";
-import HomeBody from "../pages/HomeBody/HomeBody";
-import ResetPassword from "../pages/ResetPassword/ResetPassword";
-import CreateAccount from "../pages/CreateAccount/CreateAccount";
-import LoginForm from "../components/LoginForm/LoginForm";
-import ChangePassword from "../pages/ChangePassword/ChangePassword";
-import LabelEditor from "../pages/LabelEditor/LabelEditor";
-import PrivateRoute from "../tools/PrivateRoute";
-import "./App.css";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+import MyAccount from '../pages/MyAccount/MyAccount';
+import Dashboard from '../pages/Dashboard/Dashboard';
+import WallPaperWelcome from '../pages/WallpaperWelcome/WallpaperWelcome';
+import NewLabel from '../pages/NewLabel/NewLabel';
+import MyLabels from '../pages/MyLabels/MyLabels';
+import HomeBody from '../pages/HomeBody/HomeBody';
+import ResetPassword from '../pages/ResetPassword/ResetPassword';
+import CreateAccount from '../pages/CreateAccount/CreateAccount';
+import LoginForm from '../components/LoginForm/LoginForm';
+import ChangePassword from '../pages/ChangePassword/ChangePassword';
+import LabelEditor from '../pages/LabelEditor/LabelEditor';
+import PrivateRoute from '../tools/PrivateRoute';
+import './App.css';
 
 const history = createBrowserHistory();
 
@@ -29,13 +29,10 @@ function App() {
           path="/login"
           exact
           element={
-            <>
-              <div className="App">
-                <HomeBody />
-              </div>
-            </>
-          }
-        >
+            <div className="App">
+              <HomeBody />
+            </div>
+          }>
           <Route index element={<LoginForm />} />
           <Route path="resetPassword" element={<ResetPassword />} />
           <Route path="createAccount" element={<CreateAccount />} />
@@ -51,10 +48,7 @@ function App() {
           </Route>
         </Route>
 
-        <Route
-          path="/editarEtiqueta/:id"
-          element={<PrivateRoute redirectTo="/login" />}
-        >
+        <Route path="/editarEtiqueta/:id" element={<PrivateRoute redirectTo="/login" />}>
           <Route path="/editarEtiqueta/:id" element={<LabelEditor />} />
         </Route>
       </Routes>
