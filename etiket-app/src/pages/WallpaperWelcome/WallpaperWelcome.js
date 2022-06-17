@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import "./WallpaperWelcome.css";
+import { Link } from 'react-router-dom';
+import './WallpaperWelcome.css';
 
 /**
  * Este componente se renderiza frente a otros componentes y
@@ -8,10 +8,7 @@ import "./WallpaperWelcome.css";
  */
 export default function WallPaperWelcome() {
   return (
-    <div
-      id="WallPaperWelcome"
-      style={{ backgroundImage: "url(/images/fondo-web3.png)" }}
-    >
+    <div id="WallPaperWelcome" style={{ backgroundImage: 'url(/images/fondo-web3.png)' }}>
       <span>
         <br />
         <br />

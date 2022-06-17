@@ -9,14 +9,14 @@
  * documento src/tools/CaseFunctions.js
  */
 
-import { getReportFormat } from "../../tools/Casefunctions";
-import { replaceLE } from "../../reducers/LabelEditorSlice";
-import { Component } from "react";
-import { replace } from "../../reducers/etiquetaSlice";
-import { connect } from "react-redux";
-import CustomCheckbox from "../CustomCheckbox/CustomCheckbox";
-import Select from "react-select";
-import "./NutritionFactsForm.css";
+import { getReportFormat } from '../../tools/Casefunctions';
+import { replaceLE } from '../../reducers/LabelEditorSlice';
+import { Component } from 'react';
+import { replace } from '../../reducers/etiquetaSlice';
+import { connect } from 'react-redux';
+import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
+import Select from 'react-select';
+import './NutritionFactsForm.css';
 
 import {
   ddNormalStyle,
@@ -25,8 +25,8 @@ import {
   tiposTablas,
   unidadesPorcion,
   AproxOptions,
-  Nutrientes,
-} from "../../config/constants";
+  Nutrientes
+} from '../../config/constants';
 
 class NutritionFacts_form extends Component {
   numberFilter(event) {
@@ -45,7 +45,7 @@ class NutritionFacts_form extends Component {
   handleStateChange(stateName, value) {
     const payload = {
       stateName: stateName,
-      value: value,
+      value: value
     };
 
     this.props.replace(payload);
@@ -65,18 +65,18 @@ class NutritionFacts_form extends Component {
     let { result, report } = getReportFormat(type, value, unit);
 
     //obtener VDR (valor diario recomendado)
-    let vdr = "";
+    let vdr = '';
     let nutriente = Object.keys(Nutrientes).find((e) => e === type);
 
-    vdr = nutriente ? Math.round((result / Nutrientes[type]) * 100) + "%" : "";
+    vdr = nutriente ? Math.round((result / Nutrientes[type]) * 100) + '%' : '';
 
     //guarda el valor del calulo y un string con formato correcto para reportar el valor
     this.handleStateChange(type, { report: report, vdr: vdr });
   }
 
   render() {
-    let max_width_information = "50%";
-    let max_width_inputs = "50%";
+    let max_width_information = '50%';
+    let max_width_inputs = '50%';
 
     let tamanioPorcion = this.props.etiqueta.tamanioPorcion;
     let tamanioPorcionUn = this.props.etiqueta.tamanioPorcionUn;
@@ -89,21 +89,15 @@ class NutritionFacts_form extends Component {
       <div
         id=""
         className="semi-bordered-left"
-        style={{ backgroundColor: "#e6e6e6", padding: "10px" }}
+        style={{ backgroundColor: '#e6e6e6', padding: '10px' }}
       >
         <div className="d-flex gap-2 mb-4">
-          <img
-            alt="nutritionfacts"
-            src={pathIcons + "nutritionfacts.png"}
-            width={"25px"}
-          />
-          <p className="sidebarTitle">
-            Vamos a desarrollar la tabla nutricional de tu producto
-          </p>
+          <img alt="nutritionfacts" src={pathIcons + 'nutritionfacts.png'} width={'25px'} />
+          <p className="sidebarTitle">Vamos a desarrollar la tabla nutricional de tu producto</p>
         </div>
 
         <div className="d-flex flex-column gap-2">
-          {" "}
+          {' '}
           {/* elementos */}
           {/* tipo de tabla */}
           <div className="d-flex">
@@ -113,7 +107,7 @@ class NutritionFacts_form extends Component {
 
             <div style={{ maxWidth: max_width_inputs }}>
               <Select
-                onChange={(e) => this.handleStateChange("tipoTabla", e)}
+                onChange={(e) => this.handleStateChange('tipoTabla', e)}
                 defaultValue={tipoTabla}
                 styles={ddNormalStyle}
                 options={tiposTablas}
@@ -127,18 +121,16 @@ class NutritionFacts_form extends Component {
               <p>Tamaño de la porción</p>
             </div>
 
-            <div style={{ maxWidth: max_width_inputs, display: "flex" }}>
+            <div style={{ maxWidth: max_width_inputs, display: 'flex' }}>
               <input
-                onChange={(e) =>
-                  this.handleStateChange("tamanioPorcion", e.target.value)
-                }
+                onChange={(e) => this.handleStateChange('tamanioPorcion', e.target.value)}
                 className=" gRInput numberInput"
-                style={{ marginRight: "10px" }}
+                style={{ marginRight: '10px' }}
                 type="text"
                 value={tamanioPorcion}
               />
               <Select
-                onChange={(e) => this.handleStateChange("tamanioPorcionUn", e)}
+                onChange={(e) => this.handleStateChange('tamanioPorcionUn', e)}
                 defaultValue={tamanioPorcionUn}
                 styles={ddSmallStyle}
                 options={unidadesPorcion}
@@ -152,26 +144,18 @@ class NutritionFacts_form extends Component {
               <p>Porciones por envase</p>
             </div>
 
-            <div
-              className="d-flex justify-content-center"
-              style={{ maxWidth: max_width_inputs }}
-            >
+            <div className="d-flex justify-content-center" style={{ maxWidth: max_width_inputs }}>
               <div
                 onChange={() => {
-                  this.handleStateChange(
-                    "porcionPorEnvaseDisabled",
-                    !porcionPorEnvaseDisabled
-                  );
+                  this.handleStateChange('porcionPorEnvaseDisabled', !porcionPorEnvaseDisabled);
                 }}
-                style={{ alignSelf: "flex-end", marginBottom: "1vh" }}
+                style={{ alignSelf: 'flex-end', marginBottom: '1vh' }}
               >
                 <CustomCheckbox isChecked={!porcionPorEnvaseDisabled} />
               </div>
 
               <Select
-                onChange={(e) =>
-                  this.handleStateChange("porcionPorEnvaseUn", e)
-                }
+                onChange={(e) => this.handleStateChange('porcionPorEnvaseUn', e)}
                 className="ddMenu"
                 styles={ddSmallStyle}
                 options={AproxOptions}
@@ -179,9 +163,7 @@ class NutritionFacts_form extends Component {
                 isDisabled={porcionPorEnvaseDisabled}
               />
               <input
-                onChange={(e) =>
-                  this.handleStateChange("porcionPorEnvase", e.target.value)
-                }
+                onChange={(e) => this.handleStateChange('porcionPorEnvase', e.target.value)}
                 value={porcionPorEnvase}
                 className=" gRInput numberInput"
                 name="porcionPorEnvase"
@@ -213,9 +195,7 @@ class NutritionFacts_form extends Component {
             <div style={{ maxWidth: max_width_inputs }}>
               <input
                 type="text"
-                onChange={(e) =>
-                  this.setNutritionsFacts("grasaTotal", e.target.value, "g")
-                }
+                onChange={(e) => this.setNutritionsFacts('grasaTotal', e.target.value, 'g')}
               />
             </div>
           </div>
@@ -228,9 +208,7 @@ class NutritionFacts_form extends Component {
             <div style={{ maxWidth: max_width_inputs }}>
               <input
                 type="text"
-                onChange={(e) =>
-                  this.setNutritionsFacts("grasaSaturada", e.target.value, "g")
-                }
+                onChange={(e) => this.setNutritionsFacts('grasaSaturada', e.target.value, 'g')}
               />
             </div>
           </div>
@@ -243,9 +221,7 @@ class NutritionFacts_form extends Component {
             <div style={{ maxWidth: max_width_inputs }}>
               <input
                 type="text"
-                onChange={(e) =>
-                  this.setNutritionsFacts("grasasTrans", e.target.value, "g")
-                }
+                onChange={(e) => this.setNutritionsFacts('grasasTrans', e.target.value, 'g')}
               />
             </div>
           </div>
@@ -258,9 +234,7 @@ class NutritionFacts_form extends Component {
             <div style={{ maxWidth: max_width_inputs }}>
               <input
                 type="text"
-                onChange={(e) =>
-                  this.setNutritionsFacts("acidosMono", e.target.value, "g")
-                }
+                onChange={(e) => this.setNutritionsFacts('acidosMono', e.target.value, 'g')}
               />
             </div>
           </div>
@@ -273,9 +247,7 @@ class NutritionFacts_form extends Component {
             <div style={{ maxWidth: max_width_inputs }}>
               <input
                 type="text"
-                onChange={(e) =>
-                  this.setNutritionsFacts("acidosPoli", e.target.value, "g")
-                }
+                onChange={(e) => this.setNutritionsFacts('acidosPoli', e.target.value, 'g')}
               />
             </div>
           </div>
@@ -288,9 +260,7 @@ class NutritionFacts_form extends Component {
             <div style={{ maxWidth: max_width_inputs }}>
               <input
                 type="text"
-                onChange={(e) =>
-                  this.setNutritionsFacts("colesterol", e.target.value, "mg")
-                }
+                onChange={(e) => this.setNutritionsFacts('colesterol', e.target.value, 'mg')}
               />
             </div>
           </div>
@@ -303,9 +273,7 @@ class NutritionFacts_form extends Component {
             <div style={{ maxWidth: max_width_inputs }}>
               <input
                 type="text"
-                onChange={(e) =>
-                  this.setNutritionsFacts("sodio", e.target.value, "g")
-                }
+                onChange={(e) => this.setNutritionsFacts('sodio', e.target.value, 'g')}
               />
             </div>
           </div>
@@ -318,9 +286,7 @@ class NutritionFacts_form extends Component {
             <div style={{ maxWidth: max_width_inputs }}>
               <input
                 type="text"
-                onChange={(e) =>
-                  this.setNutritionsFacts("carbohidratos", e.target.value, "g")
-                }
+                onChange={(e) => this.setNutritionsFacts('carbohidratos', e.target.value, 'g')}
               />
             </div>
           </div>
@@ -333,9 +299,7 @@ class NutritionFacts_form extends Component {
             <div style={{ maxWidth: max_width_inputs }}>
               <input
                 type="text"
-                onChange={(e) =>
-                  this.setNutritionsFacts("azucares", e.target.value, "g")
-                }
+                onChange={(e) => this.setNutritionsFacts('azucares', e.target.value, 'g')}
               />
             </div>
           </div>
@@ -348,9 +312,7 @@ class NutritionFacts_form extends Component {
             <div style={{ maxWidth: max_width_inputs }}>
               <input
                 type="text"
-                onChange={(e) =>
-                  this.setNutritionsFacts("proteina", e.target.value, "g")
-                }
+                onChange={(e) => this.setNutritionsFacts('proteina', e.target.value, 'g')}
               />
             </div>
           </div>
@@ -363,9 +325,7 @@ class NutritionFacts_form extends Component {
             <div style={{ maxWidth: max_width_inputs }}>
               <input
                 type="text"
-                onChange={(e) =>
-                  this.setNutritionsFacts("fibra", e.target.value, "g")
-                }
+                onChange={(e) => this.setNutritionsFacts('fibra', e.target.value, 'g')}
               />
             </div>
           </div>
@@ -379,22 +339,18 @@ class NutritionFacts_form extends Component {
               <input
                 type="text"
                 placeholder="julios/porcion"
-                onChange={(e) =>
-                  this.handleStateChange("energiaTotalJulios", e.target.value)
-                }
+                onChange={(e) => this.handleStateChange('energiaTotalJulios', e.target.value)}
               />
               <input
                 type="text"
                 placeholder="cal/porcion"
-                onChange={(e) =>
-                  this.handleStateChange("energiaTotalCalorias", e.target.value)
-                }
+                onChange={(e) => this.handleStateChange('energiaTotalCalorias', e.target.value)}
               />
             </div>
           </div>
           <button
             onClick={() => {
-              this.props.replaceLE(["showNutritionFacts", true]);
+              this.props.replaceLE(['showNutritionFacts', true]);
             }}
             className=" btn-secondary darkButton fw-bolder p-2 my-4"
           >
@@ -415,7 +371,7 @@ class NutritionFacts_form extends Component {
  */
 const mapStateToProps = (state) => ({
   etiqueta: state.etiqueta,
-  LabelEditorSlice: state.LabelEditorSlice,
+  LabelEditorSlice: state.LabelEditorSlice
 });
 
 /**
@@ -425,10 +381,7 @@ const mapStateToProps = (state) => ({
  */
 const mapDispatchToProps = () => ({
   replace,
-  replaceLE,
+  replaceLE
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps()
-)(NutritionFacts_form);
+export default connect(mapStateToProps, mapDispatchToProps())(NutritionFacts_form);

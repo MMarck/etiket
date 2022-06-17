@@ -3,10 +3,10 @@
  * unidad a cm
  */
 export function unitTocm(value, unit) {
-  if (unit === "mm") {
+  if (unit === 'mm') {
     return parseFloat(value) / 10;
   }
-  if (unit === "cm") {
+  if (unit === 'cm') {
     return parseFloat(value);
   }
   return value;
@@ -17,7 +17,7 @@ export function unitTocm(value, unit) {
  * unidad a g
  */
 export function unitTog(value, unit) {
-  if (unit === "mg") {
+  if (unit === 'mg') {
     return parseFloat(value) * 1000;
   }
 
@@ -30,21 +30,21 @@ export function unitTog(value, unit) {
  */
 export function getDataFontSize(area) {
   if (area < 32) {
-    return "1.6mm";
+    return '1.6mm';
   }
   if (area >= 32 && area < 161) {
-    return "3.2mm";
+    return '3.2mm';
   }
   if (area >= 161 && area < 645) {
-    return "4.8mm";
+    return '4.8mm';
   }
   if (area >= 645 && area < 2581) {
-    return "6.4mm";
+    return '6.4mm';
   }
   if (area >= 2581) {
-    return "12.7mm";
+    return '12.7mm';
   }
-  return "1em";
+  return '1em';
 }
 
 /**
@@ -55,8 +55,7 @@ export function getDataFontSize(area) {
  */
 function enIncrementosde(x, corte) {
   if (x === 0) return 0;
-  if (x % corte === 0 || Number(parseInt(x / corte) * corte) === Number(x))
-    return x;
+  if (x % corte === 0 || Number(parseInt(x / corte) * corte) === Number(x)) return x;
   if (x > parseInt(x / corte) * corte && x <= (parseInt(x / corte) + 1) * corte)
     return parseFloat((parseInt(x / corte) + 1) * corte);
 }
@@ -73,14 +72,14 @@ function enIncrementosde(x, corte) {
 export function getReportFormat(type, value, unit) {
   var result, report;
   switch (type) {
-    case "grasaTotal":
-    case "grasaSaturada":
-    case "grasasTrans":
-    case "acidosMono":
-    case "acidosPoli":
+    case 'grasaTotal':
+    case 'grasaSaturada':
+    case 'grasasTrans':
+    case 'acidosMono':
+    case 'acidosPoli':
       if (value < 0.5) {
         result = 0;
-        report = "0" + unit;
+        report = '0' + unit;
       } else if (value < 3) {
         result = enIncrementosde(value, 0.5);
         report = result + unit;
@@ -90,23 +89,23 @@ export function getReportFormat(type, value, unit) {
       }
       break;
 
-    case "colesterol":
+    case 'colesterol':
       if (value < 2) {
         result = 0;
-        report = "0" + unit;
+        report = '0' + unit;
       } else if (value >= 2 && value <= 5) {
         result = 5;
-        report = "< 5" + unit;
+        report = '< 5' + unit;
       } else if (value >= 5) {
         result = Math.round(value);
         report = result + unit;
       }
       break;
 
-    case "sodio":
+    case 'sodio':
       if (value < 5) {
         result = 0;
-        report = "0";
+        report = '0';
       } else if (value >= 5 && value <= 140) {
         result = enIncrementosde(value, 5);
         report = result + unit;
@@ -115,16 +114,16 @@ export function getReportFormat(type, value, unit) {
         report = result + unit;
       }
       break;
-    case "fibra":
-    case "carbohidratos":
-    case "azucares":
-    case "proteina":
+    case 'fibra':
+    case 'carbohidratos':
+    case 'azucares':
+    case 'proteina':
       if (value < 0.5) {
         result = 0;
-        report = "0";
+        report = '0';
       } else if (value <= 1) {
         result = value;
-        report = "< 1g";
+        report = '< 1g';
       } else if (value >= 0.14) {
         /* numero de gramos mas cercano a la unidad */
         result = Math.round(value);

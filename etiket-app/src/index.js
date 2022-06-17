@@ -1,11 +1,11 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./app/App";
-import reportWebVitals from "./reportWebVitals";
-import store from "./app/store";
-import { CookiesProvider } from "react-cookie";
-import { Provider } from "react-redux";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './app/App';
+import reportWebVitals from './reportWebVitals';
+import store from './app/store';
+import { CookiesProvider } from 'react-cookie';
+import { Provider } from 'react-redux';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -15,7 +15,7 @@ ReactDOM.render(
       </React.StrictMode>
     </CookiesProvider>
   </Provider>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,10 +1,10 @@
-import { Component } from "react";
-import { pathIcons } from "../../config/constants";
-import { Modal } from "react-bootstrap";
-import { replace } from "../../reducers/etiquetaSlice";
-import { connect } from "react-redux";
-import Papa from "papaparse";
-import "./IngredientesModal.css";
+import { Component } from 'react';
+import { pathIcons } from '../../config/constants';
+import { Modal } from 'react-bootstrap';
+import { replace } from '../../reducers/etiquetaSlice';
+import { connect } from 'react-redux';
+import Papa from 'papaparse';
+import './IngredientesModal.css';
 
 class IngredientesModal extends Component {
   constructor(props) {
@@ -14,15 +14,15 @@ class IngredientesModal extends Component {
       showTextArea: false,
       showFileInput: false,
       showOptions: true,
-      ingTextForm: "",
-      ing: [],
+      ingTextForm: '',
+      ing: []
     };
   }
 
   handleStateChange(stateName, value) {
     const payload = {
       stateName: stateName,
-      value: value,
+      value: value
     };
 
     this.props.replace(payload);
@@ -32,10 +32,10 @@ class IngredientesModal extends Component {
     let alertLines = [];
     e.preventDefault();
     const ing = this.state.ingTextForm;
-    if (ing === "") {
-      alert("¡Escriba algo primero!");
+    if (ing === '') {
+      alert('¡Escriba algo primero!');
     } else {
-      const lines = ing.split("\n");
+      const lines = ing.split('\n');
       const ingFinal = [];
       for (let i = 0; i < lines.length; i++) {
         let e = lines[i];
@@ -51,19 +51,19 @@ class IngredientesModal extends Component {
         }
       }
       if (alertLines.length !== 0) {
-        alert("Hay errores en las lineas:" + alertLines.join(","));
+        alert('Hay errores en las lineas:' + alertLines.join(','));
       } else {
         const ingSorted = ingFinal.sort((a, b) => {
-          return parseFloat(b["percentage"]) - parseFloat(a["percentage"]);
+          return parseFloat(b['percentage']) - parseFloat(a['percentage']);
         });
         let sum = 0;
         ingSorted.forEach((i) => {
           sum += parseFloat(i.percentage);
         });
         if (sum !== 100) {
-          alert("Revise el documento, los porcentajes no suman 100");
+          alert('Revise el documento, los porcentajes no suman 100');
         } else {
-          this.handleStateChange("ingredientes", ingSorted);
+          this.handleStateChange('ingredientes', ingSorted);
         }
       }
     }
@@ -80,29 +80,29 @@ class IngredientesModal extends Component {
           let element = { ing: i[0], percentage: i[1] };
           ingFinal.push(element);
         });
-      },
+      }
     });
     this.setState({ ing: ingFinal });
   }
 
   submitFile() {
     if (this.state.ing.length === 0) {
-      alert("¡No ha subido nada!");
+      alert('¡No ha subido nada!');
     } else {
       const ingSorted = this.state.ing.sort((a, b) => {
-        return parseFloat(b["percentage"]) - parseFloat(a["percentage"]);
+        return parseFloat(b['percentage']) - parseFloat(a['percentage']);
       });
       let sum = 0;
       ingSorted.forEach((i) => {
-        console.log(parseFloat(i.percentage))
+        console.log(parseFloat(i.percentage));
         sum += parseFloat(i.percentage);
       });
-      sum=parseFloat(sum.toFixed(2))
+      sum = parseFloat(sum.toFixed(2));
       if (sum !== 100) {
-        console.log(sum)
-        alert("Revise el documento, los porcentajes no suman 100");
+        console.log(sum);
+        alert('Revise el documento, los porcentajes no suman 100');
       } else {
-        this.handleStateChange("ingredientes", ingSorted);
+        this.handleStateChange('ingredientes', ingSorted);
       }
     }
   }
@@ -111,13 +111,10 @@ class IngredientesModal extends Component {
     const handleClose = () => this.setState({ show: false });
     const handleShow = () => this.setState({ show: true });
 
-    const handleTextArea = () =>
-      this.setState({ showTextArea: !this.state.showTextArea });
-    const handleFileInput = () =>
-      this.setState({ showFileInput: !this.state.showTextArea });
+    const handleTextArea = () => this.setState({ showTextArea: !this.state.showTextArea });
+    const handleFileInput = () => this.setState({ showFileInput: !this.state.showTextArea });
 
-    const handleOptions = () =>
-      this.setState({ showOptions: !this.state.showOptions });
+    const handleOptions = () => this.setState({ showOptions: !this.state.showOptions });
 
     const handleIngText = (e) => this.setState({ ingTextForm: e });
 
@@ -126,10 +123,10 @@ class IngredientesModal extends Component {
         <button
           className="darkButton-twhite"
           style={{
-            width: "fit-content",
-            height: "fit-content",
-            fontSize: "0.8em",
-            margin: "auto",
+            width: 'fit-content',
+            height: 'fit-content',
+            fontSize: '0.8em',
+            margin: 'auto'
           }}
           onClick={handleShow}
         >
@@ -142,12 +139,12 @@ class IngredientesModal extends Component {
           onHide={handleClose}
           size="l"
           centered
-          style={{ fontSize: "0.8rem" }}
+          style={{ fontSize: '0.8rem' }}
         >
           <Modal.Header closeButton id="Modal-header">
             {(this.state.showTextArea && (
               <img
-                src={pathIcons + "back.png"}
+                src={pathIcons + 'back.png'}
                 alt="Regresar"
                 className="backBtn backBtnIng"
                 onClick={() => {
@@ -158,7 +155,7 @@ class IngredientesModal extends Component {
             )) ||
               (this.state.showFileInput && (
                 <img
-                  src={pathIcons + "back.png"}
+                  src={pathIcons + 'back.png'}
                   alt="Regresar"
                   className="backBtn backBtnIng"
                   onClick={() => {
@@ -175,10 +172,10 @@ class IngredientesModal extends Component {
                 <button
                   className="darkButton-twhite"
                   style={{
-                    width: "fit-content",
-                    height: "fit-content",
-                    fontSize: "0.8em",
-                    margin: "auto",
+                    width: 'fit-content',
+                    height: 'fit-content',
+                    fontSize: '0.8em',
+                    margin: 'auto'
                   }}
                   onClick={() => {
                     handleOptions();
@@ -190,10 +187,10 @@ class IngredientesModal extends Component {
                 <button
                   className="darkButton-twhite"
                   style={{
-                    width: "fit-content",
-                    height: "fit-content",
-                    fontSize: "0.8em",
-                    margin: "auto",
+                    width: 'fit-content',
+                    height: 'fit-content',
+                    fontSize: '0.8em',
+                    margin: 'auto'
                   }}
                   onClick={() => {
                     handleOptions();
@@ -208,10 +205,9 @@ class IngredientesModal extends Component {
                 <div>
                   <form id="ingText" onSubmit={(e) => this.handleSubmitText(e)}>
                     <p>
-                      Escriba los ingredientes separados por sus porcentajes,
-                      cada ingrediente por cada línea. En el caso de poner
-                      ingredientes con sub-ingredientes, por favor, enciérrelo
-                      en comillas dobles.
+                      Escriba los ingredientes separados por sus porcentajes, cada ingrediente por
+                      cada línea. En el caso de poner ingredientes con sub-ingredientes, por favor,
+                      enciérrelo en comillas dobles.
                     </p>
                     <textarea
                       id="ingTextArea"
@@ -224,10 +220,10 @@ class IngredientesModal extends Component {
                       type="submit"
                       className="darkButton-twhite"
                       style={{
-                        width: "fit-content",
-                        height: "fit-content",
-                        fontSize: "0.8em",
-                        margin: "auto",
+                        width: 'fit-content',
+                        height: 'fit-content',
+                        fontSize: '0.8em',
+                        margin: 'auto'
                       }}
                       onClick={handleShow}
                     >
@@ -239,9 +235,9 @@ class IngredientesModal extends Component {
               (this.state.showFileInput && (
                 <div>
                   <p>
-                    Suba un archivo .csv donde la primera columna sean los
-                    ingredientes y la segunda sea los porcentajes, asegurese de
-                    eliminar la fila de encabezado en caso de tenerla.
+                    Suba un archivo .csv donde la primera columna sean los ingredientes y la segunda
+                    sea los porcentajes, asegurese de eliminar la fila de encabezado en caso de
+                    tenerla.
                   </p>
                   <br></br>
                   <input
@@ -256,10 +252,10 @@ class IngredientesModal extends Component {
                   <button
                     className="darkButton-twhite"
                     style={{
-                      width: "fit-content",
-                      height: "fit-content",
-                      fontSize: "0.8em",
-                      margin: "auto",
+                      width: 'fit-content',
+                      height: 'fit-content',
+                      fontSize: '0.8em',
+                      margin: 'auto'
                     }}
                     onClick={() => this.submitFile()}
                   >
@@ -275,13 +271,10 @@ class IngredientesModal extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  etiqueta: state.etiqueta,
+  etiqueta: state.etiqueta
 });
 const mapDispatchToProps = () => ({
-  replace,
+  replace
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps()
-)(IngredientesModal);
+export default connect(mapStateToProps, mapDispatchToProps())(IngredientesModal);

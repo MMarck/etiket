@@ -1,9 +1,6 @@
-import { useState } from "react";
-import {
-  BsFillCaretDownSquareFill,
-  BsFillCaretUpSquareFill,
-} from "react-icons/bs";
-import "./DropdownMenu.css";
+import { useState } from 'react';
+import { BsFillCaretDownSquareFill, BsFillCaretUpSquareFill } from 'react-icons/bs';
+import './DropdownMenu.css';
 
 const DropdownMenu = ({ title, content }) => {
   const [isOpen, setIsOpen] = useState(false);

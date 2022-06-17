@@ -1,32 +1,29 @@
-import "./MyAccount.css";
-import { Modal } from "react-bootstrap";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { backendURL } from "../../config/constants.js";
-import request from "../../tools/ApiSetup";
-import jwt_decode from "jwt-decode";
-import Cookies from "js-cookie";
+import './MyAccount.css';
+import { Modal } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { backendURL } from '../../config/constants.js';
+import request from '../../tools/ApiSetup';
+import jwt_decode from 'jwt-decode';
+import Cookies from 'js-cookie';
 
-const userIcon = "../../images/icons/user.png";
-
-
+const userIcon = '../../images/icons/user.png';
 
 /**
  * Componente para renderizar la vista de cuenta de usuario
  */
 function MyAccount() {
-
   const [user, setUser] = useState('');
   const [email, setEmail] = useState('');
 
-  useEffect( () => {
+  useEffect(() => {
     const header = {
-      Authorization: "Bearer " + Cookies.get("accessToken"),
+      Authorization: 'Bearer ' + Cookies.get('accessToken')
     };
-    const jsonData = { user: jwt_decode(Cookies.get("accessToken")).id };
+    const jsonData = { user: jwt_decode(Cookies.get('accessToken')).id };
     request
-      .get(backendURL + "UsersDB/"+ jsonData.user, jsonData, {
-        headers: header,
+      .get(backendURL + 'UsersDB/' + jsonData.user, jsonData, {
+        headers: header
       })
       .then((res) => {
         setUser(res.data.firstName);
@@ -34,7 +31,7 @@ function MyAccount() {
       })
       .catch((error) => {
         console.log(error);
-      })
+      });
   });
 
   return (
@@ -55,7 +52,7 @@ function MyAccount() {
               id="usuario"
               type="text"
               name="correo"
-              placeholder= { user }
+              placeholder={user}
             />
 
             <label htmlFor="usuario">Email</label>
@@ -64,24 +61,16 @@ function MyAccount() {
               id="usuario"
               type="text"
               name="correo"
-              placeholder= { email }
+              placeholder={email}
             />
           </div>
 
           <div className="d-flex  justify-content-between align-items-center w-50">
-            <img
-              src={userIcon}
-              width={"50px"}
-              height={"50px"}
-              alt={"imagen de usuario"}
-            />
+            <img src={userIcon} width={'50px'} height={'50px'} alt={'imagen de usuario'} />
 
             <div className="d-flex  flex-column justify-content-start ms-2">
               <span className="opacity-50">Foto de perfil</span>
-              <span>
-                La foto debe tener al menos 300 px x 300px y no debe pesar mas
-                de 2 MB.
-              </span>
+              <span>La foto debe tener al menos 300 px x 300px y no debe pesar mas de 2 MB.</span>
               <br />
 
               <div className="d-flex justify-content-around">
@@ -98,7 +87,7 @@ function MyAccount() {
 
         <button
           className=" btn-secondary darkButton fw-bolder p-2 my-4"
-          style={{ width: "fit-content" }}
+          style={{ width: 'fit-content' }}
         >
           GUARDAR CAMBIOS
         </button>
@@ -158,14 +147,8 @@ function CambiarCorreoModal() {
         CAMBIAR CORREO
       </button>
 
-      <Modal
-        show={show}
-        onHide={handleClose}
-        size="md"
-        centered
-        style={{ fontSize: "0.8rem" }}
-      >
-        <Modal.Header closeButton style={{ border: "none", height: "10px" }} />
+      <Modal show={show} onHide={handleClose} size="md" centered style={{ fontSize: '0.8rem' }}>
+        <Modal.Header closeButton style={{ border: 'none', height: '10px' }} />
 
         <Modal.Body>
           <div className="ms-4">
@@ -205,7 +188,7 @@ const ConfirmacionCorreoModal = ({ closeParent }) => {
     <>
       <button
         className=" btn-secondary darkButton fw-bolder p-2 mb-4"
-        style={{ width: "fit-content" }}
+        style={{ width: 'fit-content' }}
         onClick={() => {
           handleShow();
           /* closeParent() */
@@ -214,31 +197,22 @@ const ConfirmacionCorreoModal = ({ closeParent }) => {
         GUARDAR CAMBIOS
       </button>
 
-      <Modal
-        show={show}
-        onHide={handleClose}
-        size="md"
-        centered
-        style={{ fontSize: "0.8rem" }}
-      >
-        <Modal.Header closeButton style={{ border: "none", height: "10px" }} />
+      <Modal show={show} onHide={handleClose} size="md" centered style={{ fontSize: '0.8rem' }}>
+        <Modal.Header closeButton style={{ border: 'none', height: '10px' }} />
 
-        <Modal.Body style={{ padding: "2rem" }}>
+        <Modal.Body style={{ padding: '2rem' }}>
           <div className="d-flex justify-content-center flex-column align-items-center gap-3 ms-4">
             <h5>
-              <b>
-                Correo electrónico de restablecimiento de contraseña enviado
-              </b>
+              <b>Correo electrónico de restablecimiento de contraseña enviado</b>
             </h5>
 
             <small className="opacity-50">
-              Te hemos enviado un enlace para restablecer tu contraseña.¿No
-              recibiste un correo electrónico? Revisa tu carpeta de correo no
-              deseado o solicita otro enlace.
+              Te hemos enviado un enlace para restablecer tu contraseña.¿No recibiste un correo
+              electrónico? Revisa tu carpeta de correo no deseado o solicita otro enlace.
             </small>
 
-            <Link to={"/miCuenta"} style={{ color: "black" }}>
-              {" "}
+            <Link to={'/miCuenta'} style={{ color: 'black' }}>
+              {' '}
               Volver al restablecimiento de contraseña
             </Link>
           </div>
@@ -267,13 +241,7 @@ function ConfirmacionBorrarCuentaModal() {
         BORRAR CUENTA
       </button>
 
-      <Modal
-        show={show}
-        onHide={handleClose}
-        size="md"
-        centered
-        style={{ fontSize: "0.8rem" }}
-      >
+      <Modal show={show} onHide={handleClose} size="md" centered style={{ fontSize: '0.8rem' }}>
         <Modal.Header closeButton className="bg-danger danger text-white">
           <Modal.Title>Estás seguro?</Modal.Title>
         </Modal.Header>
@@ -281,10 +249,9 @@ function ConfirmacionBorrarCuentaModal() {
         <Modal.Body>
           <div className="ms-4">
             <span>
-              Eliminar tu cuenta es irreversible. Procede con precaución. Al
-              seleccionar <b>SÍ, ELIMINAR MI CUENTA</b> a continuación, todas
-              las etiquetas que has diseñado y tus datos se perderán de por
-              vida.
+              Eliminar tu cuenta es irreversible. Procede con precaución. Al seleccionar{' '}
+              <b>SÍ, ELIMINAR MI CUENTA</b> a continuación, todas las etiquetas que has diseñado y
+              tus datos se perderán de por vida.
             </span>
 
             <Link to="/login">
@@ -305,8 +272,7 @@ function ConfirmacionBorrarCuentaModal() {
  */
 function ChangePlanModal() {
   const [show, setShow] = useState(false);
-  const [flag_emprendedor_empresa, setFlag_emprendedor_empresa] =
-    useState(true);
+  const [flag_emprendedor_empresa, setFlag_emprendedor_empresa] = useState(true);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -315,7 +281,7 @@ function ChangePlanModal() {
     <>
       <button
         className="btn-success green-button fw-bolder py-1 px-3"
-        style={{ width: "fit-content", height: "fit-content" }}
+        style={{ width: 'fit-content', height: 'fit-content' }}
         onClick={handleShow}
       >
         CAMBIAR PLAN
@@ -327,14 +293,12 @@ function ChangePlanModal() {
         onHide={handleClose}
         size="md"
         centered
-        style={{ fontSize: "0.8rem" }}
+        style={{ fontSize: '0.8rem' }}
       >
         <Modal.Header closeButton id="Modal-header">
           <Modal.Title className="">
-            <h4 style={{ fontSize: "0.7em", fontWeight: "bold" }}>
-              Cambio de plan
-            </h4>
-            <dd style={{ fontSize: "0.5em" }}>
+            <h4 style={{ fontSize: '0.7em', fontWeight: 'bold' }}>Cambio de plan</h4>
+            <dd style={{ fontSize: '0.5em' }}>
               Tu plan actual es <b>Gratis por siempre</b>
             </dd>
           </Modal.Title>
@@ -347,9 +311,7 @@ function ChangePlanModal() {
               onClick={() => {
                 setFlag_emprendedor_empresa(!flag_emprendedor_empresa);
               }}
-              className={
-                flag_emprendedor_empresa ? "planSelected" : "planNotSelected"
-              }
+              className={flag_emprendedor_empresa ? 'planSelected' : 'planNotSelected'}
             >
               <span>Emprendedor</span>
             </div>
@@ -358,9 +320,7 @@ function ChangePlanModal() {
               onClick={() => {
                 setFlag_emprendedor_empresa(!flag_emprendedor_empresa);
               }}
-              className={
-                !flag_emprendedor_empresa ? "planSelected" : "planNotSelected"
-              }
+              className={!flag_emprendedor_empresa ? 'planSelected' : 'planNotSelected'}
             >
               <span>Empresas</span>
             </div>
@@ -391,7 +351,7 @@ function ChangePlanModal() {
                 </div>
               </>
             ) : (
-              ""
+              ''
             )}
 
             {!flag_emprendedor_empresa ? (
@@ -418,14 +378,14 @@ function ChangePlanModal() {
                 </div>
               </>
             ) : (
-              ""
+              ''
             )}
           </form>
 
           {/* PENDIENTE PONER CAMBIO DE PLAN PARA UN USARUI */}
           <button
             className="darkButton fs-6"
-            style={{ padding: "0.7em 1.2em", width: "fit-content" }}
+            style={{ padding: '0.7em 1.2em', width: 'fit-content' }}
           >
             COMPRAR PLAN
           </button>
@@ -446,8 +406,8 @@ const RadioButton = ({ group, title, description, planName }) => {
     <div className="">
       <input type="radio" id={planName} name={group} value={planName} />
       <label for={planName}>
-        {" "}
-        <b>{title}</b> {" " + description}
+        {' '}
+        <b>{title}</b> {' ' + description}
       </label>
     </div>
   );
