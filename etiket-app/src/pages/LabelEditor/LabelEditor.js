@@ -4,34 +4,23 @@ import {
 } from "react-component-export-image";
 import { replace, erase, loadLabel } from "../../reducers/etiquetaSlice";
 import { replaceLE } from "../../reducers/LabelEditorSlice";
-import { pathIcons } from "../../config/constants";
+import { pathIcons, zoom } from "../../config/constants";
 import { connect } from "react-redux";
-import { withRouter } from "../../tools/withRouter";
 import request from "../../tools/ApiSetup";
 import { backendURL } from "../../config/constants.js";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
-//import PrototypeFront from "../../components/PrototypeFront/PrototypeFront";
-//import PrototypeBack from "../../components/PrototypeBack/PrototypeBack";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import React from "react";
+import { Component, createRef } from "react";
 import "./LabelEditor.css";
 import { setPosition } from "../../tools/Statefunctions";
 import { fabric } from "fabric";
+import { withRouter } from "../../tools/withRouter";
 
-const mapStateToProps = (state) => ({
-  etiqueta: state.etiqueta,
-  LabelEditor: state.LabelEditorSlice,
-});
-const mapDispatchToProps = () => ({
-  replace,
-  erase,
-  loadLabel,
-  replaceLE,
-});
 
-class LabelEditor extends React.Component {
+class LabelEditor extends Component {
   componentDidMount() {
+    console.log(this.props)
     const header = {
       Authorization: "Bearer " + this.state.accessToken,
     };
@@ -92,10 +81,10 @@ class LabelEditor extends React.Component {
     canvas.on("mouse:wheel", function (opt) {
       var delta = opt.e.deltaY;
       var zoom = canvas.getZoom();
-      zoom *= 0.999 ** delta;
+      zoom *= 1.005 ** delta;
       if (zoom > 10) zoom = 10;
       if (zoom < 0.1) zoom = 0.1;
-      canvas.zoomToPoint({ x: opt.e.offsetX, y: opt.e.offsetY }, zoom);
+      canvas.zoomToPoint(opt.absolutePointer, zoom);
       opt.e.preventDefault();
       opt.e.stopPropagation();
     });
@@ -109,14 +98,12 @@ class LabelEditor extends React.Component {
         this.lastPosY = evt.clientY;
       }
     });
+
     canvas.on("mouse:move", function (opt) {
       if (this.isDragging) {
         var e = opt.e;
-        var vpt = this.viewportTransform;
-        console.log(e.clientX + " - " + e.clientY);
-        vpt[4] += e.clientX - this.lastPosX;
-        vpt[5] += e.clientY - this.lastPosY;
-        this.requestRenderAll();
+        var delta = new fabric.Point(e.movementX * 0.6, e.movementY * 0.6);
+        canvas.relativePan(delta);
         this.lastPosX = e.clientX;
         this.lastPosY = e.clientY;
       }
@@ -130,19 +117,17 @@ class LabelEditor extends React.Component {
     });
 
     this.setState({ canvas: canvas });
+    canvas.renderAll();
   }
 
   constructor(props) {
     super(props);
-    this.componentRef = React.createRef();
+    this.componentRef = createRef();
     this.state = {
       accessToken: Cookies.get("accessToken") || "",
       refreshToken: Cookies.get("refreshToken") || "",
-      zoom: 1,
       canvas: null,
     };
-    this.zoomIn = this.zoomIn.bind(this);
-    this.zoomOut = this.zoomOut.bind(this);
   }
 
   /*
@@ -259,45 +244,15 @@ class LabelEditor extends React.Component {
   }
 
   /**
-   * Función permite aumentar el zoom aplicado como propiedad css al contenedor de las etiquetas
+   * Funcion wrapper para setZoomque permite aumentar/disminuir el zoom
    */
-  zoomIn() {
-    var zoom = this.props.LabelEditor.zoom + 0.1;
+  zoomCenter(opt) {
+    var canvas = this.state.canvas;
+    var centerPoint = new fabric.Point(canvas.width * 0.5, canvas.height * 0.5);
+    var factor =
+      opt === "IN" ? canvas.getZoom() * zoom : canvas.getZoom() / zoom;
 
-    this.props.replaceLE(["zoom", zoom]); //actualizar la variable en el estado
-    let visualizer = document.getElementById("Previewer"); //obtener control del visualizador
-    visualizer.style.transform = "scale(" + zoom + ")"; //aplica el valor
-
-    if (zoom >= 1.2) {
-      visualizer.style.paddingTop = zoom * 7 + "vh";
-      visualizer.style.paddingLeft = zoom * 7 + "vw";
-    }
-    if (zoom >= 1.4) {
-      visualizer.style.paddingTop = zoom * 12 + "vh";
-      visualizer.style.paddingLeft = zoom * 14 + "vw";
-    }
-  }
-
-  /**
-   * Función permite disminuir el zoom aplicado como propiedad css al contenedor de las etiquetas
-   */
-  zoomOut() {
-    var zoom = this.props.LabelEditor.zoom - 0.1;
-
-    this.props.replaceLE(["zoom", zoom]); //actualizar la variable en el estado
-    let visualizer = document.getElementById("Previewer"); //obtener control del visualizador
-    visualizer.style.transform = "scale(" + zoom + ")"; //aplica el valor
-
-    if (zoom < 1.2) {
-      visualizer.style.paddingTop = "0vh";
-      visualizer.style.paddingLeft = "0vw";
-    } else if (zoom >= 1.2 && zoom < 1.4) {
-      visualizer.style.paddingTop = zoom * 7 + "vh";
-      visualizer.style.paddingLeft = zoom * 7 + "vw";
-    } else if (zoom >= 1.4) {
-      visualizer.style.paddingTop = zoom * 12 + "vh";
-      visualizer.style.paddingLeft = zoom * 14 + "vw";
-    }
+    canvas.zoomToPoint(centerPoint, factor);
   }
 
   resetElementPosition() {
@@ -371,7 +326,7 @@ class LabelEditor extends React.Component {
                 alt="zoomIn"
                 className="zoomButton"
                 onClick={() => {
-                  this.state.canvas.setZoom(this.state.canvas.getZoom() * 1.1);
+                  this.zoomCenter("IN");
                 }}
               />
               <img
@@ -379,7 +334,7 @@ class LabelEditor extends React.Component {
                 alt="zoomOut"
                 className="zoomButton"
                 onClick={() => {
-                  this.state.canvas.setZoom(this.state.canvas.getZoom() / 1.1);
+                  this.zoomCenter("OUT");
                 }}
               />
             </div>
@@ -390,7 +345,16 @@ class LabelEditor extends React.Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps()
-)(withRouter(LabelEditor));
+
+const mapStateToProps = (state) => ({
+  etiqueta: state.etiqueta,
+  LabelEditor: state.LabelEditorSlice,
+});
+const mapDispatchToProps = () => ({
+  replace,
+  erase,
+  loadLabel,
+  replaceLE,
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps())(LabelEditor));

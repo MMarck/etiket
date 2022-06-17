@@ -1,20 +1,20 @@
-@import '../../config/constants.css';
+@import "../../config/constants.css";
 
 .checkbox {
-    display: inline-block;
-    height: 20px;
-    width: 20px;
-    background: #fff;
-    border: 2px #ddd solid;
-    margin-right: 4px;
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  background: #fff;
+  border: 2px #ddd solid;
+  margin-right: 4px;
 }
 
-.InputCheckbox{
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    height: 1px;
-    overflow: hidden;
-    position: absolute;
-    white-space: nowrap;
-    width: 1px;
-  }
+.InputCheckbox {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}

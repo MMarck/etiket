@@ -1,176 +1,177 @@
-@import '../../config/constants.css';
+@import "../../config/constants.css";
 
 :root {
-    --fraction: calc(100% / 4);
+  --fraction: calc(100% / 4);
 }
 
 #sidebar {
-    height: var(--Sidebar-heigth);
-    width: 25%;
+  height: var(--Sidebar-heigth);
+  width: 25%;
 }
 
-.option{
-    height: var(--fraction);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content:center;
+.option {
+  height: var(--fraction);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-i{
-    align-self: center;
+i {
+  align-self: center;
 }
 
-#userIcon{
-    margin-top: 1vh;
-    margin-bottom: 2vh;
-    cursor: pointer;
+#userIcon {
+  margin-top: 1vh;
+  margin-bottom: 2vh;
+  cursor: pointer;
 }
 
-#userImg{
-    cursor: pointer;
+#userImg {
+  cursor: pointer;
 }
 
-#userSubMenu{
-    display: flex;
-    flex-direction: column;
-    gap: 0px;
-    padding-top: 5%;
-    padding-bottom: 5%;
+#userSubMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  padding-top: 5%;
+  padding-bottom: 5%;
 }
 
-.userSubBtn{
-    width: 100%;
-    align-self: flex-end;
-    padding: 5px;
-    padding-right: 5vw;
-    border-radius: 10px;
-    font-size: 15px;
+.userSubBtn {
+  width: 100%;
+  align-self: flex-end;
+  padding: 5px;
+  padding-right: 5vw;
+  border-radius: 10px;
+  font-size: 15px;
 }
 
-#SidebarContainer{
-    padding-left: 1vw;
-    padding-right: 1vw;
-    width: max-content;
-    min-width: min-content;
-    overflow: auto;
-    background-color: white;
+#SidebarContainer {
+  padding-left: 1vw;
+  padding-right: 1vw;
+  width: max-content;
+  min-width: min-content;
+  overflow: auto;
+  background-color: white;
 }
 
-#SidebarOptions{
-    overflow-y: auto;
-    row-gap: 20px;
-    display: flex;
-    flex-direction: column;
+#SidebarOptions {
+  overflow-y: auto;
+  row-gap: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
-#SidebarOptions img{
-    width: 1.9vw;
-    max-height: 1.9vw;
-    min-width: 30px;
-    min-height: 30px;
+#SidebarOptions img {
+  width: 1.9vw;
+  max-height: 1.9vw;
+  min-width: 30px;
+  min-height: 30px;
 }
 
-.sidebarContHeader{
-    margin-bottom: 5%;
+.sidebarContHeader {
+  margin-bottom: 5%;
 }
 
-.sidebarTitle{
-    font-weight: bold;
-    margin-bottom: 0;
+.sidebarTitle {
+  font-weight: bold;
+  margin-bottom: 0;
 }
 
-.sidebarSubTitle{
-    font-weight: 300;
-    font-size:0.75em;
-    margin-bottom: 0;
+.sidebarSubTitle {
+  font-weight: 300;
+  font-size: 0.75em;
+  margin-bottom: 0;
 }
 
-#dimensionesCont{
-    display: flex;
-    gap: 1vw;
+#dimensionesCont {
+  display: flex;
+  gap: 1vw;
 }
 
-.sidebarItem{
+.sidebarItem {
 }
 
-#dimensiones{
-    display: flex;
-    flex-direction: column;
+#dimensiones {
+  display: flex;
+  flex-direction: column;
 }
 
-#dimensionesInput{
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    gap: 5vh;
+#dimensionesInput {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  gap: 5vh;
 }
 
-.gRInput{
-    border: 2px solid var(--Sblack);
-    background-color: var(--Sblack);
-    padding-left: 10px;
-    padding-top: 0.2vh;
-    padding-bottom: 0.2vh;
-    border-radius: 5px;
-    font-size: 15px;
-    width: 100%;
-    color: white;
-    outline: none;
+.gRInput {
+  border: 2px solid var(--Sblack);
+  background-color: var(--Sblack);
+  padding-left: 10px;
+  padding-top: 0.2vh;
+  padding-bottom: 0.2vh;
+  border-radius: 5px;
+  font-size: 15px;
+  width: 100%;
+  color: white;
+  outline: none;
 }
 
-.gRInput:disabled{
-    background-color: #00000048;
-    border-color:  #00000048;
+.gRInput:disabled {
+  background-color: #00000048;
+  border-color: #00000048;
 }
 
-.numberInput{
-    width: 4vw;
-    flex-shrink: 0;
+.numberInput {
+  width: 4vw;
+  flex-shrink: 0;
 }
 
-#sbAncho, #sbAltura{
-    display: flex;
-    gap: 1vw
+#sbAncho,
+#sbAltura {
+  display: flex;
+  gap: 1vw;
 }
 
-#sbUnidades{
-    align-self: center;
+#sbUnidades {
+  align-self: center;
 }
 
-.sbLabel{
-    font-weight: bold;
+.sbLabel {
+  font-weight: bold;
 }
 
-#pesoNeto, #pesoDrenado{
-    display: flex;
-    gap: 1vw;
+#pesoNeto,
+#pesoDrenado {
+  display: flex;
+  gap: 1vw;
 }
 
-#pesoCont{
-    display: flex;
+#pesoCont {
+  display: flex;
 }
 
-#pesos{
-    display: flex;
-    flex-direction: column;
-    gap: 1vh;
+#pesos {
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
 }
-
 
 /* The container */
 .container {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-  
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 /* Hide the browser's default checkbox */
 .container input {
   position: absolute;
@@ -179,7 +180,7 @@ i{
   height: 0;
   width: 0;
 }
-  
+
 /* Create a custom checkbox */
 .checkmark {
   position: absolute;
@@ -189,30 +190,30 @@ i{
   width: 25px;
   background-color: #eee;
 }
-  
+
 /* On mouse-over, add a grey background color */
 .container:hover input ~ .checkmark {
   background-color: #ccc;
 }
-  
+
 /* When the checkbox is checked, add a blue background */
 .container input:checked ~ .checkmark {
   background-color: var(--Sblack);
   border: 1px solid var(--Sblack);
 }
-  
+
 /* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
   content: "";
   position: absolute;
   display: none;
 }
-  
+
 /* Show the checkmark when checked */
 .container input:checked ~ .checkmark:after {
   display: block;
 }
-  
+
 /* Style the checkmark/indicator */
 .container .checkmark:after {
   left: 9px;
@@ -226,23 +227,23 @@ i{
   transform: rotate(45deg);
 }
 
-#alcoholCont{
+#alcoholCont {
   display: flex;
   gap: 1vw;
 }
 
-#vidaCont{
+#vidaCont {
   display: flex;
   flex-direction: column;
   gap: 1vh;
 }
 
-.vidaSubCont{
+.vidaSubCont {
   display: flex;
   gap: 1vw;
 }
 
-#conservacionCont{
+#conservacionCont {
   display: flex;
   gap: 0.5vw;
 }
@@ -271,10 +272,9 @@ i{
   border-radius: 8px;
   background-color: var(--Sblack);
   color: white;
-
 }
 .react-date-picker__inputGroup {
-  min-width: calc((4px * 3) +  0.54em * 8  +  0.217em * 2);
+  min-width: calc((4px * 3) + 0.54em * 8 + 0.217em * 2);
   flex-grow: 1;
   padding: 0 2px;
   box-sizing: content-box;
@@ -305,7 +305,7 @@ i{
 }
 .react-date-picker__inputGroup__input--hasLeadingZero {
   margin-left: -0.54em;
-  padding-left: calc(1px +  0.54em);
+  padding-left: calc(1px + 0.54em);
 }
 .react-date-picker__button {
   border: 0;
@@ -316,8 +316,8 @@ i{
   cursor: pointer;
 }
 
-.react-date-picker__button__icon{
-    stroke: white;
+.react-date-picker__button__icon {
+  stroke: white;
 }
 
 .react-date-picker__button:enabled:hover .react-date-picker__button__icon,
@@ -396,7 +396,7 @@ i{
   background-color: #f0f0f0;
 }
 
-.react-calendar__navigation button:enabled{
+.react-calendar__navigation button:enabled {
   color: white;
 }
 
@@ -422,7 +422,7 @@ i{
   font-weight: bold;
 }
 
-.react-calendar__month-view__days__day{
+.react-calendar__month-view__days__day {
   color: white;
 }
 
@@ -477,16 +477,15 @@ i{
   background-color: #e6e6e6;
 }
 
-
 /*
 Ingredientes
 */
 
-.ingTable{
+.ingTable {
   border: 2px solid rgb(221, 215, 215);
 }
 
-#ingCont{
+#ingCont {
   display: flex;
   flex-direction: column;
   gap: 1vh;

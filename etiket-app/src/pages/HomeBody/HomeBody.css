@@ -1,273 +1,283 @@
-@import '../../config/constants.css';
+@import "../../config/constants.css";
 
-.homebody{
-    display: flex;
-    justify-content: center;
-    height: 100%;
+.homebody {
+  display: flex;
+  justify-content: center;
+  height: 100%;
 }
 
-.homebody>h1{
-    margin-top: 56px;
-    font-weight: 800;
-    color: var(--Sblack);
+.homebody > h1 {
+  margin-top: 56px;
+  font-weight: 800;
+  color: var(--Sblack);
 }
 
-
-.info{
-    background-repeat: no-repeat;
-    background-size: cover;
-    overflow-y: scroll;
-    width: 100%;
-    height: 100%;
-    padding-left: 50px;
-    padding-right: 50px;
+.info {
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow-y: scroll;
+  width: 100%;
+  height: 100%;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 @keyframes showPlanes {
-    from{transform: translateY(100%);}
-    to{transform: translateY(0%);}
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0%);
+  }
 }
 
 @keyframes showExp {
-    from{transform: translateY(-100%);}
-    to{transform: translateY(0%);}
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0%);
+  }
 }
 
-#planes.isShowing{
-    animation-name: showPlanes;
-    animation-duration: 0.5s;
+#planes.isShowing {
+  animation-name: showPlanes;
+  animation-duration: 0.5s;
 }
 
-#exp.isShowing{
-    animation-name: showExp;
-    animation-duration: 0.5s;
+#exp.isShowing {
+  animation-name: showExp;
+  animation-duration: 0.5s;
 }
 
-.headText{
-    color: white;
-    font-weight: bold;
-    font-size: 30px;
-    text-align: center;
+.headText {
+  color: white;
+  font-weight: bold;
+  font-size: 30px;
+  text-align: center;
 }
 
-.text{
-    color: white;
-    font-size: 0.7rem;
+.text {
+  color: white;
+  font-size: 0.7rem;
 }
 
-.infoSquare{
-    background-color: white;
-    margin: 0 auto;
-    margin-top: 5%;
-    padding-top: 20px;
-    padding-bottom: 5px;
-    max-width: 70%;
+.infoSquare {
+  background-color: white;
+  margin: 0 auto;
+  margin-top: 5%;
+  padding-top: 20px;
+  padding-bottom: 5px;
+  max-width: 70%;
 }
 
-.imgInfoIcon{
-    height: auto;
-    width: 45px;
+.imgInfoIcon {
+  height: auto;
+  width: 45px;
 }
 
-.squareText{
-    color: black;
-    padding-left: 80px;
-    padding-right: 80px;
+.squareText {
+  color: black;
+  padding-left: 80px;
+  padding-right: 80px;
 }
 
-.highText{
-    color: var(--Sgreen);
-    font-weight: bolder;
-    margin-bottom: 0px;
+.highText {
+  color: var(--Sgreen);
+  font-weight: bolder;
+  margin-bottom: 0px;
 }
 
-.highImgIcon{
-    height: auto;
-    width: 40px;
+.highImgIcon {
+  height: auto;
+  width: 40px;
 }
 
-#verPlanes{
-    cursor: pointer;
-    width: fit-content;
-    margin: 0 auto;
+#verPlanes {
+  cursor: pointer;
+  width: fit-content;
+  margin: 0 auto;
 }
 
-#rectSelectorContainer{
-    background-color: white;
-    display: flex;
-    border-radius: 10px;
-    width: fit-content;
-    margin: 0 auto;
+#rectSelectorContainer {
+  background-color: white;
+  display: flex;
+  border-radius: 10px;
+  width: fit-content;
+  margin: 0 auto;
 }
 
-#emprendedorSqr, #empresasSqr{
-    padding: 10px;
-    width: 12vw;
-    min-width: fit-content;
-    border-radius: 10px;
+#emprendedorSqr,
+#empresasSqr {
+  padding: 10px;
+  width: 12vw;
+  min-width: fit-content;
+  border-radius: 10px;
 }
 
-button.comprar{
-    background-color: var(--Sblack);
-    color: var(--Sgreen);
-    padding: 2%;
-    padding-left: 5%;
-    padding-right: 5%;
-    margin-bottom: 5%;
+button.comprar {
+  background-color: var(--Sblack);
+  color: var(--Sgreen);
+  padding: 2%;
+  padding-left: 5%;
+  padding-right: 5%;
+  margin-bottom: 5%;
 }
 
 #avisoDeIngreso {
-    padding: 25px 0px ;
-    font-size: 1.2rem;
+  padding: 25px 0px;
+  font-size: 1.2rem;
 }
 
-#planesContainer{
-    margin-top: 2%;
-    display: flex;
-    gap: 3%;
+#planesContainer {
+  margin-top: 2%;
+  display: flex;
+  gap: 3%;
 }
 
-#emprendedorSqr, #empresasSqr{
-    cursor: pointer;
+#emprendedorSqr,
+#empresasSqr {
+  cursor: pointer;
 }
 
-
-.planesRect{
-    background-color: white;
-    border-radius: 22px;
+.planesRect {
+  background-color: white;
+  border-radius: 22px;
 }
 
-.planSelected{
-    background-color: #404040;
-    color: var(--Sgreen);
+.planSelected {
+  background-color: #404040;
+  color: var(--Sgreen);
 }
 
-.planNotSelected:hover{
-    box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
+.planNotSelected:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
 }
 
-.planesHeader{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #333333;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    padding-top: 3%;
+.planesHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #333333;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  padding-top: 3%;
 }
 
-.planesTextHeader{
-    color: var(--Sgreen);
-    font-weight: bold;
+.planesTextHeader {
+  color: var(--Sgreen);
+  font-weight: bold;
 }
 
-.planesPrecio{
-    display: flex;
-    align-items: center;
-    color: white;
+.planesPrecio {
+  display: flex;
+  align-items: center;
+  color: white;
 }
 
-.precioNumber{
-    font-weight: bolder;
-    font-size: 60px;
+.precioNumber {
+  font-weight: bolder;
+  font-size: 60px;
 }
 
-.precioPlazo{
-    color: white;
-    font-size: 30px;
-    padding-top: 10%;
+.precioPlazo {
+  color: white;
+  font-size: 30px;
+  padding-top: 10%;
 }
 
-.planesText{
-    padding-top: 3%;
-    font-size: small;
+.planesText {
+  padding-top: 3%;
+  font-size: small;
 }
 
-.planesText{
-    text-align: left;
-    margin-top: 2%;
+.planesText {
+  text-align: left;
+  margin-top: 2%;
 }
 
-.textSubHeader{
-    padding-left: 3%;
+.textSubHeader {
+  padding-left: 3%;
 }
 
-.isFeature{
-    font-weight: 600;
+.isFeature {
+  font-weight: 600;
 }
 
-.isNotFeature{
-    color: #929292;
-    list-style: none;
+.isNotFeature {
+  color: #929292;
+  list-style: none;
 }
 
-.isFeature, .isNotFeature{
-    margin-top: 2%;
+.isFeature,
+.isNotFeature {
+  margin-top: 2%;
 }
 
-.featureEsp{
-    font-weight: normal;
-    font-style: italic;
+.featureEsp {
+  font-weight: normal;
+  font-style: italic;
 }
 
-.darkButton{
-    border: none;
-    background-color: var(--Sblack);
-    color: var(--Sgreen);
-  }
-  
-.ligthButton{
-    border: 2px solid var(--Sgreen);
-    background-color: white;
-    color: var(--Sgreen);
+.darkButton {
+  border: none;
+  background-color: var(--Sblack);
+  color: var(--Sgreen);
 }
 
-.green-button{
-    border: none;
-    background-color: var(--Sgreen);
-    color: var(--Sblack);
-  }
-  
-  
-.signupButton{
-    max-height: 40px;
-    border-radius: 5px;
-    box-shadow: 1px 1px 1px grey;
-    width:fit-content;
-    padding-right:10px;
-    cursor: pointer;
+.ligthButton {
+  border: 2px solid var(--Sgreen);
+  background-color: white;
+  color: var(--Sgreen);
 }
-  
+
+.green-button {
+  border: none;
+  background-color: var(--Sgreen);
+  color: var(--Sblack);
+}
+
+.signupButton {
+  max-height: 40px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px grey;
+  width: fit-content;
+  padding-right: 10px;
+  cursor: pointer;
+}
+
 .facebook {
-    background-color: #1B77F0;
-    color: white;
+  background-color: #1b77f0;
+  color: white;
 }
 
 .facebook .icon {
-    background: url(https://developers-dot-devsite-v2-prod.appspot.com/identity/sign-in/g-normal.png) transparent 5px 50% no-repeat;
-    display: inline-block;
-    vertical-align: middle;
-    width: 42px;
-    height: 42px;
+  background: url(https://developers-dot-devsite-v2-prod.appspot.com/identity/sign-in/g-normal.png)
+    transparent 5px 50% no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+  width: 42px;
+  height: 42px;
 }
-  
+
 .google {
-    border: thin solid #888;
+  border: thin solid #888;
 }
-  
+
 .google .icon {
-    background: url(https://developers-dot-devsite-v2-prod.appspot.com/identity/sign-in/g-normal.png) transparent 5px 50% no-repeat;
-    display: inline-block;
-    vertical-align: middle;
-    width: 42px;
-    height: 42px;
+  background: url(https://developers-dot-devsite-v2-prod.appspot.com/identity/sign-in/g-normal.png)
+    transparent 5px 50% no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+  width: 42px;
+  height: 42px;
 }
 
 /*
   *Poner un pequeño pading cuando la pantalla sea chiquita
 */
 @media screen and (max-height: 600px) {
-    #LeftForm {
-        padding-top: 320px;
-    }
+  #LeftForm {
+    padding-top: 320px;
   }
+}

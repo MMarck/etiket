@@ -1,9 +1,10 @@
 import { unitTocm, getDataFontSize } from "../../tools/Casefunctions";
+import { setPosition, getPosition } from "../../tools/Statefunctions";
 import { replace } from "../../reducers/etiquetaSlice";
 import { connect } from "react-redux";
 import { Component } from "react";
-import { fabric } from "fabric";
 import SizeIndicator from "../SizeIndicator/SizeIndicator";
+import Draggable from "react-draggable";
 import "./PrototypeFront.css";
 
 /**
@@ -11,7 +12,35 @@ import "./PrototypeFront.css";
  * en props mediante el metodo connect de react redux al objeto etiqueta del store global
  */
 class PrototypeFront extends Component {
+  /**
+   * funcion propia del componente, lanza el codigo durante la
+   * construccion del componente
+   */
+  componentDidMount() {
+    setPosition("nombreProducto", this.props.etiqueta.nombreProductoPos);
+    setPosition("pesosContainer", this.props.etiqueta.pesosPos);
+    setPosition("marca", this.props.etiqueta.marcaPos);
+    setPosition("alcohol", this.props.etiqueta.alcolPos);
+  }
+
+  /**
+   * Abstracion del modificador de estado global (o reducer)
+   * llamado "replace"
+   * @param {String} stateName
+   * @param {*} value
+   */
+  handleStateChange(stateName, value) {
+    const payload = {
+      stateName: stateName,
+      value: value,
+    };
+    this.props.replace(payload);
+  }
+
   render() {
+    //Declaracion de variables
+
+    //Variables para accortar el texto
     let dimensionesUn = this.props.etiqueta.dimensionesUn.value;
     let altura = this.props.etiqueta.altura;
 
@@ -47,13 +76,26 @@ class PrototypeFront extends Component {
 
     let labelArea =
       unitTocm(altura, dimensionesUn) * unitTocm(ancho, dimensionesUn);
-    //let HeigthContainerPesosNetos = labelArea > 10 ? "30%" : "100%"; //10 cm2 (centimetros cuadrados)
+    let HeigthContainerPesosNetos = labelArea > 10 ? "30%" : "100%"; //10 cm2 (centimetros cuadrados)
     let dataFontSize = getDataFontSize(labelArea); //area en cm2 (centimetros cuadrados)
 
+    let pesoNeto = this.props.etiqueta.pesoNeto;
+    let pesoNetoLabel = this.props.etiqueta.pesoNetoLabel.value;
+    let pesoNetoUn = this.props.etiqueta.pesoNetoUn.value;
+    let pesoDrenado = this.props.etiqueta.pesoDrenado;
+    let pesoDrenadoUn = this.props.etiqueta.pesoDrenadoUn.value;
+    let pesoDrenadoLabel = this.props.etiqueta.pesoDrenadoLabel.value;
     let sizeIndicatorVisibility = this.props.etiqueta.sizeIndicatorVisibility;
+    let nombreProducto = this.props.etiqueta.nombreProducto;
+    let marca = this.props.etiqueta.marca;
+    let alcohol = this.props.etiqueta.alcohol;
+    let alcoholUn = this.props.etiqueta.alcoholUn.value;
 
-    //Inicializacion del canvas
-    new fabric.Canvas("canvasFront", {});
+    //Condicionales para evitar valores nulos
+    pesoDrenadoLabel = pesoDrenadoLabel ? pesoDrenadoLabel : "";
+    pesoDrenadoUn = pesoDrenadoUn ? pesoDrenadoUn : "";
+    pesoDrenadoLabel = pesoDrenadoLabel ? pesoDrenadoLabel : "";
+    pesoNetoUn = pesoNetoUn ? pesoNetoUn : "";
 
     return (
       <div className="mx-4 d-flex  ">
@@ -86,16 +128,103 @@ class PrototypeFront extends Component {
             Panel de visualización principal
           </h5>
 
-          <canvas
-            id="myCanvas"
+          <div
+            id="PrototypeFront"
             style={{
               height: altura + dimensionesUn,
               width: ancho + dimensionesUn,
-              backgroundColor: "white",
-              border: "1px solid #d3d3d3",
+              fontSize: dataFontSize,
             }}
-          />
+          >
+            <div className="prototypeSection1">
+              <Draggable
+                bounds="#PrototypeFront"
+                scale={this.props.LabelEditor.zoom}
+              >
+                <div
+                  onMouseLeave={() => {
+                    this.handleStateChange(
+                      "nombreProductoPos",
+                      getPosition("nombreProducto")
+                    );
+                  }}
+                  className="draggable-container"
+                  id="nombreProducto"
+                >
+                  <b>{nombreProducto}</b>
+                </div>
+              </Draggable>
 
+              <Draggable
+                bounds="#PrototypeFront"
+                scale={this.props.LabelEditor.zoom}
+              >
+                <div
+                  onMouseLeave={() => {
+                    this.handleStateChange("marcaPos", getPosition("marca"));
+                  }}
+                  className="draggable-container"
+                  id="marca"
+                >
+                  <b>{marca}</b>
+                </div>
+              </Draggable>
+            </div>
+
+            <div
+              className="prototypeSection2"
+              style={{ height: HeigthContainerPesosNetos }}
+            >
+              <Draggable bounds="parent" scale={this.props.LabelEditor.zoom}>
+                <div
+                  onMouseLeave={() => {
+                    this.handleStateChange(
+                      "pesosPos",
+                      getPosition("pesosContainer")
+                    );
+                  }}
+                  className="draggable-container"
+                  id="pesosContainer"
+                >
+                  {pesoNeto ? (
+                    <>
+                      <b>{pesoNetoLabel + " " + pesoNeto + " " + pesoNetoUn}</b>
+                      <br />
+                    </>
+                  ) : (
+                    ""
+                  )}
+
+                  {!this.props.etiqueta.pesoDrenadoDisabled ? (
+                    <>
+                      <b>
+                        {pesoDrenadoLabel +
+                          " " +
+                          pesoDrenado +
+                          " " +
+                          pesoDrenadoUn}
+                      </b>
+                      <br />
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </Draggable>
+
+              <Draggable bounds="parent" scale={this.props.LabelEditor.zoom}>
+                <div
+                  onMouseLeave={() => {
+                    this.handleStateChange("alcolPos", getPosition("alcohol"));
+                  }}
+                  className="draggable-container"
+                  id="alcohol"
+                >
+                  <b>{alcohol ? alcoholUn.replace("__", alcohol) : ""}</b>
+                </div>
+              </Draggable>
+            </div>
+          </div>
           <SizeIndicator
             length={ancho + dimensionesUn}
             visibilityProp={sizeIndicatorVisibility}

@@ -3,7 +3,6 @@ var UsersModel = require('../models/UsersModel.js');
 var RefreshModel= require("../models/refreshTokensModel.js")
 var jwt=require("jsonwebtoken")
 const path = require('path')
-const bcrypt= require('bcrypt')
 const crypto= require('crypto')
 const {getTemplate, sendEmail} =require('../config/mail.config');
 require('dotenv').config({path:path.resolve(__dirname,"../config/.env")}); 
@@ -92,9 +91,6 @@ module.exports = {
             emailToken: crypto.randomBytes(64).toString('hex'),
             isVerified: false
         });
-        console.log("probando")
-        const template= getTemplate(Users.firstName +" "+Users.lastName,req.headers.host, Users.emailToken)
-        sendEmail(Users.email, "Verification Account",template);
         UsersModel.register(Users,req.body.password,function(err,user){
             if (err){
                 return res.status(404).json({
@@ -103,6 +99,8 @@ module.exports = {
                 })
             }
             passport.authenticate("local")(req,res,function(){
+                const template= getTemplate(Users.firstName +" "+Users.lastName,Users._id,req.headers.host, Users.emailToken)
+                sendEmail(Users.email, "Verification Account",template);
                 return res.status(201).json({
                     message: "Se ha creado el usuario correctamente"
                     
@@ -143,6 +141,41 @@ module.exports = {
             
           });
         })(req, res, next);
+    },
+
+    verify:function(req,res){
+        console.log("verificando...")
+        try{
+            const token=req.params.token
+            UsersModel.findOne({emailToken:token}, function (err, Users) {
+                if (err) {
+                    return res.status(500).json({
+                        message: 'Email is not verified',
+                        error: err.json()
+                    });
+                }
+                if (!Users) {
+                    return res.status(404).json({
+                        message: 'No such Users'
+                    });
+                }
+                Users.emailToken=null
+                Users.isVerified=true
+                Users.save(function (err, Users) {
+                    if (err) {
+                        return res.status(500).json({
+                            message: 'Error when updating Users.',
+                            error: err
+                        });
+                    }
+                    
+                    res.redirect('http://localhost:3000/login') //de momento nomas :,v
+                });
+            });
+
+        }catch(err){
+            console.log(err)
+        }
     },
 
     RefreshJwt: function(req,res){
