@@ -59,24 +59,28 @@ class LabelEditor extends Component {
     canvas.setBackgroundColor("#F5F6F8");
 
     var rect = new fabric.Rect({
-      left: 80,
-      top: 50,
+      left: 40,
+      top: 20,
       fill: "white",
-      width: 50,
-      height: 50,
+      width: 120,
+      height: 120,
       stroke: "gray",
-      rx: 10,
-      ry: 10,
       hasControls: false,
+      lockMovementX: true,
+      lockMovementY: true,
+      lockScalingX: true,
+      lockScalingY: true,
+      lockRotation: true,
+      hasControls: false,
+      hasBorders: false,
     });
     var circle = new fabric.Circle({
       radius: 20,
       fill: "green",
-      left: 180,
-      top: 50,
+      left: 40,
+      top: 20,
     });
-    canvas.add(circle, rect);
-    /////////////////////////////////////////////////////////////////
+    canvas.add( rect, circle);
 
     canvas.on("mouse:wheel", function (opt) {
       var delta = opt.e.deltaY;
@@ -117,15 +121,44 @@ class LabelEditor extends Component {
       this.selection = true;
     });
 
+  canvas.on('object:moving', function (e) {
+      var obj = e.target;
+      // if object is too big ignore
+      if(obj.currentHeight > obj.canvas.height || obj.currentWidth > obj.canvas.width){
+        return;
+      } 
+      
+      var topOffset = rect.top - canvas.vptCoords.tl.y
+      var rightOffset = canvas.vptCoords.br.x - rect.left - rect.width
+      var bottomOffset = canvas.vptCoords.br.y - rect.top - rect.height
+      var leftOffset = rect.left - canvas.vptCoords.tl.x
+
+      obj.setCoords();
+      // top-left  corner
+      if(obj.getBoundingRect().top < topOffset || obj.getBoundingRect().left < leftOffset){
+        obj.top = Math.max(obj.top, obj.top - (obj.getBoundingRect().top / obj.zoomY) + topOffset, topOffset);
+        obj.left = Math.max(obj.left, obj.left - (obj.getBoundingRect().left / obj.zoomX)  + leftOffset, leftOffset);
+      }
+
+      // bot-right corner
+      if(obj.getBoundingRect().top+obj.getBoundingRect().height  > obj.canvas.height - bottomOffset || obj.getBoundingRect().left+obj.getBoundingRect().width  > obj.canvas.width - rightOffset){
+        obj.top = Math.min(obj.top, obj.canvas.height / obj.zoomY -obj.getBoundingRect().height / obj.zoomY+obj.top -obj.getBoundingRect().top / obj.zoomY - bottomOffset);
+        obj.left = Math.min(obj.left, obj.canvas.width/ obj.zoomX-obj.getBoundingRect().width/ obj.zoomX+obj.left-obj.getBoundingRect().left/ obj.zoomX - rightOffset);
+      }
+    }); 
+
+
     this.setState({ canvas: canvas });
     canvas.renderAll();
+
+
   }
 
   constructor(props) {
     super(props);
     this.componentRef = createRef();
     this.state = {
-      accessToken: Cookies.get("accessToken") || "",
+      accessToken: Cookies.get("accessToken") || "", 
       refreshToken: Cookies.get("refreshToken") || "",
       canvas: null,
     };
@@ -277,8 +310,9 @@ class LabelEditor extends Component {
               className="backBtn "
             />
           </Link>
-
+          
           <canvas id="PreviewContainer" ref={this.componentRef} />
+          
 
           <div className="d-flex flex-column justify-content-center align-items-center gap-2">
             <span
