@@ -1,4 +1,4 @@
-@import "../../config/constants.css";
+@import '../../config/constants.css';
 
 #masterContainer {
   display: flex;
@@ -134,7 +134,7 @@
 
 /* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
-  content: "";
+  content: '';
   position: absolute;
   display: none;
 }
@@ -164,4 +164,13 @@
 .draggable-container:hover {
   border: 1px solid var(--Sgreen);
   cursor: move;
+}
+
+.zoomButton{
+  height: 30px;
+}
+
+
+.zoomButton:hover{
+  height: 40px;
 }

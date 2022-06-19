@@ -1,9 +1,9 @@
-import { Component } from "react";
-import { connect } from "react-redux";
-import { replace } from "../../reducers/etiquetaSlice";
-import "./NutritionFactsPreviewer.css";
+import { Component } from 'react';
+import { connect } from 'react-redux';
+import { replace } from '../../reducers/etiquetaSlice';
+import './NutritionFactsPreviewer.css';
 
-const defaultNutritionFact = { report: "", vdr: "" };
+const defaultNutritionFact = { report: '', vdr: '' };
 
 class NutritionFacts_Previewer extends Component {
   render() {
@@ -30,40 +30,32 @@ class NutritionFacts_Previewer extends Component {
     let colesterol = this.props.etiqueta.colesterol
       ? this.props.etiqueta.colesterol
       : defaultNutritionFact;
-    let sodio = this.props.etiqueta.sodio
-      ? this.props.etiqueta.sodio
-      : defaultNutritionFact;
+    let sodio = this.props.etiqueta.sodio ? this.props.etiqueta.sodio : defaultNutritionFact;
     let carbohidratos = this.props.etiqueta.carbohidratos
       ? this.props.etiqueta.carbohidratos
       : defaultNutritionFact;
-    let fibra = this.props.etiqueta.fibra
-      ? this.props.etiqueta.fibra
-      : defaultNutritionFact;
+    let fibra = this.props.etiqueta.fibra ? this.props.etiqueta.fibra : defaultNutritionFact;
     let azucares = this.props.etiqueta.azucares
       ? this.props.etiqueta.azucares
       : defaultNutritionFact;
     let proteina = this.props.etiqueta.proteina
       ? this.props.etiqueta.proteina
       : defaultNutritionFact;
-    let valoresRecomendadosDisabled =
-      this.props.etiqueta.valoresRecomendadosDisabled;
+    let valoresRecomendadosDisabled = this.props.etiqueta.valoresRecomendadosDisabled;
 
     return (
       <section
         className="performance-facts"
         style={{
-          overflow: "hidden",
+          overflow: 'hidden',
           height: this.props.height,
           width: this.props.width,
-          fontFamily: "Local Helvetica",
+          fontFamily: 'Local Helvetica'
         }}
       >
         {/* Seccion 1 - Titulo y totales */}
         <header className="performance-facts__header">
-          <h1
-            className="performance-facts__title"
-            style={{ fontFamily: "Local Helvetica-Bold" }}
-          >
+          <h1 className="performance-facts__title" style={{ fontFamily: 'Local Helvetica-Bold' }}>
             Información Nutricional
           </h1>
 
@@ -71,8 +63,8 @@ class NutritionFacts_Previewer extends Component {
             Tamaño de la porción: {tamanioPorcion} {tamanioPorcionUn}
           </p>
           <p>
-            Porciones por envase: {porcionPorEnvase}{" "}
-            {!porcionPorEnvaseDisabled ? porcionPorEnvaseUn : ""}
+            Porciones por envase: {porcionPorEnvase}{' '}
+            {!porcionPorEnvaseDisabled ? porcionPorEnvaseUn : ''}
           </p>
         </header>
 
@@ -149,7 +141,7 @@ class NutritionFacts_Previewer extends Component {
                 />
               </>
             ) : (
-              ""
+              ''
             )}
 
             <tr className="separator-botton-1">
@@ -221,29 +213,28 @@ class NutritionFacts_Previewer extends Component {
           <tbody>
             <VitaminasSubTable
               data={[
-                { label: "Vitamina A", percentage: 10 },
-                { label: "Vitamina B", percentage: 2 },
-                { label: "Vitamina C", percentage: 3 },
-                { label: "Vitamina D", percentage: 3 },
-                { label: "Vitamina C", percentage: 3 },
-                { label: "Vitamina D", percentage: 3 },
-                { label: "Vitamina C", percentage: 3 },
-                { label: "Vitamina D", percentage: 3 },
+                { label: 'Vitamina A', percentage: 10 },
+                { label: 'Vitamina B', percentage: 2 },
+                { label: 'Vitamina C', percentage: 3 },
+                { label: 'Vitamina D', percentage: 3 },
+                { label: 'Vitamina C', percentage: 3 },
+                { label: 'Vitamina D', percentage: 3 },
+                { label: 'Vitamina C', percentage: 3 },
+                { label: 'Vitamina D', percentage: 3 }
               ]}
             />
           </tbody>
         </table>
 
         <p className="small-info mt-4">
-          * Los porcentajes de los valores diarios estan basados en una dieta de
-          8380 kJ (2000 kcal)
+          * Los porcentajes de los valores diarios estan basados en una dieta de 8380 kJ (2000 kcal)
         </p>
 
         {/* Seccion 4 - Inforacion adicional */}
         {valoresRecomendadosDisabled ? (
           <table className="performance-facts__table small-info">
             <thead>
-              <tr style={{ textAlign: "end" }} className="separator-botton-1">
+              <tr style={{ textAlign: 'end' }} className="separator-botton-1">
                 <td colspan="2"></td>
                 <th className="fw-normal"> Calorías: </th>
                 <th className="fw-normal">2,000 </th>
@@ -306,7 +297,7 @@ class NutritionFacts_Previewer extends Component {
             </tbody>
           </table>
         ) : (
-          ""
+          ''
         )}
       </section>
     );
@@ -321,7 +312,7 @@ class NutritionFacts_Previewer extends Component {
  * @returns null
  */
 const mapStateToProps = (state) => ({
-  etiqueta: state.etiqueta,
+  etiqueta: state.etiqueta
 });
 
 /**
@@ -330,13 +321,10 @@ const mapStateToProps = (state) => ({
  * @returns null
  */
 const mapDispatchToProps = () => ({
-  replace,
+  replace
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps()
-)(NutritionFacts_Previewer);
+export default connect(mapStateToProps, mapDispatchToProps())(NutritionFacts_Previewer);
 
 /**
  * Componente para contruir las columnas de la tabla de Acidos
@@ -348,7 +336,7 @@ function AcidoTableRow({ label, mass, percentage }) {
 
       <th>
         <span className="fw-normal">
-          {label} {mass}{" "}
+          {label} {mass}{' '}
         </span>
       </th>
       <td>
@@ -364,6 +352,7 @@ function AcidoTableRow({ label, mass, percentage }) {
  * @param {Array} params
  * @returns
  */
+
 function VitaminasSubTable(params) {
   let vitaminasList = [];
 
@@ -377,6 +366,5 @@ function VitaminasSubTable(params) {
       </tr>
     );
   });
-
   return vitaminasList;
 }

@@ -32,7 +32,8 @@ function App() {
             <div className="App">
               <HomeBody />
             </div>
-          }>
+          }
+        >
           <Route index element={<LoginForm />} />
           <Route path="resetPassword" element={<ResetPassword />} />
           <Route path="createAccount" element={<CreateAccount />} />

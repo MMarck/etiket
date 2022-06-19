@@ -1,7 +1,7 @@
 /* Documentos de estilos para elementos que se repitan 
 en toda la aplicacion */
 
-@import "../config/constants.css";
+@import '../config/constants.css';
 
 .App {
   text-align: center;

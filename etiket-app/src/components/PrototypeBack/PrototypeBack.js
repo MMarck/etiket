@@ -1,13 +1,13 @@
-import { unitTocm, getDataFontSize } from "../../tools/Casefunctions";
-import { setPosition, getPosition } from "../../tools/Statefunctions";
-import { JSON_String } from "../../tools/Statefunctions";
-import { Component } from "react";
-import { connect } from "react-redux";
-import { replace } from "../../reducers/etiquetaSlice";
-import SizeIndicator from "../SizeIndicator/SizeIndicator";
-import Draggable from "react-draggable";
-import "./PrototypeBack.css";
-import NutritionFactsPreviewer from "../NutritionFactsPreviewer/NutritionFactsPreviewer";
+import { unitTocm, getDataFontSize } from '../../tools/Casefunctions';
+import { setPosition, getPosition } from '../../tools/Statefunctions';
+import { JSON_String } from '../../tools/Statefunctions';
+import { Component } from 'react';
+import { connect } from 'react-redux';
+import { replace } from '../../reducers/etiquetaSlice';
+import SizeIndicator from '../SizeIndicator/SizeIndicator';
+import Draggable from 'react-draggable';
+import './PrototypeBack.css';
+import NutritionFactsPreviewer from '../NutritionFactsPreviewer/NutritionFactsPreviewer';
 
 /**
  * Componente para dibujar el Panel de informacion de la etiqueta
@@ -18,8 +18,8 @@ class PrototypeBack extends Component {
    * construccion del componente
    */
   componentDidMount() {
-    setPosition("ingPos", this.props.etiqueta.ingPos);
-    setPosition("algPos", this.props.etiqueta.algPos);
+    setPosition('ingPos', this.props.etiqueta.ingPos);
+    setPosition('algPos', this.props.etiqueta.algPos);
   }
 
   /**
@@ -31,7 +31,7 @@ class PrototypeBack extends Component {
   handleStateChange(stateName, value) {
     const payload = {
       stateName: stateName,
-      value: value,
+      value: value
     };
     this.props.replace(payload);
   }
@@ -40,39 +40,38 @@ class PrototypeBack extends Component {
     //Declaracion de variables
 
     let dimensionesUn = this.props.etiqueta.dimensionesUn.value;
-    let altura = "10";
-    if (dimensionesUn === "cm") {
+    let altura = '10';
+    if (dimensionesUn === 'cm') {
       if (parseFloat(this.props.etiqueta.altura) >= 3.5) {
         altura = this.props.etiqueta.altura;
       } else {
-        altura = "10";
+        altura = '10';
       }
-    } else if (dimensionesUn === "mm") {
+    } else if (dimensionesUn === 'mm') {
       if (parseFloat(this.props.etiqueta.altura) >= 35) {
         altura = this.props.etiqueta.altura;
       } else {
-        altura = "100";
+        altura = '100';
       }
     }
 
     let ancho = this.props.etiqueta.ancho;
 
-    if (dimensionesUn === "cm") {
+    if (dimensionesUn === 'cm') {
       if (parseFloat(this.props.etiqueta.ancho) >= 3.5) {
         ancho = this.props.etiqueta.ancho;
       } else {
-        ancho = "10";
+        ancho = '10';
       }
-    } else if (dimensionesUn === "mm") {
+    } else if (dimensionesUn === 'mm') {
       if (parseFloat(this.props.etiqueta.ancho) >= 35) {
         ancho = this.props.etiqueta.ancho;
       } else {
-        ancho = "100";
+        ancho = '100';
       }
     }
 
-    let labelArea =
-      unitTocm(altura, dimensionesUn) * unitTocm(ancho, dimensionesUn);
+    let labelArea = unitTocm(altura, dimensionesUn) * unitTocm(ancho, dimensionesUn);
     let dataFontSize = getDataFontSize(labelArea); //area en cm2 (centimetros cuadrados)
 
     let metodoConservacion = this.props.etiqueta.metodoConservacion.label;
@@ -98,21 +97,18 @@ class PrototypeBack extends Component {
           style={{
             height: altura + dimensionesUn,
             width: ancho + dimensionesUn,
-            fontSize: dataFontSize,
+            fontSize: dataFontSize
           }}
         >
           <div className="prototypeSection3">
             {this.props.LabelEditor.showNutritionFacts ? (
-              <Draggable
-                bounds="#PrototypeBack"
-                scale={this.props.LabelEditor.zoom}
-              >
-                <div style={{ position: "absolute", top: "1px" }}>
+              <Draggable bounds="#PrototypeBack" scale={this.props.LabelEditor.zoom}>
+                <div style={{ position: 'absolute', top: '1px' }}>
                   <NutritionFactsPreviewer width="50px" height="50px" />
                 </div>
               </Draggable>
             ) : (
-              ""
+              ''
             )}
 
             {vidaUtil ||
@@ -121,37 +117,32 @@ class PrototypeBack extends Component {
             conservacionUn ||
             direccion ||
             instrucciones ? (
-              <Draggable
-                bounds="#PrototypeBack"
-                scale={this.props.LabelEditor.zoom}
-              >
+              <Draggable bounds="#PrototypeBack" scale={this.props.LabelEditor.zoom}>
                 <div
                   onMouseLeave={() => {
-                    this.handleStateChange("ingPos", getPosition("ingPos"));
+                    this.handleStateChange('ingPos', getPosition('ingPos'));
                   }}
                   className="draggable-group-2 draggable-container"
-                  style={{ position: "absolute", bottom: "1px" }}
+                  style={{ position: 'absolute', bottom: '1px' }}
                   id="ingPos"
                 >
                   <span>
-                    {this.props.etiqueta.metodoConservacion.value !== "" ? (
-                      <span style={{ whiteSpace: "normal" }}>
-                        <b>Metodo de conservacion: </b> {conservacionUn}{" "}
-                        {metodoConservacion}
+                    {this.props.etiqueta.metodoConservacion.value !== '' ? (
+                      <span style={{ whiteSpace: 'normal' }}>
+                        <b>Metodo de conservacion: </b> {conservacionUn} {metodoConservacion}
                       </span>
                     ) : (
-                      ""
+                      ''
                     )}
                   </span>
 
                   <span>
                     {vidaUtil ? (
                       <>
-                        <b>Vida Util: </b> {vidaUtil}{" "}
-                        {vidaUtil === "Ver Paquete" ? "" : vidaUtilUn}
+                        <b>Vida Util: </b> {vidaUtil} {vidaUtil === 'Ver Paquete' ? '' : vidaUtilUn}
                       </>
                     ) : (
-                      ""
+                      ''
                     )}
                   </span>
 
@@ -161,7 +152,7 @@ class PrototypeBack extends Component {
                         <b>Dirección: </b> {direccion}
                       </>
                     ) : (
-                      ""
+                      ''
                     )}
                   </span>
 
@@ -171,73 +162,65 @@ class PrototypeBack extends Component {
                         <b>Instrucciones: </b> {instrucciones}
                       </>
                     ) : (
-                      ""
+                      ''
                     )}
                   </span>
 
                   <span>
-                    {fabricacion !== "" ? (
+                    {fabricacion !== '' ? (
                       <>
                         <b>{fabricacionUn}: </b> {fabricacion}
                       </>
                     ) : (
-                      ""
+                      ''
                     )}
                   </span>
 
                   <span>
-                    {caducacion !== "" ? (
+                    {caducacion !== '' ? (
                       <>
                         <b>{caducacionUn}: </b> {caducacion}
                       </>
                     ) : (
-                      ""
+                      ''
                     )}
                   </span>
                 </div>
               </Draggable>
             ) : (
-              ""
+              ''
             )}
           </div>
 
           <div className="prototypeSection3">
             {ingredientes || alergenos ? (
-              <Draggable
-                bounds="#PrototypeBack"
-                scale={this.props.LabelEditor.zoom}
-              >
+              <Draggable bounds="#PrototypeBack" scale={this.props.LabelEditor.zoom}>
                 <div
                   onMouseLeave={() => {
-                    this.handleStateChange("algPos", getPosition("algPos"));
+                    this.handleStateChange('algPos', getPosition('algPos'));
                   }}
                   className="draggable-group-1 draggable-container"
                   id="algPos"
                 >
                   <span>
                     {ingredientes.length > 0
-                      ? "Ingredientes: " + JSON_String(ingredientes, "ing")
-                      : ""}
+                      ? 'Ingredientes: ' + JSON_String(ingredientes, 'ing')
+                      : ''}
                   </span>
 
                   <span>
                     <b>
-                      {alergenos.length > 0
-                        ? "CONTIENE " + JSON_String(alergenos, "value")
-                        : ""}
+                      {alergenos.length > 0 ? 'CONTIENE ' + JSON_String(alergenos, 'value') : ''}
                     </b>
                   </span>
                 </div>
               </Draggable>
             ) : (
-              ""
+              ''
             )}
 
             {instrucciones ? (
-              <Draggable
-                bounds="#PrototypeBack"
-                scale={this.props.LabelEditor.zoom}
-              >
+              <Draggable bounds="#PrototypeBack" scale={this.props.LabelEditor.zoom}>
                 <div
                   /* onMouseLeave={()=>{this.handleStateChange('ingPos', getPosition('ingPos'))}} */
                   className="draggable-group-1 draggable-container"
@@ -249,20 +232,17 @@ class PrototypeBack extends Component {
                         <b>Instrucciones: </b> {instrucciones}
                       </>
                     ) : (
-                      ""
+                      ''
                     )}
                   </span>
                 </div>
               </Draggable>
             ) : (
-              ""
+              ''
             )}
 
             {direccion ? (
-              <Draggable
-                bounds="#PrototypeBack"
-                scale={this.props.LabelEditor.zoom}
-              >
+              <Draggable bounds="#PrototypeBack" scale={this.props.LabelEditor.zoom}>
                 <div
                   /* onMouseLeave={()=>{this.handleStateChange('ingPos', getPosition('ingPos'))}} */
                   className="draggable-group-1 draggable-container"
@@ -274,18 +254,18 @@ class PrototypeBack extends Component {
                         <b>Dirección: </b> {direccion}
                       </>
                     ) : (
-                      ""
+                      ''
                     )}
                   </span>
                 </div>
               </Draggable>
             ) : (
-              ""
+              ''
             )}
           </div>
         </div>
 
-        <SizeIndicator visibilityProp={"hidden"} />
+        <SizeIndicator visibilityProp={'hidden'} />
       </div>
     );
   }
@@ -300,7 +280,7 @@ class PrototypeBack extends Component {
  */
 const mapStateToProps = (state) => ({
   etiqueta: state.etiqueta,
-  LabelEditor: state.LabelEditorSlice,
+  LabelEditor: state.LabelEditorSlice
 });
 
 /**
@@ -309,7 +289,7 @@ const mapStateToProps = (state) => ({
  * @returns null
  */
 const mapDispatchToProps = () => ({
-  replace,
+  replace
 });
 
 export default connect(mapStateToProps, mapDispatchToProps())(PrototypeBack);

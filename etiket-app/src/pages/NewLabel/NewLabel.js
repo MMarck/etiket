@@ -1,21 +1,21 @@
-import { Component } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import ReactTooltip from "react-tooltip";
-import { replace } from "../../reducers/etiquetaSlice";
-import request from "../../tools/ApiSetup";
-import { backendURL } from "../../config/constants.js";
-import Cookies from "js-cookie";
-import { withRouter } from "../../tools/withRouter";
-import "./NewLabel.css";
+import { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import ReactTooltip from 'react-tooltip';
+import { replace } from '../../reducers/etiquetaSlice';
+import request from '../../tools/ApiSetup';
+import { backendURL } from '../../config/constants.js';
+import Cookies from 'js-cookie';
+import { withRouter } from '../../tools/withRouter';
+import './NewLabel.css';
 
 const mapStateToProps = (state) => ({
-  etiqueta: state.etiqueta,
+  etiqueta: state.etiqueta
 });
 const mapDispatchToProps = () => ({
-  replace,
+  replace
 });
-const pathIcons = "../images/icons/";
+const pathIcons = '../images/icons/';
 
 /* const  navigate = useNavigate(); */
 /*
@@ -28,34 +28,34 @@ class NewLabel extends Component {
     super(props);
 
     this.state = {
-      accessToken: Cookies.get("accessToken") || "",
-      refreshToken: Cookies.get("refreshToken") || "",
+      accessToken: Cookies.get('accessToken') || '',
+      refreshToken: Cookies.get('refreshToken') || ''
     };
   }
 
   createNewLabel(e) {
     const header = {
-      Authorization: "Bearer " + this.state.accessToken,
+      Authorization: 'Bearer ' + this.state.accessToken
     };
-    const nombreProyecto = document.getElementById("labelName").value;
+    const nombreProyecto = document.getElementById('labelName').value;
 
-    if (nombreProyecto === "") {
-      alert("¡Debe poner un nombre!");
+    if (nombreProyecto === '') {
+      alert('¡Debe poner un nombre!');
     } else {
       const jsonData = {
         country: this.props.etiqueta.country,
         tipo: this.props.etiqueta.tipo,
-        nombreProyecto: nombreProyecto,
+        nombreProyecto: nombreProyecto
       };
       //crear etiqueta en la base de datos
       request
-        .post(backendURL + "Labels", jsonData, {
-          headers: header,
+        .post(backendURL + 'Labels', jsonData, {
+          headers: header
         })
         .then((res) => {
           //redirigir a /misEtiquetas
           alert(res.data.message);
-          this.props.navigate("/misEtiquetas");
+          this.props.navigate('/misEtiquetas');
         })
         .catch((error) => {
           if (error.response) {
@@ -63,7 +63,7 @@ class NewLabel extends Component {
           } else if (error.request) {
             console.log(error.request);
           } else {
-            console.log("Error", error.message);
+            console.log('Error', error.message);
           }
         });
     }
@@ -72,20 +72,11 @@ class NewLabel extends Component {
   render() {
     return (
       <div className="w-100 h-100 margin-auto">
-        <Link to={"/misEtiquetas"}>
-          <img
-            src={pathIcons + "back.png"}
-            alt="Regresar"
-            className="backBtn"
-          />
+        <Link to={'/misEtiquetas'}>
+          <img src={pathIcons + 'back.png'} alt="Regresar" className="backBtn" />
         </Link>
 
-        <ReactTooltip
-          place="bottom"
-          type="dark"
-          effect="solid"
-          data-for="name"
-        />
+        <ReactTooltip place="bottom" type="dark" effect="solid" data-for="name" />
         <input
           className="ligth-input m-4 fs-6 bg-transparent"
           id="labelName"
@@ -110,7 +101,4 @@ class NewLabel extends Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps()
-)(withRouter(NewLabel));
+export default connect(mapStateToProps, mapDispatchToProps())(withRouter(NewLabel));

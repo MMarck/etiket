@@ -6,16 +6,16 @@
   --Sblack: #404040;
   --Sselectedgreen: #6fd8b359;
   --Sgray: #f5f6f8;
-  --fondoWeb: "../../../public/images/fondo-web.png";
+  --fondoWeb: '../../../public/images/fondo-web.png';
   --BorderRadio: 10px;
 }
 
 @font-face {
-  font-family: "Local Helvetica";
-  src: url("../../public/fonts/Helvetica.ttf") format("truetype");
+  font-family: 'Local Helvetica';
+  src: url('../../public/fonts/Helvetica.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: "Local Helvetica-Bold";
-  src: url("../../public/fonts/Helvetica-Bold.ttf") format("truetype");
+  font-family: 'Local Helvetica-Bold';
+  src: url('../../public/fonts/Helvetica-Bold.ttf') format('truetype');
 }

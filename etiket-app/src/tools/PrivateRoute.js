@@ -1,18 +1,18 @@
-import { Component } from "react";
-import { Outlet, Navigate } from "react-router-dom";
-import Cookies from "js-cookie";
-import { backendURL } from "../config/constants.js";
-import request from "../tools/ApiSetup";
+import { Component } from 'react';
+import { Outlet, Navigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import { backendURL } from '../config/constants.js';
+import request from '../tools/ApiSetup';
 
 class PrivateRoute extends Component {
   componentDidMount() {
     const header = {
-      Authorization: "Bearer " + this.state.accessToken,
+      Authorization: 'Bearer ' + this.state.accessToken
     };
     const jsonData = {};
     request
-      .post(backendURL + "UsersDB/auth", jsonData, {
-        headers: header,
+      .post(backendURL + 'UsersDB/auth', jsonData, {
+        headers: header
       })
       .then((response) => {
         // For success, update state like
@@ -28,10 +28,10 @@ class PrivateRoute extends Component {
     super(props);
 
     this.state = {
-      accessToken: Cookies.get("accessToken") || "",
-      refreshToken: Cookies.get("refreshToken") || "",
+      accessToken: Cookies.get('accessToken') || '',
+      refreshToken: Cookies.get('refreshToken') || '',
       isLoading: true,
-      isLoggedIn: false,
+      isLoggedIn: false
     };
   }
 

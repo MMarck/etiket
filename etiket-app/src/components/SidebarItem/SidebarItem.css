@@ -1,4 +1,4 @@
-@import "../../config/constants.css";
+@import '../../config/constants.css';
 
 .sideBarItem {
   display: flex;
@@ -14,13 +14,11 @@
 }
 
 .iconDisabled {
-  filter: invert(83%) sepia(0%) saturate(814%) hue-rotate(144deg)
-    brightness(99%) contrast(110%);
+  filter: invert(83%) sepia(0%) saturate(814%) hue-rotate(144deg) brightness(99%) contrast(110%);
 }
 
 .iconEnabled:hover {
-  filter: invert(99%) sepia(67%) saturate(3880%) hue-rotate(77deg)
-    brightness(91%) contrast(83%);
+  filter: invert(99%) sepia(67%) saturate(3880%) hue-rotate(77deg) brightness(91%) contrast(83%);
 }
 
 .sideBarContent {

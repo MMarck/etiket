@@ -1,18 +1,18 @@
-import { backendURL } from "../../config/constants.js";
-import { withRouter } from "../../tools/withRouter";
-import { Component } from "react";
-import { connect } from "react-redux";
-import { replace } from "../../reducers/etiquetaSlice";
-import { Link } from "react-router-dom";
-import CustomCheckbox from "../CustomCheckbox/CustomCheckbox";
-import IngredientesModal from "../IngredientesModal/IngredientesModal.js";
-import ReactTooltip from "react-tooltip";
-import SidebarItem from "../SidebarItem/SidebarItem";
-import DatePicker from "react-date-picker/dist/entry.nostyle";
-import Cookies from "js-cookie";
-import Select from "react-select";
-import axios from "axios";
-import "./Sidebar.css";
+import { backendURL } from '../../config/constants.js';
+import { withRouter } from '../../tools/withRouter';
+import { Component } from 'react';
+import { connect } from 'react-redux';
+import { replace } from '../../reducers/etiquetaSlice';
+import { Link } from 'react-router-dom';
+import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
+import IngredientesModal from '../IngredientesModal/IngredientesModal.js';
+import ReactTooltip from 'react-tooltip';
+import SidebarItem from '../SidebarItem/SidebarItem';
+import DatePicker from 'react-date-picker/dist/entry.nostyle';
+import Cookies from 'js-cookie';
+import Select from 'react-select';
+import axios from 'axios';
+import './Sidebar.css';
 
 /**
  * Importacion de datos constantes
@@ -29,8 +29,8 @@ import {
   pesosNetos,
   pesosDrenados,
   unidadesAlcohol,
-  alergenos,
-} from "../../config/constants";
+  alergenos
+} from '../../config/constants';
 
 /**
  * Importacion de estilos constantes
@@ -41,9 +41,9 @@ import {
   ddLargeStyle,
   ddLargeStyleSmallFont,
   ddLargestStyle,
-  ddSmallStyle,
-} from "../../config/constants";
-import NutritionFactsModal from "../NutritionFactsModal/NutritionFactsModal";
+  ddSmallStyle
+} from '../../config/constants';
+import NutritionFactsModal from '../NutritionFactsModal/NutritionFactsModal';
 
 /**
  * Componente para renderizar la barra lateral para el ingreso de datos
@@ -53,10 +53,10 @@ class Sidebar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      accessToken: Cookies.get("accessToken") || "",
-      refreshToken: Cookies.get("refreshToken") || "",
+      accessToken: Cookies.get('accessToken') || '',
+      refreshToken: Cookies.get('refreshToken') || '',
       alturaTimeout: null,
-      anchoTimeout: null,
+      anchoTimeout: null
     };
   }
 
@@ -69,23 +69,17 @@ class Sidebar extends Component {
 
   handlePesoDrenadoDisable() {
     if (this.props.etiqueta.pesoDrenadoDisabled) {
-      this.handleStateChange(
-        "pesoDrenadoDisabled",
-        !this.props.etiqueta.pesoDrenadoDisabled
-      );
+      this.handleStateChange('pesoDrenadoDisabled', !this.props.etiqueta.pesoDrenadoDisabled);
     } else {
-      this.handleStateChange(
-        "pesoDrenadoDisabled",
-        !this.props.etiqueta.pesoDrenadoDisabled
-      );
-      this.handleStateChange("pesoDrenado", "");
+      this.handleStateChange('pesoDrenadoDisabled', !this.props.etiqueta.pesoDrenadoDisabled);
+      this.handleStateChange('pesoDrenado', '');
     }
   }
 
   handleVerPaquete(stateName) {
     const payload = {
       stateName: stateName,
-      value: "Ver Paquete",
+      value: 'Ver Paquete'
     };
 
     this.props.replace(payload);
@@ -94,7 +88,7 @@ class Sidebar extends Component {
   handleStateChange(stateName, value) {
     const payload = {
       stateName: stateName,
-      value: value,
+      value: value
     };
 
     this.props.replace(payload);
@@ -105,46 +99,42 @@ class Sidebar extends Component {
     let mm = value.getMonth() + 1;
     let dd = value.getDate();
 
-    if (dd < 10) dd = "0" + dd;
-    if (mm < 10) mm = "0" + mm;
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
 
-    const date = dd + "/" + mm + "/" + yyyy;
+    const date = dd + '/' + mm + '/' + yyyy;
 
     const payload = {
       stateName: stateName,
-      value: date,
+      value: date
     };
 
     this.props.replace(payload);
   }
 
   getDateObject(value) {
-    if (value === "") {
-      return "";
+    if (value === '') {
+      return '';
     } else {
-      value = value.split("/");
-      const date = new Date(
-        parseInt(value[2]),
-        parseInt(value[1]) - 1,
-        parseInt(value[0])
-      );
+      value = value.split('/');
+      const date = new Date(parseInt(value[2]), parseInt(value[1]) - 1, parseInt(value[0]));
       return date;
     }
   }
 
   logout() {
     const header = {
-      Authorization: "Bearer " + this.state.accessToken,
+      Authorization: 'Bearer ' + this.state.accessToken
     };
     const jsonData = {
-      refreshToken: this.state.refreshToken,
+      refreshToken: this.state.refreshToken
     };
     axios
-      .post(backendURL + "UsersDB/logout", jsonData, {
-        headers: header,
+      .post(backendURL + 'UsersDB/logout', jsonData, {
+        headers: header
       })
       .then((res) => {
-        this.props.navigate("/login");
+        this.props.navigate('/login');
       })
       .catch((error) => {
         console.log(error);
@@ -160,8 +150,8 @@ class Sidebar extends Component {
           <img
             id="userImg"
             alt="User"
-            src={pathIcons + "user.png"}
-            width={"50px"}
+            src={pathIcons + 'user.png'}
+            width={'50px'}
             data-tip
             data-for="userMenu"
           />
@@ -174,29 +164,20 @@ class Sidebar extends Component {
             type="light"
             clickable={true}
             border={true}
-            borderColor={"gray"}
+            borderColor={'gray'}
             offset={{ bottom: 50 }}
           >
             <div id="userSubMenu">
-              <Link to={"/miCuenta"}>
-                <button className="colored-button userSubBtn">
-                  {" "}
-                  Mi cuenta
-                </button>
+              <Link to={'/miCuenta'}>
+                <button className="colored-button userSubBtn"> Mi cuenta</button>
               </Link>
               <br />
-              <Link to={"/misEtiquetas"} className="colored-button">
-                <button className="colored-button userSubBtn">
-                  {" "}
-                  Mis etiquetas
-                </button>
+              <Link to={'/misEtiquetas'} className="colored-button">
+                <button className="colored-button userSubBtn"> Mis etiquetas</button>
               </Link>
               <br />
-              <button
-                className="colored-button userSubBtn"
-                onClick={() => this.logout()}
-              >
-                {" "}
+              <button className="colored-button userSubBtn" onClick={() => this.logout()}>
+                {' '}
                 Cerrar sesión
               </button>
             </div>
@@ -204,7 +185,7 @@ class Sidebar extends Component {
         </div>
 
         <div id="SidebarOptions" className="">
-          <ReactTooltip place="right" type="dark" effect="solid" />{" "}
+          <ReactTooltip place="right" type="dark" effect="solid" />{' '}
           {/* Componente para poner el tooltip hover con informacion a cada elemento */}
           <SidebarItem
             icon="dimensions.png"
@@ -216,9 +197,8 @@ class Sidebar extends Component {
                 <div className="sidebarContHeader">
                   <p className="sidebarTitle">Dimensiones del empaque</p>
                   <p className="sidebarSubTitle">
-                    Empieza clasificando las dimensiones a tu etiqueta, recuerda
-                    que solo puedes poner como mínimo 3.5 cm o 35 mm de ancho y
-                    altura.
+                    Empieza clasificando las dimensiones a tu etiqueta, recuerda que solo puedes
+                    poner como mínimo 3.5 cm o 35 mm de ancho y altura.
                   </p>
                 </div>
                 <div id="dimensionesCont">
@@ -232,11 +212,8 @@ class Sidebar extends Component {
                         value={this.props.etiqueta.ancho}
                         type="text"
                         onChange={(e) => {
-                          this.handleStateChange("ancho", e.target.value);
-                          this.handleStateChange(
-                            "sizeIndicatorVisibility",
-                            "visible"
-                          );
+                          this.handleStateChange('ancho', e.target.value);
+                          this.handleStateChange('sizeIndicatorVisibility', 'visible');
                         }}
                         className="gRInput numberInput"
                         onKeyPress={this.numberFilter}
@@ -251,11 +228,8 @@ class Sidebar extends Component {
                         value={this.props.etiqueta.altura}
                         type="text"
                         onChange={(e) => {
-                          this.handleStateChange("altura", e.target.value);
-                          this.handleStateChange(
-                            "sizeIndicatorVisibility",
-                            "visible"
-                          );
+                          this.handleStateChange('altura', e.target.value);
+                          this.handleStateChange('sizeIndicatorVisibility', 'visible');
                         }}
                         className="gRInput numberInput"
                         onKeyPress={this.numberFilter}
@@ -268,9 +242,7 @@ class Sidebar extends Component {
                       styles={ddNormalStyle}
                       options={unidades}
                       defaultValue={this.props.etiqueta.dimensionesUn}
-                      onChange={(e) =>
-                        this.handleStateChange("dimensionesUn", e)
-                      }
+                      onChange={(e) => this.handleStateChange('dimensionesUn', e)}
                     />
                   </div>
                 </div>
@@ -287,9 +259,8 @@ class Sidebar extends Component {
                 <div className="sidebarContHeader">
                   <p className="sidebarTitle">Identidad del alimento</p>
                   <p className="sidebarSubTitle">
-                    Ingresa el nombre de tu alimento. Recuerda que el nombre
-                    debe indicar su verdadera naturaleza y debe ser específico y
-                    no genérico.
+                    Ingresa el nombre de tu alimento. Recuerda que el nombre debe indicar su
+                    verdadera naturaleza y debe ser específico y no genérico.
                   </p>
                 </div>
                 <div id="identidadCont">
@@ -298,9 +269,7 @@ class Sidebar extends Component {
                     placeholder="Escriba aquí..."
                     value={this.props.etiqueta.nombreProducto}
                     type="text"
-                    onChange={(e) =>
-                      this.handleStateChange("nombreProducto", e.target.value)
-                    }
+                    onChange={(e) => this.handleStateChange('nombreProducto', e.target.value)}
                     className="gRInput"
                   />
                 </div>
@@ -315,13 +284,10 @@ class Sidebar extends Component {
             content={
               <div id="marca" className="sidebarItem">
                 <div className="sidebarContHeader">
-                  <p className="sidebarTitle">
-                    Nombre fantasía o marca comercial
-                  </p>
+                  <p className="sidebarTitle">Nombre fantasía o marca comercial</p>
                   <p className="sidebarSubTitle">
-                    Se podrá emplear un nombre "acuñado", de "fantasía" o "de
-                    fábrica", o una "marca registrada", siempre que vaya
-                    acompañado de la identidad del alimento.
+                    Se podrá emplear un nombre "acuñado", de "fantasía" o "de fábrica", o una "marca
+                    registrada", siempre que vaya acompañado de la identidad del alimento.
                   </p>
                 </div>
                 <div id="marcaCont">
@@ -330,9 +296,7 @@ class Sidebar extends Component {
                     placeholder="Escriba aquí..."
                     value={this.props.etiqueta.marca}
                     type="text"
-                    onChange={(e) =>
-                      this.handleStateChange("marca", e.target.value)
-                    }
+                    onChange={(e) => this.handleStateChange('marca', e.target.value)}
                     className="gRInput"
                   />
                 </div>
@@ -347,25 +311,21 @@ class Sidebar extends Component {
             content={
               <div id="peso" className="sidebarItem">
                 <div className="sidebarContHeader">
-                  <p className="sidebarTitle">
-                    Contenido neto y masa escurrida (peso escurrido)
-                  </p>
+                  <p className="sidebarTitle">Contenido neto y masa escurrida (peso escurrido)</p>
                   <p className="sidebarSubTitle">
-                    La declaración del contenido neto representa la cantidad en
-                    el momento del empacado. El contenido neto debe declararse{" "}
+                    La declaración del contenido neto representa la cantidad en el momento del
+                    empacado. El contenido neto debe declararse{' '}
                   </p>
                 </div>
                 <div id="pesoCont">
                   <div
                     id="pesosCheckbox"
-                    style={{ alignSelf: "flex-end", marginBottom: "1vh" }}
+                    style={{ alignSelf: 'flex-end', marginBottom: '1vh' }}
                     onChange={() => {
                       this.handlePesoDrenadoDisable();
                     }}
                   >
-                    <CustomCheckbox
-                      isChecked={!this.props.etiqueta.pesoDrenadoDisabled}
-                    />
+                    <CustomCheckbox isChecked={!this.props.etiqueta.pesoDrenadoDisabled} />
                   </div>
 
                   <div id="pesos">
@@ -375,9 +335,7 @@ class Sidebar extends Component {
                         styles={ddNormalStyle}
                         options={pesosNetos}
                         defaultValue={this.props.etiqueta.pesoNetoLabel}
-                        onChange={(e) =>
-                          this.handleStateChange("pesoNetoLabel", e)
-                        }
+                        onChange={(e) => this.handleStateChange('pesoNetoLabel', e)}
                       />
                       <input
                         name="pesoNeto"
@@ -385,18 +343,14 @@ class Sidebar extends Component {
                         type="text"
                         onKeyPress={this.numberFilter}
                         className=" gRInput numberInput"
-                        onChange={(e) =>
-                          this.handleStateChange("pesoNeto", e.target.value)
-                        }
+                        onChange={(e) => this.handleStateChange('pesoNeto', e.target.value)}
                       />
                       <Select
                         className="ddMenu"
                         styles={ddSmallStyle}
                         options={unidadesMasa}
                         defaultValue={this.props.etiqueta.pesoNetoUn}
-                        onChange={(e) =>
-                          this.handleStateChange("pesoNetoUn", e)
-                        }
+                        onChange={(e) => this.handleStateChange('pesoNetoUn', e)}
                       />
                     </div>
                     <div id="pesoDrenado">
@@ -405,9 +359,7 @@ class Sidebar extends Component {
                         styles={ddNormalStyle}
                         options={pesosDrenados}
                         defaultValue={this.props.etiqueta.pesoDrenadoLabel}
-                        onChange={(e) =>
-                          this.handleStateChange("pesoDrenadoLabel", e)
-                        }
+                        onChange={(e) => this.handleStateChange('pesoDrenadoLabel', e)}
                         isDisabled={this.props.etiqueta.pesoDrenadoDisabled}
                       />
                       <input
@@ -417,9 +369,7 @@ class Sidebar extends Component {
                         type="text"
                         onKeyPress={this.numberFilter}
                         className=" gRInput numberInput"
-                        onChange={(e) =>
-                          this.handleStateChange("pesoDrenado", e.target.value)
-                        }
+                        onChange={(e) => this.handleStateChange('pesoDrenado', e.target.value)}
                         disabled={this.props.etiqueta.pesoDrenadoDisabled}
                       />
                       <Select
@@ -427,9 +377,7 @@ class Sidebar extends Component {
                         styles={ddSmallStyle}
                         options={unidadesMasa}
                         defaultValue={this.props.etiqueta.pesoDrenadoUn}
-                        onChange={(e) =>
-                          this.handleStateChange("pesoDrenadoUn", e)
-                        }
+                        onChange={(e) => this.handleStateChange('pesoDrenadoUn', e)}
                         isDisabled={this.props.etiqueta.pesoDrenadoDisabled}
                       />
                     </div>
@@ -448,8 +396,8 @@ class Sidebar extends Component {
                 <div className="sidebarContHeader">
                   <p className="sidebarTitle">Contenido alcohólico</p>
                   <p className="sidebarSubTitle">
-                    En el caso de necesitar, se debe declarar un porcentaje del
-                    contenido alcohólico.
+                    En el caso de necesitar, se debe declarar un porcentaje del contenido
+                    alcohólico.
                   </p>
                 </div>
                 <div id="alcoholCont">
@@ -460,19 +408,17 @@ class Sidebar extends Component {
                     type="text"
                     onKeyPress={this.numberFilter}
                     className=" gRInput numberInput"
-                    onChange={(e) =>
-                      this.handleStateChange("alcohol", e.target.value)
-                    }
+                    onChange={(e) => this.handleStateChange('alcohol', e.target.value)}
                   ></input>
                   <Select
                     className="ddMenu"
                     styles={ddLargeStyle}
                     options={unidadesAlcohol}
                     defaultValue={{
-                      value: "Alcohol __% (Vol.)",
-                      label: "Alcohol __% (Vol.)",
+                      value: 'Alcohol __% (Vol.)',
+                      label: 'Alcohol __% (Vol.)'
                     }}
-                    onChange={(e) => this.handleStateChange("alcoholUn", e)}
+                    onChange={(e) => this.handleStateChange('alcoholUn', e)}
                   />
                 </div>
               </div>
@@ -488,9 +434,8 @@ class Sidebar extends Component {
                 <div className="sidebarContHeader">
                   <p className="sidebarTitle">Ingredientes</p>
                   <p className="sidebarSubTitle">
-                    Deben declararse todos los ingredientes por orden
-                    decreciente de proporciones. Copie y pegue su lista desde un
-                    archivo csv o escríbalos directamente.
+                    Deben declararse todos los ingredientes por orden decreciente de proporciones.
+                    Copie y pegue su lista desde un archivo csv o escríbalos directamente.
                   </p>
                 </div>
                 <div id="ingCont">
@@ -501,7 +446,7 @@ class Sidebar extends Component {
                         <th>Porcentaje</th>
                       </tr>
                     </thead>
-                    <tbody style={{ textAlign: "center" }}>
+                    <tbody style={{ textAlign: 'center' }}>
                       {ingredientes.map((ing, index) => (
                         <tr>
                           <td>{ing.ing}</td>
@@ -525,8 +470,8 @@ class Sidebar extends Component {
                 <div className="sidebarContHeader">
                   <p className="sidebarTitle">Alérgenos</p>
                   <p className="sidebarSubTitle">
-                    En el caso de necesitar, se debe declarar los tipos de
-                    alérgenos que contiene el producto.
+                    En el caso de necesitar, se debe declarar los tipos de alérgenos que contiene el
+                    producto.
                   </p>
                 </div>
                 <div id="alergenosCont">
@@ -535,7 +480,7 @@ class Sidebar extends Component {
                     className="ddMenu"
                     styles={ddMultipleStyle}
                     options={alergenos}
-                    onChange={(e) => this.handleStateChange("alergenos", e)}
+                    onChange={(e) => this.handleStateChange('alergenos', e)}
                     defaultValue={this.props.etiqueta.alergenos}
                   />
                 </div>
@@ -552,8 +497,7 @@ class Sidebar extends Component {
                 <div className="sidebarContHeader">
                   <p className="sidebarTitle">Información Nutricional</p>
                   <p className="sidebarSubTitle">
-                    Para elaborar la tabla nutricional, hay que realizar algunos
-                    cálculos.
+                    Para elaborar la tabla nutricional, hay que realizar algunos cálculos.
                   </p>
                 </div>
 
@@ -574,8 +518,8 @@ class Sidebar extends Component {
                 <div className="sidebarContHeader">
                   <p className="sidebarTitle">Tiempo de vida útil</p>
                   <p className="sidebarSubTitle">
-                    Es obligatorio definir el tiempo de consumo seguro,
-                    incluyendo la fecha de elaboración y fecha de caducidad
+                    Es obligatorio definir el tiempo de consumo seguro, incluyendo la fecha de
+                    elaboración y fecha de caducidad
                   </p>
                 </div>
                 <div id="vidaCont">
@@ -583,15 +527,13 @@ class Sidebar extends Component {
                     <input
                       name="vidaUtil"
                       value={
-                        this.props.etiqueta.vidaUtil === "Ver Paquete"
-                          ? ""
+                        this.props.etiqueta.vidaUtil === 'Ver Paquete'
+                          ? ''
                           : this.props.etiqueta.vidaUtil
                       }
                       type="text"
                       onKeyPress={this.numberFilter}
-                      onChange={(e) =>
-                        this.handleStateChange("vidaUtil", e.target.value)
-                      }
+                      onChange={(e) => this.handleStateChange('vidaUtil', e.target.value)}
                       className="form-control gRInput numberInput"
                       id="vidaUtil"
                     />
@@ -599,7 +541,7 @@ class Sidebar extends Component {
                       className="ddMenu"
                       styles={ddNormalStyle}
                       options={unidadesDias}
-                      onChange={(e) => this.handleStateChange("vidaUtilUn", e)}
+                      onChange={(e) => this.handleStateChange('vidaUtilUn', e)}
                       defaultValue={this.props.etiqueta.vidaUtil}
                     />
                   </div>
@@ -608,17 +550,15 @@ class Sidebar extends Component {
                       className="ddMenu"
                       styles={ddLargestStyle}
                       options={fabricaciones}
-                      onChange={(e) =>
-                        this.handleStateChange("fabricacionUn", e)
-                      }
+                      onChange={(e) => this.handleStateChange('fabricacionUn', e)}
                       defaultValue={this.props.etiqueta.fabricacionUn}
                     />
                     <DatePicker
                       format="d/M/yyyy"
-                      onChange={(e) => this.handleDateChange("fabricacion", e)}
+                      onChange={(e) => this.handleDateChange('fabricacion', e)}
                       value={
-                        this.props.etiqueta.fabricacion === "Ver Paquete"
-                          ? ""
+                        this.props.etiqueta.fabricacion === 'Ver Paquete'
+                          ? ''
                           : this.getDateObject(this.props.etiqueta.fabricacion)
                       }
                     />
@@ -628,17 +568,15 @@ class Sidebar extends Component {
                       className="ddMenu"
                       styles={ddLargestStyle}
                       options={caducidades}
-                      onChange={(e) =>
-                        this.handleStateChange("caducacionUn", e)
-                      }
+                      onChange={(e) => this.handleStateChange('caducacionUn', e)}
                       defaultValue={this.props.etiqueta.caducacionUn}
                     />
                     <DatePicker
                       format="d/M/yyyy"
-                      onChange={(e) => this.handleDateChange("caducacion", e)}
+                      onChange={(e) => this.handleDateChange('caducacion', e)}
                       value={
-                        this.props.etiqueta.caducacion === "Ver Paquete"
-                          ? ""
+                        this.props.etiqueta.caducacion === 'Ver Paquete'
+                          ? ''
                           : this.getDateObject(this.props.etiqueta.caducacion)
                       }
                     />
@@ -646,25 +584,25 @@ class Sidebar extends Component {
                 </div>
                 <div
                   id="lifeCheckbox"
-                  style={{ alignSelf: "flex-end", marginTop: "1vh" }}
+                  style={{ alignSelf: 'flex-end', marginTop: '1vh' }}
                   onChange={() => {
-                    this.handleVerPaquete("vidaUtil");
-                    this.handleVerPaquete("fabricacion");
-                    this.handleVerPaquete("caducacion");
+                    this.handleVerPaquete('vidaUtil');
+                    this.handleVerPaquete('fabricacion');
+                    this.handleVerPaquete('caducacion');
                   }}
                 >
                   <button
                     className="darkButton-twhite"
                     style={{
-                      width: "fit-content",
-                      height: "fit-content",
-                      fontSize: "0.8em",
-                      margin: "auto",
+                      width: 'fit-content',
+                      height: 'fit-content',
+                      fontSize: '0.8em',
+                      margin: 'auto'
                     }}
                     onClick={() => {
-                      this.handleVerPaquete("vidaUtil");
-                      this.handleVerPaquete("fabricacion");
-                      this.handleVerPaquete("caducacion");
+                      this.handleVerPaquete('vidaUtil');
+                      this.handleVerPaquete('fabricacion');
+                      this.handleVerPaquete('caducacion');
                     }}
                   >
                     PONER "VER PAQUETE"
@@ -683,8 +621,7 @@ class Sidebar extends Component {
                 <div className="sidebarContHeader">
                   <p className="sidebarTitle">Forma de conservacion</p>
                   <p className="sidebarSubTitle">
-                    Se debe especificar la forma de conservacion correcta de su
-                    producto.
+                    Se debe especificar la forma de conservacion correcta de su producto.
                   </p>
                 </div>
                 <div id="conservacionCont">
@@ -693,9 +630,7 @@ class Sidebar extends Component {
                     defaultValue={this.props.etiqueta.conservacionUn}
                     styles={ddNormalStyle}
                     options={conservacionUn}
-                    onChange={(e) =>
-                      this.handleStateChange("conservacionUn", e)
-                    }
+                    onChange={(e) => this.handleStateChange('conservacionUn', e)}
                   />
                   <Select
                     className="ddMenu"
@@ -703,7 +638,7 @@ class Sidebar extends Component {
                     styles={ddLargeStyleSmallFont}
                     options={conservacion}
                     onChange={(e) => {
-                      this.handleStateChange("metodoConservacion", e);
+                      this.handleStateChange('metodoConservacion', e);
                     }}
                   />
                 </div>
@@ -759,7 +694,7 @@ class Sidebar extends Component {
  * @returns null
  */
 const mapStateToProps = (state) => ({
-  etiqueta: state.etiqueta,
+  etiqueta: state.etiqueta
 });
 
 /**
@@ -768,10 +703,7 @@ const mapStateToProps = (state) => ({
  * @returns null
  */
 const mapDispatchToProps = () => ({
-  replace,
+  replace
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps()
-)(withRouter(Sidebar));
+export default connect(mapStateToProps, mapDispatchToProps())(withRouter(Sidebar));

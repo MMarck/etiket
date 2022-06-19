@@ -1,36 +1,36 @@
-import axios from "axios";
-import { backendURL } from "../../config/constants.js";
-import { withRouter } from "../../tools/withRouter";
-import Cookies from "js-cookie";
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import "./LoginForm.css";
+import axios from 'axios';
+import { backendURL } from '../../config/constants.js';
+import { withRouter } from '../../tools/withRouter';
+import Cookies from 'js-cookie';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import './LoginForm.css';
 
 /**
  * Formulario de inicio de sesion
  */
 const LoginForm = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleCookies = (accessToken, refreshToken) => {
-    Cookies.set("accessToken", accessToken);
-    Cookies.set("refreshToken", refreshToken);
+    Cookies.set('accessToken', accessToken);
+    Cookies.set('refreshToken', refreshToken);
   };
 
   function login(e) {
     e.preventDefault();
     const jsonData = {
       email: email,
-      password: password,
+      password: password
     };
     const axiosLogin = axios.create();
     axiosLogin
-      .post(backendURL + "UsersDB/login", jsonData)
+      .post(backendURL + 'UsersDB/login', jsonData)
       .then((response) => {
         handleCookies(response.data.accessToken, response.data.refreshToken);
-        navigate("/");
+        navigate('/');
       })
       .catch((error) => {
         if (error.response) {
@@ -38,7 +38,7 @@ const LoginForm = () => {
         } else if (error.request) {
           console.log(error.request);
         } else {
-          console.log("Error", error);
+          console.log('Error', error);
         }
       });
   }
@@ -83,9 +83,7 @@ const LoginForm = () => {
 
       <br />
       <Link to="/login/resetPassword" className="w-100">
-        <button className="btn-dark darkButton w-100">
-          ¿Olvidé mi contraseña?
-        </button>
+        <button className="btn-dark darkButton w-100">¿Olvidé mi contraseña?</button>
       </Link>
 
       <hr />
