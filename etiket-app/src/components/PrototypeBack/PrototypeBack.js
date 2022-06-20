@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import Draggable from 'react-draggable';
 import { unitTocm, getDataFontSize } from '../../tools/Casefunctions';
-import { setPosition, getPosition, JSON_String } from '../../tools/Statefunctions';
+import { setPosition, getPosition, JSONString } from '../../tools/Statefunctions';
 
 import { replace } from '../../reducers/etiquetaSlice';
 import SizeIndicator from '../SizeIndicator/SizeIndicator';
@@ -201,13 +201,13 @@ class PrototypeBack extends Component {
                   id="algPos">
                   <span>
                     {ingredientes.length > 0
-                      ? `Ingredientes: ${JSON_String(ingredientes, 'ing')}`
+                      ? `Ingredientes: ${JSONString(ingredientes, 'ing')}`
                       : ''}
                   </span>
 
                   <span>
                     <b>
-                      {alergenos.length > 0 ? `CONTIENE ${JSON_String(alergenos, 'value')}` : ''}
+                      {alergenos.length > 0 ? `CONTIENE ${JSONString(alergenos, 'value')}` : ''}
                     </b>
                   </span>
                 </div>

@@ -18,7 +18,7 @@ import ChangePassword from '../pages/ChangePassword/ChangePassword';
 import LabelEditor from '../pages/LabelEditor/LabelEditor';
 import PrivateRoute from '../tools/PrivateRoute';
 import './App.css';
-
+ 
 const history = createBrowserHistory();
 
 function App() {
