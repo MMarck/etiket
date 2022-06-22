@@ -108,6 +108,7 @@ class LabelEditor extends Component {
         this.lastPosY = e.clientY;
       }
     });
+
     canvas.on('mouse:up', function (opt) {
       // on mouse up we want to recalculate new interaction
       // for all objects, so we call setViewportTransform
@@ -123,30 +124,39 @@ class LabelEditor extends Component {
         return;
       } 
       
-      var topOffset = rect.top - canvas.vptCoords.tl.y
-      var rightOffset = canvas.vptCoords.br.x - rect.left - rect.width
-      var bottomOffset = canvas.vptCoords.br.y - rect.top - rect.height
-      var leftOffset = rect.left - canvas.vptCoords.tl.x
-
-      obj.setCoords();
-      // top-left  corner
-      if(obj.getBoundingRect().top < topOffset || obj.getBoundingRect().left < leftOffset){
-        obj.top = Math.max(obj.top, obj.top - (obj.getBoundingRect().top / obj.zoomY) + topOffset, topOffset);
-        obj.left = Math.max(obj.left, obj.left - (obj.getBoundingRect().left / obj.zoomX)  + leftOffset, leftOffset);
+      var bounding = {
+        top: rect.top - canvas.vptCoords.tl.y * 0.01,
+        left: rect.left - canvas.vptCoords.tl.x * 0.01,
+        right: rect.left + rect.width - canvas.vptCoords.tl.x * 0.01,
+        bottom: rect.top + rect.height- canvas.vptCoords.tl.y * 0.01
       }
 
-      // bot-right corner
-      if(obj.getBoundingRect().top+obj.getBoundingRect().height  > obj.canvas.height - bottomOffset || obj.getBoundingRect().left+obj.getBoundingRect().width  > obj.canvas.width - rightOffset){
-        obj.top = Math.min(obj.top, obj.canvas.height / obj.zoomY -obj.getBoundingRect().height / obj.zoomY+obj.top -obj.getBoundingRect().top / obj.zoomY - bottomOffset);
-        obj.left = Math.min(obj.left, obj.canvas.width/ obj.zoomX-obj.getBoundingRect().width/ obj.zoomX+obj.left-obj.getBoundingRect().left/ obj.zoomX - rightOffset);
+      obj.setCoords();
+      
+      var objectPosition = {
+        top: obj.top,
+        left: obj.left,
+        right: obj.left + obj.width * obj.scaleX,
+        bottom: obj.top + obj.height * obj.scaleY
+      }
+      
+      //simple verification that object's position don't be outside bounding area
+      if(objectPosition.top < bounding.top){
+        obj.top = bounding.top
+      }
+      if(objectPosition.left < bounding.left){
+        obj.left = bounding.left
+      }
+      if(objectPosition.right > bounding.right){
+        obj.left = bounding.right - obj.width * obj.scaleX
+      }
+      if( objectPosition.bottom > bounding.bottom){
+        obj.top = bounding.bottom - obj.height * obj.scaleY
       }
     }); 
 
-
     this.setState({ canvas: canvas });
     canvas.renderAll();
-
-
   }
 
   constructor(props) {
