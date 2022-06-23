@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* Este Documento continene el esqueleto del estado global para las etiquetas */
 
 import { createSlice } from '@reduxjs/toolkit';
@@ -32,6 +33,7 @@ const Initial_State = {
   fabricacionUn: { label: 'Fecha de elaboración', value: '' },
   caducacion: handleDateChange(new Date()),
   caducacionUn: { label: 'Fecha de caducación', value: '' },
+  lote: '',
   direccion: '',
   instrucciones: '',
   nombreProductoPos: { x: '', y: '' },
@@ -85,7 +87,6 @@ export const etiquetaSlice = createSlice({
       return initial_State;
     },
     loadLabel: (state, action) => {
-      console.log(action.payload);
       state.nombreProyecto = action.payload.nombreProyecto;
       state.nombreProducto = action.payload.nombreEtiqueta;
       state.country = action.payload.country;
@@ -114,6 +115,7 @@ export const etiquetaSlice = createSlice({
       state.fabricacionUn = action.payload.fabricacion.unidad;
       state.caducacion = action.payload.caducacion.valor;
       state.caducacionUn = action.payload.caducacion.unidad;
+      state.lote = action.payload.lote;
       state.direccion = action.payload.direccion;
       state.instrucciones = action.payload.instrucciones;
       state.nombreProductoPos = action.payload.posicion.nombre;

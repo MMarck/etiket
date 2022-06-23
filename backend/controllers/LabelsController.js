@@ -119,6 +119,7 @@ module.exports = {
             },
             direccion: "",
             instrucciones: "",
+            lote: "",
             posicion:{
                 pesos:{
                     x:0,
@@ -225,6 +226,7 @@ module.exports = {
             label.vidaUtil = req.body.vidaUtil;
             label.fabricacion = req.body.fabricacion;
             label.caducacion = req.body.caducacion;
+            label.lote=req.body.lote;
             label.direccion = req.body.direccion;
             label.instrucciones = req.body.instrucciones;
             label.posicion = req.body.posicion;
