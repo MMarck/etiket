@@ -7,7 +7,6 @@
         "plugin:react/recommended",
         "airbnb",
         "eslint:recommended",
-        "plugin:react/recommended",
         "plugin:prettier/recommended"
     ],
     "parserOptions": {
@@ -18,13 +17,21 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react", "prettier", "only-warn"
     ],
     "rules": {
+        "linebreak-style": ["error", "windows"],
+        "react/prefer-stateless-function": [0, { "ignorePureComponents": true }],
         "react/react-in-jsx-scope": "off",
+        "react/destructuring-assignment": [0, "never"],
+        "react/prop-types": [0],
+        "no-alert":"off",
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "no-plusplus": [2, { "allowForLoopAfterthoughts": true }],
         "prettier/prettier":[
             "error",
             {"endOfLine":"auto"}
         ]
+        
     }
 }

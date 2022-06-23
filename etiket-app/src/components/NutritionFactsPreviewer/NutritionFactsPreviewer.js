@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { propTypes } from 'react-bootstrap/esm/Image';
 import { connect } from 'react-redux';
 import { replace } from '../../reducers/etiquetaSlice';
 import './NutritionFactsPreviewer.css';
