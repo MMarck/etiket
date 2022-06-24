@@ -57,7 +57,8 @@ class Sidebar extends Component {
     super(props);
     this.state = {
       accessToken: Cookies.get('accessToken') || '',
-      refreshToken: Cookies.get('refreshToken') || ''
+      refreshToken: Cookies.get('refreshToken') || '',
+      addInfo: []
     };
   }
 
@@ -86,6 +87,25 @@ class Sidebar extends Component {
     };
 
     this.props.replace(payload);
+  }
+
+  handleAddInfo(index, key, value) {
+    const addInfoPrev = JSON.parse(JSON.stringify(this.props.etiqueta.addInfo));
+    addInfoPrev[index][key] = value;
+    this.handleStateChange('addInfo', addInfoPrev);
+  }
+
+  // eslint-disable-next-line react/sort-comp
+  newAddInfo() {
+    const addInfoPrev = JSON.parse(JSON.stringify(this.props.etiqueta.addInfo));
+    addInfoPrev.push({ title: '', cont: '' });
+    this.handleStateChange('addInfo', addInfoPrev);
+  }
+
+  removeAddInfo(index) {
+    const addInfoPrev = JSON.parse(JSON.stringify(this.props.etiqueta.addInfo));
+    addInfoPrev.splice(index, 1);
+    this.handleStateChange('addInfo', addInfoPrev);
   }
 
   handleDateChange(stateName, value) {
@@ -704,7 +724,50 @@ class Sidebar extends Component {
             alt="info"
             dataTip="Información adicional"
             isDisabled={isDisabled}
-            content={<></>}
+            content={
+              <div id="info">
+                <div className="sidebarContHeader">
+                  <p className="sidebarTitle">Información adicional</p>
+                  <p className="sidebarSubTitle">
+                    Cualquier otra información adicional que desee agregar a la etiqueta puede
+                    colocar en los siguientes campos.
+                  </p>
+                </div>
+                <div id="infoCont">
+                  {this.props.etiqueta.addInfo.map((info, index) => (
+                    <div className="infoItem">
+                      <input
+                        name={`infoItemTitle${index}`}
+                        value={this.props.etiqueta.addInfo[index].title}
+                        type="text"
+                        onChange={(e) => {
+                          this.handleAddInfo(index, 'title', e.target.value);
+                        }}
+                        className="gRInput"
+                      />
+                      <input
+                        name={`infoItemCont${index}`}
+                        value={this.props.etiqueta.addInfo[index].cont}
+                        type="text"
+                        onChange={(e) => {
+                          this.handleAddInfo(index, 'cont', e.target.value);
+                        }}
+                        className="gRInput"
+                      />
+                      <button
+                        className="removeInfoBtn"
+                        type="button"
+                        onClick={() => this.removeAddInfo(index)}>
+                        x
+                      </button>
+                    </div>
+                  ))}
+                  <button className="newInfoBtn" type="button" onClick={() => this.newAddInfo()}>
+                    +
+                  </button>
+                </div>
+              </div>
+            }
           />
           <SidebarItem
             icon="pin.png"

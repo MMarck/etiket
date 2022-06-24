@@ -515,3 +515,45 @@ Ingredientes
   display: flex;
   gap: 0.5vw;
 }
+
+/* Información Adicional*/
+
+#info{
+
+}
+
+#infoCont{
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+}
+
+.infoItem{
+  display: flex;
+  gap: 0.5vw;
+}
+
+.newInfoBtn{
+  display: block;
+  display: inline-block;
+  border: none;
+  background-color: transparent;
+  font-size: 5em;
+  font-weight: bold;
+  margin: 0 auto;
+}
+
+.newInfoBtn:hover{
+  color: var(--Sgreen);
+}
+
+.removeInfoBtn{
+  border: none;
+  background-color: transparent;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.removeInfoBtn:hover{
+  color:var(--Sgreen)
+}

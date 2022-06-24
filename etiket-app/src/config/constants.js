@@ -778,7 +778,9 @@ export const newLabelDefault = (id, nombre, tipo) => {
       valor: handleDateChange(new Date()),
       unidad: { label: 'Fecha de caducacion', value: 'Fecha de caducacion' }
     },
-    direccion: '',
+    lote: '',
+    addInfo: [],
+    direccion: [],
     instrucciones: '',
     posicion: {
       pesos: {

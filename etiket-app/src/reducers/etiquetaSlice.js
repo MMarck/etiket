@@ -34,8 +34,11 @@ const Initial_State = {
   caducacion: handleDateChange(new Date()),
   caducacionUn: { label: 'Fecha de caducación', value: '' },
   lote: '',
-  direccion: '',
-  instrucciones: '',
+  addInfo: [],
+  direccion: [],
+  instrucciones: [],
+  pvp: '',
+  /* Posiciones de los diferentes cuadros */
   nombreProductoPos: { x: '', y: '' },
   marcaPos: { x: '', y: '' },
   pesosPos: { x: '', y: '' },
@@ -116,8 +119,10 @@ export const etiquetaSlice = createSlice({
       state.caducacion = action.payload.caducacion.valor;
       state.caducacionUn = action.payload.caducacion.unidad;
       state.lote = action.payload.lote;
+      state.addInfo = action.payload.addInfo;
       state.direccion = action.payload.direccion;
       state.instrucciones = action.payload.instrucciones;
+      state.pvp = action.payload.pvp;
       state.nombreProductoPos = action.payload.posicion.nombre;
       state.marcaPos = action.payload.posicion.marca;
       state.pesosPos = action.payload.posicion.pesos;

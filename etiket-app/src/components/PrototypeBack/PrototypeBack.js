@@ -30,7 +30,7 @@ class PrototypeBack extends Component {
   handleStateChange(stateName, value) {
     const payload = {
       stateName,
-      value,
+      value
     };
     this.props.replace(payload);
   }
@@ -96,9 +96,8 @@ class PrototypeBack extends Component {
           style={{
             height: altura + dimensionesUn,
             width: ancho + dimensionesUn,
-            fontSize: dataFontSize,
-          }}
-        >
+            fontSize: dataFontSize
+          }}>
           <div className="prototypeSection3">
             {this.props.LabelEditor.showNutritionFacts ? (
               <Draggable bounds="#PrototypeBack" scale={this.props.LabelEditor.zoom}>
@@ -110,12 +109,12 @@ class PrototypeBack extends Component {
               ''
             )}
 
-            {vidaUtil
-            || fabricacionUn
-            || caducacionUn
-            || conservacionUn
-            || direccion
-            || instrucciones ? (
+            {vidaUtil ||
+            fabricacionUn ||
+            caducacionUn ||
+            conservacionUn ||
+            direccion ||
+            instrucciones ? (
               <Draggable bounds="#PrototypeBack" scale={this.props.LabelEditor.zoom}>
                 <div
                   onMouseLeave={() => {
@@ -123,16 +122,11 @@ class PrototypeBack extends Component {
                   }}
                   className="draggable-group-2 draggable-container"
                   style={{ position: 'absolute', bottom: '1px' }}
-                  id="ingPos"
-                >
+                  id="ingPos">
                   <span>
                     {this.props.etiqueta.metodoConservacion.value !== '' ? (
                       <span style={{ whiteSpace: 'normal' }}>
-                        <b>Metodo de conservacion: </b>
-                        {' '}
-                        {conservacionUn}
-                        {' '}
-                        {metodoConservacion}
+                        <b>Metodo de conservacion: </b> {conservacionUn} {metodoConservacion}
                       </span>
                     ) : (
                       ''
@@ -142,11 +136,7 @@ class PrototypeBack extends Component {
                   <span>
                     {vidaUtil ? (
                       <>
-                        <b>Vida Util: </b>
-                        {' '}
-                        {vidaUtil}
-                        {' '}
-                        {vidaUtil === 'Ver Paquete' ? '' : vidaUtilUn}
+                        <b>Vida Util: </b> {vidaUtil} {vidaUtil === 'Ver Paquete' ? '' : vidaUtilUn}
                       </>
                     ) : (
                       ''
@@ -156,9 +146,7 @@ class PrototypeBack extends Component {
                   <span>
                     {direccion ? (
                       <>
-                        <b>Dirección: </b>
-                        {' '}
-                        {direccion}
+                        <b>Dirección: </b> {direccion}
                       </>
                     ) : (
                       ''
@@ -168,9 +156,7 @@ class PrototypeBack extends Component {
                   <span>
                     {instrucciones ? (
                       <>
-                        <b>Instrucciones: </b>
-                        {' '}
-                        {instrucciones}
+                        <b>Instrucciones: </b> {instrucciones}
                       </>
                     ) : (
                       ''
@@ -180,13 +166,7 @@ class PrototypeBack extends Component {
                   <span>
                     {fabricacion !== '' ? (
                       <>
-                        <b>
-                          {fabricacionUn}
-                          :
-                          {' '}
-                        </b>
-                        {' '}
-                        {fabricacion}
+                        <b>{fabricacionUn}: </b> {fabricacion}
                       </>
                     ) : (
                       ''
@@ -196,13 +176,7 @@ class PrototypeBack extends Component {
                   <span>
                     {caducacion !== '' ? (
                       <>
-                        <b>
-                          {caducacionUn}
-                          :
-                          {' '}
-                        </b>
-                        {' '}
-                        {caducacion}
+                        <b>{caducacionUn}: </b> {caducacion}
                       </>
                     ) : (
                       ''
@@ -210,9 +184,9 @@ class PrototypeBack extends Component {
                   </span>
                 </div>
               </Draggable>
-              ) : (
-                ''
-              )}
+            ) : (
+              ''
+            )}
           </div>
 
           <div className="prototypeSection3">
@@ -223,8 +197,7 @@ class PrototypeBack extends Component {
                     this.handleStateChange('algPos', getPosition('algPos'));
                   }}
                   className="draggable-group-1 draggable-container"
-                  id="algPos"
-                >
+                  id="algPos">
                   <span>
                     {ingredientes.length > 0
                       ? `Ingredientes: ${JSONString(ingredientes, 'ing')}`
@@ -252,9 +225,7 @@ class PrototypeBack extends Component {
                   <span>
                     {instrucciones ? (
                       <>
-                        <b>Instrucciones: </b>
-                        {' '}
-                        {instrucciones}
+                        <b>Instrucciones: </b> {instrucciones}
                       </>
                     ) : (
                       ''
@@ -276,9 +247,7 @@ class PrototypeBack extends Component {
                   <span>
                     {direccion ? (
                       <>
-                        <b>Dirección: </b>
-                        {' '}
-                        {direccion}
+                        <b>Dirección: </b> {direccion}
                       </>
                     ) : (
                       ''
@@ -307,7 +276,7 @@ class PrototypeBack extends Component {
  */
 const mapStateToProps = (state) => ({
   etiqueta: state.etiqueta,
-  LabelEditor: state.LabelEditorSlice,
+  LabelEditor: state.LabelEditorSlice
 });
 
 /**
@@ -316,7 +285,7 @@ const mapStateToProps = (state) => ({
  * @returns null
  */
 const mapDispatchToProps = () => ({
-  replace,
+  replace
 });
 
 export default connect(mapStateToProps, mapDispatchToProps())(PrototypeBack);
