@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import jwt_decode from 'jwt-decode';
 import Select from 'react-select';
-import { backendURL, countries, pathIcons } from '../../config/constants.js';
+import { backendURL, countries, pathIcons } from '../../config/constants';
 import request from '../../tools/ApiSetup';
 import { replace } from '../../reducers/etiquetaSlice';
 import { ddNormalStyle } from '../../tools/Statefunctions';

@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { backendURL } from '../../config/constants.js';
-import { withRouter } from '../../tools/withRouter';
+import { backendURL } from '../../config/constants';
+import withRouter from '../../tools/withRouter';
 import './CreateAccount.css';
 
 /**

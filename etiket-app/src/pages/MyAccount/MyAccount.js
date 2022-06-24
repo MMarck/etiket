@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import Cookies from 'js-cookie';
-import { backendURL } from '../../config/constants.js';
+import { backendURL } from '../../config/constants';
 import request from '../../tools/ApiSetup';
 
 const userIcon = '../../images/icons/user.png';

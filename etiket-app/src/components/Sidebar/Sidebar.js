@@ -10,8 +10,8 @@ import SidebarItem from '../SidebarItem/SidebarItem';
 import IngredientesModal from '../IngredientesModal/IngredientesModal.js';
 import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
 import { replace } from '../../reducers/etiquetaSlice';
-import { withRouter } from '../../tools/withRouter';
-import { backendURL } from '../../config/constants.js';
+import withRouter from '../../tools/withRouter';
+import { backendURL } from '../../config/constants';
 import './Sidebar.css';
 
 /**

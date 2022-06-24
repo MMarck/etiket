@@ -5,8 +5,8 @@ import ReactTooltip from 'react-tooltip';
 import Cookies from 'js-cookie';
 import { replace } from '../../reducers/etiquetaSlice';
 import request from '../../tools/ApiSetup';
-import { backendURL } from '../../config/constants.js';
-import { withRouter } from '../../tools/withRouter';
+import { backendURL } from '../../config/constants';
+import withRouter from '../../tools/withRouter';
 import './NewLabel.css';
 
 const mapStateToProps = (state) => ({

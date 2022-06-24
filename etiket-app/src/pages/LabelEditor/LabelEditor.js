@@ -6,7 +6,7 @@ import React from 'react';
 import { replace, erase, loadLabel } from '../../reducers/etiquetaSlice';
 import { replaceLE } from '../../reducers/LabelEditorSlice';
 import { pathIcons, backendURL } from '../../config/constants';
-import { withRouter } from '../../tools/withRouter';
+import withRouter from '../../tools/withRouter';
 import request from '../../tools/ApiSetup';
 import PrototypeFront from '../../components/PrototypeFront/PrototypeFront';
 import PrototypeBack from '../../components/PrototypeBack/PrototypeBack';

@@ -2,8 +2,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { withRouter } from '../../tools/withRouter';
-import { backendURL } from '../../config/constants.js';
+import { backendURL } from '../../config/constants';
 import './LoginForm.css';
 
 /**
@@ -109,4 +108,4 @@ function LoginForm() {
   );
 }
 
-export default withRouter(LoginForm);
+export default LoginForm;

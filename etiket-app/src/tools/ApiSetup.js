@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
-import { backendURL } from '../config/constants.js';
+import { backendURL } from '../config/constants';
 
 const request = axios.create();
 
