@@ -115,6 +115,8 @@ class LabelEditor extends React.Component {
         valor: this.props.etiqueta.caducacion,
         unidad: this.props.etiqueta.caducacionUn
       },
+      lote: this.props.etiqueta.lote,
+      addInfo: this.props.etiqueta.addInfo,
       direccion: this.props.etiqueta.direccion,
       instrucciones: this.props.etiqueta.instrucciones,
       posicion: {

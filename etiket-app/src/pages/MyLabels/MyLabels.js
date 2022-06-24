@@ -20,6 +20,17 @@ const mapDispatchToProps = () => ({
 });
 
 class MyLabels extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isPaid: true,
+      accessToken: Cookies.get('accessToken') || '',
+      refreshToken: Cookies.get('refreshToken') || '',
+      showPackagesTypes: false,
+      labels: []
+    };
+  }
+
   componentDidMount() {
     const header = {
       Authorization: `Bearer ${this.state.accessToken}`
@@ -33,19 +44,8 @@ class MyLabels extends Component {
         this.setState({ labels: res.data });
       })
       .catch((error) => {
-        console.log(error);
+        alert(error);
       });
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      isPaid: true,
-      accessToken: Cookies.get('accessToken') || '',
-      refreshToken: Cookies.get('refreshToken') || '',
-      showPackagesTypes: false,
-      labels: []
-    };
   }
 
   handleStateChange(stateName, value) {
@@ -105,7 +105,7 @@ class MyLabels extends Component {
                 tengas acceso ilimitado.
               </span>
 
-              <button className=" btn-secondary darkButton fw-bolder p-2 my-4">
+              <button type="button" className=" btn-secondary darkButton fw-bolder p-2 my-4">
                 CAMBIAR DE PLAN
               </button>
             </div>

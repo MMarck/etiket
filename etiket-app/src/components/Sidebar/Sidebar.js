@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -7,7 +8,7 @@ import Cookies from 'js-cookie';
 import Select from 'react-select';
 import axios from 'axios';
 import SidebarItem from '../SidebarItem/SidebarItem';
-import IngredientesModal from '../IngredientesModal/IngredientesModal.js';
+import IngredientesModal from '../IngredientesModal/IngredientesModal';
 import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
 import { replace } from '../../reducers/etiquetaSlice';
 import withRouter from '../../tools/withRouter';
@@ -29,7 +30,9 @@ import {
   pesosNetos,
   pesosDrenados,
   unidadesAlcohol,
-  alergenos
+  alergenos,
+  backendURL
+  // eslint-disable-next-line import/no-duplicates
 } from '../../config/constants';
 
 /**
@@ -42,6 +45,7 @@ import {
   ddLargeStyleSmallFont,
   ddLargestStyle,
   ddSmallStyle
+  // eslint-disable-next-line import/no-duplicates
 } from '../../config/constants';
 import NutritionFactsModal from '../NutritionFactsModal/NutritionFactsModal';
 
@@ -55,16 +59,8 @@ class Sidebar extends Component {
     this.state = {
       accessToken: Cookies.get('accessToken') || '',
       refreshToken: Cookies.get('refreshToken') || '',
-      alturaTimeout: null,
-      anchoTimeout: null
+      addInfo: []
     };
-  }
-
-  numberFilter(event) {
-    const value = event.target.value + event.key;
-    if (!/^\d{0,3}(\.\d{0,2})?$/.test(value)) {
-      event.preventDefault();
-    }
   }
 
   handlePesoDrenadoDisable() {
@@ -94,6 +90,25 @@ class Sidebar extends Component {
     this.props.replace(payload);
   }
 
+  handleAddInfo(index, key, value) {
+    const addInfoPrev = JSON.parse(JSON.stringify(this.props.etiqueta.addInfo));
+    addInfoPrev[index][key] = value;
+    this.handleStateChange('addInfo', addInfoPrev);
+  }
+
+  // eslint-disable-next-line react/sort-comp
+  newAddInfo() {
+    const addInfoPrev = JSON.parse(JSON.stringify(this.props.etiqueta.addInfo));
+    addInfoPrev.push({ title: '', cont: '' });
+    this.handleStateChange('addInfo', addInfoPrev);
+  }
+
+  removeAddInfo(index) {
+    const addInfoPrev = JSON.parse(JSON.stringify(this.props.etiqueta.addInfo));
+    addInfoPrev.splice(index, 1);
+    this.handleStateChange('addInfo', addInfoPrev);
+  }
+
   handleDateChange(stateName, value) {
     const yyyy = value.getFullYear();
     let mm = value.getMonth() + 1;
@@ -112,13 +127,26 @@ class Sidebar extends Component {
     this.props.replace(payload);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   getDateObject(value) {
     if (value === '') {
       return '';
     }
-    value = value.split('/');
-    const date = new Date(parseInt(value[2]), parseInt(value[1]) - 1, parseInt(value[0]));
+    const newValue = value.split('/');
+    const date = new Date(
+      parseInt(newValue[2], 10),
+      parseInt(newValue[1], 10) - 1,
+      parseInt(newValue[0], 10)
+    );
     return date;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  numberFilter(event) {
+    const value = event.target.value + event.key;
+    if (!/^\d{0,3}(\.\d{0,2})?$/.test(value)) {
+      event.preventDefault();
+    }
   }
 
   logout() {
@@ -132,11 +160,11 @@ class Sidebar extends Component {
       .post(`${backendURL}UsersDB/logout`, jsonData, {
         headers: header
       })
-      .then((res) => {
+      .then(() => {
         this.props.navigate('/login');
       })
       .catch((error) => {
-        console.log(error);
+        alert(error);
       });
   }
 
@@ -167,14 +195,23 @@ class Sidebar extends Component {
             offset={{ bottom: 50 }}>
             <div id="userSubMenu">
               <Link to="/miCuenta">
-                <button className="colored-button userSubBtn"> Mi cuenta</button>
+                <button type="button" className="colored-button userSubBtn">
+                  {' '}
+                  Mi cuenta
+                </button>
               </Link>
               <br />
               <Link to="/misEtiquetas" className="colored-button">
-                <button className="colored-button userSubBtn"> Mis etiquetas</button>
+                <button type="button" className="colored-button userSubBtn">
+                  {' '}
+                  Mis etiquetas
+                </button>
               </Link>
               <br />
-              <button className="colored-button userSubBtn" onClick={() => this.logout()}>
+              <button
+                type="button"
+                className="colored-button userSubBtn"
+                onClick={() => this.logout()}>
                 {' '}
                 Cerrar sesión
               </button>
@@ -284,8 +321,9 @@ class Sidebar extends Component {
                 <div className="sidebarContHeader">
                   <p className="sidebarTitle">Nombre fantasía o marca comercial</p>
                   <p className="sidebarSubTitle">
-                    Se podrá emplear un nombre "acuñado", de "fantasía" o "de fábrica", o una "marca
-                    registrada", siempre que vaya acompañado de la identidad del alimento.
+                    Se podrá emplear un nombre &quot;acuñado&quot;, de &quot;fantasía&quot; o
+                    &quot;de fábrica&quot;, o una &quot;marca registrada&quot;, siempre que vaya
+                    acompañado de la identidad del alimento.
                   </p>
                 </div>
                 <div id="marcaCont">
@@ -439,15 +477,17 @@ class Sidebar extends Component {
                   <table className="ingTable">
                     <thead>
                       <tr>
-                        <th>Ingrediente</th>
-                        <th>Porcentaje</th>
+                        <th className="ingTableHeader">Ingrediente</th>
+                        <th className="ingTableHeader">Porcentaje</th>
                       </tr>
                     </thead>
                     <tbody style={{ textAlign: 'center' }}>
-                      {ingredientes.map((ing, index) => (
+                      {ingredientes.map((ing) => (
                         <tr>
-                          <td>{ing.ing}</td>
-                          <td>{ing.percentage}</td>
+                          <td className="ingItem" key={ing.ing}>
+                            {ing.ing}
+                          </td>
+                          <td key={ing.percentage}>{ing.percentage}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -578,16 +618,8 @@ class Sidebar extends Component {
                       }
                     />
                   </div>
-                </div>
-                <div
-                  id="lifeCheckbox"
-                  style={{ alignSelf: 'flex-end', marginTop: '1vh' }}
-                  onChange={() => {
-                    this.handleVerPaquete('vidaUtil');
-                    this.handleVerPaquete('fabricacion');
-                    this.handleVerPaquete('caducacion');
-                  }}>
                   <button
+                    type="button"
                     className="darkButton-twhite"
                     style={{
                       width: 'fit-content',
@@ -600,7 +632,7 @@ class Sidebar extends Component {
                       this.handleVerPaquete('fabricacion');
                       this.handleVerPaquete('caducacion');
                     }}>
-                    PONER "VER PAQUETE"
+                    PONER &quot;VER PAQUETE&quot;
                   </button>
                 </div>
               </div>
@@ -645,14 +677,98 @@ class Sidebar extends Component {
             alt="lote"
             dataTip="Identificación del lote"
             isDisabled={isDisabled}
-            content={<></>}
+            content={
+              <div id="lote">
+                <div className="sidebarContHeader">
+                  <p className="sidebarTitle">Identificación de lote</p>
+                  <p className="sidebarSubTitle">
+                    Cada envase debe llevar impresa, grabada o marcada o de cualquier otro modo,
+                    pero de forma indeleble, un código precedido de la letra &quot;L&quot; o de la
+                    palabra &quot;Lote&quot;, que permita la trazabilidad del lote.
+                  </p>
+                </div>
+                <div id="loteCont">
+                  <div id="loteContInput">
+                    <label htmlFor="lote" className="sbLabel">
+                      Lote
+                    </label>
+                    <input
+                      name="lote"
+                      value={this.props.etiqueta.lote}
+                      type="text"
+                      onChange={(e) => {
+                        this.handleStateChange('lote', e.target.value);
+                      }}
+                      className="gRInput"
+                    />
+                  </div>
+                  <button
+                    type="button"
+                    className="darkButton-twhite"
+                    style={{
+                      width: 'fit-content',
+                      height: 'fit-content',
+                      fontSize: '0.8em',
+                      margin: 'auto'
+                    }}
+                    onClick={() => {
+                      this.handleVerPaquete('lote');
+                    }}>
+                    PONER &quot;VER PAQUETE&quot;
+                  </button>
+                </div>
+              </div>
+            }
           />
           <SidebarItem
             icon="info.png"
             alt="info"
             dataTip="Información adicional"
             isDisabled={isDisabled}
-            content={<></>}
+            content={
+              <div id="info">
+                <div className="sidebarContHeader">
+                  <p className="sidebarTitle">Información adicional</p>
+                  <p className="sidebarSubTitle">
+                    Cualquier otra información adicional que desee agregar a la etiqueta puede
+                    colocar en los siguientes campos.
+                  </p>
+                </div>
+                <div id="infoCont">
+                  {this.props.etiqueta.addInfo.map((info, index) => (
+                    <div className="infoItem">
+                      <input
+                        name={`infoItemTitle${index}`}
+                        value={this.props.etiqueta.addInfo[index].title}
+                        type="text"
+                        onChange={(e) => {
+                          this.handleAddInfo(index, 'title', e.target.value);
+                        }}
+                        className="gRInput"
+                      />
+                      <input
+                        name={`infoItemCont${index}`}
+                        value={this.props.etiqueta.addInfo[index].cont}
+                        type="text"
+                        onChange={(e) => {
+                          this.handleAddInfo(index, 'cont', e.target.value);
+                        }}
+                        className="gRInput"
+                      />
+                      <button
+                        className="removeInfoBtn"
+                        type="button"
+                        onClick={() => this.removeAddInfo(index)}>
+                        x
+                      </button>
+                    </div>
+                  ))}
+                  <button className="newInfoBtn" type="button" onClick={() => this.newAddInfo()}>
+                    +
+                  </button>
+                </div>
+              </div>
+            }
           />
           <SidebarItem
             icon="pin.png"
