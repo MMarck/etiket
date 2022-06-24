@@ -16,7 +16,6 @@ import { withRouter } from '../../tools/withRouter';
 
 class LabelEditor extends Component {
   componentDidMount() {
-    console.log(this.props);
     const header = {
       Authorization: 'Bearer ' + this.state.accessToken
     };
@@ -41,122 +40,7 @@ class LabelEditor extends Component {
         }
       });
 
-    //Inicializacion del canvas
-    var canvas = new fabric.Canvas('PreviewContainer');
 
-    canvas.setDimensions(
-      {
-        width: '100%',
-        height: '100%'
-      },
-      { cssOnly: true }
-    );
-
-    canvas.setBackgroundColor('#F5F6F8');
-
-    var rect = new fabric.Rect({
-      left: 40,
-      top: 20,
-      fill: "white",
-      width: 120,
-      height: 120,
-      stroke: "gray",
-      hasControls: false,
-      lockMovementX: true,
-      lockMovementY: true,
-      lockScalingX: true,
-      lockScalingY: true,
-      lockRotation: true,
-      hasControls: false,
-      hasBorders: false,
-    });
-    var circle = new fabric.Circle({
-      radius: 20,
-      fill: "green",
-      left: 40,
-      top: 20,
-    });
-    canvas.add( rect, circle);
-
-    canvas.on('mouse:wheel', function (opt) {
-      var delta = opt.e.deltaY;
-      var zoom = canvas.getZoom();
-      zoom *= 1.005 ** delta;
-      if (zoom > 10) zoom = 10;
-      if (zoom < 0.1) zoom = 0.1;
-      canvas.zoomToPoint(opt.absolutePointer, zoom);
-      opt.e.preventDefault();
-      opt.e.stopPropagation();
-    });
-
-    canvas.on('mouse:down', function (opt) {
-      var evt = opt.e;
-      if (evt.altKey === true) {
-        this.isDragging = true;
-        this.selection = false;
-        this.lastPosX = evt.clientX;
-        this.lastPosY = evt.clientY;
-      }
-    });
-
-    canvas.on('mouse:move', function (opt) {
-      if (this.isDragging) {
-        var e = opt.e;
-        var delta = new fabric.Point(e.movementX * 0.6, e.movementY * 0.6);
-        canvas.relativePan(delta);
-        this.lastPosX = e.clientX;
-        this.lastPosY = e.clientY;
-      }
-    });
-
-    canvas.on('mouse:up', function (opt) {
-      // on mouse up we want to recalculate new interaction
-      // for all objects, so we call setViewportTransform
-      this.setViewportTransform(this.viewportTransform);
-      this.isDragging = false;
-      this.selection = true;
-    });
-
-  canvas.on('object:moving', function (e) {
-      var obj = e.target;
-      // if object is too big ignore
-      if(obj.currentHeight > obj.canvas.height || obj.currentWidth > obj.canvas.width){
-        return;
-      } 
-      
-      var bounding = {
-        top: rect.top - canvas.vptCoords.tl.y * 0.01,
-        left: rect.left - canvas.vptCoords.tl.x * 0.01,
-        right: rect.left + rect.width - canvas.vptCoords.tl.x * 0.01,
-        bottom: rect.top + rect.height- canvas.vptCoords.tl.y * 0.01
-      }
-
-      obj.setCoords();
-      
-      var objectPosition = {
-        top: obj.top,
-        left: obj.left,
-        right: obj.left + obj.width * obj.scaleX,
-        bottom: obj.top + obj.height * obj.scaleY
-      }
-      
-      //simple verification that object's position don't be outside bounding area
-      if(objectPosition.top < bounding.top){
-        obj.top = bounding.top
-      }
-      if(objectPosition.left < bounding.left){
-        obj.left = bounding.left
-      }
-      if(objectPosition.right > bounding.right){
-        obj.left = bounding.right - obj.width * obj.scaleX
-      }
-      if( objectPosition.bottom > bounding.bottom){
-        obj.top = bounding.bottom - obj.height * obj.scaleY
-      }
-    }); 
-
-    this.setState({ canvas: canvas });
-    canvas.renderAll();
   }
 
   constructor(props) {
@@ -302,6 +186,165 @@ class LabelEditor extends Component {
   }
 
   render() {
+    //Variables inizialization
+    var nombreProducto = (this.props.etiqueta.nombreProducto || '')
+    
+    let dimensionesUn = this.props.etiqueta.dimensionesUn.value;
+    let altura = this.props.etiqueta.altura;
+
+    if (dimensionesUn === 'cm') {
+      if (parseFloat(this.props.etiqueta.altura) >= 3.5) {
+        altura = this.props.etiqueta.altura;
+      } else {
+        altura = '10';
+      }
+    } else if (dimensionesUn === 'mm') {
+      if (parseFloat(this.props.etiqueta.altura) >= 35) {
+        altura = this.props.etiqueta.altura;
+      } else {
+        altura = '100';
+      }
+    }
+
+    let ancho = this.props.etiqueta.ancho;
+
+    if (dimensionesUn === 'cm') {
+      if (parseFloat(this.props.etiqueta.ancho) >= 3.5) {
+        ancho = this.props.etiqueta.ancho;
+      } else {
+        ancho = '10';
+      }
+    } else if (dimensionesUn === 'mm') {
+      if (parseFloat(this.props.etiqueta.ancho) >= 35) {
+        ancho = this.props.etiqueta.ancho;
+      } else {
+        ancho = '100';
+      }
+    }
+
+
+
+    //Inicializacion del canvas
+    var canvas = new fabric.Canvas('PreviewContainer');
+        canvas.setDimensions(
+          {
+            width: '1300',
+            height: '500'
+          },
+        );
+        //canvas.setHeight(document.getElementById("PreviewContainer").clientHeight);
+        //canvas.setWidth(document.getElementById("PreviewContainer").clientWidth);
+        canvas.setBackgroundColor('#F5F6F8');
+    
+        var rect = new fabric.Rect({
+          left: 300,
+          top: 80,
+          fill: "white",
+          width: fabric.util.parseUnit(ancho + dimensionesUn),
+          height: fabric.util.parseUnit(altura + dimensionesUn),  
+          stroke: "gray",
+          hasControls: false,
+          lockMovementX: true,
+          lockMovementY: true,
+          lockScalingX: true,
+          lockScalingY: true,
+          lockRotation: true,
+          hasControls: false,
+          hasBorders: false,
+        });
+        var circle = new fabric.Circle({
+          radius: 20,
+          fill: "green",
+          left: 360,
+          top: 120,
+        });
+        var textbox = new fabric.Textbox(nombreProducto, {
+          left: 350,
+          top: 250,
+          fill: 'black',
+          fontSize:30,
+        });
+        
+        canvas.add( rect, circle ,textbox);
+    
+        canvas.on('mouse:wheel', function (opt) {
+          var delta = opt.e.deltaY;
+          var zoom = canvas.getZoom();
+          zoom *= 1.005 ** delta;
+          if (zoom > 10) zoom = 10;
+          if (zoom < 0.1) zoom = 0.1;
+          canvas.zoomToPoint(opt.absolutePointer, zoom);
+          opt.e.preventDefault();
+          opt.e.stopPropagation();
+        });
+    
+        canvas.on('mouse:down', function (opt) {
+          var evt = opt.e;
+          if (evt.altKey === true) {
+            this.isDragging = true;
+            this.selection = false;
+            this.lastPosX = evt.clientX;
+            this.lastPosY = evt.clientY;
+          }
+        });
+    
+        canvas.on('mouse:move', function (opt) {
+          if (this.isDragging) {
+            var e = opt.e;
+            var delta = new fabric.Point(e.movementX * 0.6, e.movementY * 0.6);
+            canvas.relativePan(delta);
+            this.lastPosX = e.clientX;
+            this.lastPosY = e.clientY;
+          }
+        });
+    
+        canvas.on('mouse:up', function (opt) {
+          // on mouse up we want to recalculate new interaction
+          // for all objects, so we call setViewportTransform
+          this.setViewportTransform(this.viewportTransform);
+          this.isDragging = false;
+          this.selection = true;
+        });
+    
+      canvas.on('object:moving', function (e) {
+          var obj = e.target;
+          // if object is too big ignore
+          if(obj.currentHeight > obj.canvas.height || obj.currentWidth > obj.canvas.width){
+            return;
+          } 
+          
+          var bounding = {
+            top: rect.top - canvas.vptCoords.tl.y * 0.01,
+            left: rect.left - canvas.vptCoords.tl.x * 0.01,
+            right: rect.left + rect.width - canvas.vptCoords.tl.x * 0.01,
+            bottom: rect.top + rect.height- canvas.vptCoords.tl.y * 0.01
+          }
+    
+          obj.setCoords();
+          
+          var objectPosition = {
+            top: obj.top,
+            left: obj.left,
+            right: obj.left + obj.width * obj.scaleX,
+            bottom: obj.top + obj.height * obj.scaleY
+          }
+          
+          //simple verification that object's position don't be outside bounding area
+          if(objectPosition.top < bounding.top){
+            obj.top = bounding.top
+          }
+          if(objectPosition.left < bounding.left){
+            obj.left = bounding.left
+          }
+          if(objectPosition.right > bounding.right){
+            obj.left = bounding.right - obj.width * obj.scaleX
+          }
+          if( objectPosition.bottom > bounding.bottom){
+            obj.top = bounding.bottom - obj.height * obj.scaleY
+          }
+        }); 
+        canvas.renderAll();
+
     return (
       <div id="masterContainer">
         <Sidebar />
@@ -313,7 +356,7 @@ class LabelEditor extends Component {
           <canvas id="PreviewContainer" ref={this.componentRef} />
           
 
-          <div className="d-flex flex-column justify-content-center align-items-center gap-2">
+          <div className="d-flex flex-column justify-content-center align-items-center gap-2 my-4">
             <span
               onClick={() => {
                 this.props.erase();

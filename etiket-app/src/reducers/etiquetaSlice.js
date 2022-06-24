@@ -85,7 +85,6 @@ export const etiquetaSlice = createSlice({
       return initial_State;
     },
     loadLabel: (state, action) => {
-      console.log(action.payload);
       state['nombreProyecto'] = action.payload.nombreProyecto;
       state['nombreProducto'] = action.payload.nombreEtiqueta;
       state['country'] = action.payload.country;

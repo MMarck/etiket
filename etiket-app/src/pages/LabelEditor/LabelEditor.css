@@ -10,9 +10,10 @@
 #LabelEditorContainer {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   width: 100%;
-  max-height: 90vh;
+  justify-content: space-between;
+  gap: 0px;
   overflow: auto;
 }
 
