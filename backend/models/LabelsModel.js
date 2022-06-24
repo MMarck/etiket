@@ -48,8 +48,10 @@ var LabelsSchema = new Schema({
 		"unidad":{"value":String, "label":String}
 	},
 	"lote":String,
-	"direccion":String,
-	"instrucciones":String,
+	"addInfo":[{"title":String, "cont":String}],
+	"direccion":[{"value":String, "label":String}],
+	"instrucciones":[String],
+	"pvp":String,
 	"posicion":{
 		"pesos":{
 			"x":String,
