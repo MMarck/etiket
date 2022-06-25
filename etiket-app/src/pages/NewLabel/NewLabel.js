@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -5,8 +6,8 @@ import ReactTooltip from 'react-tooltip';
 import Cookies from 'js-cookie';
 import { replace } from '../../reducers/etiquetaSlice';
 import request from '../../tools/ApiSetup';
-import { backendURL } from '../../config/constants.js';
-import { withRouter } from '../../tools/withRouter';
+import { backendURL } from '../../config/constants';
+import withRouter from '../../tools/withRouter';
 import './NewLabel.css';
 
 const mapStateToProps = (state) => ({
@@ -28,12 +29,11 @@ class NewLabel extends Component {
     super(props);
 
     this.state = {
-      accessToken: Cookies.get('accessToken') || '',
-      refreshToken: Cookies.get('refreshToken') || ''
+      accessToken: Cookies.get('accessToken') || ''
     };
   }
 
-  createNewLabel(e) {
+  createNewLabel() {
     const header = {
       Authorization: `Bearer ${this.state.accessToken}`
     };
@@ -89,6 +89,7 @@ class NewLabel extends Component {
         {/* Este boton debe verificar que el nombre no se repita para el usuario y luego mandar la 
         query para crear el esqueleto de etiqueta en la base de datos */}
         <button
+          type="button"
           className="btn-dark rounded fs-7"
           onClick={(e) => {
             this.createNewLabel(e);

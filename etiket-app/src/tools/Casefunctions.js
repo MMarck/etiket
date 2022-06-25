@@ -54,11 +54,19 @@ export function getDataFontSize(area) {
  * @returns
  */
 function enIncrementosde(x, corte) {
-  if (x === 0) return 0;
-  if (x % corte === 0 || Number(parseInt(x / corte) * corte) === Number(x)) return x;
-  if (x > parseInt(x / corte) * corte && x <= (parseInt(x / corte) + 1) * corte)
-    return parseFloat((parseInt(x / corte) + 1) * corte);
+  let incremento = 0;
+  if (x === 0) {
+    incremento = 0;
+  }
+  if (x % corte === 0 || Number(parseInt(x / corte, 10) * corte) === Number(x)) {
+    incremento = x;
+  }
+  if (x > parseInt(x / corte, 10) * corte && x <= (parseInt(x / corte, 10) + 1) * corte) {
+    incremento = parseFloat((parseInt(x / corte, 10) + 1) * corte);
+  }
+  return incremento;
 }
+//  parseInt(value, radix): radix is the base to be used (10=decimal)
 
 /**
  * Funcion para obtener el peso de un nutriente en el formato provisto por
