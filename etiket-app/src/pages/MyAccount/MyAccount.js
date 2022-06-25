@@ -3,7 +3,7 @@ import './MyAccount.css';
 import { Modal } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { jwt_decode as jwtDecode } from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 import Cookies from 'js-cookie';
 import { backendURL } from '../../config/constants';
 import request from '../../tools/ApiSetup';

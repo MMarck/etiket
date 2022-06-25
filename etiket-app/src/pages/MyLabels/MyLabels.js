@@ -4,7 +4,7 @@ import { connect, useDispatch } from 'react-redux';
 import { Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import { jwt_decode as jwtDecode } from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 import Select from 'react-select';
 import { backendURL, countries, pathIcons } from '../../config/constants';
 import request from '../../tools/ApiSetup';
