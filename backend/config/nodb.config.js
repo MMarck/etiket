@@ -1,7 +1,7 @@
 module.exports = {
-  HOST: "localhost:27017",
-  USER: "",
-  PASSWORD: "",
+  HOST: "cluster0.ruyrqfr.mongodb.net",
+  USER: "etiket_mongoDB",
+  PASSWORD: "gbxBhIqMc7dE2q0E",
   noDB: "SolinalEtiquetaDB",
   dialect: "mongodb"
 };
