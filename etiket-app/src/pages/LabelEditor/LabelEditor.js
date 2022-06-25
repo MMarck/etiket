@@ -14,6 +14,15 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import './LabelEditor.css';
 import { setPosition } from '../../tools/Statefunctions';
 
+const resetElementPosition = () => {
+  setPosition('nombreProducto');
+  setPosition('pesosContainer');
+  setPosition('marca');
+  setPosition('alcohol');
+  setPosition('ingPos');
+  setPosition('algPos');
+};
+
 const mapStateToProps = (state) => ({
   etiqueta: state.etiqueta,
   LabelEditor: state.LabelEditorSlice
@@ -25,6 +34,16 @@ const mapDispatchToProps = () => ({
   replaceLE
 });
 class LabelEditor extends React.Component {
+  constructor(props) {
+    super(props);
+    this.componentRef = React.createRef();
+    this.state = {
+      accessToken: Cookies.get('accessToken') || ''
+    };
+    this.zoomIn = this.zoomIn.bind(this);
+    this.zoomOut = this.zoomOut.bind(this);
+  }
+
   componentDidMount() {
     const header = {
       Authorization: `Bearer ${this.state.accessToken}`
@@ -49,18 +68,6 @@ class LabelEditor extends React.Component {
           console.log('Error', error.message);
         }
       });
-  }
-
-  constructor(props) {
-    super(props);
-    this.componentRef = React.createRef();
-    this.state = {
-      accessToken: Cookies.get('accessToken') || '',
-      refreshToken: Cookies.get('refreshToken') || '',
-      zoom: 1
-    };
-    this.zoomIn = this.zoomIn.bind(this);
-    this.zoomOut = this.zoomOut.bind(this);
   }
 
   /*
@@ -219,15 +226,6 @@ class LabelEditor extends React.Component {
     }
   }
 
-  resetElementPosition() {
-    setPosition('nombreProducto');
-    setPosition('pesosContainer');
-    setPosition('marca');
-    setPosition('alcohol');
-    setPosition('ingPos');
-    setPosition('algPos');
-  }
-
   render() {
     return (
       <div id="masterContainer">
@@ -249,9 +247,10 @@ class LabelEditor extends React.Component {
 
           <div className="d-flex flex-column justify-content-center align-items-center gap-2">
             <span
+              role="presentation"
               onClick={() => {
                 this.props.erase();
-                this.resetElementPosition();
+                resetElementPosition();
               }}
               style={{ cursor: 'pointer' }}
               className="p-2">

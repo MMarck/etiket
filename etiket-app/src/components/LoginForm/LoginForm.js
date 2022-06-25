@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { Link, useNavigate } from 'react-router-dom';
@@ -82,13 +83,17 @@ function LoginForm() {
 
       <br />
       <Link to="/login/resetPassword" className="w-100">
-        <button className="btn-dark darkButton w-100">¿Olvidé mi contraseña?</button>
+        <button type="button" className="btn-dark darkButton w-100">
+          ¿Olvidé mi contraseña?
+        </button>
       </Link>
 
       <hr />
 
       <Link to="/login/createAccount" className="w-100">
-        <button className="ligthButton w-100">Crear Usuario</button>
+        <button type="button" className="ligthButton w-100">
+          Crear Usuario
+        </button>
       </Link>
 
       <div className="signupButton google mx-auto mt-2 small">

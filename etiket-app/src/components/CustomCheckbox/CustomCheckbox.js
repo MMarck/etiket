@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import './CustomCheckbox.css';
 import { useState } from 'react';
 import { animated, useSpring, config } from 'react-spring';

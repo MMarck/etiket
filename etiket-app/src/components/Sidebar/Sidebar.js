@@ -12,7 +12,6 @@ import IngredientesModal from '../IngredientesModal/IngredientesModal';
 import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
 import { replace } from '../../reducers/etiquetaSlice';
 import withRouter from '../../tools/withRouter';
-import { backendURL } from '../../config/constants';
 import './Sidebar.css';
 
 /**
@@ -58,8 +57,7 @@ class Sidebar extends Component {
     super(props);
     this.state = {
       accessToken: Cookies.get('accessToken') || '',
-      refreshToken: Cookies.get('refreshToken') || '',
-      addInfo: []
+      refreshToken: Cookies.get('refreshToken') || ''
     };
   }
 
@@ -775,21 +773,21 @@ class Sidebar extends Component {
             alt="pin"
             dataTip="Dirección del fabricante"
             isDisabled={isDisabled}
-            content={<></>}
+            // content={<></>}
           />
           <SidebarItem
             icon="instructions.png"
             alt="instructions"
             dataTip="Instrucciones de uso"
             isDisabled={isDisabled}
-            content={<></>}
+            // content={<></>}
           />
           <SidebarItem
             icon="mensajes-declarados.png"
             alt="mensajes-declarados"
             dataTip="Declaraciones"
             isDisabled={isDisabled}
-            content={<></>}
+            // content={<></>}
           />
         </div>
       </div>

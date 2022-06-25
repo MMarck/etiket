@@ -1,6 +1,7 @@
+/* eslint-disable no-console */
 import Cookies from 'js-cookie';
 import axios from 'axios';
-import jwt_decode from 'jwt-decode';
+import { jwt_decode as jwtDecode } from 'jwt-decode';
 import { backendURL } from '../config/constants';
 
 const request = axios.create();
@@ -12,7 +13,8 @@ request.interceptors.request.use(async (config) => {
     if (!encodedToken || '') {
       return config;
     }
-    const accessToken = jwt_decode(Cookies.get('accessToken'));
+    const accessToken = jwtDecode(Cookies.get('accessToken'));
+    const newConfig = { ...config };
     if (accessToken.exp * 1000 < currentDate.getTime()) {
       const axiosRefresh = axios.create();
       try {
@@ -21,16 +23,17 @@ request.interceptors.request.use(async (config) => {
         });
         Cookies.set('accessToken', res.data.accessToken);
         Cookies.set('refreshToken', res.data.refreshToken);
-        config.headers.Authorization = `Bearer ${res.data.accessToken}`;
+        newConfig.headers.Authorization = `Bearer ${res.data.accessToken}`;
       } catch (error) {
         console.log(error);
         return Promise.reject(error);
       }
     }
 
-    return config;
+    return newConfig;
   } catch (error) {
     console.log(error);
+    return Promise.reject(error);
   }
 });
 

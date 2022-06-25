@@ -1,8 +1,9 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import './MyAccount.css';
 import { Modal } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import jwt_decode from 'jwt-decode';
+import { jwt_decode as jwtDecode } from 'jwt-decode';
 import Cookies from 'js-cookie';
 import { backendURL } from '../../config/constants';
 import request from '../../tools/ApiSetup';
@@ -20,7 +21,7 @@ function MyAccount() {
     const header = {
       Authorization: `Bearer ${Cookies.get('accessToken')}`
     };
-    const jsonData = { user: jwt_decode(Cookies.get('accessToken')).id };
+    const jsonData = { user: jwtDecode(Cookies.get('accessToken')).id };
     request
       .get(`${backendURL}UsersDB/${jsonData.user}`, jsonData, {
         headers: header
@@ -74,10 +75,14 @@ function MyAccount() {
               <br />
 
               <div className="d-flex justify-content-around">
-                <button className="btn-secondary darkButton border-0 text-white fw-bolder p-2">
+                <button
+                  type="button"
+                  className="btn-secondary darkButton border-0 text-white fw-bolder p-2">
                   CARGAR FOTO
                 </button>
-                <button className="btn-danger bg-transparent border-0 text-danger fw-bolder">
+                <button
+                  type="button"
+                  className="btn-danger bg-transparent border-0 text-danger fw-bolder">
                   ELIMINAR FOTO
                 </button>
               </div>
@@ -86,6 +91,7 @@ function MyAccount() {
         </div>
 
         <button
+          type="button"
           className=" btn-secondary darkButton fw-bolder p-2 my-4"
           style={{ width: 'fit-content' }}>
           GUARDAR CAMBIOS
@@ -112,7 +118,9 @@ function MyAccount() {
             <CambiarCorreoModal />
 
             <Link to="/cambiarClave">
-              <button className="btn-dark darkButton border-0 text-white fw-bolder p-2">
+              <button
+                type="button"
+                className="btn-dark darkButton border-0 text-white fw-bolder p-2">
                 RESETEAR CONTRASEÑA
               </button>
             </Link>
@@ -140,6 +148,7 @@ function CambiarCorreoModal() {
   return (
     <>
       <button
+        type="button"
         onClick={handleShow}
         className="btn-secondary bordered bg-white text-black fw-bolder p-2">
         CAMBIAR CORREO
@@ -176,7 +185,7 @@ function CambiarCorreoModal() {
  * componente para renderizar un modal que se usa
  * exclusivamente en el componente MyAccount
  */
-function ConfirmacionCorreoModal({ closeParent }) {
+function ConfirmacionCorreoModal() {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -185,6 +194,7 @@ function ConfirmacionCorreoModal({ closeParent }) {
   return (
     <>
       <button
+        type="button"
         className=" btn-secondary darkButton fw-bolder p-2 mb-4"
         style={{ width: 'fit-content' }}
         onClick={() => {
@@ -232,6 +242,7 @@ function ConfirmacionBorrarCuentaModal() {
   return (
     <>
       <button
+        type="button"
         onClick={handleShow}
         className="btn-danger border-0 bg-danger text-white fw-bolder p-2">
         BORRAR CUENTA
@@ -251,7 +262,9 @@ function ConfirmacionBorrarCuentaModal() {
             </span>
 
             <Link to="/login">
-              <button className="btn-danger border-0 bg-danger text-white fw-bolder p-2">
+              <button
+                type="button"
+                className="btn-danger border-0 bg-danger text-white fw-bolder p-2">
                 SÍ, ELIMINAR MI CUENTA
               </button>
             </Link>
@@ -268,7 +281,7 @@ function ConfirmacionBorrarCuentaModal() {
  */
 function ChangePlanModal() {
   const [show, setShow] = useState(false);
-  const [flag_emprendedor_empresa, setFlag_emprendedor_empresa] = useState(true);
+  const [flagEmprendedorEmpresa, setFlagEmprendedorEmpresa] = useState(true);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -276,6 +289,7 @@ function ChangePlanModal() {
   return (
     <>
       <button
+        type="button"
         className="btn-success green-button fw-bolder py-1 px-3"
         style={{ width: 'fit-content', height: 'fit-content' }}
         onClick={handleShow}>
@@ -301,25 +315,27 @@ function ChangePlanModal() {
         <Modal.Body id="modal-body">
           <div id="rectSelectorContainer">
             <div
+              role="presentation"
               id="emprendedorSqr"
               onClick={() => {
-                setFlag_emprendedor_empresa(!flag_emprendedor_empresa);
+                setFlagEmprendedorEmpresa(!flagEmprendedorEmpresa);
               }}
-              className={flag_emprendedor_empresa ? 'planSelected' : 'planNotSelected'}>
+              className={flagEmprendedorEmpresa ? 'planSelected' : 'planNotSelected'}>
               <span>Emprendedor</span>
             </div>
             <div
+              role="presentation"
               id="empresasSqr"
               onClick={() => {
-                setFlag_emprendedor_empresa(!flag_emprendedor_empresa);
+                setFlagEmprendedorEmpresa(!flagEmprendedorEmpresa);
               }}
-              className={!flag_emprendedor_empresa ? 'planSelected' : 'planNotSelected'}>
+              className={!flagEmprendedorEmpresa ? 'planSelected' : 'planNotSelected'}>
               <span>Empresas</span>
             </div>
           </div>
 
           <form className="py-4">
-            {flag_emprendedor_empresa ? (
+            {flagEmprendedorEmpresa ? (
               <>
                 <RadioButton
                   planName="GRATIS"
@@ -346,7 +362,7 @@ function ChangePlanModal() {
               ''
             )}
 
-            {!flag_emprendedor_empresa ? (
+            {!flagEmprendedorEmpresa ? (
               <>
                 <RadioButton
                   planName="GRATIS"
@@ -376,6 +392,7 @@ function ChangePlanModal() {
 
           {/* PENDIENTE PONER CAMBIO DE PLAN PARA UN USARUI */}
           <button
+            type="button"
             className="darkButton fs-6"
             style={{ padding: '0.7em 1.2em', width: 'fit-content' }}>
             COMPRAR PLAN

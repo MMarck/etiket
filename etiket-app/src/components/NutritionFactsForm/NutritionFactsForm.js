@@ -28,14 +28,13 @@ import {
   Nutrientes
 } from '../../config/constants';
 
-class NutritionFacts_form extends Component {
-  numberFilter(event) {
-    const value = event.target.value + event.key;
-    if (!/^\d{0,3}(\.\d{0,2})?$/.test(value)) {
-      event.preventDefault();
-    }
+const numberFilter = (event) => {
+  const value = event.target.value + event.key;
+  if (!/^\d{0,3}(\.\d{0,2})?$/.test(value)) {
+    event.preventDefault();
   }
-
+};
+class NutritionFactsForm extends Component {
   /**
    * Abstracion del modificador de estado global (o reducer)
    * llamado "replace"
@@ -75,8 +74,8 @@ class NutritionFacts_form extends Component {
   }
 
   render() {
-    const max_width_information = '50%';
-    const max_width_inputs = '50%';
+    const maxWidthInformation = '50%';
+    const maxWidthInputs = '50%';
 
     const { tamanioPorcion } = this.props.etiqueta;
     const { tamanioPorcionUn } = this.props.etiqueta;
@@ -100,11 +99,11 @@ class NutritionFacts_form extends Component {
           {/* elementos */}
           {/* tipo de tabla */}
           <div className="d-flex">
-            <div style={{ maxWidth: max_width_information }}>
+            <div style={{ maxWidth: maxWidthInformation }}>
               <p>Elige el tipo de tabla de acuerdo al tamaño de tu etiqueta</p>
             </div>
 
-            <div style={{ maxWidth: max_width_inputs }}>
+            <div style={{ maxWidth: maxWidthInputs }}>
               <Select
                 onChange={(e) => this.handleStateChange('tipoTabla', e)}
                 defaultValue={tipoTabla}
@@ -116,11 +115,11 @@ class NutritionFacts_form extends Component {
           </div>
           {/* Tamaño de la porción */}
           <div className="d-flex">
-            <div style={{ maxWidth: max_width_information }}>
+            <div style={{ maxWidth: maxWidthInformation }}>
               <p>Tamaño de la porción</p>
             </div>
 
-            <div style={{ maxWidth: max_width_inputs, display: 'flex' }}>
+            <div style={{ maxWidth: maxWidthInputs, display: 'flex' }}>
               <input
                 onChange={(e) => this.handleStateChange('tamanioPorcion', e.target.value)}
                 className=" gRInput numberInput"
@@ -139,11 +138,11 @@ class NutritionFacts_form extends Component {
           </div>
           {/* Porciones por envase */}
           <div className="d-flex">
-            <div style={{ maxWidth: max_width_information }}>
+            <div style={{ maxWidth: maxWidthInformation }}>
               <p>Porciones por envase</p>
             </div>
 
-            <div className="d-flex justify-content-center" style={{ maxWidth: max_width_inputs }}>
+            <div className="d-flex justify-content-center" style={{ maxWidth: maxWidthInputs }}>
               <div
                 onChange={() => {
                   this.handleStateChange('porcionPorEnvaseDisabled', !porcionPorEnvaseDisabled);
@@ -166,19 +165,19 @@ class NutritionFacts_form extends Component {
                 className=" gRInput numberInput"
                 name="porcionPorEnvase"
                 type="text"
-                onKeyPress={this.numberFilter}
+                onKeyPress={numberFilter}
               />
             </div>
           </div>
           {/* LABEL */}
           <div className="d-flex">
-            <div style={{ maxWidth: max_width_information }}>
+            <div style={{ maxWidth: maxWidthInformation }}>
               <p>
                 <b>Parámetro</b>
               </p>
             </div>
 
-            <div style={{ maxWidth: max_width_inputs }}>
+            <div style={{ maxWidth: maxWidthInputs }}>
               <p>
                 <b>Resultado</b>
               </p>
@@ -186,11 +185,11 @@ class NutritionFacts_form extends Component {
           </div>
           {/* Grasa total (%) */}
           <div className="d-flex">
-            <div style={{ maxWidth: max_width_information }}>
+            <div style={{ maxWidth: maxWidthInformation }}>
               <p>Grasa total (%)</p>
             </div>
 
-            <div style={{ maxWidth: max_width_inputs }}>
+            <div style={{ maxWidth: maxWidthInputs }}>
               <input
                 type="text"
                 onChange={(e) => this.setNutritionsFacts('grasaTotal', e.target.value, 'g')}
@@ -199,11 +198,11 @@ class NutritionFacts_form extends Component {
           </div>
           {/* Grasa saturada (%) */}
           <div className="d-flex">
-            <div style={{ maxWidth: max_width_information }}>
+            <div style={{ maxWidth: maxWidthInformation }}>
               <p>Grasa saturada (%)</p>
             </div>
 
-            <div style={{ maxWidth: max_width_inputs }}>
+            <div style={{ maxWidth: maxWidthInputs }}>
               <input
                 type="text"
                 onChange={(e) => this.setNutritionsFacts('grasaSaturada', e.target.value, 'g')}
@@ -212,11 +211,11 @@ class NutritionFacts_form extends Component {
           </div>
           {/* Grasas trans (%) */}
           <div className="d-flex">
-            <div style={{ maxWidth: max_width_information }}>
+            <div style={{ maxWidth: maxWidthInformation }}>
               <p>Grasas trans (%)</p>
             </div>
 
-            <div style={{ maxWidth: max_width_inputs }}>
+            <div style={{ maxWidth: maxWidthInputs }}>
               <input
                 type="text"
                 onChange={(e) => this.setNutritionsFacts('grasasTrans', e.target.value, 'g')}
@@ -225,11 +224,11 @@ class NutritionFacts_form extends Component {
           </div>
           {/* Ácidos grasos mono insaturados (%) */}
           <div className="d-flex">
-            <div style={{ maxWidth: max_width_information }}>
+            <div style={{ maxWidth: maxWidthInformation }}>
               <p>Ácidos grasos mono insaturados (%)</p>
             </div>
 
-            <div style={{ maxWidth: max_width_inputs }}>
+            <div style={{ maxWidth: maxWidthInputs }}>
               <input
                 type="text"
                 onChange={(e) => this.setNutritionsFacts('acidosMono', e.target.value, 'g')}
@@ -238,11 +237,11 @@ class NutritionFacts_form extends Component {
           </div>
           {/* Ácidos grasos poli insaturados (%) */}
           <div className="d-flex">
-            <div style={{ maxWidth: max_width_information }}>
+            <div style={{ maxWidth: maxWidthInformation }}>
               <p>Ácidos grasos poli insaturados (%)</p>
             </div>
 
-            <div style={{ maxWidth: max_width_inputs }}>
+            <div style={{ maxWidth: maxWidthInputs }}>
               <input
                 type="text"
                 onChange={(e) => this.setNutritionsFacts('acidosPoli', e.target.value, 'g')}
@@ -251,11 +250,11 @@ class NutritionFacts_form extends Component {
           </div>
           {/* Colesterol (mg/100 g) */}
           <div className="d-flex">
-            <div style={{ maxWidth: max_width_information }}>
+            <div style={{ maxWidth: maxWidthInformation }}>
               <p>Colesterol (mg/100 g)</p>
             </div>
 
-            <div style={{ maxWidth: max_width_inputs }}>
+            <div style={{ maxWidth: maxWidthInputs }}>
               <input
                 type="text"
                 onChange={(e) => this.setNutritionsFacts('colesterol', e.target.value, 'mg')}
@@ -264,11 +263,11 @@ class NutritionFacts_form extends Component {
           </div>
           {/* Sodio (mg/100 g)  */}
           <div className="d-flex">
-            <div style={{ maxWidth: max_width_information }}>
+            <div style={{ maxWidth: maxWidthInformation }}>
               <p>Sodio (mg/100 g) </p>
             </div>
 
-            <div style={{ maxWidth: max_width_inputs }}>
+            <div style={{ maxWidth: maxWidthInputs }}>
               <input
                 type="text"
                 onChange={(e) => this.setNutritionsFacts('sodio', e.target.value, 'g')}
@@ -277,11 +276,11 @@ class NutritionFacts_form extends Component {
           </div>
           {/* Carbohidratos (%) */}
           <div className="d-flex">
-            <div style={{ maxWidth: max_width_information }}>
+            <div style={{ maxWidth: maxWidthInformation }}>
               <p>Carbohidratos (%)</p>
             </div>
 
-            <div style={{ maxWidth: max_width_inputs }}>
+            <div style={{ maxWidth: maxWidthInputs }}>
               <input
                 type="text"
                 onChange={(e) => this.setNutritionsFacts('carbohidratos', e.target.value, 'g')}
@@ -290,11 +289,11 @@ class NutritionFacts_form extends Component {
           </div>
           {/* Azúcares totales (%) */}
           <div className="d-flex">
-            <div style={{ maxWidth: max_width_information }}>
+            <div style={{ maxWidth: maxWidthInformation }}>
               <p>Azúcares totales (%)</p>
             </div>
 
-            <div style={{ maxWidth: max_width_inputs }}>
+            <div style={{ maxWidth: maxWidthInputs }}>
               <input
                 type="text"
                 onChange={(e) => this.setNutritionsFacts('azucares', e.target.value, 'g')}
@@ -303,11 +302,11 @@ class NutritionFacts_form extends Component {
           </div>
           {/* Proteína (%) */}
           <div className="d-flex">
-            <div style={{ maxWidth: max_width_information }}>
+            <div style={{ maxWidth: maxWidthInformation }}>
               <p>Proteína (%)</p>
             </div>
 
-            <div style={{ maxWidth: max_width_inputs }}>
+            <div style={{ maxWidth: maxWidthInputs }}>
               <input
                 type="text"
                 onChange={(e) => this.setNutritionsFacts('proteina', e.target.value, 'g')}
@@ -316,11 +315,11 @@ class NutritionFacts_form extends Component {
           </div>
           {/* Fibra (%) */}
           <div className="d-flex">
-            <div style={{ maxWidth: max_width_information }}>
+            <div style={{ maxWidth: maxWidthInformation }}>
               <p>Fibra (%)</p>
             </div>
 
-            <div style={{ maxWidth: max_width_inputs }}>
+            <div style={{ maxWidth: maxWidthInputs }}>
               <input
                 type="text"
                 onChange={(e) => this.setNutritionsFacts('fibra', e.target.value, 'g')}
@@ -329,11 +328,11 @@ class NutritionFacts_form extends Component {
           </div>
           {/* Energía total */}
           <div className="d-flex">
-            <div style={{ maxWidth: max_width_information }}>
+            <div style={{ maxWidth: maxWidthInformation }}>
               <p>Energía total</p>
             </div>
 
-            <div style={{ maxWidth: max_width_inputs }}>
+            <div style={{ maxWidth: maxWidthInputs }}>
               <input
                 type="text"
                 placeholder="julios/porcion"
@@ -347,6 +346,7 @@ class NutritionFacts_form extends Component {
             </div>
           </div>
           <button
+            type="button"
             onClick={() => {
               this.props.replaceLE(['showNutritionFacts', true]);
             }}
@@ -381,4 +381,4 @@ const mapDispatchToProps = () => ({
   replaceLE
 });
 
-export default connect(mapStateToProps, mapDispatchToProps())(NutritionFacts_form);
+export default connect(mapStateToProps, mapDispatchToProps())(NutritionFactsForm);
