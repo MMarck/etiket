@@ -124,6 +124,7 @@ class MyLabels extends Component {
                 <div style={{ display: 'flex' }}>
                   <Link
                     to={`/editarEtiqueta/${label.id}`}
+                    title= {label.nombreProyecto}  
                     className="etiquetaContainer"
                     key={label.id} // prop para evitar renderizar 2 veces el mismo elemento, PENDIENTE cambiar por el id de la etiqueta
                   >
@@ -131,7 +132,12 @@ class MyLabels extends Component {
                       <img src={imagePath(label.tipo)} alt={label.tipo} width="60px" />
                     </div>
 
-                    <span className="flex-shrink-1 ">{label.nombreProyecto}</span>
+                    <span className="flex-shrink-1 ">{
+                      label.nombreProyecto.length <= 20 ?
+                        label.nombreProyecto
+                        :
+                        label.nombreProyecto.substring(0,20) +  '...' 
+                      }</span>
                   </Link>
 
                   {true ? ( // PENDIENTE SOLO LOS USUARIOS PREMIUM PUEDEN ELIMINAR ETIQUETAS
