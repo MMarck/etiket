@@ -169,7 +169,7 @@ module.exports = {
                         });
                     }
                     
-                    res.redirect('http://localhost:3000/login') //de momento nomas :,v
+                    res.redirect(process.env.HOST_FRONTEND + '/login') //de momento nomas :,v
                 });
             });
 
