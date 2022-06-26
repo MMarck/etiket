@@ -6,7 +6,7 @@ componentes del sistema */
  */
 export const pathIcons = '/images/icons/';
 
-export const backendURL = 'http://54.211.162.109:3002/';
+export const backendURL = 'http://44.204.230.64:3002/';
 
 /**
  * Unidades para el tamanio de los prototipos
