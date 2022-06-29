@@ -15,6 +15,20 @@ import { fabric } from 'fabric';
 import { withRouter } from '../../tools/withRouter';
 
 class LabelEditor extends Component {
+
+  constructor(props) {
+    super(props);
+    this.counter = 0 
+    console.log("times "+ this.counter)
+    this.componentRef = createRef();
+
+    this.state = {
+      accessToken: Cookies.get('accessToken') || '',
+      refreshToken: Cookies.get('refreshToken') || '',
+      canvas : null
+    };
+  }
+
   componentDidMount() {
     const header = {
       Authorization: 'Bearer ' + this.state.accessToken
@@ -40,23 +54,58 @@ class LabelEditor extends Component {
         }
       });
 
-
+    this.InitCanvas( this.state.canvas, this.props.etiqueta );
   }
 
-  constructor(props) {
-    super(props);
-    this.componentRef = createRef();
-    this.state = {
-      accessToken: Cookies.get('accessToken') || '',
-      refreshToken: Cookies.get('refreshToken') || '',
-      canvas: null
-    };
+
+
+
+  InitCanvas(canvas, label){
+    //Inicializacion del canvas
+    var cv = new fabric.Canvas('PreviewContainer');
+    cv.setDimensions(
+      {
+        width: '1300',
+        height: '500'
+      },
+    );
+    
+    //canvas.setHeight(document.getElementById("PreviewContainer").clientHeight);
+    //canvas.setWidth(document.getElementById("PreviewContainer").clientWidth);
+    cv.setBackgroundColor('#F5F6F8');
+
+    
+    var rect = new fabric.Rect({
+      left: 300,
+      top: 80,
+      fill: "white",
+      width: fabric.util.parseUnit('10cm'),
+      height: fabric.util.parseUnit('10cm'),  
+      stroke: "gray",
+      hasControls: false,
+      lockMovementX: true,
+      lockMovementY: true,
+      lockScalingX: true,
+      lockScalingY: true,
+      lockRotation: true,
+      hasControls: false,
+      hasBorders: false,
+    });
+
+    var textbox = new fabric.Textbox(label.nombreProducto, {
+      left: 350,
+      top: 250,
+      fill: 'black',
+      fontSize:30,
+    });
+
+    cv.add(rect, textbox);
+    this.setState({canvas:cv})
   }
 
   /*
    *   Función para guardar los cambios en la base de datos
    */
-
   saveLabel() {
     const header = {
       Authorization: 'Bearer ' + this.state.accessToken
@@ -185,7 +234,22 @@ class LabelEditor extends Component {
     setPosition('algPos');
   }
 
+
+  static getDerivedStateFromProps(props, state) {
+    console.log(props.etiqueta.nombreProducto)
+    if (state.canvas){
+      state.canvas._objects[1].text = props.etiqueta.nombreProducto
+      state.canvas.renderAll()
+    }
+    
+    return null;
+  }
+
+  
   render() {
+    console.log("nombreProducto")
+        /*
+
     //Variables inizialization
     var nombreProducto = (this.props.etiqueta.nombreProducto || '')
     
@@ -224,34 +288,10 @@ class LabelEditor extends Component {
 
 
 
-    //Inicializacion del canvas
-    var canvas = new fabric.Canvas('PreviewContainer');
-        canvas.setDimensions(
-          {
-            width: '1300',
-            height: '500'
-          },
-        );
-        //canvas.setHeight(document.getElementById("PreviewContainer").clientHeight);
-        //canvas.setWidth(document.getElementById("PreviewContainer").clientWidth);
-        canvas.setBackgroundColor('#F5F6F8');
-    
-        var rect = new fabric.Rect({
-          left: 300,
-          top: 80,
-          fill: "white",
-          width: fabric.util.parseUnit(ancho + dimensionesUn),
-          height: fabric.util.parseUnit(altura + dimensionesUn),  
-          stroke: "gray",
-          hasControls: false,
-          lockMovementX: true,
-          lockMovementY: true,
-          lockScalingX: true,
-          lockScalingY: true,
-          lockRotation: true,
-          hasControls: false,
-          hasBorders: false,
-        });
+
+
+
+
         var circle = new fabric.Circle({
           radius: 20,
           fill: "green",
@@ -264,8 +304,6 @@ class LabelEditor extends Component {
           fill: 'black',
           fontSize:30,
         });
-        
-        canvas.add( rect, circle ,textbox);
     
         canvas.on('mouse:wheel', function (opt) {
           var delta = opt.e.deltaY;
@@ -343,7 +381,7 @@ class LabelEditor extends Component {
             obj.top = bounding.bottom - obj.height * obj.scaleY
           }
         }); 
-        canvas.renderAll();
+        */
 
     return (
       <div id="masterContainer">
