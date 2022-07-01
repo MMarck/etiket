@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import { Link } from 'react-router-dom';
 import './ResetPassword.css';
 
@@ -14,8 +15,7 @@ function ResetPassword() {
       </p>
 
       <form id="resetForm" className="w-100">
-        <label htmlFor="usuario">Usuario</label>
-        <br />
+        <label htmlFor="usuario"> Usuario</label>
         <input
           className="inputText  mb-4"
           id="usuario"
@@ -28,11 +28,15 @@ function ResetPassword() {
 
         <div className="d-flex justify-content-center ">
           <Link to="/" className="w-50">
-            <button className="btn-dark darkButton">Enviar</button>
+            <button className="btn-dark darkButton" type="submit">
+              Enviar
+            </button>
           </Link>
 
           <Link to="/" className="w-50">
-            <button className="btn-dark darkButton">Cancelar</button>
+            <button className="btn-dark darkButton" type="button">
+              Cancelar
+            </button>
           </Link>
         </div>
       </form>

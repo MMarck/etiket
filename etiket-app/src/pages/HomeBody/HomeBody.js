@@ -13,21 +13,37 @@ class HomeBody extends Component {
   }
 
   togglePlanes() {
-    this.setState({ isPlanesVisible: !this.state.isPlanesVisible });
+    this.setState((prevState) => ({ ...prevState, isPlanesVisible: !prevState.isPlanesVisible }));
   }
 
   toogleEmpresa() {
-    if (!this.state.isEmpresaVisible) {
-      this.setState({ isEmpresaVisible: !this.state.isEmpresaVisible });
-      this.setState({ isEmprendedorVisible: !this.state.isEmprendedorVisible });
-    }
+    // if (!this.state.isEmpresaVisible) {
+    // this.setState({ isEmpresaVisible: !this.state.isEmpresaVisible });
+    // this.setState({ isEmprendedorVisible: !this.state.isEmprendedorVisible });
+    // } para cambiar el estado debe preguntarse dentro de la funcion setState
+    this.setState((prevState) => {
+      if (!prevState.isEmpresaVisible) {
+        return {
+          ...prevState,
+          isEmprendedorVisible: !prevState.isEmprendedorVisible,
+          isEmpresaVisible: !prevState.isEmpresaVisible
+        };
+      }
+      return prevState;
+    });
   }
 
   toogleEmprendedor() {
-    if (!this.state.isEmprendedorVisible) {
-      this.setState({ isEmprendedorVisible: !this.state.isEmprendedorVisible });
-      this.setState({ isEmpresaVisible: !this.state.isEmpresaVisible });
-    }
+    this.setState((prevState) => {
+      if (!prevState.isEmprendedorVisible) {
+        return {
+          ...prevState,
+          isEmprendedorVisible: !prevState.isEmprendedorVisible,
+          isEmpresaVisible: !prevState.isEmpresaVisible
+        };
+      }
+      return prevState;
+    });
   }
 
   changePlanes() {
@@ -71,7 +87,9 @@ class HomeBody extends Component {
                 <li className="isNotFeature">Tabla nutricional basado en Perú</li>
               </ul>
             </div>
-            <button className="comprar">COMPRAR PLAN</button>
+            <button type="button" className="comprar">
+              COMPRAR PLAN
+            </button>
           </div>
           <div id="emprendedor" className="planesRect">
             <div className="planesHeader">
@@ -110,7 +128,9 @@ class HomeBody extends Component {
                 <li className="isNotFeature">Tabla nutricional basado en Perú</li>
               </ul>
             </div>
-            <button className="comprar">COMPRAR PLAN</button>
+            <button type="button" className="comprar">
+              COMPRAR PLAN
+            </button>
           </div>
         </div>
       );
@@ -154,7 +174,9 @@ class HomeBody extends Component {
               <li className="isNotFeature">Tabla nutricional basado en Perú</li>
             </ul>
           </div>
-          <button className="comprar">COMPRAR PLAN</button>
+          <button type="button" className="comprar">
+            COMPRAR PLAN
+          </button>
         </div>
         <div id="empresa" className="planesRect">
           <div className="planesHeader">
@@ -193,7 +215,9 @@ class HomeBody extends Component {
               <li className="isFeature">Tabla nutricional basado en Perú</li>
             </ul>
           </div>
-          <button className="comprar">COMPRAR PLAN</button>
+          <button type="button" className="comprar">
+            COMPRAR PLAN
+          </button>
         </div>
       </div>
     );
@@ -214,7 +238,7 @@ class HomeBody extends Component {
         <div className="info" style={{ backgroundImage: 'url(/images/fondo-web.png)' }}>
           {isPlanesVisible ? (
             <div id="planes" className={isPlanesVisible ? 'isShowing' : 'isNotShowing'}>
-              <div id="verPlanes" onClick={() => this.togglePlanes()}>
+              <div role="presentation" id="verPlanes" onClick={() => this.togglePlanes()}>
                 <img
                   src="/images/icons/flecha-hacia-abajo.png"
                   alt="abajo"
@@ -228,12 +252,14 @@ class HomeBody extends Component {
               </h1>
               <div id="rectSelectorContainer" style={{ marginTop: '5%' }}>
                 <div
+                  role="presentation"
                   id="emprendedorSqr"
                   onClick={() => this.toogleEmprendedor()}
                   className={this.state.isEmprendedorVisible ? 'planSelected' : 'planNotSelected'}>
                   <span>Emprendedor</span>
                 </div>
                 <div
+                  role="presentation"
                   id="empresasSqr"
                   onClick={() => this.toogleEmpresa()}
                   className={this.state.isEmpresaVisible ? 'planSelected' : 'planNotSelected'}>
@@ -283,7 +309,7 @@ class HomeBody extends Component {
                   automática cuando aparecen en las listas de ingredientes
                 </p>
               </div>
-              <div id="verPlanes" onClick={() => this.togglePlanes()}>
+              <div role="presentation" id="verPlanes" onClick={() => this.togglePlanes()}>
                 <h1 className="highText" style={{ marginTop: '40px' }}>
                   VER PLANES
                 </h1>

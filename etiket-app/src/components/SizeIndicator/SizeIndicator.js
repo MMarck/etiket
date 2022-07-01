@@ -4,17 +4,17 @@ import './SizeIndicator.css';
  * Este componente dibujar una regla que se ajusta al
  * tamaño de su contenedor
  */
-function SizeIndicator({ length, orientation, visibilityProp, font_size }) {
-  length = length || '100mm';
-  orientation = orientation || 'horizontal';
-  visibilityProp = visibilityProp || 'visible';
-  font_size = font_size || '1em';
+function SizeIndicator({ length, orientation, visibilityProp, fontSize }) {
+  const newLength = length || '100mm';
+  const newOrientation = orientation || 'horizontal';
+  const newVisibilityProp = visibilityProp || 'visible';
+  const newFontSize = fontSize || '1em';
 
-  if (orientation === 'horizontal') {
+  if (newOrientation === 'horizontal') {
     return (
       <div
         className="sizeIndicatorWapper horizontalIndicator"
-        style={{ visibility: visibilityProp, width: length }}>
+        style={{ visibility: newVisibilityProp, width: newLength }}>
         <div
           className="px-2"
           style={{
@@ -22,16 +22,16 @@ function SizeIndicator({ length, orientation, visibilityProp, font_size }) {
             position: 'relative',
             zIndex: '2',
             color: 'gray',
-            fontSize: font_size
+            fontSize: newFontSize
           }}>
-          {length}
+          {newLength}
         </div>
         <div
           className="line"
           style={{
             position: 'relative',
             top: '-20px',
-            width: length,
+            width: newLength,
             height: '2px',
             backgroundColor: 'gray'
           }}
@@ -40,14 +40,14 @@ function SizeIndicator({ length, orientation, visibilityProp, font_size }) {
     );
   }
 
-  if (orientation === 'vertical') {
+  if (newOrientation === 'vertical') {
     return (
       <div
         className="sizeIndicatorWapper verticalIndicator"
         style={{
-          visibility: visibilityProp,
+          visibility: newVisibilityProp,
           width: '2px',
-          height: length,
+          height: newLength,
           margin: '0px 18px',
           backgroundColor: 'gray'
         }}>
@@ -59,9 +59,9 @@ function SizeIndicator({ length, orientation, visibilityProp, font_size }) {
             zIndex: '2',
             color: 'gray',
             transform: 'rotate(-90deg)',
-            fontSize: font_size
+            fontSize: newFontSize
           }}>
-          {length}
+          {newLength}
         </div>
       </div>
     );

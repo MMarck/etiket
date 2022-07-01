@@ -1,8 +1,9 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import axios from 'axios';
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { backendURL } from '../../config/constants.js';
-import { withRouter } from '../../tools/withRouter';
+import { backendURL } from '../../config/constants';
+import withRouter from '../../tools/withRouter';
 import './CreateAccount.css';
 
 /**
@@ -141,7 +142,9 @@ class CreateAccount extends Component {
           <br />
           <br />
           <Link to="/login" className="w-100">
-            <button className="btn-dark darkButton cursor-pointer">Cancelar</button>
+            <button type="button" className="btn-dark darkButton cursor-pointer">
+              Cancelar
+            </button>
           </Link>
         </form>
 

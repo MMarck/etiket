@@ -7,7 +7,14 @@ import NutritionFactsPreviewer from '../NutritionFactsPreviewer/NutritionFactsPr
 import './NutritionFactsModal.css';
 import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
 
-class NutritionFacts_modal extends Component {
+class NutritionFactsModal extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      show: false
+    };
+  }
+
   /**
    * Abstracion del modificador de estado global (o reducer)
    * llamado "replace"
@@ -22,13 +29,6 @@ class NutritionFacts_modal extends Component {
     this.props.replace(payload);
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      show: false
-    };
-  }
-
   render() {
     const handleClose = () => this.setState({ show: false });
     const handleShow = () => this.setState({ show: true });
@@ -37,6 +37,7 @@ class NutritionFacts_modal extends Component {
     return (
       <>
         <button
+          type="button"
           className="darkButton-twhite"
           style={{
             width: 'fit-content',
@@ -110,4 +111,4 @@ const mapDispatchToProps = () => ({
   replace
 });
 
-export default connect(mapStateToProps, mapDispatchToProps())(NutritionFacts_modal);
+export default connect(mapStateToProps, mapDispatchToProps())(NutritionFactsModal);

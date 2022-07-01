@@ -1,13 +1,22 @@
 /**
  *
  */
+
 export const ddNormalStyle = {
-  option: (provided, state) => ({
-    ...provided,
-    backgroundColor: state.isSelected ? '#1ED796' : state.isFocused ? '#1dd79633' : '#404040',
-    color: 'white',
-    cursor: 'Pointer'
-  }),
+  option: (provided, state) => {
+    let bcolor = '#404040';
+    if (state.isSelected) {
+      bcolor = '#1ED796';
+    } else if (state.isFocused) {
+      bcolor = '#1dd79633';
+    }
+    return {
+      ...provided,
+      backgroundColor: bcolor,
+      color: 'white',
+      cursor: 'Pointer'
+    };
+  },
   menuList: (provided) => ({
     ...provided,
     border: '2px solid #404040',
@@ -86,6 +95,6 @@ export const getPosition = (item) => {
  * } } position
  */
 export const setPosition = (item, position) => {
-  position = position || { x: '0px', y: '0px' };
-  document.getElementById(item).style.transform = `translate(${position.x},${position.y})`;
+  const newPosition = position || { x: '0px', y: '0px' };
+  document.getElementById(item).style.transform = `translate(${newPosition.x},${newPosition.y})`;
 };

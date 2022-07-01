@@ -160,6 +160,7 @@
   border: 1px solid var(--Sgreen);
   cursor: move;
 }
+
 #projectName{
   font-weight: bold;
   margin: 0;

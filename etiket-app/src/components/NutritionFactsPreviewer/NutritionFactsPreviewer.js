@@ -1,12 +1,12 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 import { Component } from 'react';
-import { propTypes } from 'react-bootstrap/esm/Image';
 import { connect } from 'react-redux';
 import { replace } from '../../reducers/etiquetaSlice';
 import './NutritionFactsPreviewer.css';
 
 const defaultNutritionFact = { report: '', vdr: '' };
 
-class NutritionFacts_Previewer extends Component {
+class NutritionFactsPreviewer extends Component {
   render() {
     const { tamanioPorcion } = this.props.etiqueta;
     const tamanioPorcionUn = this.props.etiqueta.tamanioPorcionUn.value;
@@ -324,7 +324,7 @@ const mapDispatchToProps = () => ({
   replace
 });
 
-export default connect(mapStateToProps, mapDispatchToProps())(NutritionFacts_Previewer);
+export default connect(mapStateToProps, mapDispatchToProps())(NutritionFactsPreviewer);
 
 /**
  * Componente para contruir las columnas de la tabla de Acidos
