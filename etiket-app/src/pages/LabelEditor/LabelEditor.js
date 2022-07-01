@@ -95,31 +95,43 @@ class LabelEditor extends Component {
     // TEXT AND ELEMENTS    
 
     var productName = new fabric.Textbox(label.nombreProducto, {
-      left: 450,
+      left: 340,
       top: 100,
       fill: 'black',
       fontSize:30,
+      width: 300
     });
 
     var brand = new fabric.Textbox(label.marca, {
-      left: 450,
-      top: 200,
+      left: 340,
+      top: 150,
       fill: 'black',
       fontSize:30,
+      width: 300
     });
 
     var netWeight  = new fabric.Textbox(label.pesoNetoLabel.value + ' ' + label.pesoNeto + ' ' + label.pesoNetoUn.value, {
-      left: 450,
-      top: 300,
+      left: 340,
+      top: 380,
       fill: 'black',
       fontSize:15,
+      width: 300
     });
 
     var drenWeight = new fabric.Textbox(label.pesoDrenadoLabel.value + ' ' + label.pesoDrenado + ' ' + label.pesoDrenadoUn.value, {
-      left: 450,
+      left: 340,
       top: 400,
       fill: 'black',
       fontSize:15,
+      width: 300
+    });
+
+    var alcoholContent = new fabric.Textbox(label.alcoholUn.value.replace('__', label.alcohol), {
+      left: 340,
+      top: 420,
+      fill: 'black',
+      fontSize:15,
+      width: 300
     });
     
     // ZOOM AND PANNING
@@ -203,7 +215,7 @@ class LabelEditor extends Component {
 
 
     // SET ELEMENTS AND RETURN
-    cv.add(mainViewPrototype, productName, brand, netWeight, drenWeight);
+    cv.add(mainViewPrototype, productName, brand, netWeight, drenWeight, alcoholContent);
     return cv
   }
 
@@ -354,6 +366,7 @@ class LabelEditor extends Component {
       state.canvas._objects[2].text = label.marca
       state.canvas._objects[3].text = label.pesoNetoLabel.value + ' ' + label.pesoNeto + ' ' + label.pesoNetoUn.value
       state.canvas._objects[4].text = label.pesoDrenadoLabel.value + ' ' + label.pesoDrenado + ' ' + label.pesoDrenadoUn.value
+      state.canvas._objects[5].text = label.alcoholUn.value.replace('__', label.alcohol)
       state.canvas.renderAll()
     }
     
