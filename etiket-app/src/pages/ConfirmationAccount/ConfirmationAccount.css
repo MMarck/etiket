@@ -1,0 +1,14 @@
+#Wallpaper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    flex: 1 1 auto;
+    font-size: 0.9rem;
+    overflow-y: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #f5f6f8;
+    border-radius: 2em;
+  }
+
