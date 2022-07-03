@@ -76,9 +76,27 @@ class LabelEditor extends Component {
     //cv.setHeight(document.getElementById("PreviewContainer").clientHeight);
     //cv.setWidth(document.getElementById("PreviewContainer").clientWidth);
 
-    var mainViewPrototype = new fabric.Rect({
-      left: 300,
-      top: 80,
+    var mainPrototype = new fabric.Rect({
+      left: 250,
+      top: 70,
+      fill: "white",
+      width: fabric.util.parseUnit('10cm'),
+      height: fabric.util.parseUnit('10cm'),  
+      stroke: "gray",
+      hasControls: false,
+      lockMovementX: true,
+      lockMovementY: true,
+      lockScalingX: true,
+      lockScalingY: true,
+      lockRotation: true,
+      hasControls: false,
+      hasBorders: false,
+      id: 'prototype'
+    });
+
+    var infoPrototype = new fabric.Rect({
+      left: 650,
+      top: 70,
       fill: "white",
       width: fabric.util.parseUnit('10cm'),
       height: fabric.util.parseUnit('10cm'),  
@@ -104,7 +122,8 @@ class LabelEditor extends Component {
       fill: 'black',
       fontSize:30,
       width: 300,
-      fontFamily: 'Local Helvetica'
+      fontFamily: 'Local Helvetica',
+      id: 'mainPrototypeBound'
     });
 
     var brand = new fabric.Textbox(label.marca, {
@@ -113,7 +132,8 @@ class LabelEditor extends Component {
       fill: 'black',
       fontSize:30,
       width: 300,
-      fontFamily: 'Local Helvetica'
+      fontFamily: 'Local Helvetica',
+      id: 'mainPrototypeBound'
     });
 
     var netWeight  = new fabric.Textbox(label.pesoNetoLabel.value + ' ' + label.pesoNeto + ' ' + label.pesoNetoUn.value, {
@@ -122,7 +142,8 @@ class LabelEditor extends Component {
       fill: 'black',
       fontSize:15,
       width: 300,
-      fontFamily: 'Local Helvetica'
+      fontFamily: 'Local Helvetica',
+      id: 'mainPrototypeBound'
     });
 
     var drenWeight = new fabric.Textbox(label.pesoDrenadoLabel.value + ' ' + label.pesoDrenado + ' ' + label.pesoDrenadoUn.value, {
@@ -131,7 +152,8 @@ class LabelEditor extends Component {
       fill: 'black',
       fontSize:15,
       width: 300,
-      fontFamily: 'Local Helvetica'
+      fontFamily: 'Local Helvetica',
+      id: 'mainPrototypeBound'
     });
     
     var alcoholContent = new fabric.Textbox(label.alcoholUn.value.replace('__', label.alcohol), {
@@ -140,9 +162,19 @@ class LabelEditor extends Component {
       fill: 'black',
       fontSize:15,
       width: 300,
-      fontFamily: 'Local Helvetica'
+      fontFamily: 'Local Helvetica',
+      id: 'mainPrototypeBound'
     });
     
+    var alcoholContent2 = new fabric.Textbox(label.alcoholUn.value.replace('__', label.alcohol), {
+      left: 340,
+      top: 420,
+      fill: 'black',
+      fontSize:15,
+      width: 300,
+      fontFamily: 'Local Helvetica',
+      id: 'infoPrototypeBound'
+    });
     // ZOOM AND PANNING
     //The term 'this' on each event listener means canvas (cv)
     cv.on('mouse:wheel', function (opt) {
@@ -192,10 +224,17 @@ class LabelEditor extends Component {
       } 
       
       var bounding = {
-        top: mainViewPrototype.top - this.vptCoords.tl.y * 0.01,
-        left: mainViewPrototype.left - this.vptCoords.tl.x * 0.01,
-        right: mainViewPrototype.left + mainViewPrototype.width - this.vptCoords.tl.x * 0.01,
-        bottom: mainViewPrototype.top + mainViewPrototype.height- this.vptCoords.tl.y * 0.01
+        top: mainPrototype.top - this.vptCoords.tl.y * 0.01,
+        left: mainPrototype.left - this.vptCoords.tl.x * 0.01,
+        right: mainPrototype.left + mainPrototype.width - this.vptCoords.tl.x * 0.01,
+        bottom: mainPrototype.top + mainPrototype.height- this.vptCoords.tl.y * 0.01
+      }
+
+      var bounding2 = {
+        top: infoPrototype.top - this.vptCoords.tl.y * 0.01,
+        left: infoPrototype.left - this.vptCoords.tl.x * 0.01,
+        right: infoPrototype.left + infoPrototype.width - this.vptCoords.tl.x * 0.01,
+        bottom: infoPrototype.top + infoPrototype.height- this.vptCoords.tl.y * 0.01
       }
 
       obj.setCoords();
@@ -208,32 +247,40 @@ class LabelEditor extends Component {
       }
       
       //Simple verification that object's position don't be outside bounding area
-      if(objectPosition.top < bounding.top){
-        obj.top = bounding.top
+      if(obj.id === 'mainPrototypeBound'){
+        if(objectPosition.top < bounding.top){
+          obj.top = bounding.top
+        }
+        if(objectPosition.left < bounding.left){
+          obj.left = bounding.left
+        }
+        if(objectPosition.right > bounding.right){
+          obj.left = bounding.right - obj.width * obj.scaleX
+        }
+        if( objectPosition.bottom > bounding.bottom){
+          obj.top = bounding.bottom - obj.height * obj.scaleY
+        }
+
       }
-      if(objectPosition.left < bounding.left){
-        obj.left = bounding.left
-      }
-      if(objectPosition.right > bounding.right){
-        obj.left = bounding.right - obj.width * obj.scaleX
-      }
-      if( objectPosition.bottom > bounding.bottom){
-        obj.top = bounding.bottom - obj.height * obj.scaleY
-      }
+        if(obj.id === 'infoPrototypeBound'){
+          if(objectPosition.top < bounding2.top){
+            obj.top = bounding2.top
+          }
+          if(objectPosition.left < bounding2.left){
+            obj.left = bounding2.left
+          }
+          if(objectPosition.right > bounding2.right){
+            obj.left = bounding2.right - obj.width * obj.scaleX
+          }
+          if( objectPosition.bottom > bounding2.bottom){
+            obj.top = bounding2.bottom - obj.height * obj.scaleY
+          }
+        }
+      
     }); 
 
-
-/*     cv.on('mouse:down', function (e) {
-      var obj = e.target;
-      console.log(obj)
-
-      obj.sendToBack()
-    });
-     */
-
-
     // SET ELEMENTS AND RETURN
-    cv.add(mainViewPrototype, productName, brand, netWeight, drenWeight, alcoholContent);
+    cv.add(mainPrototype, infoPrototype, productName, brand, netWeight, drenWeight, alcoholContent, alcoholContent2);
     return cv
   }
 
