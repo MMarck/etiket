@@ -13,6 +13,7 @@ import './LabelEditor.css';
 import { setPosition } from '../../tools/Statefunctions';
 import { fabric } from 'fabric';
 import { withRouter } from '../../tools/withRouter';
+var FontFaceObserver = require('fontfaceobserver');
 
 class LabelEditor extends Component {
 
@@ -69,7 +70,7 @@ class LabelEditor extends Component {
         height: '500'
       },
     );
-    
+    cv.preserveObjectStacking = true
 
     // PAPER (SHAPE BACKGROUND)
     //cv.setHeight(document.getElementById("PreviewContainer").clientHeight);
@@ -90,16 +91,20 @@ class LabelEditor extends Component {
       lockRotation: true,
       hasControls: false,
       hasBorders: false,
+      id: 'prototype'
     });
 
     // TEXT AND ELEMENTS    
+    var font = new FontFaceObserver('Local Helvetica');
+    font.load()
 
     var productName = new fabric.Textbox(label.nombreProducto, {
       left: 340,
       top: 100,
       fill: 'black',
       fontSize:30,
-      width: 300
+      width: 300,
+      fontFamily: 'Local Helvetica'
     });
 
     var brand = new fabric.Textbox(label.marca, {
@@ -107,7 +112,8 @@ class LabelEditor extends Component {
       top: 150,
       fill: 'black',
       fontSize:30,
-      width: 300
+      width: 300,
+      fontFamily: 'Local Helvetica'
     });
 
     var netWeight  = new fabric.Textbox(label.pesoNetoLabel.value + ' ' + label.pesoNeto + ' ' + label.pesoNetoUn.value, {
@@ -115,7 +121,8 @@ class LabelEditor extends Component {
       top: 380,
       fill: 'black',
       fontSize:15,
-      width: 300
+      width: 300,
+      fontFamily: 'Local Helvetica'
     });
 
     var drenWeight = new fabric.Textbox(label.pesoDrenadoLabel.value + ' ' + label.pesoDrenado + ' ' + label.pesoDrenadoUn.value, {
@@ -123,15 +130,17 @@ class LabelEditor extends Component {
       top: 400,
       fill: 'black',
       fontSize:15,
-      width: 300
+      width: 300,
+      fontFamily: 'Local Helvetica'
     });
-
+    
     var alcoholContent = new fabric.Textbox(label.alcoholUn.value.replace('__', label.alcohol), {
       left: 340,
       top: 420,
       fill: 'black',
       fontSize:15,
-      width: 300
+      width: 300,
+      fontFamily: 'Local Helvetica'
     });
     
     // ZOOM AND PANNING
@@ -212,6 +221,15 @@ class LabelEditor extends Component {
         obj.top = bounding.bottom - obj.height * obj.scaleY
       }
     }); 
+
+
+/*     cv.on('mouse:down', function (e) {
+      var obj = e.target;
+      console.log(obj)
+
+      obj.sendToBack()
+    });
+     */
 
 
     // SET ELEMENTS AND RETURN
