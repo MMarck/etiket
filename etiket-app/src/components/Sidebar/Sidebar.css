@@ -261,14 +261,17 @@ i {
 }
 .react-date-picker--disabled {
   background-color: #f0f0f0;
+  border-radius: 8px;
   color: #6d6d6d;
+}
+.react-date-picker--enabled{
+  background-color: var(--Sblack);
+  border-radius: 8px;
 }
 .react-date-picker__wrapper {
   display: flex;
   flex-grow: 1;
   flex-shrink: 0;
-  border-radius: 8px;
-  background-color: var(--Sblack);
   color: white;
 }
 .react-date-picker__inputGroup {

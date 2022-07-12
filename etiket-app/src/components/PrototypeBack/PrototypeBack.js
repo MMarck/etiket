@@ -136,7 +136,7 @@ class PrototypeBack extends Component {
                   <span>
                     {vidaUtil ? (
                       <>
-                        <b>Vida Util: </b> {vidaUtil} {vidaUtil === 'Ver Paquete' ? '' : vidaUtilUn}
+                        <b>Vida Util: </b> {vidaUtil} {vidaUtil === 'Ver Empaque' ? '' : vidaUtilUn}
                       </>
                     ) : (
                       ''

@@ -71,10 +71,19 @@ class Sidebar extends Component {
     }
   }
 
-  handleVerPaquete(stateName) {
+  handleVerEmpaque(stateName) {
     const payload = {
       stateName,
-      value: 'Ver Paquete'
+      value: 'Ver Empaque'
+    };
+
+    this.props.replace(payload);
+  }
+
+  handleClearVerEmpaque(stateName) {
+    const payload = {
+      stateName,
+      value: ''
     };
 
     this.props.replace(payload);
@@ -563,7 +572,7 @@ class Sidebar extends Component {
                     <input
                       name="vidaUtil"
                       value={
-                        this.props.etiqueta.vidaUtil === 'Ver Paquete'
+                        this.props.etiqueta.vidaUtil === 'Ver Empaque'
                           ? ''
                           : this.props.etiqueta.vidaUtil
                       }
@@ -572,6 +581,7 @@ class Sidebar extends Component {
                       onChange={(e) => this.handleStateChange('vidaUtil', e.target.value)}
                       className="form-control gRInput numberInput"
                       id="vidaUtil"
+                      disabled={this.props.etiqueta.vidaUtil === 'Ver Empaque' ? 'disabled' : ''}
                     />
                     <Select
                       className="ddMenu"
@@ -579,6 +589,7 @@ class Sidebar extends Component {
                       options={unidadesDias}
                       onChange={(e) => this.handleStateChange('vidaUtilUn', e)}
                       defaultValue={this.props.etiqueta.vidaUtil}
+                      isDisabled={this.props.etiqueta.vidaUtil === 'Ver Empaque' ? 'disabled' : ''}
                     />
                   </div>
                   <div id="elab" className="vidaSubCont">
@@ -588,15 +599,17 @@ class Sidebar extends Component {
                       options={fabricaciones}
                       onChange={(e) => this.handleStateChange('fabricacionUn', e)}
                       defaultValue={this.props.etiqueta.fabricacionUn}
+                      isDisabled={this.props.etiqueta.vidaUtil === 'Ver Empaque' ? 'disabled' : ''}
                     />
                     <DatePicker
                       format="d/M/yyyy"
                       onChange={(e) => this.handleDateChange('fabricacion', e)}
                       value={
-                        this.props.etiqueta.fabricacion === 'Ver Paquete'
+                        this.props.etiqueta.fabricacion === 'Ver Empaque'
                           ? ''
                           : this.getDateObject(this.props.etiqueta.fabricacion)
                       }
+                      disabled={this.props.etiqueta.vidaUtil === 'Ver Empaque' ? 'disabled' : ''}
                     />
                   </div>
                   <div id="cadu" className="vidaSubCont">
@@ -606,33 +619,45 @@ class Sidebar extends Component {
                       options={caducidades}
                       onChange={(e) => this.handleStateChange('caducacionUn', e)}
                       defaultValue={this.props.etiqueta.caducacionUn}
+                      isDisabled={this.props.etiqueta.vidaUtil === 'Ver Empaque' ? 'disabled' : ''}
                     />
                     <DatePicker
                       format="d/M/yyyy"
                       onChange={(e) => this.handleDateChange('caducacion', e)}
                       value={
-                        this.props.etiqueta.caducacion === 'Ver Paquete'
+                        this.props.etiqueta.caducacion === 'Ver Empaque'
                           ? ''
                           : this.getDateObject(this.props.etiqueta.caducacion)
                       }
+                      disabled={this.props.etiqueta.vidaUtil === 'Ver Empaque' ? 'disabled' : ''}
                     />
                   </div>
-                  <button
-                    type="button"
-                    className="darkButton-twhite"
-                    style={{
-                      width: 'fit-content',
-                      height: 'fit-content',
-                      fontSize: '0.8em',
-                      margin: 'auto'
-                    }}
-                    onClick={() => {
-                      this.handleVerPaquete('vidaUtil');
-                      this.handleVerPaquete('fabricacion');
-                      this.handleVerPaquete('caducacion');
-                    }}>
-                    PONER &quot;VER PAQUETE&quot;
-                  </button>
+                  <div style={{ display: 'flex', gap: '0.5vw' }}>
+                    <input
+                      defaultChecked={this.props.etiqueta.vidaUtil === 'Ver Empaque' ? 'True' : ''}
+                      type="radio"
+                      id="verEmpaque"
+                      name="vidaUtil"
+                      onClick={() => {
+                        this.handleVerEmpaque('vidaUtil');
+                        this.handleVerEmpaque('fabricacion');
+                        this.handleVerEmpaque('caducacion');
+                      }}
+                    />
+                    <label>Rellenar con &quot;VER EMPAQUE&quot;</label>
+                    <input
+                      defaultChecked={this.props.etiqueta.vidaUtil !== 'Ver Empaque' ? 'True' : ''}
+                      type="radio"
+                      id="clearEmpaque"
+                      name="vidaUtil"
+                      onClick={() => {
+                        this.handleClearVerEmpaque('vidaUtil');
+                        this.handleClearVerEmpaque('fabricacion');
+                        this.handleClearVerEmpaque('caducacion');
+                      }}
+                    />
+                    <label>Rellenar con información personalizada</label>
+                  </div>
                 </div>
               </div>
             }
@@ -699,22 +724,31 @@ class Sidebar extends Component {
                         this.handleStateChange('lote', e.target.value);
                       }}
                       className="gRInput"
+                      disabled={this.props.etiqueta.lote === 'Ver Empaque' ? 'disabled' : ''}
                     />
                   </div>
-                  <button
-                    type="button"
-                    className="darkButton-twhite"
-                    style={{
-                      width: 'fit-content',
-                      height: 'fit-content',
-                      fontSize: '0.8em',
-                      margin: 'auto'
-                    }}
-                    onClick={() => {
-                      this.handleVerPaquete('lote');
-                    }}>
-                    PONER &quot;VER PAQUETE&quot;
-                  </button>
+                  <div style={{ display: 'flex', gap: '0.5vw' }}>
+                    <input
+                      defaultChecked={this.props.etiqueta.lote === 'Ver Empaque' ? 'True' : ''}
+                      type="radio"
+                      id="verEmpaque"
+                      name="lote"
+                      onClick={() => {
+                        this.handleVerEmpaque('lote');
+                      }}
+                    />
+                    <label>Rellenar con &quot;VER EMPAQUE&quot;</label>
+                    <input
+                      defaultChecked={this.props.etiqueta.lote !== 'Ver Empaque' ? 'True' : ''}
+                      type="radio"
+                      id="clearEmpaque"
+                      name="lote"
+                      onClick={() => {
+                        this.handleClearVerEmpaque('lote');
+                      }}
+                    />
+                    <label>Rellenar con información personalizada</label>
+                  </div>
                 </div>
               </div>
             }
