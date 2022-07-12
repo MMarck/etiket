@@ -36,7 +36,7 @@ export default function ChangePassword() {
       <br />
 
       <div className="rounded-square mt-5 w-75" style={{ margin: "0px auto" }}>
-        <form className="w-100" >
+        <form className="w-100">
           <label htmlFor="password">Nueva contraseña</label>
           <br />
           <input
