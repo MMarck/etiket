@@ -29,10 +29,13 @@ function LoginForm() {
     axiosLogin
       .post(`${backendURL}UsersDB/login`, jsonData)
       .then((response) => {
+        console.log(response)
         handleCookies(response.data.accessToken, response.data.refreshToken);
         navigate('/');
       })
       .catch((error) => {
+        alterNotification('UserWarning', 'enable')
+
         if (error.response) {
           alert(error.response.data.error.message);
         } else if (error.request) {
@@ -49,6 +52,8 @@ function LoginForm() {
         <b>Ingresa a Solinal</b> Etiqueta
       </span>
 
+      <span id = 'UserWarning' className='warning'> Usuario o contraseña incorrecta </span>
+
       <form id="LoginForm" className="w-100" onSubmit={(e) => login(e)}>
         <label htmlFor="usuario">Usuario</label>
         <br />
@@ -59,7 +64,7 @@ function LoginForm() {
           type="text"
           name="correo"
           placeholder="Ingrese su usuario"
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {setEmail(e.target.value); alterNotification('UserWarning')}}
         />
 
         <br />
@@ -72,7 +77,7 @@ function LoginForm() {
           id="password"
           name="password"
           placeholder="Ingrese su contraseña"
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => {setPassword(e.target.value); alterNotification('UserWarning')}}
         />
 
         <br />
@@ -114,3 +119,20 @@ function LoginForm() {
 }
 
 export default LoginForm;
+
+
+/**
+ * Function to set/unset classnames on text to control 
+ * notification notificacion
+ * @param {String} id text 
+ * @param {String} action to set the atributes pass "enable", to un set pass ''
+ */
+const alterNotification = (id, action)=>{
+  var warning = document.getElementById(id)
+  if (action == 'enable'){
+    warning.className = 'warning warningActivated'
+  }
+  else{
+    warning.className = 'warning'
+  }
+}
