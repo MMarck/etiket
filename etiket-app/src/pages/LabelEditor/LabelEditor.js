@@ -15,12 +15,26 @@ import { fabric } from 'fabric';
 import { withRouter } from '../../tools/withRouter';
 var FontFaceObserver = require('fontfaceobserver');
 
+/**
+ * this function make a copy of the old state with a new format to get simply keys
+ * @param {old label state} label 
+ * @returns new state
+ */
+const formatLabelState = (label) => {
+  var newState = {
+    foodIdentity: label.nombreProducto,
+    brand : label.marca,
+    netWeight : label.pesoNeto? label.pesoNetoLabel.value + ' ' + label.pesoNeto + ' ' + label.pesoNetoUn.value : '',
+    drainedWeight : !label.pesoDrenadoDisabled? label.pesoDrenadoLabel.value + ' ' + label.pesoDrenado + ' ' + label.pesoDrenadoUn.value : '',
+    alcoholicStrength : label.alcohol? label.alcoholUn.value.replace('__', label.alcohol) : ''
+  }
+  return newState;
+}
+
 class LabelEditor extends Component {
 
   constructor(props) {
     super(props);
-    this.counter = 0 
-    console.log("times "+ this.counter)
     this.componentRef = createRef();
 
     this.state = {
@@ -62,8 +76,10 @@ class LabelEditor extends Component {
 
 
 
-  getInitialCanvas(label){
+  getInitialCanvas(labelState){
     var cv = new fabric.Canvas('PreviewContainer');
+    var formatedLabel = formatLabelState(labelState);
+
     cv.setDimensions(
       {
         width: '1300',
@@ -116,65 +132,67 @@ class LabelEditor extends Component {
     var font = new FontFaceObserver('Local Helvetica');
     font.load()
 
-    var productName = new fabric.Textbox(label.nombreProducto, {
+    var foodIdentity = new fabric.Textbox(formatedLabel.foodIdentity, {
       left: 340,
       top: 100,
       fill: 'black',
       fontSize:30,
       width: 300,
       fontFamily: 'Local Helvetica',
-      id: 'mainPrototypeBound'
+      id: 'mainPrototypeBound foodIdentity',
+      editable: false.valueOf,
+      lockRotation: true
     });
 
-    var brand = new fabric.Textbox(label.marca, {
+    var brand = new fabric.Textbox(formatedLabel.brand, {
       left: 340,
       top: 150,
       fill: 'black',
       fontSize:30,
       width: 300,
       fontFamily: 'Local Helvetica',
-      id: 'mainPrototypeBound'
+      id: 'mainPrototypeBound brand',
+      editable: false,
+      lockRotation: true
     });
 
-    var netWeight  = new fabric.Textbox(label.pesoNetoLabel.value + ' ' + label.pesoNeto + ' ' + label.pesoNetoUn.value, {
+    var netWeight  = new fabric.Textbox(formatedLabel.netWeight, {
       left: 340,
       top: 380,
       fill: 'black',
       fontSize:15,
       width: 300,
       fontFamily: 'Local Helvetica',
-      id: 'mainPrototypeBound'
+      id: 'mainPrototypeBound netWeight',
+      editable: false,
+      lockRotation: true
     });
 
-    var drenWeight = new fabric.Textbox(label.pesoDrenadoLabel.value + ' ' + label.pesoDrenado + ' ' + label.pesoDrenadoUn.value, {
+    var drainedWeight = new fabric.Textbox(formatedLabel.drainedWeight, {
       left: 340,
       top: 400,
       fill: 'black',
       fontSize:15,
       width: 300,
       fontFamily: 'Local Helvetica',
-      id: 'mainPrototypeBound'
+      id: 'mainPrototypeBound drainedWeight',
+      editable: false,
+      lockRotation: true
     });
     
-    var alcoholContent = new fabric.Textbox(label.alcoholUn.value.replace('__', label.alcohol), {
+    var alcoholicStrength = new fabric.Textbox(formatedLabel.alcoholicStrength, {
       left: 340,
       top: 420,
       fill: 'black',
       fontSize:15,
       width: 300,
       fontFamily: 'Local Helvetica',
-      id: 'mainPrototypeBound'
+      id: 'mainPrototypeBound alcoholicStrength',
+      editable: false,
+      lockRotation: true
     });
-    
-    var alcoholContent2 = new fabric.Textbox(label.alcoholUn.value.replace('__', label.alcohol), {
-      left: 340,
-      top: 420,
-      fill: 'black',
-      fontSize:15,
-      width: 300,
-      fontFamily: 'Local Helvetica',
-      id: 'infoPrototypeBound'
-    });
+
+
     // ZOOM AND PANNING
     //The term 'this' on each event listener means canvas (cv)
     cv.on('mouse:wheel', function (opt) {
@@ -247,7 +265,7 @@ class LabelEditor extends Component {
       }
       
       //Simple verification that object's position don't be outside bounding area
-      if(obj.id === 'mainPrototypeBound'){
+      if(obj.id.includes('mainPrototypeBound')){
         if(objectPosition.top < bounding.top){
           obj.top = bounding.top
         }
@@ -262,7 +280,7 @@ class LabelEditor extends Component {
         }
 
       }
-        if(obj.id === 'infoPrototypeBound'){
+        if(obj.id.includes('infoPrototypeBound')){
           if(objectPosition.top < bounding2.top){
             obj.top = bounding2.top
           }
@@ -280,7 +298,7 @@ class LabelEditor extends Component {
     }); 
 
     // SET ELEMENTS AND RETURN
-    cv.add(mainPrototype, infoPrototype, productName, brand, netWeight, drenWeight, alcoholContent, alcoholContent2);
+    cv.add(mainPrototype, infoPrototype, foodIdentity, brand, netWeight, drainedWeight, alcoholicStrength);
     return cv
   }
 
@@ -424,15 +442,19 @@ class LabelEditor extends Component {
    * @returns 
    */
   static getDerivedStateFromProps(props, state) {
-    var label = props.etiqueta;
+    var label = formatLabelState(props.etiqueta);
 
     if (state.canvas){
-      state.canvas._objects[1].text = label.nombreProducto
-      state.canvas._objects[2].text = label.marca
-      state.canvas._objects[3].text = label.pesoNetoLabel.value + ' ' + label.pesoNeto + ' ' + label.pesoNetoUn.value
-      state.canvas._objects[4].text = label.pesoDrenadoLabel.value + ' ' + label.pesoDrenado + ' ' + label.pesoDrenadoUn.value
-      state.canvas._objects[5].text = label.alcoholUn.value.replace('__', label.alcohol)
-      state.canvas.renderAll()
+      Object.keys(label).forEach((key) => {
+        //get desired textbox to set the stored value
+        var textBox = state.canvas._objects.filter((obj) => {return obj.id.includes(key) })
+        //setting value
+        textBox[0].text = label[key]
+        // if value is empty, textbox won't be selectable
+        textBox[0].selectable = label[key]? true : false;
+      }) 
+      
+      state.canvas.renderAll() 
     }
     
     //return null for not update component state
