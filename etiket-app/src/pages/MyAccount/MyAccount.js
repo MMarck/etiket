@@ -129,6 +129,9 @@ function MyAccount() {
           </div>
         </div>
       </div>
+      <footer>
+        <small>© Copyright Solinal 2021</small>
+      </footer>
     </div>
   );
 }
