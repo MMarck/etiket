@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { backendURL } from '../../config/constants';
 import withRouter from '../../tools/withRouter';
 import './CreateAccount.css';
-import $ from 'jquery';
 
 /**
  * Vista que renderiza el formulario para crear una cuenta de usuario
@@ -71,17 +70,6 @@ class CreateAccount extends Component {
 
   handleInput(evt) {
     const value = evt.target.value;
-    const p2 = document.getElementById("p2");
-  
-    if (value.value != p2.value) p2.classList.add("invalid");
-    p2.classList.remove("valid");
-    const completeRuleRegex = /^(?=.{6,}$)(?=.*?[a-z,0-9,A-Z]).*$/;
-    const minreg = /^.{8,}$/;
-    const upreg = /^(?=.*?[A-Z]).*$/;
-    const lowreg =/^(?=.*?[a-z]).*$/;
-    const numreg =/^(?=.*?[0-9]).*$/;
-    const spreg =/^(?=.*?\W).*$/;
-
 
     const rules = {
       minimunReg : /^.{6,}$/,
@@ -90,121 +78,35 @@ class CreateAccount extends Component {
       completeRuleRegex: /^(?=.{6,}$)(?=.*?[a-z,0-9])(?=.*?[A-Z]).*$/
     }
 
-    // Verification on html requirements declared
+    //validate each rule declare on html document 
     Object.keys(rules).forEach((keyRule) => {
       updateCheckRequirements(rules, keyRule, value)
     })
 
-    //verification to set a shadow on the input
+    //validate the password inpunt and setting a effect 
     updateInputValidation(rules.completeRuleRegex ,value)
-
-
-    
-    /* var requirementsArray = [...document.getElementById('PasswordRequirements').childNodes]
-    requirementsArray.forEach( (node) => {
-      console.log(node)
-
-      var elements = [...node.childNodes]
-      elements.forEach( (element) => { 
-        if(element.className){
-          if(element.className.includes('check'))
-            console.log(element)
-        }
-        
-
-
-      }) 
-      
-
-      //console.log([...node.childNodes].filter( (element) => {return element.className.includes('check')}))
-      //console.log([...node.childNodes][0].className.includes('check'))
-      //node.childNodes.forEach((child)=>{console.log(child)})
-    })*/
-
-
-    /* 
-          
-    if (pwdRegex.test(value.trim())) {
-      evt.target.classList.add("valid");
-      evt.target.classList.remove("invalid");
-      document.getElementById("p2").disabled = false;
-    } else {
-      evt.target.classList.add("invalid");
-      evt.target.classList.remove("valid");
-      document.getElementById("p2").disabled = true;
-       
-    }
-    if (minreg.test(value.trim())) {
-      console.log($('#min8 .icons .x'))
-      
-       $('#min8 .icons .x').css('visibility', 'hidden');
-       $('#min8 .icons .check').css('visibility', 'visible');
-   
-    } else {
-        $('#min8 .icons .x').css('visibility', 'visible');
-        $('#min8 .icons .check').css('visibility', 'hidden');
-      
-    }
-    if (upreg.test(value.trim())) {
-      $('#atUp .icons .x').css('visibility', 'hidden');
-      $('#atUp .icons .check').css('visibility', 'visible');
-      
-    } else {
-      $('#atUp .icons .x').css('visibility', 'visible');
-      $('#atUp .icons .check').css('visibility', 'hidden');
-      
-    }
-    if (numreg.test(value.trim())) {
-      $('#atNum .icons .x').css('visibility', 'hidden');
-      $('#atNum .icons .check').css('visibility', 'visible');
-      
-    } else {
-      $('#atNum .icons .x').css('visibility', 'visible');
-      $('#atNum .icons .check').css('visibility', 'hidden');
-      
-    }
-    
-    if (lowreg.test(value.trim())) {
-      $('#atLow .icons .x').css('visibility', 'hidden');
-      $('#atLow .icons .check').css('visibility', 'visible');
-      
-    } else {
-      $('#atLow .icons .x').css('visibility', 'visible');
-      $('#atLow .icons .check').css('visibility', 'hidden');
-    }
-    
-    if (spreg.test(value.trim())) {
-      $('#atSp .icons .x').css('visibility', 'hidden');
-      $('#atSp .icons .check').css('visibility', 'visible');
-      
-    } else {
-      $('#atSp .icons .x').css('visibility', 'visible');
-      $('#atSp .icons .check').css('visibility', 'hidden');
-      
-    } */
-    
-    if (!value) {
-      evt.target.classList.remove("invalid");
-    }
   }
-  handleInputConfirm(evt) {
-    const value = document.getElementById("p1");
-    if (value.value == "") alert("Please");
-  
-    if (!value) {
-      evt.target.classList.remove("invalid");
-    }
-  }
+
   checkInputConfirm(evt) {
-    const value = document.getElementById("p1");
-    if (value.value != evt.target.value) {
+    const warning = document.getElementById('passwordWarning')
+    const p1 = document.getElementById("password");
+    const p2 = evt.target
+
+    if (p1.value != p2.value){
       evt.target.classList.add("invalid");
       evt.target.classList.remove("valid");
-    } else {
+      warning.classList.add('warningActivated')
+    }
+    else{
       evt.target.classList.add("valid");
       evt.target.classList.remove("invalid");
+      warning.classList.remove('warningActivated')
     }
   }
+
+
+
+
 
   render() {
     return (
@@ -245,11 +147,14 @@ class CreateAccount extends Component {
           <input
             className="inputText mb-4"
             type="password"
-            name="ConfirmPassword"
             placeholder="Confirme su contraseña"
-            id="p2" 
-             onInput={(e)=>this.checkInputConfirm(e)} 
+            id="passwordConfirmation" 
+            onInput={(e)=>this.checkInputConfirm(e)} 
           />
+
+          <span id = 'passwordWarning' className='warning d-flex justify-content-center'> 
+            Las constraseñas no coinciden 
+          </span>
 
           <div id="PasswordRequirements">
             <span id = "minimunReg">
