@@ -22,11 +22,19 @@ var FontFaceObserver = require('fontfaceobserver');
  */
 const formatLabelState = (label) => {
   var newState = {
-    foodIdentity: label.nombreProducto,
-    brand : label.marca,
-    netWeight : label.pesoNeto? label.pesoNetoLabel.value + ' ' + label.pesoNeto + ' ' + label.pesoNetoUn.value : '',
-    drainedWeight : !label.pesoDrenadoDisabled? label.pesoDrenadoLabel.value + ' ' + label.pesoDrenado + ' ' + label.pesoDrenadoUn.value : '',
-    alcoholicStrength : label.alcohol? label.alcoholUn.value.replace('__', label.alcohol) : ''
+    config:{
+      dimensions : {
+        width : label.ancho + label.dimensionesUn.value,
+        height : label.altura + label.dimensionesUn.value
+      },
+    },
+    textBoxes : {
+      foodIdentity: label.nombreProducto,
+      brand : label.marca,
+      netWeight : label.pesoNeto? label.pesoNetoLabel.value + ' ' + label.pesoNeto + ' ' + label.pesoNetoUn.value : '',
+      drainedWeight : !label.pesoDrenadoDisabled? label.pesoDrenadoLabel.value + ' ' + label.pesoDrenado + ' ' + label.pesoDrenadoUn.value : '',
+      alcoholicStrength : label.alcohol? label.alcoholUn.value.replace('__', label.alcohol) : ''
+    }
   }
   return newState;
 }
@@ -78,7 +86,8 @@ class LabelEditor extends Component {
 
   getInitialCanvas(labelState){
     var cv = new fabric.Canvas('PreviewContainer');
-    var formatedLabel = formatLabelState(labelState);
+    var label = formatLabelState(labelState);
+ 
 
     cv.setDimensions(
       {
@@ -96,8 +105,8 @@ class LabelEditor extends Component {
       left: 250,
       top: 70,
       fill: "white",
-      width: fabric.util.parseUnit('10cm'),
-      height: fabric.util.parseUnit('10cm'),  
+      width: fabric.util.parseUnit(label.config.dimensions.width),
+      height: fabric.util.parseUnit(label.config.dimensions.height),  
       stroke: "gray",
       hasControls: false,
       lockMovementX: true,
@@ -107,7 +116,7 @@ class LabelEditor extends Component {
       lockRotation: true,
       hasControls: false,
       hasBorders: false,
-      id: 'prototype'
+      id: 'prototype mainPrototype'
     });
 
     var infoPrototype = new fabric.Rect({
@@ -125,14 +134,14 @@ class LabelEditor extends Component {
       lockRotation: true,
       hasControls: false,
       hasBorders: false,
-      id: 'prototype'
+      id: 'prototype infoPrototype'
     });
 
     // TEXT AND ELEMENTS    
     var font = new FontFaceObserver('Local Helvetica');
     font.load()
 
-    var foodIdentity = new fabric.Textbox(formatedLabel.foodIdentity, {
+    var foodIdentity = new fabric.Textbox(label.textBoxes.foodIdentity, {
       left: 340,
       top: 100,
       fill: 'black',
@@ -144,7 +153,7 @@ class LabelEditor extends Component {
       lockRotation: true
     });
 
-    var brand = new fabric.Textbox(formatedLabel.brand, {
+    var brand = new fabric.Textbox(label.textBoxes.brand, {
       left: 340,
       top: 150,
       fill: 'black',
@@ -156,7 +165,7 @@ class LabelEditor extends Component {
       lockRotation: true
     });
 
-    var netWeight  = new fabric.Textbox(formatedLabel.netWeight, {
+    var netWeight  = new fabric.Textbox(label.textBoxes.netWeight, {
       left: 340,
       top: 380,
       fill: 'black',
@@ -168,7 +177,7 @@ class LabelEditor extends Component {
       lockRotation: true
     });
 
-    var drainedWeight = new fabric.Textbox(formatedLabel.drainedWeight, {
+    var drainedWeight = new fabric.Textbox(label.textBoxes.drainedWeight, {
       left: 340,
       top: 400,
       fill: 'black',
@@ -180,7 +189,7 @@ class LabelEditor extends Component {
       lockRotation: true
     });
     
-    var alcoholicStrength = new fabric.Textbox(formatedLabel.alcoholicStrength, {
+    var alcoholicStrength = new fabric.Textbox(label.textBoxes.alcoholicStrength, {
       left: 340,
       top: 420,
       fill: 'black',
@@ -444,15 +453,29 @@ class LabelEditor extends Component {
   static getDerivedStateFromProps(props, state) {
     var label = formatLabelState(props.etiqueta);
 
+    //Loop for update each data from global state to corresponding graphic element
     if (state.canvas){
-      Object.keys(label).forEach((key) => {
+
+      //get desired box to set the stored value
+      var mainPrototype = state.canvas._objects.filter((obj) => {return obj.id.includes('mainPrototype') })[0]
+      var infoPrototype = state.canvas._objects.filter((obj) => {return obj.id.includes('infoPrototype') })[0]
+      //setting values
+      mainPrototype.width = fabric.util.parseUnit(label.config.dimensions.width)
+      infoPrototype.width = fabric.util.parseUnit(label.config.dimensions.width)
+      mainPrototype.height = fabric.util.parseUnit(label.config.dimensions.height)
+      infoPrototype.height = fabric.util.parseUnit(label.config.dimensions.height)
+
+
+      Object.keys(label.textBoxes).forEach((key) => {
         //get desired textbox to set the stored value
-        var textBox = state.canvas._objects.filter((obj) => {return obj.id.includes(key) })
+        var textBox = state.canvas._objects.filter((obj) => {return obj.id.includes(key) })[0]
         //setting value
-        textBox[0].text = label[key]
+        textBox.text = label.textBoxes[key]
         // if value is empty, textbox won't be selectable
-        textBox[0].selectable = label[key]? true : false;
+        textBox.selectable = label.textBoxes[key]? true : false;
       }) 
+
+      
       
       state.canvas.renderAll() 
     }
