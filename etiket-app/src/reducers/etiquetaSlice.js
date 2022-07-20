@@ -1,9 +1,10 @@
+/* eslint-disable no-use-before-define */
 /* Este Documento continene el esqueleto del estado global para las etiquetas */
 
 import { createSlice } from '@reduxjs/toolkit';
 import { pesosDrenados, AproxOptions, tiposTablas, unidadesPorcion } from '../config/constants';
 
-const Initial_State = {
+const InitialState = {
   nombreProyecto: '',
   nombreProducto: '',
   country: 'Ecuador',
@@ -32,8 +33,12 @@ const Initial_State = {
   fabricacionUn: { label: 'Fecha de elaboración', value: '' },
   caducacion: handleDateChange(new Date()),
   caducacionUn: { label: 'Fecha de caducación', value: '' },
-  direccion: '',
-  instrucciones: '',
+  lote: '',
+  addInfo: [],
+  direccion: [],
+  instrucciones: [],
+  pvp: '',
+  /* Posiciones de los diferentes cuadros */
   nombreProductoPos: { x: '', y: '' },
   marcaPos: { x: '', y: '' },
   pesosPos: { x: '', y: '' },
@@ -66,7 +71,7 @@ const Initial_State = {
 
 export const etiquetaSlice = createSlice({
   name: 'etiqueta',
-  initialState: Initial_State,
+  initialState: InitialState,
   reducers: {
     /**
      * Esta función es para reemplazar un estado por el evento
@@ -75,70 +80,79 @@ export const etiquetaSlice = createSlice({
      * Se usaría para cosas como pesoNeto
      */
     replace: (state, action) => {
-      state[action.payload.stateName] = action.payload.value;
+      const { stateName, value } = action.payload;
+      const newState = { ...state };
+      newState[stateName] = value;
+      return newState;
+      // state[action.payload.stateName] = action.payload.value;
     },
     erase: (state) => {
-      let initial_State = { ...Initial_State };
-      initial_State.nombreProyecto = state.nombreProyecto;
-      initial_State.country = state.country;
-      initial_State.tipo = state.tipo;
-      return initial_State;
+      const initialState = { ...InitialState };
+      initialState.nombreProyecto = state.nombreProyecto;
+      initialState.country = state.country;
+      initialState.tipo = state.tipo;
+      return initialState;
     },
     loadLabel: (state, action) => {
-      state['nombreProyecto'] = action.payload.nombreProyecto;
-      state['nombreProducto'] = action.payload.nombreEtiqueta;
-      state['country'] = action.payload.country;
-      state['tipo'] = action.payload.tipo;
-      state['marca'] = action.payload.marca;
-      state['ancho'] = action.payload.dimensiones.ancho;
-      state['altura'] = action.payload.dimensiones.altura;
-      state['dimensionesUn'] = action.payload.dimensiones.unidad;
-      state['sizeIndicatorVisibility'] = action.payload.dimensiones.sizeIndicatorVisibility;
-      state['pesoNetoLabel'] = action.payload.pesoNeto.label;
-      state['pesoNeto'] = action.payload.pesoNeto.valor;
-      state['pesoNetoUn'] = action.payload.pesoNeto.unidad;
-      state['pesoDrenadoDisabled'] = action.payload.pesoDrenado.isDisabled;
-      state['pesoDrenadoLabel'] = action.payload.pesoDrenado.label;
-      state['pesoDrenado'] = action.payload.pesoDrenado.valor;
-      state['pesoDrenadoUn'] = action.payload.pesoDrenado.unidad;
-      state['alcohol'] = action.payload.alcohol.valor;
-      state['alcoholUn'] = action.payload.alcohol.unidad;
-      state['ingredientes'] = action.payload.ingredientes;
-      state['alergenos'] = action.payload.alergenos;
-      state['conservacionUn'] = action.payload.conservacion.unidad;
-      state['metodoConservacion'] = action.payload.conservacion.metodo;
-      state['vidaUtil'] = action.payload.vidaUtil.valor;
-      state['vidaUtilUn'] = action.payload.vidaUtil.unidad;
-      state['fabricacion'] = action.payload.fabricacion.valor;
-      state['fabricacionUn'] = action.payload.fabricacion.unidad;
-      state['caducacion'] = action.payload.caducacion.valor;
-      state['caducacionUn'] = action.payload.caducacion.unidad;
-      state['direccion'] = action.payload.direccion;
-      state['instrucciones'] = action.payload.instrucciones;
-      state['nombreProductoPos'] = action.payload.posicion.nombre;
-      state['marcaPos'] = action.payload.posicion.marca;
-      state['pesosPos'] = action.payload.posicion.pesos;
-      state['ingPos'] = action.payload.posicion.ingredientes;
-      state['infNutPos'] = action.payload.posicion.infNut;
-      state['algPos'] = action.payload.posicion.alergenos;
-      state['alcolPos'] = action.payload.posicion.alcohol;
-      state['tipoTabla'] = action.payload.TablaNutri.tipo;
-      state['tamanioPorcion'] = action.payload.TablaNutri.tamanioPorcion.valor;
-      state['tamanioPorcionUn'] = action.payload.TablaNutri.tamanioPorcion.unidad;
-      state['porcionPorEnvaseDisabled'] = action.payload.TablaNutri.porcionPorEnvase.isDisabled;
-      state['porcionPorEnvase'] = action.payload.TablaNutri.porcionPorEnvase.valor;
-      state['porcionPorEnvaseUn'] = action.payload.TablaNutri.porcionPorEnvase.unidad;
-      state['grasaTotal'] = action.payload.TablaNutri.grasas.total;
-      state['grasaSaturada'] = action.payload.TablaNutri.grasas.saturada;
-      state['grasasTrans'] = action.payload.TablaNutri.grasas.trans;
-      state['acidosMono'] = action.payload.TablaNutri.acidosMono;
-      state['acidosPoli'] = action.payload.TablaNutri.acidosPoli;
-      state['colesterol'] = action.payload.TablaNutri.colesterol;
-      state['azucares'] = action.payload.TablaNutri.azucares;
-      state['proteina'] = action.payload.TablaNutri.proteina;
-      state['fibra'] = action.payload.TablaNutri.fibra;
-      state['energiaTotalJulios'] = action.payload.TablaNutri.energiaTotal.julios;
-      state['energiaTotalCalorias'] = action.payload.TablaNutri.energiaTotal.calorias;
+      const newState = { ...state };
+      newState.nombreProyecto = action.payload.nombreProyecto;
+      newState.nombreProducto = action.payload.nombreEtiqueta;
+      newState.country = action.payload.country;
+      newState.tipo = action.payload.tipo;
+      newState.marca = action.payload.marca;
+      newState.ancho = action.payload.dimensiones.ancho;
+      newState.altura = action.payload.dimensiones.altura;
+      newState.dimensionesUn = action.payload.dimensiones.unidad;
+      newState.sizeIndicatorVisibility = action.payload.dimensiones.sizeIndicatorVisibility;
+      newState.pesoNetoLabel = action.payload.pesoNeto.label;
+      newState.pesoNeto = action.payload.pesoNeto.valor;
+      newState.pesoNetoUn = action.payload.pesoNeto.unidad;
+      newState.pesoDrenadoDisabled = action.payload.pesoDrenado.isDisabled;
+      newState.pesoDrenadoLabel = action.payload.pesoDrenado.label;
+      newState.pesoDrenado = action.payload.pesoDrenado.valor;
+      newState.pesoDrenadoUn = action.payload.pesoDrenado.unidad;
+      newState.alcohol = action.payload.alcohol.valor;
+      newState.alcoholUn = action.payload.alcohol.unidad;
+      newState.ingredientes = action.payload.ingredientes;
+      newState.alergenos = action.payload.alergenos;
+      newState.conservacionUn = action.payload.conservacion.unidad;
+      newState.metodoConservacion = action.payload.conservacion.metodo;
+      newState.vidaUtil = action.payload.vidaUtil.valor;
+      newState.vidaUtilUn = action.payload.vidaUtil.unidad;
+      newState.fabricacion = action.payload.fabricacion.valor;
+      newState.fabricacionUn = action.payload.fabricacion.unidad;
+      newState.caducacion = action.payload.caducacion.valor;
+      newState.caducacionUn = action.payload.caducacion.unidad;
+      newState.lote = action.payload.lote;
+      newState.addInfo = action.payload.addInfo;
+      newState.direccion = action.payload.direccion;
+      newState.instrucciones = action.payload.instrucciones;
+      newState.pvp = action.payload.pvp;
+      newState.nombreProductoPos = action.payload.posicion.nombre;
+      newState.marcaPos = action.payload.posicion.marca;
+      newState.pesosPos = action.payload.posicion.pesos;
+      newState.ingPos = action.payload.posicion.ingredientes;
+      newState.infNutPos = action.payload.posicion.infNut;
+      newState.algPos = action.payload.posicion.alergenos;
+      newState.alcolPos = action.payload.posicion.alcohol;
+      newState.tipoTabla = action.payload.TablaNutri.tipo;
+      newState.tamanioPorcion = action.payload.TablaNutri.tamanioPorcion.valor;
+      newState.tamanioPorcionUn = action.payload.TablaNutri.tamanioPorcion.unidad;
+      newState.porcionPorEnvaseDisabled = action.payload.TablaNutri.porcionPorEnvase.isDisabled;
+      newState.porcionPorEnvase = action.payload.TablaNutri.porcionPorEnvase.valor;
+      newState.porcionPorEnvaseUn = action.payload.TablaNutri.porcionPorEnvase.unidad;
+      newState.grasaTotal = action.payload.TablaNutri.grasas.total;
+      newState.grasaSaturada = action.payload.TablaNutri.grasas.saturada;
+      newState.grasasTrans = action.payload.TablaNutri.grasas.trans;
+      newState.acidosMono = action.payload.TablaNutri.acidosMono;
+      newState.acidosPoli = action.payload.TablaNutri.acidosPoli;
+      newState.colesterol = action.payload.TablaNutri.colesterol;
+      newState.azucares = action.payload.TablaNutri.azucares;
+      newState.proteina = action.payload.TablaNutri.proteina;
+      newState.fibra = action.payload.TablaNutri.fibra;
+      newState.energiaTotalJulios = action.payload.TablaNutri.energiaTotal.julios;
+      newState.energiaTotalCalorias = action.payload.TablaNutri.energiaTotal.calorias;
+      return newState;
     }
   }
 });
@@ -153,9 +167,9 @@ function handleDateChange(value) {
   let mm = value.getMonth() + 1;
   let dd = value.getDate();
 
-  if (dd < 10) dd = '0' + dd;
-  if (mm < 10) mm = '0' + mm;
+  if (dd < 10) dd = `0${dd}`;
+  if (mm < 10) mm = `0${mm}`;
 
-  const date = dd + '/' + mm + '/' + yyyy;
+  const date = `${dd}/${mm}/${yyyy}`;
   return date;
 }

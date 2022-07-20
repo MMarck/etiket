@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import { Link } from 'react-router-dom';
 import './ChangePassword.css';
 
@@ -27,9 +28,9 @@ export default function ChangePassword() {
 
       <Link to="/miCuenta">
         <button
+          type="button"
           className=" btn-secondary darkButton fw-bolder p-2 my-4"
-          style={{ width: 'fit-content' }}
-        >
+          style={{ width: 'fit-content' }}>
           ACTUALIZAR CONTRASEÑA
         </button>
       </Link>

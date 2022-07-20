@@ -37,12 +37,18 @@ const getTemplate = (name, id,host,token) => {
       </head>
       
       <div id="email___content">
-          <img src="../../etiket-app/public/images/solinalLogo.png" alt="">
+          <img src="https://imgur.com/3fxv4JY" alt="solinal">
           <h2>Hola ${ name }</h2>
-          <p>Para confirmar tu cuenta, ingresa al siguiente enlace</p>
-          <a
-              href="http://${host}/UsersDB/${id}/verify/${token}"
-          >Confirmar Cuenta</a>
+          <p>Estamos contentos de que te hayas registrado en Solinal. 
+           Para comenzar a explorar y crear etiquetas, confirme su dirección de correo electrónico.</p>
+
+
+          <a href="http://${host}/UsersDB/${id}/verify/${token}"><button style="background:#3630a3;color:white;">Confirmar Cuenta</button></a>
+          <h3> Bienvenido a Solinal!</h3>
+          <h3> El equipo de Solinal</h3>
+          <p> </p>
+          <p> </p>
+          <p>Este enlace caducará en 48 horas</p>
       </div>
     `;
 }

@@ -7,7 +7,14 @@ import NutritionFactsPreviewer from '../NutritionFactsPreviewer/NutritionFactsPr
 import './NutritionFactsModal.css';
 import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
 
-class NutritionFacts_modal extends Component {
+class NutritionFactsModal extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      show: false
+    };
+  }
+
   /**
    * Abstracion del modificador de estado global (o reducer)
    * llamado "replace"
@@ -22,21 +29,15 @@ class NutritionFacts_modal extends Component {
     this.props.replace(payload);
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      show: false
-    };
-  }
-
   render() {
     const handleClose = () => this.setState({ show: false });
     const handleShow = () => this.setState({ show: true });
-    const {valoresRecomendadosDisabled} = this.props.etiqueta;
+    const { valoresRecomendadosDisabled } = this.props.etiqueta;
 
     return (
       <>
         <button
+          type="button"
           className="darkButton-twhite"
           style={{
             width: 'fit-content',
@@ -44,8 +45,7 @@ class NutritionFacts_modal extends Component {
             fontSize: '0.8em',
             margin: 'auto'
           }}
-          onClick={handleShow}
-        >
+          onClick={handleShow}>
           INGRESAR DATOS
         </button>
 
@@ -55,8 +55,7 @@ class NutritionFacts_modal extends Component {
           onHide={handleClose}
           size="xl"
           centered
-          style={{ fontSize: '0.8rem' }}
-        >
+          style={{ fontSize: '0.8rem' }}>
           <Modal.Header closeButton id="Modal-header" />
 
           <Modal.Body id="Modal-body">
@@ -80,8 +79,7 @@ class NutritionFacts_modal extends Component {
                     !valoresRecomendadosDisabled
                   );
                 }}
-                style={{ marginBottom: '1vh' }}
-              >
+                style={{ marginBottom: '1vh' }}>
                 <CustomCheckbox isChecked={valoresRecomendadosDisabled} />
                 Ver valores diarios recomendados
               </div>
@@ -113,4 +111,4 @@ const mapDispatchToProps = () => ({
   replace
 });
 
-export default connect(mapStateToProps, mapDispatchToProps())(NutritionFacts_modal);
+export default connect(mapStateToProps, mapDispatchToProps())(NutritionFactsModal);

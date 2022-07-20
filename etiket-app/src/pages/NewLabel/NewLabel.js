@@ -1,12 +1,13 @@
+/* eslint-disable no-console */
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
+import Cookies from 'js-cookie';
 import { replace } from '../../reducers/etiquetaSlice';
 import request from '../../tools/ApiSetup';
-import { backendURL } from '../../config/constants.js';
-import Cookies from 'js-cookie';
-import { withRouter } from '../../tools/withRouter';
+import { backendURL } from '../../config/constants';
+import withRouter from '../../tools/withRouter';
 import './NewLabel.css';
 
 const mapStateToProps = (state) => ({
@@ -28,14 +29,13 @@ class NewLabel extends Component {
     super(props);
 
     this.state = {
-      accessToken: Cookies.get('accessToken') || '',
-      refreshToken: Cookies.get('refreshToken') || ''
+      accessToken: Cookies.get('accessToken') || ''
     };
   }
 
-  createNewLabel(e) {
+  createNewLabel() {
     const header = {
-      Authorization: 'Bearer ' + this.state.accessToken
+      Authorization: `Bearer ${this.state.accessToken}`
     };
     const nombreProyecto = document.getElementById('labelName').value;
 
@@ -45,21 +45,21 @@ class NewLabel extends Component {
       const jsonData = {
         country: this.props.etiqueta.country,
         tipo: this.props.etiqueta.tipo,
-        nombreProyecto: nombreProyecto
+        nombreProyecto
       };
-      //crear etiqueta en la base de datos
+      // crear etiqueta en la base de datos
       request
-        .post(backendURL + 'Labels', jsonData, {
+        .post(`${backendURL}Labels`, jsonData, {
           headers: header
         })
         .then((res) => {
-          //redirigir a /misEtiquetas
+          // redirigir a /misEtiquetas
           alert(res.data.message);
           this.props.navigate('/misEtiquetas');
         })
         .catch((error) => {
           if (error.response) {
-            alert(error.response.data.error.message);
+            console.log(error.response);
           } else if (error.request) {
             console.log(error.request);
           } else {
@@ -72,8 +72,8 @@ class NewLabel extends Component {
   render() {
     return (
       <div className="w-100 h-100 margin-auto">
-        <Link to={'/misEtiquetas'}>
-          <img src={pathIcons + 'back.png'} alt="Regresar" className="backBtn" />
+        <Link to="/misEtiquetas">
+          <img src={`${pathIcons}back.png`} alt="Regresar" className="backBtn" />
         </Link>
 
         <ReactTooltip place="bottom" type="dark" effect="solid" data-for="name" />
@@ -89,11 +89,11 @@ class NewLabel extends Component {
         {/* Este boton debe verificar que el nombre no se repita para el usuario y luego mandar la 
         query para crear el esqueleto de etiqueta en la base de datos */}
         <button
+          type="button"
           className="btn-dark rounded fs-7"
           onClick={(e) => {
             this.createNewLabel(e);
-          }}
-        >
+          }}>
           continuar
         </button>
       </div>

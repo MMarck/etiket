@@ -1,11 +1,10 @@
-import { unitTocm, getDataFontSize } from '../../tools/Casefunctions';
-import { setPosition, getPosition } from '../../tools/Statefunctions';
-import { JSON_String } from '../../tools/Statefunctions';
 import { Component } from 'react';
 import { connect } from 'react-redux';
+import Draggable from 'react-draggable';
+import { unitTocm, getDataFontSize } from '../../tools/Casefunctions';
+import { setPosition, getPosition, JSONString } from '../../tools/Statefunctions';
 import { replace } from '../../reducers/etiquetaSlice';
 import SizeIndicator from '../SizeIndicator/SizeIndicator';
-import Draggable from 'react-draggable';
 import './PrototypeBack.css';
 import NutritionFactsPreviewer from '../NutritionFactsPreviewer/NutritionFactsPreviewer';
 
@@ -30,16 +29,16 @@ class PrototypeBack extends Component {
    */
   handleStateChange(stateName, value) {
     const payload = {
-      stateName: stateName,
-      value: value
+      stateName,
+      value
     };
     this.props.replace(payload);
   }
 
   render() {
-    //Declaracion de variables
+    // Declaracion de variables
 
-    let dimensionesUn = this.props.etiqueta.dimensionesUn.value;
+    const dimensionesUn = this.props.etiqueta.dimensionesUn.value;
     let altura = '10';
     if (dimensionesUn === 'cm') {
       if (parseFloat(this.props.etiqueta.altura) >= 3.5) {
@@ -55,7 +54,7 @@ class PrototypeBack extends Component {
       }
     }
 
-    let ancho = this.props.etiqueta.ancho;
+    let { ancho } = this.props.etiqueta;
 
     if (dimensionesUn === 'cm') {
       if (parseFloat(this.props.etiqueta.ancho) >= 3.5) {
@@ -71,21 +70,21 @@ class PrototypeBack extends Component {
       }
     }
 
-    let labelArea = unitTocm(altura, dimensionesUn) * unitTocm(ancho, dimensionesUn);
-    let dataFontSize = getDataFontSize(labelArea); //area en cm2 (centimetros cuadrados)
+    const labelArea = unitTocm(altura, dimensionesUn) * unitTocm(ancho, dimensionesUn);
+    const dataFontSize = getDataFontSize(labelArea); // area en cm2 (centimetros cuadrados)
 
-    let metodoConservacion = this.props.etiqueta.metodoConservacion.label;
-    let conservacionUn = this.props.etiqueta.conservacionUn.value;
-    let vidaUtil = this.props.etiqueta.vidaUtil;
-    let vidaUtilUn = this.props.etiqueta.vidaUtilUn.value;
-    let direccion = this.props.etiqueta.direccion;
-    let instrucciones = this.props.etiqueta.instrucciones;
-    let fabricacion = this.props.etiqueta.fabricacion;
-    let fabricacionUn = this.props.etiqueta.fabricacionUn.value;
-    let caducacionUn = this.props.etiqueta.caducacionUn.value;
-    let caducacion = this.props.etiqueta.caducacion;
-    let ingredientes = this.props.etiqueta.ingredientes;
-    let alergenos = this.props.etiqueta.alergenos;
+    const metodoConservacion = this.props.etiqueta.metodoConservacion.label;
+    const conservacionUn = this.props.etiqueta.conservacionUn.value;
+    const { vidaUtil } = this.props.etiqueta;
+    const vidaUtilUn = this.props.etiqueta.vidaUtilUn.value;
+    const { direccion } = this.props.etiqueta;
+    const { instrucciones } = this.props.etiqueta;
+    const { fabricacion } = this.props.etiqueta;
+    const fabricacionUn = this.props.etiqueta.fabricacionUn.value;
+    const caducacionUn = this.props.etiqueta.caducacionUn.value;
+    const { caducacion } = this.props.etiqueta;
+    const { ingredientes } = this.props.etiqueta;
+    const { alergenos } = this.props.etiqueta;
 
     return (
       <div className="prototypeContainer">
@@ -98,8 +97,7 @@ class PrototypeBack extends Component {
             height: altura + dimensionesUn,
             width: ancho + dimensionesUn,
             fontSize: dataFontSize
-          }}
-        >
+          }}>
           <div className="prototypeSection3">
             {this.props.LabelEditor.showNutritionFacts ? (
               <Draggable bounds="#PrototypeBack" scale={this.props.LabelEditor.zoom}>
@@ -124,8 +122,7 @@ class PrototypeBack extends Component {
                   }}
                   className="draggable-group-2 draggable-container"
                   style={{ position: 'absolute', bottom: '1px' }}
-                  id="ingPos"
-                >
+                  id="ingPos">
                   <span>
                     {this.props.etiqueta.metodoConservacion.value !== '' ? (
                       <span style={{ whiteSpace: 'normal' }}>
@@ -200,17 +197,16 @@ class PrototypeBack extends Component {
                     this.handleStateChange('algPos', getPosition('algPos'));
                   }}
                   className="draggable-group-1 draggable-container"
-                  id="algPos"
-                >
+                  id="algPos">
                   <span>
                     {ingredientes.length > 0
-                      ? 'Ingredientes: ' + JSON_String(ingredientes, 'ing')
+                      ? `Ingredientes: ${JSONString(ingredientes, 'ing')}`
                       : ''}
                   </span>
 
                   <span>
                     <b>
-                      {alergenos.length > 0 ? 'CONTIENE ' + JSON_String(alergenos, 'value') : ''}
+                      {alergenos.length > 0 ? `CONTIENE ${JSONString(alergenos, 'value')}` : ''}
                     </b>
                   </span>
                 </div>
@@ -265,7 +261,7 @@ class PrototypeBack extends Component {
           </div>
         </div>
 
-        <SizeIndicator visibilityProp={'hidden'} />
+        <SizeIndicator visibilityProp="hidden" />
       </div>
     );
   }

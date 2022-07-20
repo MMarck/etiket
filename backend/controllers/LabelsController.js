@@ -117,8 +117,11 @@ module.exports = {
                 valor:"",
                 unidad:{"label": "Fecha de caducacion", "value": "Fecha de caducacion"}
             },
-            direccion: "",
-            instrucciones: "",
+            direccion: [],
+            instrucciones: [],
+            lote: "",
+            addInfo:[],
+            pvp: "",
             posicion:{
                 pesos:{
                     x:0,
@@ -225,8 +228,11 @@ module.exports = {
             label.vidaUtil = req.body.vidaUtil;
             label.fabricacion = req.body.fabricacion;
             label.caducacion = req.body.caducacion;
+            label.lote=req.body.lote;
+            label.addInfo=req.body.addInfo;
             label.direccion = req.body.direccion;
             label.instrucciones = req.body.instrucciones;
+            label.pvp = req.body.pvp;
             label.posicion = req.body.posicion;
             label.TablaNutri =req.body.TablaNutri;
 			

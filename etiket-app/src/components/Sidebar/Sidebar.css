@@ -91,9 +91,6 @@ i {
   gap: 1vw;
 }
 
-.sidebarItem {
-}
-
 #dimensiones {
   display: flex;
   flex-direction: column;
@@ -141,6 +138,7 @@ i {
 
 .sbLabel {
   font-weight: bold;
+  align-self: center;
 }
 
 #pesoNeto,
@@ -485,8 +483,77 @@ Ingredientes
   border: 2px solid rgb(221, 215, 215);
 }
 
+.ingTableHeader{
+  text-align: center;
+  border-right: 2px solid rgb(221, 215, 215);
+}
+
+.ingItem{
+  text-align:left;
+  border-right: 2px solid rgb(221, 215, 215);
+}
+
 #ingCont {
   display: flex;
   flex-direction: column;
   gap: 1vh;
+}
+
+/* Lote */
+
+#lote{
+  gap: 1vh;
+}
+
+#loteCont{
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+}
+
+#loteContInput{
+  display: flex;
+  gap: 0.5vw;
+}
+
+/* Información Adicional*/
+
+#info{
+
+}
+
+#infoCont{
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+}
+
+.infoItem{
+  display: flex;
+  gap: 0.5vw;
+}
+
+.newInfoBtn{
+  display: block;
+  display: inline-block;
+  border: none;
+  background-color: transparent;
+  font-size: 5em;
+  font-weight: bold;
+  margin: 0 auto;
+}
+
+.newInfoBtn:hover{
+  color: var(--Sgreen);
+}
+
+.removeInfoBtn{
+  border: none;
+  background-color: transparent;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.removeInfoBtn:hover{
+  color:var(--Sgreen)
 }

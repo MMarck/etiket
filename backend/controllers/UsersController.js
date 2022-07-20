@@ -88,7 +88,13 @@ module.exports = {
 			email : req.body.email,
 			firstName : req.body.firstName,
             lastName : req.body.lastName,
-            emailToken: crypto.randomBytes(64).toString('hex'),
+            emailToken: jwt.sign(
+                { 
+                    email: req.body.email
+                }, 
+                'secretKey',
+                {expiresIn:'48h'}
+            ),
             isVerified: false
         });
         UsersModel.register(Users,req.body.password,function(err,user){
@@ -119,6 +125,9 @@ module.exports = {
         passport.authenticate('local', function(err, user, info) {
           if (err) { return next(err); }
           if (!user) { return res.status(400).json({message:"Error, correo o contraseña no son correctos"}); }
+          if(user.isVerified==false){ return res
+			.status(201)
+			.send({ message: "An Email sent to your account please verify" });}
           req.logIn(user, function(err) {
             if (err) { return next(err); }
             const accessToken=generateAccessToken(req.user)
@@ -140,6 +149,7 @@ module.exports = {
             return res.status(202).json({accessToken:accessToken, refreshToken: refreshToken})
             
           });
+          
         })(req, res, next);
     },
 
@@ -155,10 +165,11 @@ module.exports = {
                     });
                 }
                 if (!Users) {
-                    return res.status(404).json({
-                        message: 'No such Users'
+                    return res.status(201).json({
+                        message: 'Email is verified'
                     });
                 }
+                
                 Users.emailToken=null
                 Users.isVerified=true
                 Users.save(function (err, Users) {
@@ -169,7 +180,7 @@ module.exports = {
                         });
                     }
                     
-                    res.redirect('http://localhost:3000/login') //de momento nomas :,v
+                    res.redirect('http://localhost:3000/login/confirmationAccount') //de momento nomas :,v
                 });
             });
 

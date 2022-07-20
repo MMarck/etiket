@@ -16,6 +16,7 @@ import CreateAccount from '../pages/CreateAccount/CreateAccount';
 import LoginForm from '../components/LoginForm/LoginForm';
 import ChangePassword from '../pages/ChangePassword/ChangePassword';
 import LabelEditor from '../pages/LabelEditor/LabelEditor';
+import ConfirmationAccount from '../pages/ConfirmationAccount/ConfirmationAccount';
 import PrivateRoute from '../tools/PrivateRoute';
 import './App.css';
 
@@ -37,6 +38,7 @@ function App() {
           <Route index element={<LoginForm />} />
           <Route path="resetPassword" element={<ResetPassword />} />
           <Route path="createAccount" element={<CreateAccount />} />
+          <Route path="confirmationAccount" element={<ConfirmationAccount />} />
         </Route>
 
         <Route exact path="/" element={<PrivateRoute redirectTo="/login" />}>

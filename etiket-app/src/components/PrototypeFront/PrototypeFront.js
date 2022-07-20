@@ -1,10 +1,10 @@
+import { connect } from 'react-redux';
+import { Component } from 'react';
+import Draggable from 'react-draggable';
 import { unitTocm, getDataFontSize } from '../../tools/Casefunctions';
 import { setPosition, getPosition } from '../../tools/Statefunctions';
 import { replace } from '../../reducers/etiquetaSlice';
-import { connect } from 'react-redux';
-import { Component } from 'react';
 import SizeIndicator from '../SizeIndicator/SizeIndicator';
-import Draggable from 'react-draggable';
 import './PrototypeFront.css';
 
 /**
@@ -31,18 +31,18 @@ class PrototypeFront extends Component {
    */
   handleStateChange(stateName, value) {
     const payload = {
-      stateName: stateName,
-      value: value
+      stateName,
+      value
     };
     this.props.replace(payload);
   }
 
   render() {
-    //Declaracion de variables
+    // Declaracion de variables
 
-    //Variables para accortar el texto
-    let dimensionesUn = this.props.etiqueta.dimensionesUn.value;
-    let altura = this.props.etiqueta.altura;
+    // Variables para accortar el texto
+    const dimensionesUn = this.props.etiqueta.dimensionesUn.value;
+    let { altura } = this.props.etiqueta;
 
     if (dimensionesUn === 'cm') {
       if (parseFloat(this.props.etiqueta.altura) >= 3.5) {
@@ -58,7 +58,7 @@ class PrototypeFront extends Component {
       }
     }
 
-    let ancho = this.props.etiqueta.ancho;
+    let { ancho } = this.props.etiqueta;
 
     if (dimensionesUn === 'cm') {
       if (parseFloat(this.props.etiqueta.ancho) >= 3.5) {
@@ -74,27 +74,27 @@ class PrototypeFront extends Component {
       }
     }
 
-    let labelArea = unitTocm(altura, dimensionesUn) * unitTocm(ancho, dimensionesUn);
-    let HeigthContainerPesosNetos = labelArea > 10 ? '30%' : '100%'; //10 cm2 (centimetros cuadrados)
-    let dataFontSize = getDataFontSize(labelArea); //area en cm2 (centimetros cuadrados)
+    const labelArea = unitTocm(altura, dimensionesUn) * unitTocm(ancho, dimensionesUn);
+    const HeigthContainerPesosNetos = labelArea > 10 ? '30%' : '100%'; // 10 cm2 (centimetros cuadrados)
+    const dataFontSize = getDataFontSize(labelArea); // area en cm2 (centimetros cuadrados)
 
-    let pesoNeto = this.props.etiqueta.pesoNeto;
-    let pesoNetoLabel = this.props.etiqueta.pesoNetoLabel.value;
+    const { pesoNeto } = this.props.etiqueta;
+    const pesoNetoLabel = this.props.etiqueta.pesoNetoLabel.value;
     let pesoNetoUn = this.props.etiqueta.pesoNetoUn.value;
-    let pesoDrenado = this.props.etiqueta.pesoDrenado;
+    const { pesoDrenado } = this.props.etiqueta;
     let pesoDrenadoUn = this.props.etiqueta.pesoDrenadoUn.value;
     let pesoDrenadoLabel = this.props.etiqueta.pesoDrenadoLabel.value;
-    let sizeIndicatorVisibility = this.props.etiqueta.sizeIndicatorVisibility;
-    let nombreProducto = this.props.etiqueta.nombreProducto;
-    let marca = this.props.etiqueta.marca;
-    let alcohol = this.props.etiqueta.alcohol;
-    let alcoholUn = this.props.etiqueta.alcoholUn.value;
+    const { sizeIndicatorVisibility } = this.props.etiqueta;
+    const { nombreProducto } = this.props.etiqueta;
+    const { marca } = this.props.etiqueta;
+    const { alcohol } = this.props.etiqueta;
+    const alcoholUn = this.props.etiqueta.alcoholUn.value;
 
-    //Condicionales para evitar valores nulos
-    pesoDrenadoLabel = pesoDrenadoLabel ? pesoDrenadoLabel : '';
-    pesoDrenadoUn = pesoDrenadoUn ? pesoDrenadoUn : '';
-    pesoDrenadoLabel = pesoDrenadoLabel ? pesoDrenadoLabel : '';
-    pesoNetoUn = pesoNetoUn ? pesoNetoUn : '';
+    // Condicionales para evitar valores nulos
+    pesoDrenadoLabel = pesoDrenadoLabel || '';
+    pesoDrenadoUn = pesoDrenadoUn || '';
+    pesoDrenadoLabel = pesoDrenadoLabel || '';
+    pesoNetoUn = pesoNetoUn || '';
 
     return (
       <div className="mx-4 d-flex  ">
@@ -104,13 +104,13 @@ class PrototypeFront extends Component {
             .
           </h5>
           <SizeIndicator
-            orientation={'vertical'}
+            orientation="vertical"
             length={altura + dimensionesUn}
             visibilityProp={sizeIndicatorVisibility}
             fontSize={dataFontSize}
           />
           {/* Copia invisible del indicador horizontal  */}
-          <SizeIndicator length={ancho + dimensionesUn} visibilityProp={'hidden'} />
+          <SizeIndicator length={ancho + dimensionesUn} visibilityProp="hidden" />
           {/* Aclaracion: estas copias son para que el indicador 
                     vertical pueda estar a la misma altura que el 
                     prototipo frontal */}
@@ -127,8 +127,7 @@ class PrototypeFront extends Component {
               height: altura + dimensionesUn,
               width: ancho + dimensionesUn,
               fontSize: dataFontSize
-            }}
-          >
+            }}>
             <div className="prototypeSection1">
               <Draggable bounds="#PrototypeFront" scale={this.props.LabelEditor.zoom}>
                 <div
@@ -136,8 +135,7 @@ class PrototypeFront extends Component {
                     this.handleStateChange('nombreProductoPos', getPosition('nombreProducto'));
                   }}
                   className="draggable-container"
-                  id="nombreProducto"
-                >
+                  id="nombreProducto">
                   <b>{nombreProducto}</b>
                 </div>
               </Draggable>
@@ -148,8 +146,7 @@ class PrototypeFront extends Component {
                     this.handleStateChange('marcaPos', getPosition('marca'));
                   }}
                   className="draggable-container"
-                  id="marca"
-                >
+                  id="marca">
                   <b>{marca}</b>
                 </div>
               </Draggable>
@@ -162,11 +159,10 @@ class PrototypeFront extends Component {
                     this.handleStateChange('pesosPos', getPosition('pesosContainer'));
                   }}
                   className="draggable-container"
-                  id="pesosContainer"
-                >
+                  id="pesosContainer">
                   {pesoNeto ? (
                     <>
-                      <b>{pesoNetoLabel + ' ' + pesoNeto + ' ' + pesoNetoUn}</b>
+                      <b>{`${pesoNetoLabel} ${pesoNeto} ${pesoNetoUn}`}</b>
                       <br />
                     </>
                   ) : (
@@ -175,7 +171,7 @@ class PrototypeFront extends Component {
 
                   {!this.props.etiqueta.pesoDrenadoDisabled ? (
                     <>
-                      <b>{pesoDrenadoLabel + ' ' + pesoDrenado + ' ' + pesoDrenadoUn}</b>
+                      <b>{`${pesoDrenadoLabel} ${pesoDrenado} ${pesoDrenadoUn}`}</b>
                       <br />
                     </>
                   ) : (
@@ -190,8 +186,7 @@ class PrototypeFront extends Component {
                     this.handleStateChange('alcolPos', getPosition('alcohol'));
                   }}
                   className="draggable-container"
-                  id="alcohol"
-                >
+                  id="alcohol">
                   <b>{alcohol ? alcoholUn.replace('__', alcohol) : ''}</b>
                 </div>
               </Draggable>

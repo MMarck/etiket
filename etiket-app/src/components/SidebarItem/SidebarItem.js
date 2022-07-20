@@ -12,28 +12,31 @@ class SidebarItem extends Component {
   }
 
   handleIsOpen() {
-    this.setState({ isOpen: !this.state.isOpen });
+    this.setState((prevState) => ({ ...prevState, isOpen: !prevState.isOpen }));
   }
 
   render() {
-    const isOpen = this.state.isOpen;
-    //const isDisabled=this.state.isDisabled
-    //const content=this.state.content
-    //const alt=this.state.alt
-    //const dataTip=this.state.dataTip
-    //const icon=this.state.icon
+    const { isOpen } = this.state;
+    // const isDisabled=this.state.isDisabled
+    // const content=this.state.content
+    // const alt=this.state.alt
+    // const dataTip=this.state.dataTip
+    // const icon=this.state.icon
 
     return (
       <div className={this.props.isDisabled ? 'sideBarItem sideBarItemDisabled' : 'sideBarItem'}>
-        <img
-          src={pathIcons + this.props.icon}
-          alt={this.props.alt}
-          data-tip={this.props.dataTip}
-          className={this.props.isDisabled ? 'iconDisabled' : 'iconEnabled'}
+        <div
+          role="presentation"
           onClick={() => {
             this.handleIsOpen();
-          }}
-        />
+          }}>
+          <img
+            src={pathIcons + this.props.icon}
+            alt={this.props.alt}
+            data-tip={this.props.dataTip}
+            className={this.props.isDisabled ? 'iconDisabled' : 'iconEnabled'}
+          />
+        </div>
         {isOpen && <div className="sideBarContent">{this.props.content}</div>}
       </div>
     );

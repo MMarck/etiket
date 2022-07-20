@@ -20,9 +20,12 @@ export const LabelEditorSlice = createSlice({
         por lo que para acceder a la carga util se debe usar la clave payload 
         
         ejemplo de seteo de datos : replaceLE(['showNutritionFacts', true])
-        
-        */
-      state[action.payload[0]] = action.payload[1];
+      */
+      const [payload0, payload1] = action.payload;
+
+      const newState = { ...state };
+      newState[payload0] = payload1;
+      return newState;
     }
   }
 });

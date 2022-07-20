@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import './CustomCheckbox.css';
 import { useState } from 'react';
 import { animated, useSpring, config } from 'react-spring';
@@ -32,8 +33,7 @@ function CustomCheckbox(props) {
         // we hide it for screen readers
         aria-hidden="true"
         viewBox="0 0 15 11"
-        fill="none"
-      >
+        fill="none">
         <animated.path
           d="M1 4.5L5 9L14 1"
           strokeWidth="2"

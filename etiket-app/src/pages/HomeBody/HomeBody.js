@@ -13,21 +13,37 @@ class HomeBody extends Component {
   }
 
   togglePlanes() {
-    this.setState({ isPlanesVisible: !this.state.isPlanesVisible });
+    this.setState((prevState) => ({ ...prevState, isPlanesVisible: !prevState.isPlanesVisible }));
   }
 
   toogleEmpresa() {
-    if (!this.state.isEmpresaVisible) {
-      this.setState({ isEmpresaVisible: !this.state.isEmpresaVisible });
-      this.setState({ isEmprendedorVisible: !this.state.isEmprendedorVisible });
-    }
+    // if (!this.state.isEmpresaVisible) {
+    // this.setState({ isEmpresaVisible: !this.state.isEmpresaVisible });
+    // this.setState({ isEmprendedorVisible: !this.state.isEmprendedorVisible });
+    // } para cambiar el estado debe preguntarse dentro de la funcion setState
+    this.setState((prevState) => {
+      if (!prevState.isEmpresaVisible) {
+        return {
+          ...prevState,
+          isEmprendedorVisible: !prevState.isEmprendedorVisible,
+          isEmpresaVisible: !prevState.isEmpresaVisible
+        };
+      }
+      return prevState;
+    });
   }
 
   toogleEmprendedor() {
-    if (!this.state.isEmprendedorVisible) {
-      this.setState({ isEmprendedorVisible: !this.state.isEmprendedorVisible });
-      this.setState({ isEmpresaVisible: !this.state.isEmpresaVisible });
-    }
+    this.setState((prevState) => {
+      if (!prevState.isEmprendedorVisible) {
+        return {
+          ...prevState,
+          isEmprendedorVisible: !prevState.isEmprendedorVisible,
+          isEmpresaVisible: !prevState.isEmpresaVisible
+        };
+      }
+      return prevState;
+    });
   }
 
   changePlanes() {
@@ -71,7 +87,9 @@ class HomeBody extends Component {
                 <li className="isNotFeature">Tabla nutricional basado en Perú</li>
               </ul>
             </div>
-            <button className="comprar">COMPRAR PLAN</button>
+            <button type="button" className="comprar">
+              COMPRAR PLAN
+            </button>
           </div>
           <div id="emprendedor" className="planesRect">
             <div className="planesHeader">
@@ -110,105 +128,109 @@ class HomeBody extends Component {
                 <li className="isNotFeature">Tabla nutricional basado en Perú</li>
               </ul>
             </div>
-            <button className="comprar">COMPRAR PLAN</button>
-          </div>
-        </div>
-      );
-    } else {
-      return (
-        <div id="planesContainer">
-          <div id="emprendedor" className="planesRect">
-            <div className="planesHeader">
-              <h2 className="planesTextHeader">Plan Emprendedor</h2>
-              <div className="planesPrecio">
-                <h1 className="precioNumber">$5</h1>
-                <span className="precioPlazo">/mes</span>
-              </div>
-            </div>
-            <div className="planesText">
-              <span className="textSubHeader">Crea etiquetas para empaques o envases:</span>
-              <ul style={{ listStyleImage: 'url(/images/icons/chequeSmall.png)' }}>
-                <li className="isFeature">
-                  De forma rectangular o cuadrada{' '}
-                  <span className="featureEsp">(galletas, cereales, etc...)</span>
-                </li>
-                <li className="isFeature">
-                  De forma circular <span className="featureEsp">(quesos, jamones, etc...)</span>
-                </li>
-                <li className="isFeature">
-                  En botellas o latas <span className="featureEsp">(cerveza, yogurt, etc...)</span>
-                </li>
-                <li className="isFeature">
-                  De forma irregular{' '}
-                  <span className="featureEsp">(helados en forma de cono, sanduches, etc...)</span>
-                </li>
-              </ul>
-              <span className="textSubHeader">Diseño y elaboración de:</span>
-              <ul style={{ listStyleImage: 'url(/images/icons/chequeSmall.png)' }}>
-                <li className="isFeature">Tabla nutricional basado en CÓDEX</li>
-                <li className="isNotFeature">Tabla nutricional basado en FDA</li>
-                <li className="isNotFeature">Tabla nutricional basado en Unión Europea</li>
-                <li className="isNotFeature">Tabla nutricional basado en México</li>
-                <li className="isNotFeature">Tabla nutricional basado en Ecuador</li>
-                <li className="isNotFeature">Tabla nutricional basado en Chile</li>
-                <li className="isNotFeature">Tabla nutricional basado en Perú</li>
-              </ul>
-            </div>
-            <button className="comprar">COMPRAR PLAN</button>
-          </div>
-          <div id="empresa" className="planesRect">
-            <div className="planesHeader">
-              <h2 className="planesTextHeader">Plan Empresa</h2>
-              <div className="planesPrecio">
-                <h1 className="precioNumber">$12</h1>
-                <span className="precioPlazo">/mes</span>
-              </div>
-            </div>
-            <div className="planesText">
-              <span className="textSubHeader">Crea etiquetas para empaques o envases:</span>
-              <ul style={{ listStyleImage: 'url(/images/icons/chequeSmall.png)' }}>
-                <li className="isFeature">
-                  De forma rectangular o cuadrada{' '}
-                  <span className="featureEsp">(galletas, cereales, etc...)</span>
-                </li>
-                <li className="isFeature">
-                  De forma circular <span className="featureEsp">(quesos, jamones, etc...)</span>
-                </li>
-                <li className="isFeature">
-                  En botellas o latas <span className="featureEsp">(cerveza, yogurt, etc...)</span>
-                </li>
-                <li className="isFeature">
-                  De forma irregular{' '}
-                  <span className="featureEsp">(helados en forma de cono, sanduches, etc...)</span>
-                </li>
-              </ul>
-              <span className="textSubHeader">Diseño y elaboración de:</span>
-              <ul style={{ listStyleImage: 'url(/images/icons/chequeSmall.png)' }}>
-                <li className="isFeature">Tabla nutricional basado en CÓDEX</li>
-                <li className="isFeature">Tabla nutricional basado en FDA</li>
-                <li className="isFeature">Tabla nutricional basado en Unión Europea</li>
-                <li className="isFeature">Tabla nutricional basado en México</li>
-                <li className="isFeature">Tabla nutricional basado en Ecuador</li>
-                <li className="isFeature">Tabla nutricional basado en Chile</li>
-                <li className="isFeature">Tabla nutricional basado en Perú</li>
-              </ul>
-            </div>
-            <button className="comprar">COMPRAR PLAN</button>
+            <button type="button" className="comprar">
+              COMPRAR PLAN
+            </button>
           </div>
         </div>
       );
     }
+    return (
+      <div id="planesContainer">
+        <div id="emprendedor" className="planesRect">
+          <div className="planesHeader">
+            <h2 className="planesTextHeader">Plan Emprendedor</h2>
+            <div className="planesPrecio">
+              <h1 className="precioNumber">$5</h1>
+              <span className="precioPlazo">/mes</span>
+            </div>
+          </div>
+          <div className="planesText">
+            <span className="textSubHeader">Crea etiquetas para empaques o envases:</span>
+            <ul style={{ listStyleImage: 'url(/images/icons/chequeSmall.png)' }}>
+              <li className="isFeature">
+                De forma rectangular o cuadrada{' '}
+                <span className="featureEsp">(galletas, cereales, etc...)</span>
+              </li>
+              <li className="isFeature">
+                De forma circular <span className="featureEsp">(quesos, jamones, etc...)</span>
+              </li>
+              <li className="isFeature">
+                En botellas o latas <span className="featureEsp">(cerveza, yogurt, etc...)</span>
+              </li>
+              <li className="isFeature">
+                De forma irregular{' '}
+                <span className="featureEsp">(helados en forma de cono, sanduches, etc...)</span>
+              </li>
+            </ul>
+            <span className="textSubHeader">Diseño y elaboración de:</span>
+            <ul style={{ listStyleImage: 'url(/images/icons/chequeSmall.png)' }}>
+              <li className="isFeature">Tabla nutricional basado en CÓDEX</li>
+              <li className="isNotFeature">Tabla nutricional basado en FDA</li>
+              <li className="isNotFeature">Tabla nutricional basado en Unión Europea</li>
+              <li className="isNotFeature">Tabla nutricional basado en México</li>
+              <li className="isNotFeature">Tabla nutricional basado en Ecuador</li>
+              <li className="isNotFeature">Tabla nutricional basado en Chile</li>
+              <li className="isNotFeature">Tabla nutricional basado en Perú</li>
+            </ul>
+          </div>
+          <button type="button" className="comprar">
+            COMPRAR PLAN
+          </button>
+        </div>
+        <div id="empresa" className="planesRect">
+          <div className="planesHeader">
+            <h2 className="planesTextHeader">Plan Empresa</h2>
+            <div className="planesPrecio">
+              <h1 className="precioNumber">$12</h1>
+              <span className="precioPlazo">/mes</span>
+            </div>
+          </div>
+          <div className="planesText">
+            <span className="textSubHeader">Crea etiquetas para empaques o envases:</span>
+            <ul style={{ listStyleImage: 'url(/images/icons/chequeSmall.png)' }}>
+              <li className="isFeature">
+                De forma rectangular o cuadrada{' '}
+                <span className="featureEsp">(galletas, cereales, etc...)</span>
+              </li>
+              <li className="isFeature">
+                De forma circular <span className="featureEsp">(quesos, jamones, etc...)</span>
+              </li>
+              <li className="isFeature">
+                En botellas o latas <span className="featureEsp">(cerveza, yogurt, etc...)</span>
+              </li>
+              <li className="isFeature">
+                De forma irregular{' '}
+                <span className="featureEsp">(helados en forma de cono, sanduches, etc...)</span>
+              </li>
+            </ul>
+            <span className="textSubHeader">Diseño y elaboración de:</span>
+            <ul style={{ listStyleImage: 'url(/images/icons/chequeSmall.png)' }}>
+              <li className="isFeature">Tabla nutricional basado en CÓDEX</li>
+              <li className="isFeature">Tabla nutricional basado en FDA</li>
+              <li className="isFeature">Tabla nutricional basado en Unión Europea</li>
+              <li className="isFeature">Tabla nutricional basado en México</li>
+              <li className="isFeature">Tabla nutricional basado en Ecuador</li>
+              <li className="isFeature">Tabla nutricional basado en Chile</li>
+              <li className="isFeature">Tabla nutricional basado en Perú</li>
+            </ul>
+          </div>
+          <button type="button" className="comprar">
+            COMPRAR PLAN
+          </button>
+        </div>
+      </div>
+    );
   }
 
   render() {
-    const isPlanesVisible = this.state.isPlanesVisible;
+    const { isPlanesVisible } = this.state;
     return (
       <div className="homebody">
         <div
           id="LeftForm"
-          className="d-flex flex-column justify-content-center align-items-center flex-grow-1 flex-shrink-0 w-50 overflow-auto"
-        >
-          <img src="../images/solinalLogo.png" alt="logo de solinal" width={'200px'} />
+          className="d-flex flex-column justify-content-center align-items-center flex-grow-1 flex-shrink-0 w-50 overflow-auto">
+          <img src="../images/solinalLogo.png" alt="logo de solinal" width="200px" />
 
           <Outlet />
         </div>
@@ -216,13 +238,13 @@ class HomeBody extends Component {
         <div className="info" style={{ backgroundImage: 'url(/images/fondo-web.png)' }}>
           {isPlanesVisible ? (
             <div id="planes" className={isPlanesVisible ? 'isShowing' : 'isNotShowing'}>
-              <div id="verPlanes" onClick={() => this.togglePlanes()}>
+              <div role="presentation" id="verPlanes" onClick={() => this.togglePlanes()}>
                 <img
                   src="/images/icons/flecha-hacia-abajo.png"
                   alt="abajo"
                   className="highImgIcon"
                   style={{ transform: 'rotate(180deg)' }}
-                ></img>
+                />
                 <h1 className="highText">VER INFORMACIÓN</h1>
               </div>
               <h1 className="headText" style={{ marginTop: '5%' }}>
@@ -230,17 +252,17 @@ class HomeBody extends Component {
               </h1>
               <div id="rectSelectorContainer" style={{ marginTop: '5%' }}>
                 <div
+                  role="presentation"
                   id="emprendedorSqr"
                   onClick={() => this.toogleEmprendedor()}
-                  className={this.state.isEmprendedorVisible ? 'planSelected' : 'planNotSelected'}
-                >
+                  className={this.state.isEmprendedorVisible ? 'planSelected' : 'planNotSelected'}>
                   <span>Emprendedor</span>
                 </div>
                 <div
+                  role="presentation"
                   id="empresasSqr"
                   onClick={() => this.toogleEmpresa()}
-                  className={this.state.isEmpresaVisible ? 'planSelected' : 'planNotSelected'}
-                >
+                  className={this.state.isEmpresaVisible ? 'planSelected' : 'planNotSelected'}>
                   <span>Empresas</span>
                 </div>
               </div>
@@ -267,27 +289,27 @@ class HomeBody extends Component {
                 </p>
               </div>
               <div className="infoSquare">
-                <img src="/images/icons/label.png" alt="etiqueta" className="imgInfoIcon"></img>
+                <img src="/images/icons/label.png" alt="etiqueta" className="imgInfoIcon" />
                 <p className="squareText">
                   Cree e imprima fácilmente etiquetas para alimentos, suplementos, bebidas
                   alchólicas y no alcohólicas.
                 </p>
               </div>
               <div className="infoSquare">
-                <img src="/images/icons/gavel.png" alt="maso" className="imgInfoIcon"></img>
+                <img src="/images/icons/gavel.png" alt="maso" className="imgInfoIcon" />
                 <p className="squareText">
                   Diseñe etiquetas nutricionales espectaculares que cumplan con las normativas de la
                   UE y la FDA.
                 </p>
               </div>
               <div className="infoSquare">
-                <img src="/images/icons/wheat.png" alt="planta" className="imgInfoIcon"></img>
+                <img src="/images/icons/wheat.png" alt="planta" className="imgInfoIcon" />
                 <p className="squareText">
                   La función gestión de textos etiquetados destaca los alérgenos de manera
                   automática cuando aparecen en las listas de ingredientes
                 </p>
               </div>
-              <div id="verPlanes" onClick={() => this.togglePlanes()}>
+              <div role="presentation" id="verPlanes" onClick={() => this.togglePlanes()}>
                 <h1 className="highText" style={{ marginTop: '40px' }}>
                   VER PLANES
                 </h1>
@@ -295,7 +317,7 @@ class HomeBody extends Component {
                   src="/images/icons/flecha-hacia-abajo.png"
                   alt="flecha abajo"
                   className="highImgIcon"
-                ></img>
+                />
               </div>
             </div>
           )}

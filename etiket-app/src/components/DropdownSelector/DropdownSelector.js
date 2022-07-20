@@ -23,13 +23,12 @@ function DropdownSelector({ title, items = [] }) {
     return false;
   }
 
-  function getItemSelected() {
-    if (selection.length === 0) {
-      return { title };
-    } else {
-      return selection[0].value;
-    }
-  }
+  // function getItemSelected() {
+  //   if (selection.length === 0) {
+  //    return { title };
+  //  }
+  //  return selection[0].value;
+  // }
 
   return (
     <div className="ddSelector">
@@ -48,8 +47,7 @@ function DropdownSelector({ title, items = [] }) {
               <button
                 className={isItemSelected(item) ? 'btnSelected' : 'btnNotSelected'}
                 type="button"
-                onClick={() => handleOnClick(item)}
-              >
+                onClick={() => handleOnClick(item)}>
                 <span className="itemText">{item.value}</span>
               </button>
             </li>

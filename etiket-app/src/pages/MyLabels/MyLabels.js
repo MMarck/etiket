@@ -1,16 +1,14 @@
-import { countries, pathIcons } from '../../config/constants';
-import { ddNormalStyle } from '../../tools/Statefunctions';
-import { replace } from '../../reducers/etiquetaSlice';
 import { Component } from 'react';
-import { connect } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import { backendURL } from '../../config/constants.js';
-import request from '../../tools/ApiSetup';
-import jwt_decode from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 import Select from 'react-select';
+import { backendURL, countries, pathIcons } from '../../config/constants';
+import request from '../../tools/ApiSetup';
+import { replace } from '../../reducers/etiquetaSlice';
+import { ddNormalStyle } from '../../tools/Statefunctions';
 import './MyLabels.css';
 
 const mapStateToProps = (state) => ({
@@ -20,67 +18,69 @@ const mapDispatchToProps = () => ({
   replace
 });
 
+
 class MyLabels extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      accessToken: Cookies.get('accessToken') || '',
+      showPackagesTypes: false,
+      labels: []
+    };
+  }
+
   componentDidMount() {
     const header = {
-      Authorization: 'Bearer ' + this.state.accessToken
+      Authorization: `Bearer ${this.state.accessToken}`
     };
-    const jsonData = { user: jwt_decode(this.state.accessToken).id };
+    const jsonData = { user: jwtDecode(this.state.accessToken).id };
     request
-      .post(backendURL + 'Labels/getLabels', jsonData, {
+      .post(`${backendURL}Labels/getLabels`, jsonData, {
         headers: header
       })
       .then((res) => {
         this.setState({ labels: res.data });
       })
       .catch((error) => {
-        console.log(error);
+        alert(error);
       });
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      isPaid: true,
-      accessToken: Cookies.get('accessToken') || '',
-      refreshToken: Cookies.get('refreshToken') || '',
-      showPackagesTypes: false,
-      labels: []
-    };
   }
 
   handleStateChange(stateName, value) {
     const payload = {
-      stateName: stateName,
-      value: value
+      stateName,
+      value
     };
 
     this.props.replace(payload);
   }
 
   eliminarEtiqueta(id, index) {
-    const header = {
-      Authorization: 'Bearer ' + this.state.accessToken
-    };
-    request
-      .delete(backendURL + 'Labels/' + id, {
-        headers: header
-      })
-      .then((res) => {
-        const newArray = Array.from(this.state.labels);
-        newArray.splice(index, 1);
-        this.setState({ labels: newArray });
-        alert('Se ha eliminado la etiqueta con éxito');
-      })
-      .catch((error) => {
-        if (error.response) {
-          alert(error.response.data.error.message);
-        } else if (error.request) {
-          console.log(error.request);
-        } else {
-          console.log('Error', error);
-        }
-      });
+    this.setState((prevState) => {
+      const header = {
+        Authorization: `Bearer ${prevState.accessToken}`
+      };
+      request
+        .delete(`${backendURL}Labels/${id}`, {
+          headers: header
+        })
+        .then(() => {
+          const newArray = Array.from(prevState.labels);
+          newArray.splice(index, 1);
+          this.setState({ labels: newArray });
+          alert('Se ha eliminado la etiqueta con éxito');
+        })
+        .catch((error) => {
+          if (error.response) {
+            alert(error.response.data.error.message);
+          } else if (error.request) {
+            console.log(error.request);
+          } else {
+            console.log('Error', error);
+          }
+        });
+      return prevState;
+    });
   }
 
   render() {
@@ -88,8 +88,8 @@ class MyLabels extends Component {
       /* Contenedor divido en secciones para renderizar una determinada 
       vista dependiendo de las variables del estado */
       <div className="w-100 h-100">
-        <Link to={'/'}>
-          <img src={pathIcons + 'back.png'} alt="Regresar" className="backBtn" />
+        <Link to="/">
+          <img src={`${pathIcons}back.png`} alt="Regresar" className="backBtn" />
         </Link>
 
         <div id="MisEtiquetasContainer">
@@ -98,7 +98,7 @@ class MyLabels extends Component {
           {/* PENDIENTE HACER ESTA MISMA VERIFICACION EN LE BACKEND */}
           {/* Esta seccion muestra un mensaje de aviso cuando ya se ha 
             llegado al limite de creacion de etiquetas 
-            cargar limite del usuario de acuerdo a su plan (2 por defecto)*/}
+            cargar limite del usuario de acuerdo a su plan (2 por defecto) */}
           {this.state.labels.length >= 2 ? (
             <div className="w-75 d-flex flex-column justify-content-center align-items-center gap-2">
               <span className="text-danger text-center">
@@ -106,7 +106,7 @@ class MyLabels extends Component {
                 tengas acceso ilimitado.
               </span>
 
-              <button className=" btn-secondary darkButton fw-bolder p-2 my-4">
+              <button type="button" className=" btn-secondary darkButton fw-bolder p-2 my-4">
                 CAMBIAR DE PLAN
               </button>
             </div>
@@ -116,44 +116,46 @@ class MyLabels extends Component {
 
           <div id="ContenedorEtiquetas">
             {
-              /*creacion de los elementos LabelPreview por cada etiqueta 
+              /* creacion de los elementos LabelPreview por cada etiqueta 
             guardada en estado global (store), cada elemento redirige al componente
             LabelEditor el cual lee el id en la URL y carga los de dato de 
-            dicha etiqueta para modificarlo*/
+            dicha etiqueta para modificarlo */
 
               this.state.labels.map((label, index) => (
                 <div style={{ display: 'flex' }}>
                   <Link
-                    to={'/editarEtiqueta/' + label.id}
+                    to={`/editarEtiqueta/${label.id}`}
+                    title= {label.nombreProyecto}  
                     className="etiquetaContainer"
-                    key={label.id} //prop para evitar renderizar 2 veces el mismo elemento, PENDIENTE cambiar por el id de la etiqueta
+                    key={label.id} // prop para evitar renderizar 2 veces el mismo elemento, PENDIENTE cambiar por el id de la etiqueta
                   >
                     <div className="previewEtiqueta">
                       <img src={imagePath(label.tipo)} alt={label.tipo} width="60px" />
                     </div>
 
-                    <span className="flex-shrink-1 ">{label.nombreProyecto}</span>
+                    <span className="flex-shrink-1 ">{
+                      label.nombreProyecto.length <= 20 ?
+                        label.nombreProyecto
+                        :
+                        label.nombreProyecto.substring(0,20) +  '...' 
+                      }</span>
                   </Link>
-
-                  {true ? ( //PENDIENTE SOLO LOS USUARIOS PREMIUM PUEDEN ELIMINAR ETIQUETAS
-                    <button
-                      type="button"
-                      class="btn-close bg-danger "
-                      aria-label="Close"
-                      onClick={() => this.eliminarEtiqueta(label.id, index)}
-                    ></button>
-                  ) : (
-                    ''
-                  )}
+                  {/* TODO: PENDIENTE SOLO LOS USUARIOS PREMIUM PUEDEN ELIMINAR ETIQUETAS */}
+                  <button
+                    type="button"
+                    className="btn-close bg-danger "
+                    aria-label="Close"
+                    onClick={() => this.eliminarEtiqueta(label.id, index)}
+                  />
                 </div>
               ))
             }
 
             {this.state.labels.length > 0 ? (
               <button
+                type="button"
                 id="BotonMasNuevaEtiqueta"
-                onClick={() => this.setState({ showPackagesTypes: true })}
-              >
+                onClick={() => this.setState({ showPackagesTypes: true })}>
                 +
               </button>
             ) : (
@@ -171,9 +173,9 @@ class MyLabels extends Component {
 
           {this.state.labels.length === 0 ? (
             <button
+              type="button"
               className="rounded fs-6 btn-dark"
-              onClick={() => this.setState({ showPackagesTypes: true })}
-            >
+              onClick={() => this.setState({ showPackagesTypes: true })}>
               CREAR ETIQUETA
             </button>
           ) : (
@@ -190,8 +192,7 @@ class MyLabels extends Component {
             this.setState({ showPackagesTypes: false });
           }}
           size="lg"
-          centered
-        >
+          centered>
           <Modal.Header closeButton className="newLabelModal-header">
             <Modal.Title>
               <h4>
@@ -267,10 +268,10 @@ class MyLabels extends Component {
    * Metodo para obtener las etiquetas desde la base de datos
    * retorna un listado con las etiquetas
    * PENDIENTE CARGAR LAS ETIQUETAS Y VERIFICAR CUENTA DEL USUARIO
-   */
   getLabels() {
     return [{ name: 'etiqueta1', type: 'rectangular' }];
   }
+  */
 }
 
 export default connect(mapStateToProps, mapDispatchToProps())(MyLabels);
@@ -298,22 +299,15 @@ const imagePath = (type) => {
  * Componente para encapsular las opciones de envase en el menu de envase.
  * title: titulo de la opcion
  * description: descripcioon de la opcion
- * imagePath: ruta de la imagen para la opcion
+ * imagePath2: ruta de la imagen para la opcion
  * altImageText: texto alternativo para la imagen
  * packageType: tipo de paquete para guardar en el estado global (store) newLabel
  * setTypeLabel: funcion para escribir en el estado global (puntero de la funcion)
  */
-const PackageOption = ({
-  title,
-  description,
-  imagePath,
-  altImageText,
-  packageType,
-  setPackageType
-}) => {
+function PackageOption({ title, description, imagePath2, altImageText, packageType }) {
   const dispatch = useDispatch();
 
-  //Aclaracion: la clase "modal-dialog" y "modal-content" es agregada automaticamente por la libreria react-bootstrap
+  // Aclaracion: la clase "modal-dialog" y "modal-content" es agregada automaticamente por la libreria react-bootstrap
   return (
     <Link
       to="/nuevoProyecto"
@@ -325,10 +319,10 @@ const PackageOption = ({
             value: packageType
           })
         )
-      } //setear tipo de paquete en el store
+      } // setear tipo de paquete en el store
     >
       <div className="packageOption-image">
-        <img src={imagePath} alt={altImageText} />
+        <img src={imagePath2} alt={altImageText} />
       </div>
       <p className="packageOption-description">
         <dt className="packageOption-title"> {title} </dt>
@@ -336,4 +330,4 @@ const PackageOption = ({
       </p>
     </Link>
   );
-};
+}

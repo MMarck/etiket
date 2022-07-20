@@ -1,9 +1,10 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { Component } from 'react';
-import { pathIcons } from '../../config/constants';
 import { Modal } from 'react-bootstrap';
-import { replace } from '../../reducers/etiquetaSlice';
 import { connect } from 'react-redux';
 import Papa from 'papaparse';
+import { replace } from '../../reducers/etiquetaSlice';
+import { pathIcons } from '../../config/constants';
 import './IngredientesModal.css';
 
 class IngredientesModal extends Component {
@@ -21,16 +22,16 @@ class IngredientesModal extends Component {
 
   handleStateChange(stateName, value) {
     const payload = {
-      stateName: stateName,
-      value: value
+      stateName,
+      value
     };
 
     this.props.replace(payload);
   }
 
-  handleSubmitText(e) {
-    let alertLines = [];
-    e.preventDefault();
+  handleSubmitText(event) {
+    const alertLines = [];
+    event.preventDefault();
     const ing = this.state.ingTextForm;
     if (ing === '') {
       alert('¡Escriba algo primero!');
@@ -39,22 +40,24 @@ class IngredientesModal extends Component {
       const ingFinal = [];
       for (let i = 0; i < lines.length; i++) {
         let e = lines[i];
-        console.log(e);
         e = e.match(
           /(?<=")[^"]+?(?="(?:\s*?,|\s*?$))|(?<=(?:^|,)\s*?)(?:[^,"\s][^,"]*[^,"\s])|(?:[^,"\s])(?![^"]*?"(?:\s*?,|\s*?$))(?=\s*?(?:,|$))/g
         );
-        console.log(e);
         if (e.length !== 2) {
+          alertLines.push(i + 1);
+        } else if (this.isNumeric(e[1]) === false) {
+          alertLines.push(i + 1);
+        } else if (parseFloat(e[1]) < 0.01) {
           alertLines.push(i + 1);
         } else {
           ingFinal.push({ ing: e[0], percentage: e[1] });
         }
       }
       if (alertLines.length !== 0) {
-        alert('Hay errores en las lineas:' + alertLines.join(','));
+        alert(`Hay errores en las lineas:${alertLines.join(',')}`);
       } else {
         const ingSorted = ingFinal.sort((a, b) => {
-          return parseFloat(b['percentage']) - parseFloat(a['percentage']);
+          return parseFloat(b.percentage) - parseFloat(a.percentage);
         });
         let sum = 0;
         ingSorted.forEach((i) => {
@@ -70,14 +73,14 @@ class IngredientesModal extends Component {
   }
 
   handleFile(e) {
-    let ingFinal = [];
+    const ingFinal = [];
     Papa.parse(e.target.files[0], {
       header: false,
       skipEmptyLines: true,
-      complete: function (results) {
-        let ingArray = results.data;
+      complete(results) {
+        const ingArray = results.data;
         ingArray.forEach((i) => {
-          let element = { ing: i[0], percentage: i[1] };
+          const element = { ing: i[0], percentage: i[1] };
           ingFinal.push(element);
         });
       }
@@ -90,16 +93,14 @@ class IngredientesModal extends Component {
       alert('¡No ha subido nada!');
     } else {
       const ingSorted = this.state.ing.sort((a, b) => {
-        return parseFloat(b['percentage']) - parseFloat(a['percentage']);
+        return parseFloat(b.percentage) - parseFloat(a.percentage);
       });
       let sum = 0;
       ingSorted.forEach((i) => {
-        console.log(parseFloat(i.percentage));
         sum += parseFloat(i.percentage);
       });
       sum = parseFloat(sum.toFixed(2));
       if (sum !== 100) {
-        console.log(sum);
         alert('Revise el documento, los porcentajes no suman 100');
       } else {
         this.handleStateChange('ingredientes', ingSorted);
@@ -107,20 +108,34 @@ class IngredientesModal extends Component {
     }
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  isNumeric(str) {
+    if (typeof str !== 'string') {
+      return false; // we only process strings!
+    }
+
+    return (
+      !Number.isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+      !Number.isNaN(parseFloat(str))
+    ); // ...and ensure strings of whitespace fail
+  }
+
   render() {
     const handleClose = () => this.setState({ show: false });
     const handleShow = () => this.setState({ show: true });
 
-    const handleTextArea = () => this.setState({ showTextArea: !this.state.showTextArea });
-    const handleFileInput = () => this.setState({ showFileInput: !this.state.showTextArea });
+    const handleTextArea = () => this.setState((prevState) => ({ showTextArea: !prevState.value }));
+    const handleFileInput = () =>
+      this.setState((prevState) => ({ showFileInput: !prevState.value }));
 
-    const handleOptions = () => this.setState({ showOptions: !this.state.showOptions });
+    const handleOptions = () => this.setState((prevState) => ({ showOptions: !prevState.value }));
 
     const handleIngText = (e) => this.setState({ ingTextForm: e });
 
     return (
       <>
         <button
+          type="button"
           className="darkButton-twhite"
           style={{
             width: 'fit-content',
@@ -128,8 +143,7 @@ class IngredientesModal extends Component {
             fontSize: '0.8em',
             margin: 'auto'
           }}
-          onClick={handleShow}
-        >
+          onClick={handleShow}>
           INGRESAR DATOS
         </button>
 
@@ -139,30 +153,29 @@ class IngredientesModal extends Component {
           onHide={handleClose}
           size="l"
           centered
-          style={{ fontSize: '0.8rem' }}
-        >
+          style={{ fontSize: '0.8rem' }}>
           <Modal.Header closeButton id="Modal-header">
             {(this.state.showTextArea && (
-              <img
-                src={pathIcons + 'back.png'}
-                alt="Regresar"
-                className="backBtn backBtnIng"
+              <div
+                tabIndex={0}
+                role="button"
                 onClick={() => {
                   handleOptions();
                   handleTextArea();
-                }}
-              />
+                }}>
+                <img src={`${pathIcons}back.png`} alt="Regresar" className="backBtn backBtnIng" />
+              </div>
             )) ||
               (this.state.showFileInput && (
-                <img
-                  src={pathIcons + 'back.png'}
-                  alt="Regresar"
-                  className="backBtn backBtnIng"
+                <div
+                  tabIndex={0}
+                  role="button"
                   onClick={() => {
                     handleOptions();
-                    handleFileInput();
-                  }}
-                />
+                    handleTextArea();
+                  }}>
+                  <img src={`${pathIcons}back.png`} alt="Regresar" className="backBtn backBtnIng" />
+                </div>
               ))}
           </Modal.Header>
 
@@ -170,6 +183,7 @@ class IngredientesModal extends Component {
             {(this.state.showOptions && (
               <div id="ingOptions">
                 <button
+                  type="button"
                   className="darkButton-twhite"
                   style={{
                     width: 'fit-content',
@@ -180,11 +194,11 @@ class IngredientesModal extends Component {
                   onClick={() => {
                     handleOptions();
                     handleTextArea();
-                  }}
-                >
+                  }}>
                   INGRESAR DATOS POR TEXTO
                 </button>
                 <button
+                  type="button"
                   className="darkButton-twhite"
                   style={{
                     width: 'fit-content',
@@ -195,8 +209,7 @@ class IngredientesModal extends Component {
                   onClick={() => {
                     handleOptions();
                     handleFileInput();
-                  }}
-                >
+                  }}>
                   INGRESAR DATOS POR ARCHIVO CSV
                 </button>
               </div>
@@ -225,8 +238,7 @@ class IngredientesModal extends Component {
                         fontSize: '0.8em',
                         margin: 'auto'
                       }}
-                      onClick={handleShow}
-                    >
+                      onClick={handleShow}>
                       PROCESAR TEXTO
                     </button>
                   </form>
@@ -239,7 +251,7 @@ class IngredientesModal extends Component {
                     sea los porcentajes, asegurese de eliminar la fila de encabezado en caso de
                     tenerla.
                   </p>
-                  <br></br>
+                  <br />
                   <input
                     id="csvInput"
                     name="file"
@@ -250,6 +262,7 @@ class IngredientesModal extends Component {
                     }}
                   />
                   <button
+                    type="button"
                     className="darkButton-twhite"
                     style={{
                       width: 'fit-content',
@@ -257,8 +270,7 @@ class IngredientesModal extends Component {
                       fontSize: '0.8em',
                       margin: 'auto'
                     }}
-                    onClick={() => this.submitFile()}
-                  >
+                    onClick={() => this.submitFile()}>
                     PROCESAR ARCHIVO
                   </button>
                 </div>

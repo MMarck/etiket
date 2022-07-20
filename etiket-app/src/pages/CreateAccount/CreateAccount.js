@@ -1,8 +1,9 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import axios from 'axios';
-import { backendURL } from '../../config/constants.js';
-import { withRouter } from '../../tools/withRouter';
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { backendURL } from '../../config/constants';
+import withRouter from '../../tools/withRouter';
 import './CreateAccount.css';
 
 /**
@@ -50,7 +51,7 @@ class CreateAccount extends Component {
       };
 
       axios
-        .post(backendURL + 'UsersDB', jsonData)
+        .post(`${backendURL}UsersDB`, jsonData)
         .then((response) => {
           alert(response.data.message);
           this.props.navigate('/login');
@@ -134,27 +135,28 @@ class CreateAccount extends Component {
           <button
             type="submit"
             className="ligthButton w-100 cursor-pointer"
-            onClick={this.emailValidation}
-          >
+            onClick={this.emailValidation}>
             Crear Usuario
           </button>
 
           <br />
           <br />
           <Link to="/login" className="w-100">
-            <button className="btn-dark darkButton cursor-pointer">Cancelar</button>
+            <button type="button" className="btn-dark darkButton cursor-pointer">
+              Cancelar
+            </button>
           </Link>
         </form>
 
         <hr />
 
         <div className="signupButton google mx-auto mt-2 small">
-          <span className="icon"></span>
+          <span className="icon" />
           <span>Inicia sesion con Google</span>
         </div>
 
         <div className="signupButton facebook mx-auto mt-2 small">
-          <span className="icon"></span>
+          <span className="icon" />
           <span>Inicia sesion con Facebook</span>
         </div>
 

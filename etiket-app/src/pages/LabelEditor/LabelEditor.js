@@ -1,7 +1,7 @@
 import { exportComponentAsPNG, exportComponentAsPDF } from 'react-component-export-image';
 import { replace, erase, loadLabel } from '../../reducers/etiquetaSlice';
 import { replaceLE } from '../../reducers/LabelEditorSlice';
-import { pathIcons, zoom } from '../../config/constants';
+import { pathIcons } from '../../config/constants';
 import { connect } from 'react-redux';
 import request from '../../tools/ApiSetup';
 import { backendURL } from '../../config/constants.js';
@@ -12,7 +12,7 @@ import { Component, createRef } from 'react';
 import './LabelEditor.css';
 import { setPosition } from '../../tools/Statefunctions';
 import { fabric } from 'fabric';
-import { withRouter } from '../../tools/withRouter';
+import withRouter from '../../tools/withRouter';
 import { JSON_String } from '../../tools/Statefunctions';
 
 var FontFaceObserver = require('fontfaceobserver');
@@ -39,7 +39,7 @@ class LabelEditor extends Component {
       labelId: this.props.params.id
     };
     request
-      .post(backendURL + 'Labels/getLabelbyId', jsonData, {
+      .post(`${backendURL}Labels/getLabelbyId`, jsonData, {
         headers: header
       })
       .then((res) => {
@@ -60,13 +60,12 @@ class LabelEditor extends Component {
     this.setState({canvas: getInitialCanvas(this.props.etiqueta)});
   }
 
-
   /*
    *   Función para guardar los cambios en la base de datos
    */
   saveLabel() {
     const header = {
-      Authorization: 'Bearer ' + this.state.accessToken
+      Authorization: `Bearer ${this.state.accessToken}`
     };
     const jsonData = {
       nombreProyecto: this.props.etiqueta.nombreProyecto,
@@ -112,6 +111,8 @@ class LabelEditor extends Component {
         valor: this.props.etiqueta.caducacion,
         unidad: this.props.etiqueta.caducacionUn
       },
+      lote: this.props.etiqueta.lote,
+      addInfo: this.props.etiqueta.addInfo,
       direccion: this.props.etiqueta.direccion,
       instrucciones: this.props.etiqueta.instrucciones,
       posicion: {
@@ -155,7 +156,7 @@ class LabelEditor extends Component {
     };
 
     request
-      .put(backendURL + 'Labels/' + this.props.params.id, jsonData, {
+      .put(`${backendURL}Labels/${this.props.params.id}`, jsonData, {
         headers: header
       })
       .then((res) => {
@@ -203,9 +204,6 @@ class LabelEditor extends Component {
   static getDerivedStateFromProps(props, state) {
     var label = formatLabelState(props.etiqueta);
 
-    console.log(props.etiqueta)
-    console.log(label)
-  
     /**
      * This seccion update each data from global state (state.canvas) 
      * to corresponding graphic element
@@ -256,7 +254,7 @@ class LabelEditor extends Component {
       
       state.canvas.renderAll() 
     }
-    
+
     //return null for not update component state
     return null;
   }
@@ -277,14 +275,14 @@ class LabelEditor extends Component {
 
           <div className="d-flex flex-column justify-content-center align-items-center gap-2 my-4">
             <span
+              role="presentation"
               onClick={() => {
                 this.props.erase();
-                this.resetElementPosition();
+                resetElementPosition();
               }}
               style={{ cursor: 'pointer' }}
-              className="p-2"
-            >
-              <img src={pathIcons + 'return.png'} alt="return " width={'10px'} />
+              className="p-2">
+              <img src={`${pathIcons}return.png`} alt="return " width="10px" />
               BORRAR TODO
             </span>
 
@@ -296,16 +294,14 @@ class LabelEditor extends Component {
               <button
                 onClick={() => exportComponentAsPDF(this.componentRef)}
                 className="darkButton-twhite"
-                type="button"
-              >
+                type="button">
                 EXPORTAR EN PDF
               </button>
 
               <button
                 onClick={() => exportComponentAsPNG(this.componentRef)}
                 className="darkButton-twhite"
-                type="button"
-              >
+                type="button">
                 EXPORTAR EN PNG
               </button>
 
@@ -345,6 +341,7 @@ const mapDispatchToProps = () => ({
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps())(LabelEditor));
+
 
 
 const getInitialCanvas = (labelState) => {
@@ -713,6 +710,7 @@ const getInitialCanvas = (labelState) => {
           productDataGroup, 
           manufacturerGroup,
           materialGroup);
+  
   return cv
 }
 
@@ -747,11 +745,11 @@ const getInitialCanvas = (labelState) => {
         conservationForm: label.metodoConservacion.value? 'Metodo de conservacion: '+ label.conservacionUn.value + ' ' + label.metodoConservacion.value : ''
       },
       material:{
-        ingredients: 'INGREDIENTES: \n' + JSON_String(label.ingredientes, 'ing'),
+        ingredients: label.ingredientes > 0? 'INGREDIENTES: \n' + JSON_String(label.ingredientes, 'ing'): '',
         allergens: label.alergenos.length > 0 ? 'CONTIENE ' + JSON_String(label.alergenos, 'value') : ''
       },
       manufacturer:{
-        address: label.direccion
+        address: 'label.direccion'
       }
 
     }
