@@ -11,7 +11,7 @@ import SidebarItem from '../SidebarItem/SidebarItem';
 import IngredientesModal from '../IngredientesModal/IngredientesModal';
 import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
 import { replace } from '../../reducers/etiquetaSlice';
-import { withRouter } from '../../tools/withRouter';
+import withRouter from '../../tools/withRouter';
 import './Sidebar.css';
 
 /**
@@ -1019,7 +1019,7 @@ class Sidebar extends Component {
             alt="mensajes-declarados"
             dataTip="Declaraciones"
             isDisabled={isDisabled}
-            content={<></>}
+            // content={<></>}
           />
         </div>
       </div>

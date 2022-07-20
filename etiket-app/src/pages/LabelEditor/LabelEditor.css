@@ -54,11 +54,6 @@
   font-size: 15px;
 }
 
-.paneTitleProject {
-  text-align: center;
-  font-weight: bold;
-  color: black;
-}
 .duInput {
   display: flex;
   gap: 5px;
@@ -164,4 +159,9 @@
 .draggable-container:hover {
   border: 1px solid var(--Sgreen);
   cursor: move;
+}
+
+#projectName{
+  font-weight: bold;
+  margin: 0;
 }

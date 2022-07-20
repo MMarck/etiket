@@ -431,13 +431,21 @@ export const ddMultipleStyle = {
     ...provided,
     color: state.isFocused ? '#1ED796' : 'white'
   }),
-  option: (provided, state) => ({
-    ...provided,
-    backgroundColor: state.isSelected ? '#1ED796' : state.isFocused ? '#1dd79633' : '#404040',
-    color: 'white',
-    cursor: 'Pointer'
-  }),
-  menuList: (provided, state) => ({
+  option: (provided, state) => {
+    let backcol = '#404040';
+    if (state.isSelected) {
+      backcol = '#1ED796';
+    } else if (state.isFocused) {
+      backcol = '#1dd79633';
+    }
+    return {
+      ...provided,
+      backgroundColor: backcol,
+      color: 'white',
+      cursor: 'Pointer'
+    };
+  },
+  menuList: (provided) => ({
     ...provided,
     border: '2px solid #404040',
     backgroundColor: '#404040',
@@ -450,38 +458,46 @@ export const ddMultipleStyle = {
     cursor: 'Pointer',
     borderRadius: '8px'
   }),
-  input: (provided, state) => ({
+  input: (provided) => ({
     ...provided,
     color: 'white'
   }),
-  placeholder: (provided, state) => ({
+  placeholder: (provided) => ({
     ...provided,
     color: 'white'
   }),
-  singleValue: (provided, state) => ({
+  singleValue: (provided) => ({
     ...provided,
     color: 'white'
   }),
-  dropdownIndicator: (provided, state) => ({
+  dropdownIndicator: (provided) => ({
     ...provided,
     '&:hover': {
       color: '#1ED796'
     }
   }),
-  menu: (provided, state) => ({
+  menu: (provided) => ({
     ...provided,
     borderRadius: '8px'
   })
 };
 
 export const ddNormalStyle = {
-  option: (provided, state) => ({
-    ...provided,
-    backgroundColor: state.isSelected ? '#1ED796' : state.isFocused ? '#1dd79633' : '#404040',
-    color: 'white',
-    cursor: 'Pointer'
-  }),
-  menuList: (provided, state) => ({
+  option: (provided, state) => {
+    let backcol = '#404040';
+    if (state.isSelected) {
+      backcol = '#1ED796';
+    } else if (state.isFocused) {
+      backcol = '#1dd79633';
+    }
+    return {
+      ...provided,
+      backgroundColor: backcol,
+      color: 'white',
+      cursor: 'Pointer'
+    };
+  },
+  menuList: (provided) => ({
     ...provided,
     border: '2px solid #404040',
     backgroundColor: '#404040',
@@ -496,38 +512,46 @@ export const ddNormalStyle = {
     maxWidth: '30vw',
     borderRadius: '8px'
   }),
-  input: (provided, state) => ({
+  input: (provided) => ({
     ...provided,
     color: 'white'
   }),
-  placeholder: (provided, state) => ({
+  placeholder: (provided) => ({
     ...provided,
     color: 'white'
   }),
-  singleValue: (provided, state) => ({
+  singleValue: (provided) => ({
     ...provided,
     color: 'white'
   }),
-  dropdownIndicator: (provided, state) => ({
+  dropdownIndicator: (provided) => ({
     ...provided,
     '&:hover': {
       color: '#1ED796'
     }
   }),
-  menu: (provided, state) => ({
+  menu: (provided) => ({
     ...provided,
     borderRadius: '8px'
   })
 };
 
 export const ddLargeStyle = {
-  option: (provided, state) => ({
-    ...provided,
-    backgroundColor: state.isSelected ? '#1ED796' : state.isFocused ? '#1dd79633' : '#404040',
-    color: 'white',
-    cursor: 'Pointer'
-  }),
-  menuList: (provided, state) => ({
+  option: (provided, state) => {
+    let backcol = '#404040';
+    if (state.isSelected) {
+      backcol = '#1ED796';
+    } else if (state.isFocused) {
+      backcol = '#1dd79633';
+    }
+    return {
+      ...provided,
+      backgroundColor: backcol,
+      color: 'white',
+      cursor: 'Pointer'
+    };
+  },
+  menuList: (provided) => ({
     ...provided,
     border: '2px solid #404040',
     backgroundColor: '#404040',
@@ -542,38 +566,46 @@ export const ddLargeStyle = {
     maxWidth: '30vw',
     borderRadius: '8px'
   }),
-  input: (provided, state) => ({
+  input: (provided) => ({
     ...provided,
     color: 'white'
   }),
-  placeholder: (provided, state) => ({
+  placeholder: (provided) => ({
     ...provided,
     color: 'white'
   }),
-  singleValue: (provided, state) => ({
+  singleValue: (provided) => ({
     ...provided,
     color: 'white'
   }),
-  dropdownIndicator: (provided, state) => ({
+  dropdownIndicator: (provided) => ({
     ...provided,
     '&:hover': {
       color: '#1ED796'
     }
   }),
-  menu: (provided, state) => ({
+  menu: (provided) => ({
     ...provided,
     borderRadius: '8px'
   })
 };
 
 export const ddLargeStyleSmallFont = {
-  option: (provided, state) => ({
-    ...provided,
-    backgroundColor: state.isSelected ? '#1ED796' : state.isFocused ? '#1dd79633' : '#404040',
-    color: 'white',
-    cursor: 'Pointer'
-  }),
-  menuList: (provided, state) => ({
+  option: (provided, state) => {
+    let backcol = '#404040';
+    if (state.isSelected) {
+      backcol = '#1ED796';
+    } else if (state.isFocused) {
+      backcol = '#1dd79633';
+    }
+    return {
+      ...provided,
+      backgroundColor: backcol,
+      color: 'white',
+      cursor: 'Pointer'
+    };
+  },
+  menuList: (provided) => ({
     ...provided,
     border: '2px solid #404040',
     backgroundColor: '#404040',
@@ -588,39 +620,47 @@ export const ddLargeStyleSmallFont = {
     maxWidth: '30vw',
     borderRadius: '8px'
   }),
-  input: (provided, state) => ({
+  input: (provided) => ({
     ...provided,
     color: 'white'
   }),
-  placeholder: (provided, state) => ({
+  placeholder: (provided) => ({
     ...provided,
     color: 'white'
   }),
-  singleValue: (provided, state) => ({
+  singleValue: (provided) => ({
     ...provided,
     color: 'white',
     fontSize: '0.65em'
   }),
-  dropdownIndicator: (provided, state) => ({
+  dropdownIndicator: (provided) => ({
     ...provided,
     '&:hover': {
       color: '#1ED796'
     }
   }),
-  menu: (provided, state) => ({
+  menu: (provided) => ({
     ...provided,
     borderRadius: '8px'
   })
 };
 
 export const ddLargestStyle = {
-  option: (provided, state) => ({
-    ...provided,
-    backgroundColor: state.isSelected ? '#1ED796' : state.isFocused ? '#1dd79633' : '#404040',
-    color: 'white',
-    cursor: 'Pointer'
-  }),
-  menuList: (provided, state) => ({
+  option: (provided, state) => {
+    let backcol = '#404040';
+    if (state.isSelected) {
+      backcol = '#1ED796';
+    } else if (state.isFocused) {
+      backcol = '#1dd79633';
+    }
+    return {
+      ...provided,
+      backgroundColor: backcol,
+      color: 'white',
+      cursor: 'Pointer'
+    };
+  },
+  menuList: (provided) => ({
     ...provided,
     border: '2px solid #404040',
     backgroundColor: '#404040',
@@ -635,40 +675,48 @@ export const ddLargestStyle = {
     maxWidth: '30vw',
     borderRadius: '8px'
   }),
-  input: (provided, state) => ({
+  input: (provided) => ({
     ...provided,
     color: 'white'
   }),
-  placeholder: (provided, state) => ({
+  placeholder: (provided) => ({
     ...provided,
     color: 'white',
     fontSize: '1em'
   }),
-  singleValue: (provided, state) => ({
+  singleValue: (provided) => ({
     ...provided,
     color: 'white',
     fontSize: '0.65em'
   }),
-  dropdownIndicator: (provided, state) => ({
+  dropdownIndicator: (provided) => ({
     ...provided,
     '&:hover': {
       color: '#1ED796'
     }
   }),
-  menu: (provided, state) => ({
+  menu: (provided) => ({
     ...provided,
     borderRadius: '8px'
   })
 };
 
 export const ddSmallStyle = {
-  option: (provided, state) => ({
-    ...provided,
-    backgroundColor: state.isSelected ? '#1ED796' : state.isFocused ? '#1dd79633' : '#404040',
-    color: 'white',
-    cursor: 'Pointer'
-  }),
-  menuList: (provided, state) => ({
+  option: (provided, state) => {
+    let backcol = '#404040';
+    if (state.isSelected) {
+      backcol = '#1ED796';
+    } else if (state.isFocused) {
+      backcol = '#1dd79633';
+    }
+    return {
+      ...provided,
+      backgroundColor: backcol,
+      color: 'white',
+      cursor: 'Pointer'
+    };
+  },
+  menuList: (provided) => ({
     ...provided,
     border: '2px solid #404040',
     backgroundColor: '#404040',
@@ -683,25 +731,25 @@ export const ddSmallStyle = {
     width: '5vw',
     borderRadius: '8px'
   }),
-  input: (provided, state) => ({
+  input: (provided) => ({
     ...provided,
     color: 'white'
   }),
-  placeholder: (provided, state) => ({
+  placeholder: (provided) => ({
     ...provided,
     color: 'white'
   }),
-  singleValue: (provided, state) => ({
+  singleValue: (provided) => ({
     ...provided,
     color: 'white'
   }),
-  dropdownIndicator: (provided, state) => ({
+  dropdownIndicator: (provided) => ({
     ...provided,
     '&:hover': {
       color: '#1ED796'
     }
   }),
-  menu: (provided, state) => ({
+  menu: (provided) => ({
     ...provided,
     borderRadius: '8px'
   })
@@ -744,6 +792,18 @@ export const Nutrientes = {
   carbohidratos: 300,
   proteina: 50
 };
+
+function handleDateChange(value) {
+  const yyyy = value.getFullYear();
+  let mm = value.getMonth() + 1;
+  let dd = value.getDate();
+
+  if (dd < 10) dd = `0${dd}`;
+  if (mm < 10) mm = `0${mm}`;
+
+  const date = `${dd}/${mm}/${yyyy}`;
+  return date;
+}
 
 /*
  * Nueva etiqueta por defecto
@@ -864,15 +924,3 @@ export const newLabelDefault = (id, nombre, tipo) => {
   };
   return res;
 };
-
-function handleDateChange(value) {
-  const yyyy = value.getFullYear();
-  let mm = value.getMonth() + 1;
-  let dd = value.getDate();
-
-  if (dd < 10) dd = `0${dd}`;
-  if (mm < 10) mm = `0${mm}`;
-
-  const date = `${dd}/${mm}/${yyyy}`;
-  return date;
-}

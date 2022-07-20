@@ -22,7 +22,13 @@ export const LabelEditorSlice = createSlice({
         ejemplo de seteo de datos : replaceLE(['showNutritionFacts', true])
         
         */
-      state[action.payload[0]] = action.payload[1];
+
+      // state[action.payload[0]] = action.payload[1]; no estaba cambiando de estado el reducer. Aplicado reglas eslint
+      const [payload0, payload1] = action.payload;
+
+      const newState = { ...state };
+      newState[payload0] = payload1;
+      return newState;
     }
   }
 });

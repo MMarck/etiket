@@ -6,13 +6,22 @@ import React from 'react';
 import { replace, erase, loadLabel } from '../../reducers/etiquetaSlice';
 import { replaceLE } from '../../reducers/LabelEditorSlice';
 import { pathIcons, backendURL } from '../../config/constants';
-import { withRouter } from '../../tools/withRouter';
+import withRouter from '../../tools/withRouter';
 import request from '../../tools/ApiSetup';
 import PrototypeFront from '../../components/PrototypeFront/PrototypeFront';
 import PrototypeBack from '../../components/PrototypeBack/PrototypeBack';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import './LabelEditor.css';
 import { setPosition } from '../../tools/Statefunctions';
+
+const resetElementPosition = () => {
+  setPosition('nombreProducto');
+  setPosition('pesosContainer');
+  setPosition('marca');
+  setPosition('alcohol');
+  setPosition('ingPos');
+  setPosition('algPos');
+};
 
 const mapStateToProps = (state) => ({
   etiqueta: state.etiqueta,
@@ -29,9 +38,7 @@ class LabelEditor extends React.Component {
     super(props);
     this.componentRef = React.createRef();
     this.state = {
-      accessToken: Cookies.get('accessToken') || '',
-      refreshToken: Cookies.get('refreshToken') || '',
-      zoom: 1
+      accessToken: Cookies.get('accessToken') || ''
     };
     this.zoomIn = this.zoomIn.bind(this);
     this.zoomOut = this.zoomOut.bind(this);
@@ -220,25 +227,16 @@ class LabelEditor extends React.Component {
     }
   }
 
-  resetElementPosition() {
-    setPosition('nombreProducto');
-    setPosition('pesosContainer');
-    setPosition('marca');
-    setPosition('alcohol');
-    setPosition('ingPos');
-    setPosition('algPos');
-  }
-
   render() {
     return (
       <div id="masterContainer">
         <Sidebar />
         <div id="LabelEditorContainer">
-          <Link to="/misEtiquetas" style={{ width: 'fit-content' }}>
-            <img src={`${pathIcons}back.png`} alt="Regresar" className="backBtn " />
-          </Link>
-          <div className="d-flex flex-column justify-content-center align-items-center">
-            <h5 className="paneTitleProject">{this.props.etiqueta.nombreProyecto}</h5>
+          <div className="d-flex  justify-content-start align-items-center gap-4">
+            <Link to="/misEtiquetas" style={{ width: 'fit-content' }}>
+              <img src={`${pathIcons}back.png`} alt="Regresar" className="backBtn " />
+            </Link>
+            <h5 id="projectName">{this.props.etiqueta.nombreProyecto}</h5>
           </div>
 
           <div id="PreviewContainer">
@@ -250,9 +248,10 @@ class LabelEditor extends React.Component {
 
           <div className="d-flex flex-column justify-content-center align-items-center gap-2">
             <span
+              role="presentation"
               onClick={() => {
                 this.props.erase();
-                this.resetElementPosition();
+                resetElementPosition();
               }}
               style={{ cursor: 'pointer' }}
               className="p-2">

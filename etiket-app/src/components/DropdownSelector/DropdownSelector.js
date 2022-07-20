@@ -23,12 +23,12 @@ function DropdownSelector({ title, items = [] }) {
     return false;
   }
 
-  function getItemSelected() {
-    if (selection.length === 0) {
-      return { title };
-    }
-    return selection[0].value;
-  }
+  // function getItemSelected() {
+  //   if (selection.length === 0) {
+  //    return { title };
+  //  }
+  //  return selection[0].value;
+  // }
 
   return (
     <div className="ddSelector">

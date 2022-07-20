@@ -1,10 +1,11 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { withRouter } from '../../tools/withRouter';
-import { backendURL } from '../../config/constants.js';
+import { backendURL } from '../../config/constants';
 import './LoginForm.css';
+
 
 /**
  * Formulario de inicio de sesion
@@ -29,10 +30,13 @@ function LoginForm() {
     axiosLogin
       .post(`${backendURL}UsersDB/login`, jsonData)
       .then((response) => {
+        console.log(response)
         handleCookies(response.data.accessToken, response.data.refreshToken);
         navigate('/');
       })
       .catch((error) => {
+        alterNotification('UserWarning', 'enable')
+
         if (error.response) {
           alert(error.response.data.error.message);
         } else if (error.request) {
@@ -49,6 +53,8 @@ function LoginForm() {
         <b>Ingresa a Solinal</b> Etiqueta
       </span>
 
+      <span id = 'UserWarning' className='warning'> Usuario o contraseña incorrecta </span>
+
       <form id="LoginForm" className="w-100" onSubmit={(e) => login(e)}>
         <label htmlFor="usuario">Usuario</label>
         <br />
@@ -59,7 +65,7 @@ function LoginForm() {
           type="text"
           name="correo"
           placeholder="Ingrese su usuario"
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {setEmail(e.target.value); alterNotification('UserWarning')}}
         />
 
         <br />
@@ -72,7 +78,7 @@ function LoginForm() {
           id="password"
           name="password"
           placeholder="Ingrese su contraseña"
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => {setPassword(e.target.value); alterNotification('UserWarning')}}
         />
 
         <br />
@@ -83,13 +89,17 @@ function LoginForm() {
 
       <br />
       <Link to="/login/resetPassword" className="w-100">
-        <button className="btn-dark darkButton w-100">¿Olvidé mi contraseña?</button>
+        <button type="button" className="btn-dark darkButton w-100">
+          ¿Olvidé mi contraseña?
+        </button>
       </Link>
 
       <hr />
 
       <Link to="/login/createAccount" className="w-100">
-        <button className="ligthButton w-100">Crear Usuario</button>
+        <button type="button" className="ligthButton w-100">
+          Crear Usuario
+        </button>
       </Link>
 
       <div className="signupButton google mx-auto mt-2 small">
@@ -109,4 +119,21 @@ function LoginForm() {
   );
 }
 
-export default withRouter(LoginForm);
+export default LoginForm;
+
+
+/**
+ * Function to set/unset classnames on text to control 
+ * notification notificacion
+ * @param {String} id text 
+ * @param {String} action to set the atributes pass "enable", to un set pass ''
+ */
+const alterNotification = (id, action)=>{
+  var warning = document.getElementById(id)
+  if (action == 'enable'){
+    warning.className = 'warning warningActivated'
+  }
+  else{
+    warning.className = 'warning'
+  }
+}

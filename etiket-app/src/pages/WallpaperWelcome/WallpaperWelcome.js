@@ -25,7 +25,9 @@ export default function WallPaperWelcome() {
       </span>
 
       <Link to="/misEtiquetas">
-        <button className="btn btn-dark">CREAR ETIQUETA</button>
+        <button className="btn btn-dark" type="button">
+          CREAR ETIQUETA
+        </button>
       </Link>
     </div>
   );

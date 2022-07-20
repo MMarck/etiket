@@ -1,8 +1,9 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import axios from 'axios';
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { backendURL } from '../../config/constants.js';
-import { withRouter } from '../../tools/withRouter';
+import { backendURL } from '../../config/constants';
+import withRouter from '../../tools/withRouter';
 import './CreateAccount.css';
 
 /**
@@ -67,6 +68,46 @@ class CreateAccount extends Component {
     }
   }
 
+  handleInput(evt) {
+    const value = evt.target.value;
+
+    const rules = {
+      minimunReg : /^.{6,}$/,
+      upperReg: /^(?=.*?[A-Z]).*$/,
+      alphaReg: /^(?=.*?[a-z,0-9]).*$/,
+      completeRuleRegex: /^(?=.{6,}$)(?=.*?[a-z,0-9])(?=.*?[A-Z]).*$/
+    }
+
+    //validate each rule declare on html document 
+    Object.keys(rules).forEach((keyRule) => {
+      updateCheckRequirements(rules, keyRule, value)
+    })
+
+    //validate the password inpunt and setting a effect 
+    updateInputValidation(rules.completeRuleRegex ,value)
+  }
+
+  checkInputConfirm(evt) {
+    const warning = document.getElementById('passwordWarning')
+    const p1 = document.getElementById("password");
+    const p2 = evt.target
+
+    if (p1.value != p2.value){
+      evt.target.classList.add("invalid");
+      evt.target.classList.remove("valid");
+      warning.classList.add('warningActivated')
+    }
+    else{
+      evt.target.classList.add("valid");
+      evt.target.classList.remove("invalid");
+      warning.classList.remove('warningActivated')
+    }
+  }
+
+
+
+
+
   render() {
     return (
       <div className="d-flex flex-column w-50 small">
@@ -94,6 +135,7 @@ class CreateAccount extends Component {
           <br />
           <input
             value={this.state.password}
+            onInput={(e)=> this.handleInput(e)}
             onChange={(e) => this.handleChange(e, 'password')}
             className="inputText mb-4"
             type="password"
@@ -101,6 +143,39 @@ class CreateAccount extends Component {
             name="password"
             placeholder="Ingrese su contraseña"
           />
+
+          <input
+            className="inputText mb-4"
+            type="password"
+            placeholder="Confirme su contraseña"
+            id="passwordConfirmation" 
+            onInput={(e)=>this.checkInputConfirm(e)} 
+          />
+
+          <span id = 'passwordWarning' className='warning d-flex justify-content-center'> 
+            Las constraseñas no coinciden 
+          </span>
+
+          <div id="PasswordRequirements">
+            <span id = "minimunReg">
+              <div className="check d-none"/>
+              <div className="cross"/>
+              mínimo 6 caracteres
+            </span>
+
+            <span id = "upperReg">
+              <div className="check d-none"/>
+              <div className="cross"/>
+              mínimo una letra en mayúscula
+            </span>
+
+            <span id = "alphaReg">
+              <div className="check d-none"/>
+              <div className="cross"/>
+              mínimo un caracter alfanumerico
+            </span>
+
+          </div>
 
           <div className="d-flex justify-content-center gap-2">
             <div className="d-flex flex-column">
@@ -141,7 +216,9 @@ class CreateAccount extends Component {
           <br />
           <br />
           <Link to="/login" className="w-100">
-            <button className="btn-dark darkButton cursor-pointer">Cancelar</button>
+            <button type="button" className="btn-dark darkButton cursor-pointer">
+              Cancelar
+            </button>
           </Link>
         </form>
 
@@ -166,3 +243,47 @@ class CreateAccount extends Component {
 }
 
 export default withRouter(CreateAccount);
+
+
+const updateCheckRequirements = (rules, keyRule, value) => {
+  
+  //skip rules without html node elements
+  if(!document.querySelector('#' + keyRule)){
+    return null
+  }
+
+  if (rules[keyRule].test(value)) {
+    var check = document.querySelector('#PasswordRequirements #' + keyRule + ' .check')
+    var cross = document.querySelector('#PasswordRequirements #' + keyRule + ' .cross')
+
+    check.setAttribute('class', 'check')
+    cross.setAttribute('class', 'cross d-none')
+  }
+  else{
+    var check = document.querySelector('#PasswordRequirements #' + keyRule + ' .check')
+    var cross = document.querySelector('#PasswordRequirements #' + keyRule + ' .cross')
+
+    check.setAttribute('class', 'check d-none')
+    cross.setAttribute('class', 'cross')
+  }
+}
+
+
+const updateInputValidation = (rule, value) =>{
+  var passwordInput = document.querySelector('input#password')
+  var initialClass = "inputText  mb-4"
+
+  if(!value){
+    passwordInput.setAttribute('class', initialClass) 
+  }else{
+    if (rule.test(value)) {
+      passwordInput.setAttribute('class', initialClass + ' valid') 
+    }
+    else{
+      passwordInput.setAttribute('class', initialClass + ' invalid') 
+    }
+  }
+
+
+
+}
