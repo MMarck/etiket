@@ -13,6 +13,8 @@ import './LabelEditor.css';
 import { setPosition } from '../../tools/Statefunctions';
 import { fabric } from 'fabric';
 import { withRouter } from '../../tools/withRouter';
+import { JSON_String } from '../../tools/Statefunctions';
+
 var FontFaceObserver = require('fontfaceobserver');
 
 
@@ -201,6 +203,9 @@ class LabelEditor extends Component {
   static getDerivedStateFromProps(props, state) {
     var label = formatLabelState(props.etiqueta);
 
+    console.log(props.etiqueta)
+    console.log(label)
+  
     /**
      * This seccion update each data from global state (state.canvas) 
      * to corresponding graphic element
@@ -561,6 +566,36 @@ const getInitialCanvas = (labelState) => {
 
 
 
+  var ingredients = new fabric.Textbox(label.joinedTextBoxes.material.ingredients, {
+    id: 'ingredients',
+    left: 0,
+    top: 0,
+    fill: 'black',
+    fontSize:10,
+    width: 250,
+    fontFamily: 'Local Helvetica',
+    editable: false,
+    lockRotation: true
+  });
+  var allergens = new fabric.Textbox(label.joinedTextBoxes.material.allergens, {
+    id: 'allergens',
+    left: 0,
+    top: 30,
+    fill: 'black',
+    fontSize:10,
+    width: 250,
+    fontFamily: 'Local Helvetica',
+    editable: false,
+    lockRotation: true
+  });
+
+
+  var materialGroup = new fabric.Group([ingredients, allergens], {
+    left: 850,
+    top: 100,
+    id : 'infoPaperBound material'
+  }); 
+
   
 
   // ZOOM AND PANNING
@@ -668,7 +703,16 @@ const getInitialCanvas = (labelState) => {
   }); 
 
   // SET ELEMENTS AND RETURN
-  cv.add(mainPaper, infoPaper, foodIdentity, brand, netWeight, drainedWeight, alcoholicStrength, productDataGroup, manufacturerGroup);
+  cv.add( mainPaper, 
+          infoPaper, 
+          foodIdentity, 
+          brand, 
+          netWeight, 
+          drainedWeight, 
+          alcoholicStrength, 
+          productDataGroup, 
+          manufacturerGroup,
+          materialGroup);
   return cv
 }
 
@@ -678,7 +722,6 @@ const getInitialCanvas = (labelState) => {
  * @returns new state
  */
  const formatLabelState = (label) => {
-  console.log(label.ingredientes)
   return {
     paper:{
       dimensions : {
@@ -704,7 +747,8 @@ const getInitialCanvas = (labelState) => {
         conservationForm: label.metodoConservacion.value? 'Metodo de conservacion: '+ label.conservacionUn.value + ' ' + label.metodoConservacion.value : ''
       },
       material:{
-        ingredients: []
+        ingredients: 'INGREDIENTES: \n' + JSON_String(label.ingredientes, 'ing'),
+        allergens: label.alergenos.length > 0 ? 'CONTIENE ' + JSON_String(label.alergenos, 'value') : ''
       },
       manufacturer:{
         address: label.direccion
