@@ -49,7 +49,22 @@ var LabelsSchema = new Schema({
 	},
 	"lote":String,
 	"addInfo":[{"title":String, "cont":String}],
-	"direccion":[{"value":String, "label":String}],
+	"direccion":{ 
+		"producer": {
+			"ddMenu":{"value":String, "label":String},
+			"description":String
+		},
+		"importer": {
+			"state": Boolean, 
+			"ddMenu":{"value":String, "label":String},
+			"description":String
+		},
+		"marketer": {
+			"state": Boolean, 
+			"ddMenu":{"value":String, "label":String},
+			"description":String
+		}
+	},
 	"instrucciones":[String],
 	"pvp":String,
 	"posicion":{

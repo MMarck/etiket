@@ -25,6 +25,18 @@ const mapDispatchToProps = () => ({
   replaceLE
 });
 class LabelEditor extends React.Component {
+  constructor(props) {
+    super(props);
+    this.componentRef = React.createRef();
+    this.state = {
+      accessToken: Cookies.get('accessToken') || '',
+      refreshToken: Cookies.get('refreshToken') || '',
+      zoom: 1
+    };
+    this.zoomIn = this.zoomIn.bind(this);
+    this.zoomOut = this.zoomOut.bind(this);
+  }
+
   componentDidMount() {
     const header = {
       Authorization: `Bearer ${this.state.accessToken}`
@@ -49,18 +61,6 @@ class LabelEditor extends React.Component {
           console.log('Error', error.message);
         }
       });
-  }
-
-  constructor(props) {
-    super(props);
-    this.componentRef = React.createRef();
-    this.state = {
-      accessToken: Cookies.get('accessToken') || '',
-      refreshToken: Cookies.get('refreshToken') || '',
-      zoom: 1
-    };
-    this.zoomIn = this.zoomIn.bind(this);
-    this.zoomOut = this.zoomOut.bind(this);
   }
 
   /*
@@ -119,6 +119,7 @@ class LabelEditor extends React.Component {
       addInfo: this.props.etiqueta.addInfo,
       direccion: this.props.etiqueta.direccion,
       instrucciones: this.props.etiqueta.instrucciones,
+      pvp: this.props.etiqueta.pvp,
       posicion: {
         pesos: this.props.etiqueta.pesosPos,
         marca: this.props.etiqueta.marcaPos,

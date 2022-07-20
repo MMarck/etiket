@@ -126,6 +126,24 @@ i {
   flex-shrink: 0;
 }
 
+.numberEmpaqueInput{
+  width: 6.5vw;
+  flex-shrink: 0;
+}
+
+.textAreaInput{
+  border: 2px solid var(--Sblack);
+  background-color: var(--Sblack);
+  padding-left: 10px;
+  padding-top: 0.2vh;
+  padding-bottom: 0.2vh;
+  border-radius: 5px;
+  font-size: 15px;
+  width: 100%;
+  color: white;
+  outline: none;
+}
+
 #sbAncho,
 #sbAltura {
   display: flex;
@@ -187,6 +205,15 @@ i {
   height: 25px;
   width: 25px;
   background-color: #eee;
+}
+
+.customCheckbox { 
+  align-self: flex-end; 
+  margin-bottom: 1vh;
+}
+
+.hiddenCheckbox{
+  visibility: hidden;
 }
 
 /* On mouse-over, add a grey background color */
@@ -521,10 +548,6 @@ Ingredientes
 
 /* Información Adicional*/
 
-#info{
-
-}
-
 #infoCont{
   display: flex;
   flex-direction: column;
@@ -559,4 +582,30 @@ Ingredientes
 
 .removeInfoBtn:hover{
   color:var(--Sgreen)
+}
+
+/* Address CSS*/
+
+#dirCont{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5vh;
+}
+
+.dirItem{
+  display: flex;
+  gap: 0.5vw;
+}
+
+/* pvp CSS*/
+
+#pvpCont{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5vh;
+}
+
+#pvpInputDiv{
+  display: flex;
+  gap: 0.5vw;
 }

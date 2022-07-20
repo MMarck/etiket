@@ -26,7 +26,8 @@ class IngredientesModal extends Component {
 
   handleTextArea = () => this.setState((prevState) => ({ showTextArea: !prevState.showTextArea }));
 
-  handleFileInput = () => this.setState((prevState) => ({ showFileInput: !prevState.showFileInput }));
+  handleFileInput = () =>
+    this.setState((prevState) => ({ showFileInput: !prevState.showFileInput }));
 
   handleOptions = () => this.setState((prevState) => ({ showOptions: !prevState.showOptions }));
 
