@@ -30,10 +30,7 @@ import {
   pesosDrenados,
   unidadesAlcohol,
   alergenos,
-  backendURL,
-  producerLabels,
-  importerLabels,
-  marketerLabels
+  backendURL
   // eslint-disable-next-line import/no-duplicates
 } from '../../config/constants';
 
@@ -73,19 +70,10 @@ class Sidebar extends Component {
     }
   }
 
-  handleVerEmpaque(stateName) {
+  handleVerPaquete(stateName) {
     const payload = {
       stateName,
-      value: 'Ver Empaque'
-    };
-
-    this.props.replace(payload);
-  }
-
-  handleClearVerEmpaque(stateName) {
-    const payload = {
-      stateName,
-      value: ''
+      value: 'Ver Paquete'
     };
 
     this.props.replace(payload);
@@ -98,26 +86,6 @@ class Sidebar extends Component {
     };
 
     this.props.replace(payload);
-  }
-
-  handleAddressLabelChange(key, value) {
-    const prePayload = JSON.parse(JSON.stringify(this.props.etiqueta.direccion));
-    prePayload[key].ddMenu = value;
-    this.handleStateChange('direccion', prePayload);
-  }
-
-  handleAddressDescChange(key, value) {
-    const prePayload = JSON.parse(JSON.stringify(this.props.etiqueta.direccion));
-    prePayload[key].description = value;
-    this.handleStateChange('direccion', prePayload);
-  }
-
-  /* NO USAR CON PARÁMETRO PRODUCER */
-
-  handleAddressStateChange(key) {
-    const prePayload = JSON.parse(JSON.stringify(this.props.etiqueta.direccion));
-    prePayload[key].state = !prePayload[key].state;
-    this.handleStateChange('direccion', prePayload);
   }
 
   handleAddInfo(index, key, value) {
@@ -196,10 +164,6 @@ class Sidebar extends Component {
       .catch((error) => {
         alert(error);
       });
-  }
-
-  handleInstructions(e) {
-    this.handleStateChange('instrucciones', e);
   }
 
   render() {
@@ -598,7 +562,7 @@ class Sidebar extends Component {
                     <input
                       name="vidaUtil"
                       value={
-                        this.props.etiqueta.vidaUtil === 'Ver Empaque'
+                        this.props.etiqueta.vidaUtil === 'Ver Paquete'
                           ? ''
                           : this.props.etiqueta.vidaUtil
                       }
@@ -607,7 +571,6 @@ class Sidebar extends Component {
                       onChange={(e) => this.handleStateChange('vidaUtil', e.target.value)}
                       className="form-control gRInput numberInput"
                       id="vidaUtil"
-                      disabled={this.props.etiqueta.vidaUtil === 'Ver Empaque' ? 'disabled' : ''}
                     />
                     <Select
                       className="ddMenu"
@@ -615,7 +578,6 @@ class Sidebar extends Component {
                       options={unidadesDias}
                       onChange={(e) => this.handleStateChange('vidaUtilUn', e)}
                       defaultValue={this.props.etiqueta.vidaUtil}
-                      isDisabled={this.props.etiqueta.vidaUtil === 'Ver Empaque' ? 'disabled' : ''}
                     />
                   </div>
                   <div id="elab" className="vidaSubCont">
@@ -625,17 +587,15 @@ class Sidebar extends Component {
                       options={fabricaciones}
                       onChange={(e) => this.handleStateChange('fabricacionUn', e)}
                       defaultValue={this.props.etiqueta.fabricacionUn}
-                      isDisabled={this.props.etiqueta.vidaUtil === 'Ver Empaque' ? 'disabled' : ''}
                     />
                     <DatePicker
                       format="d/M/yyyy"
                       onChange={(e) => this.handleDateChange('fabricacion', e)}
                       value={
-                        this.props.etiqueta.fabricacion === 'Ver Empaque'
+                        this.props.etiqueta.fabricacion === 'Ver Paquete'
                           ? ''
                           : this.getDateObject(this.props.etiqueta.fabricacion)
                       }
-                      disabled={this.props.etiqueta.vidaUtil === 'Ver Empaque'}
                     />
                   </div>
                   <div id="cadu" className="vidaSubCont">
@@ -645,45 +605,33 @@ class Sidebar extends Component {
                       options={caducidades}
                       onChange={(e) => this.handleStateChange('caducacionUn', e)}
                       defaultValue={this.props.etiqueta.caducacionUn}
-                      isDisabled={this.props.etiqueta.vidaUtil === 'Ver Empaque' ? 'disabled' : ''}
                     />
                     <DatePicker
                       format="d/M/yyyy"
                       onChange={(e) => this.handleDateChange('caducacion', e)}
                       value={
-                        this.props.etiqueta.caducacion === 'Ver Empaque'
+                        this.props.etiqueta.caducacion === 'Ver Paquete'
                           ? ''
                           : this.getDateObject(this.props.etiqueta.caducacion)
                       }
-                      disabled={this.props.etiqueta.vidaUtil === 'Ver Empaque'}
                     />
                   </div>
-                  <div style={{ display: 'flex', gap: '0.5vw' }}>
-                    <input
-                      defaultChecked={this.props.etiqueta.vidaUtil === 'Ver Empaque' ? 'True' : ''}
-                      type="radio"
-                      id="verEmpaque"
-                      name="vidaUtil"
-                      onClick={() => {
-                        this.handleVerEmpaque('vidaUtil');
-                        this.handleVerEmpaque('fabricacion');
-                        this.handleVerEmpaque('caducacion');
-                      }}
-                    />
-                    <label>Rellenar con &quot;VER EMPAQUE&quot;</label>
-                    <input
-                      defaultChecked={this.props.etiqueta.vidaUtil !== 'Ver Empaque' ? 'True' : ''}
-                      type="radio"
-                      id="clearEmpaque"
-                      name="vidaUtil"
-                      onClick={() => {
-                        this.handleClearVerEmpaque('vidaUtil');
-                        this.handleClearVerEmpaque('fabricacion');
-                        this.handleClearVerEmpaque('caducacion');
-                      }}
-                    />
-                    <label>Rellenar con información personalizada</label>
-                  </div>
+                  <button
+                    type="button"
+                    className="darkButton-twhite"
+                    style={{
+                      width: 'fit-content',
+                      height: 'fit-content',
+                      fontSize: '0.8em',
+                      margin: 'auto'
+                    }}
+                    onClick={() => {
+                      this.handleVerPaquete('vidaUtil');
+                      this.handleVerPaquete('fabricacion');
+                      this.handleVerPaquete('caducacion');
+                    }}>
+                    PONER &quot;VER PAQUETE&quot;
+                  </button>
                 </div>
               </div>
             }
@@ -750,31 +698,22 @@ class Sidebar extends Component {
                         this.handleStateChange('lote', e.target.value);
                       }}
                       className="gRInput"
-                      disabled={this.props.etiqueta.lote === 'Ver Empaque' ? 'disabled' : ''}
                     />
                   </div>
-                  <div style={{ display: 'flex', gap: '0.5vw' }}>
-                    <input
-                      defaultChecked={this.props.etiqueta.lote === 'Ver Empaque' ? 'True' : ''}
-                      type="radio"
-                      className="verEmpaque"
-                      name="lote"
-                      onClick={() => {
-                        this.handleVerEmpaque('lote');
-                      }}
-                    />
-                    <label>Rellenar con &quot;VER EMPAQUE&quot;</label>
-                    <input
-                      defaultChecked={this.props.etiqueta.lote !== 'Ver Empaque' ? 'True' : ''}
-                      type="radio"
-                      className="clearEmpaque"
-                      name="lote"
-                      onClick={() => {
-                        this.handleClearVerEmpaque('lote');
-                      }}
-                    />
-                    <label>Rellenar con información personalizada</label>
-                  </div>
+                  <button
+                    type="button"
+                    className="darkButton-twhite"
+                    style={{
+                      width: 'fit-content',
+                      height: 'fit-content',
+                      fontSize: '0.8em',
+                      margin: 'auto'
+                    }}
+                    onClick={() => {
+                      this.handleVerPaquete('lote');
+                    }}>
+                    PONER &quot;VER PAQUETE&quot;
+                  </button>
                 </div>
               </div>
             }
@@ -804,7 +743,6 @@ class Sidebar extends Component {
                           this.handleAddInfo(index, 'title', e.target.value);
                         }}
                         className="gRInput"
-                        placeholder="Título"
                       />
                       <input
                         name={`infoItemCont${index}`}
@@ -814,7 +752,6 @@ class Sidebar extends Component {
                           this.handleAddInfo(index, 'cont', e.target.value);
                         }}
                         className="gRInput"
-                        placeholder="Contenido"
                       />
                       <button
                         className="removeInfoBtn"
@@ -836,183 +773,14 @@ class Sidebar extends Component {
             alt="pin"
             dataTip="Dirección del fabricante"
             isDisabled={isDisabled}
-            content={
-              <div id="dir">
-                <div className="sidebarContHeader">
-                  <p className="sidebarTitle">Dirección del fabricante</p>
-                  <p className="sidebarSubTitle">
-                    Debe indicarse el nombre del fabricante, envasador o propietario de la marca. En
-                    caso de productos importados además debe indicarse el nombre y la dirección del
-                    importador y/o distribuidor o representante legal del producto.
-                  </p>
-                </div>
-                <div id="dirCont">
-                  <div className="dirItem">
-                    <div className="customCheckbox hiddenCheckbox">
-                      <CustomCheckbox isChecked={this.props.etiqueta.direccion.marketer.state} />
-                    </div>
-                    <Select
-                      className="ddMenu"
-                      defaultValue={this.props.etiqueta.direccion.producer.ddMenu}
-                      styles={ddNormalStyle}
-                      options={producerLabels}
-                      onChange={(e) => {
-                        this.handleAddressLabelChange('producer', e);
-                      }}
-                    />
-                    <input
-                      value={this.props.etiqueta.direccion.producer.description}
-                      type="text"
-                      onChange={(e) => {
-                        this.handleAddressDescChange('producer', e.target.value);
-                      }}
-                      className="gRInput"
-                    />
-                  </div>
-                  <div className="dirItem">
-                    <div
-                      id="importerCheckbox"
-                      className="customCheckbox"
-                      onChange={() => {
-                        this.handleAddressStateChange('importer');
-                      }}>
-                      <CustomCheckbox isChecked={this.props.etiqueta.direccion.importer.state} />
-                    </div>
-                    <Select
-                      className="ddMenu"
-                      defaultValue={this.props.etiqueta.direccion.importer.ddMenu}
-                      styles={ddNormalStyle}
-                      options={importerLabels}
-                      onChange={(e) => {
-                        this.handleAddressLabelChange('importer', e);
-                      }}
-                      isDisabled={!this.props.etiqueta.direccion.importer.state}
-                    />
-                    <input
-                      value={this.props.etiqueta.direccion.importer.description}
-                      type="text"
-                      onChange={(e) => {
-                        this.handleAddressDescChange('importer', e.target.value);
-                      }}
-                      className="gRInput"
-                      disabled={!this.props.etiqueta.direccion.importer.state}
-                    />
-                  </div>
-                  <div className="dirItem">
-                    <div
-                      id="importerCheckbox"
-                      className="customCheckbox"
-                      onChange={() => {
-                        this.handleAddressStateChange('marketer');
-                      }}>
-                      <CustomCheckbox isChecked={this.props.etiqueta.direccion.marketer.state} />
-                    </div>
-                    <Select
-                      className="ddMenu"
-                      defaultValue={this.props.etiqueta.direccion.marketer.ddMenu}
-                      styles={ddNormalStyle}
-                      options={marketerLabels}
-                      isDisabled={!this.props.etiqueta.direccion.marketer.state}
-                      onChange={(e) => {
-                        this.handleAddressLabelChange('marketer', e);
-                      }}
-                    />
-                    <input
-                      value={this.props.etiqueta.direccion.marketer.description}
-                      type="text"
-                      onChange={(e) => {
-                        this.handleAddressDescChange('marketer', e.target.value);
-                      }}
-                      className="gRInput"
-                      disabled={!this.props.etiqueta.direccion.marketer.state}
-                    />
-                  </div>
-                </div>
-              </div>
-            }
+            // content={<></>}
           />
           <SidebarItem
             icon="instructions.png"
             alt="instructions"
             dataTip="Instrucciones de uso"
             isDisabled={isDisabled}
-            content={
-              <div>
-                <div className="sidebarContHeader">
-                  <p className="sidebarTitle">Instrucciones de uso</p>
-                  <p className="sidebarSubTitle">
-                    Si tu producto necesita instrucciones como por ejemplo la reconstitución,
-                    utilice este espacio para agregar instruciones de uso para asegurar una correcta
-                    utilización del alimento.
-                  </p>
-                </div>
-                <div id="instCont">
-                  <textarea
-                    className="textAreaInput"
-                    onChange={(e) => {
-                      this.handleInstructions(e.target.value);
-                    }}
-                    value={this.props.etiqueta.instrucciones}
-                  />
-                </div>
-              </div>
-            }
-          />
-          <SidebarItem
-            icon="precio.png"
-            alt="precio"
-            dataTip="Precio"
-            isDisabled={isDisabled}
-            content={
-              <div>
-                <div className="sidebarContHeader">
-                  <p className="sidebarTitle">Precio de venta al público</p>
-                  <p className="sidebarSubTitle">
-                    Es ley declarar el precio de venta al público de tu producto. Si no tienes
-                    establecido un precio, activa la casilla &quot;Ver empaque&quot;:
-                  </p>
-                </div>
-                <div id="pvpCont">
-                  <div id="pvpInputDiv">
-                    <label className="sbLabel">P.V.P :</label>
-                    <input
-                      name="precio"
-                      value={this.props.etiqueta.pvp}
-                      type="text"
-                      onChange={(e) => {
-                        this.handleStateChange('pvp', e.target.value);
-                      }}
-                      className="gRInput numberEmpaqueInput"
-                      onKeyPress={this.numberFilter}
-                      disabled={this.props.etiqueta.pvp === 'Ver Empaque' ? 'True' : ''}
-                    />
-                  </div>
-
-                  <div style={{ display: 'flex', gap: '0.5vw' }}>
-                    <input
-                      defaultChecked={this.props.etiqueta.pvp === 'Ver Empaque' ? 'True' : ''}
-                      type="radio"
-                      className="verEmpaque"
-                      name="pvp"
-                      onClick={() => {
-                        this.handleVerEmpaque('pvp');
-                      }}
-                    />
-                    <label>Rellenar con &quot;VER EMPAQUE&quot;</label>
-                    <input
-                      defaultChecked={this.props.etiqueta.pvp !== 'Ver Empaque' ? 'True' : ''}
-                      type="radio"
-                      className="clearEmpaque"
-                      name="pvp"
-                      onClick={() => {
-                        this.handleClearVerEmpaque('pvp');
-                      }}
-                    />
-                    <label>Rellenar con información personalizada</label>
-                  </div>
-                </div>
-              </div>
-            }
+            // content={<></>}
           />
           <SidebarItem
             icon="mensajes-declarados.png"

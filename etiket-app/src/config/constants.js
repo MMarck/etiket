@@ -409,23 +409,6 @@ export const alergenos = [
   { value: 'MACADAMIA', label: 'Macadamia' }
 ];
 
-/* Labels para dirección del fabricante */
-export const producerLabels = [
-  { value: 'Elaborado por', label: 'Elaborado por' },
-  { value: 'Fabricado por', label: 'Fabricado por' },
-  { value: 'Manufacturado por', label: 'Manufacturado por' }
-];
-
-export const importerLabels = [
-  { value: 'Importado por', label: 'Importado por' },
-  { value: 'Traído por', label: 'Traído por' }
-];
-
-export const marketerLabels = [
-  { value: 'Comercializado por', label: 'Comercializado por' },
-  { value: 'Distribuido por', label: 'Distribuido por' }
-]
-
 export const ddMultipleStyle = {
   clearIndicator: (provided, state) => ({
     ...provided,
@@ -857,22 +840,7 @@ export const newLabelDefault = (id, nombre, tipo) => {
     },
     lote: '',
     addInfo: [],
-    direccion: {
-      producer: {
-        ddMenu: { value: 'Elaborado por', label: 'Elaborado por' },
-        description: ''
-      },
-      importer: {
-        state: false,
-        ddMenu: { value: 'Importado por', label: 'Importado por' },
-        description: ''
-      },
-      marketer: {
-        state: false,
-        ddMenu: { value: 'Comercializado por', label: 'Comercializado por' },
-        description: ''
-      }
-    },
+    direccion: [],
     instrucciones: '',
     posicion: {
       pesos: {

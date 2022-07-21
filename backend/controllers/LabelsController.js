@@ -117,22 +117,7 @@ module.exports = {
                 valor:"",
                 unidad:{"label": "Fecha de caducacion", "value": "Fecha de caducacion"}
             },
-            direccion: { 
-                "producer": {
-                    "ddMenu":{"value":"Elaborado por", "label":"Elaborado por"},
-                    "description":""
-                },
-                "importer": {
-                    "state": false, 
-                    "ddMenu":{"value":"Importado por", "label":"Importado por"},
-                    "description":""
-                },
-                "marketer": {
-                    "state": false, 
-                    "ddMenu":{"value":"Comercializado por", "label":"Comercializado por"},
-                    "description":""
-                }
-            },
+            direccion: [],
             instrucciones: [],
             lote: "",
             addInfo:[],
@@ -228,8 +213,6 @@ module.exports = {
                 });
             }
 
-            
-
             label.country = req.body.country;
 			label.nombreProyecto = req.body.nombreProyecto;
             label.tipo = req.body.tipo;
@@ -248,7 +231,7 @@ module.exports = {
             label.lote=req.body.lote;
             label.addInfo=req.body.addInfo;
             label.direccion = req.body.direccion;
-            label.instrucciones = req.body.instrucciones.split("\n");
+            label.instrucciones = req.body.instrucciones;
             label.pvp = req.body.pvp;
             label.posicion = req.body.posicion;
             label.TablaNutri =req.body.TablaNutri;
