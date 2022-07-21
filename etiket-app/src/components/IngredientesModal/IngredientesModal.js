@@ -20,6 +20,19 @@ class IngredientesModal extends Component {
     };
   }
 
+  handleClose = () => this.setState({ show: false });
+
+  handleShow = () => this.setState({ show: true });
+
+  handleTextArea = () => this.setState((prevState) => ({ showTextArea: !prevState.showTextArea }));
+
+  handleFileInput = () =>
+    this.setState((prevState) => ({ showFileInput: !prevState.showFileInput }));
+
+  handleOptions = () => this.setState((prevState) => ({ showOptions: !prevState.showOptions }));
+
+  handleIngText = (e) => this.setState({ ingTextForm: e });
+
   handleStateChange(stateName, value) {
     const payload = {
       stateName,
@@ -121,17 +134,6 @@ class IngredientesModal extends Component {
   }
 
   render() {
-    const handleClose = () => this.setState({ show: false });
-    const handleShow = () => this.setState({ show: true });
-
-    const handleTextArea = () => this.setState((prevState) => ({ showTextArea: !prevState.value }));
-    const handleFileInput = () =>
-      this.setState((prevState) => ({ showFileInput: !prevState.value }));
-
-    const handleOptions = () => this.setState((prevState) => ({ showOptions: !prevState.value }));
-
-    const handleIngText = (e) => this.setState({ ingTextForm: e });
-
     return (
       <>
         <button
@@ -143,14 +145,14 @@ class IngredientesModal extends Component {
             fontSize: '0.8em',
             margin: 'auto'
           }}
-          onClick={handleShow}>
+          onClick={this.handleShow}>
           INGRESAR DATOS
         </button>
 
         <Modal
           id="IngredientesModal"
           show={this.state.show}
-          onHide={handleClose}
+          onHide={this.handleClose}
           size="l"
           centered
           style={{ fontSize: '0.8rem' }}>
@@ -160,8 +162,8 @@ class IngredientesModal extends Component {
                 tabIndex={0}
                 role="button"
                 onClick={() => {
-                  handleOptions();
-                  handleTextArea();
+                  this.handleOptions();
+                  this.handleTextArea();
                 }}>
                 <img src={`${pathIcons}back.png`} alt="Regresar" className="backBtn backBtnIng" />
               </div>
@@ -171,8 +173,8 @@ class IngredientesModal extends Component {
                   tabIndex={0}
                   role="button"
                   onClick={() => {
-                    handleOptions();
-                    handleTextArea();
+                    this.handleOptions();
+                    this.handleTextArea();
                   }}>
                   <img src={`${pathIcons}back.png`} alt="Regresar" className="backBtn backBtnIng" />
                 </div>
@@ -192,8 +194,8 @@ class IngredientesModal extends Component {
                     margin: 'auto'
                   }}
                   onClick={() => {
-                    handleOptions();
-                    handleTextArea();
+                    this.handleOptions();
+                    this.handleTextArea();
                   }}>
                   INGRESAR DATOS POR TEXTO
                 </button>
@@ -207,8 +209,8 @@ class IngredientesModal extends Component {
                     margin: 'auto'
                   }}
                   onClick={() => {
-                    handleOptions();
-                    handleFileInput();
+                    this.handleOptions();
+                    this.handleFileInput();
                   }}>
                   INGRESAR DATOS POR ARCHIVO CSV
                 </button>
@@ -224,7 +226,7 @@ class IngredientesModal extends Component {
                     </p>
                     <textarea
                       id="ingTextArea"
-                      onChange={(e) => handleIngText(e.target.value)}
+                      onChange={(e) => this.handleIngText(e.target.value)}
                       rows="4"
                       cols="50"
                       placeholder="Ingredientes, Porcentaje"
@@ -238,7 +240,7 @@ class IngredientesModal extends Component {
                         fontSize: '0.8em',
                         margin: 'auto'
                       }}
-                      onClick={handleShow}>
+                      onClick={this.handleShow}>
                       PROCESAR TEXTO
                     </button>
                   </form>

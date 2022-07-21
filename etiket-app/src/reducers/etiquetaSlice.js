@@ -35,8 +35,23 @@ const InitialState = {
   caducacionUn: { label: 'Fecha de caducación', value: '' },
   lote: '',
   addInfo: [],
-  direccion: [],
-  instrucciones: [],
+  direccion: {
+    producer: {
+      ddMenu: { value: 'Elaborado por', label: 'Elaborado por' },
+      description: ''
+    },
+    importer: {
+      state: false,
+      ddMenu: { value: 'Importado por', label: 'Importado por' },
+      description: ''
+    },
+    marketer: {
+      state: false,
+      ddMenu: { value: 'Comercializado por', label: 'Comercializado por' },
+      description: ''
+    }
+  },
+  instrucciones: '',
   pvp: '',
   /* Posiciones de los diferentes cuadros */
   nombreProductoPos: { x: '', y: '' },
@@ -95,6 +110,8 @@ export const etiquetaSlice = createSlice({
     },
     loadLabel: (state, action) => {
       const newState = { ...state };
+      const instCopy = JSON.parse(JSON.stringify(action.payload.instrucciones));
+      const instRes = instCopy.join('\n');
       newState.nombreProyecto = action.payload.nombreProyecto;
       newState.nombreProducto = action.payload.nombreEtiqueta;
       newState.country = action.payload.country;
@@ -126,7 +143,7 @@ export const etiquetaSlice = createSlice({
       newState.lote = action.payload.lote;
       newState.addInfo = action.payload.addInfo;
       newState.direccion = action.payload.direccion;
-      newState.instrucciones = action.payload.instrucciones;
+      newState.instrucciones = instRes;
       newState.pvp = action.payload.pvp;
       newState.nombreProductoPos = action.payload.posicion.nombre;
       newState.marcaPos = action.payload.posicion.marca;
