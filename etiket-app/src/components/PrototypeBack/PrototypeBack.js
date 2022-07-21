@@ -77,6 +77,7 @@ class PrototypeBack extends Component {
     const conservacionUn = this.props.etiqueta.conservacionUn.value;
     const { vidaUtil } = this.props.etiqueta;
     const vidaUtilUn = this.props.etiqueta.vidaUtilUn.value;
+    const { direccion } = this.props.etiqueta;
     const { instrucciones } = this.props.etiqueta;
     const { fabricacion } = this.props.etiqueta;
     const fabricacionUn = this.props.etiqueta.fabricacionUn.value;
@@ -108,7 +109,12 @@ class PrototypeBack extends Component {
               ''
             )}
 
-            {vidaUtil || fabricacionUn || caducacionUn || conservacionUn || instrucciones ? (
+            {vidaUtil ||
+            fabricacionUn ||
+            caducacionUn ||
+            conservacionUn ||
+            direccion ||
+            instrucciones ? (
               <Draggable bounds="#PrototypeBack" scale={this.props.LabelEditor.zoom}>
                 <div
                   onMouseLeave={() => {
@@ -130,7 +136,17 @@ class PrototypeBack extends Component {
                   <span>
                     {vidaUtil ? (
                       <>
-                        <b>Vida Util: </b> {vidaUtil} {vidaUtil === 'Ver Empaque' ? '' : vidaUtilUn}
+                        <b>Vida Util: </b> {vidaUtil} {vidaUtil === 'Ver Paquete' ? '' : vidaUtilUn}
+                      </>
+                    ) : (
+                      ''
+                    )}
+                  </span>
+
+                  <span>
+                    {direccion ? (
+                      <>
+                        <b>Dirección: </b> {direccion}
                       </>
                     ) : (
                       ''
@@ -210,6 +226,28 @@ class PrototypeBack extends Component {
                     {instrucciones ? (
                       <>
                         <b>Instrucciones: </b> {instrucciones}
+                      </>
+                    ) : (
+                      ''
+                    )}
+                  </span>
+                </div>
+              </Draggable>
+            ) : (
+              ''
+            )}
+
+            {direccion ? (
+              <Draggable bounds="#PrototypeBack" scale={this.props.LabelEditor.zoom}>
+                <div
+                  /* onMouseLeave={()=>{this.handleStateChange('ingPos', getPosition('ingPos'))}} */
+                  className="draggable-group-1 draggable-container"
+                  /* id='ingPos' */
+                >
+                  <span>
+                    {direccion ? (
+                      <>
+                        <b>Dirección: </b> {direccion}
                       </>
                     ) : (
                       ''
