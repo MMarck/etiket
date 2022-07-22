@@ -126,6 +126,8 @@ class LabelEditor extends React.Component {
       addInfo: this.props.etiqueta.addInfo,
       direccion: this.props.etiqueta.direccion,
       instrucciones: this.props.etiqueta.instrucciones,
+      pvp: this.props.etiqueta.pvp,
+      declarations: this.props.etiqueta.declarations,
       posicion: {
         pesos: this.props.etiqueta.pesosPos,
         marca: this.props.etiqueta.marcaPos,

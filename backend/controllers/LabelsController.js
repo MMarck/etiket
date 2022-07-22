@@ -122,6 +122,7 @@ module.exports = {
             lote: "",
             addInfo:[],
             pvp: "",
+            declarations:[],
             posicion:{
                 pesos:{
                     x:0,
@@ -233,6 +234,7 @@ module.exports = {
             label.direccion = req.body.direccion;
             label.instrucciones = req.body.instrucciones;
             label.pvp = req.body.pvp;
+            label.declarations = req.body.declarations;
             label.posicion = req.body.posicion;
             label.TablaNutri =req.body.TablaNutri;
 			
