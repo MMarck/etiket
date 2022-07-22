@@ -870,22 +870,7 @@ export const newLabelDefault = (id, nombre, tipo) => {
     },
     lote: '',
     addInfo: [],
-    direccion: {
-      producer: {
-        ddMenu: { value: 'Elaborado por', label: 'Elaborado por' },
-        description: ''
-      },
-      importer: {
-        state: false,
-        ddMenu: { value: 'Importado por', label: 'Importado por' },
-        description: ''
-      },
-      marketer: {
-        state: false,
-        ddMenu: { value: 'Comercializado por', label: 'Comercializado por' },
-        description: ''
-      }
-    },
+    direccion: [],
     instrucciones: '',
     posicion: {
       pesos: {
