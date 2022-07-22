@@ -740,7 +740,7 @@ const getInitialCanvas = (labelState) => {
         lifeTime: label.vidaUtil? label.vidaUtil + ' ' + label.vidaUtilUn.value: '',
         creationDate: label.fabricacion? label.fabricacionUn.value + ': ' + label.fabricacion : '',
         expirationDate: label.caducacion? label.caducacionUn.value + ': ' + label.caducacion : '',
-        batch: 'Lote: XXXXXXXXXX',
+        batch: label.lote? 'LOTE: '+ label.lote : '',
         pvp: 'PVP: XXX',
         conservationForm: label.metodoConservacion.value? 'Metodo de conservacion: '+ label.conservacionUn.value + ' ' + label.metodoConservacion.value : ''
       },
