@@ -67,6 +67,7 @@ var LabelsSchema = new Schema({
 	},
 	"instrucciones":[String],
 	"pvp":String,
+	"declarations":[String],
 	"posicion":{
 		"pesos":{
 			"x":String,

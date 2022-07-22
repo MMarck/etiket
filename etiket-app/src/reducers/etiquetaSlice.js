@@ -53,6 +53,7 @@ const InitialState = {
   },
   instrucciones: '',
   pvp: '',
+  declarations: [],
   /* Posiciones de los diferentes cuadros */
   nombreProductoPos: { x: '', y: '' },
   marcaPos: { x: '', y: '' },
@@ -145,6 +146,7 @@ export const etiquetaSlice = createSlice({
       newState.direccion = action.payload.direccion;
       newState.instrucciones = instRes;
       newState.pvp = action.payload.pvp;
+      newState.declarations = action.payload.declarations;
       newState.nombreProductoPos = action.payload.posicion.nombre;
       newState.marcaPos = action.payload.posicion.marca;
       newState.pesosPos = action.payload.posicion.pesos;

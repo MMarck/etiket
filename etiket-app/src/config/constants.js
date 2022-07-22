@@ -424,7 +424,7 @@ export const importerLabels = [
 export const marketerLabels = [
   { value: 'Comercializado por', label: 'Comercializado por' },
   { value: 'Distribuido por', label: 'Distribuido por' }
-]
+];
 
 export const ddMultipleStyle = {
   clearIndicator: (provided, state) => ({
@@ -780,6 +780,19 @@ export const countries = [
     label: 'Bolivia'
   }
 ];
+
+/*
+ * DECLARACIONES
+ * NO BORRAR KEYS ENTERAS, MODIFICAR SU VALOR ESTÁ BIEN
+ */
+export const declarations = {
+  '01': '"CONTIENE TRANSGÉNICOS"',
+  '02': '"Este produco contiene edulcorante no calórico"',
+  '03': '"Por su salud reduzca el consumo de este producto"',
+  '04': '"Este producto tiene menos del 50% del alimento natural en su contenido"',
+  '05': '"Producto no recomendado para lactantes, niños, niñas, adolescentes, mujeres embarazadas, mujeres en período de lactancia, personas de la tercera edad, diabétivos, personas sensibles a la cafeína, personas con enfermedades cardiovasculares y gastrointestinales"',
+  '06': '"No consumir bebidas energéticas antes, durante y después de realizar actividad física, ni con bebidas alcohólicas"'
+};
 
 /**
  * Nutrientes a declararse en la informacion nutricional
