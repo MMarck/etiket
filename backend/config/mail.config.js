@@ -2,11 +2,13 @@ const nodemailer = require('nodemailer');
 
 const mail={
     user:'solinartest@gmail.com',
+    //info@solinal.org
     pass: 'uvgfjkhciuasxgcd'
 }
 
 let transporter=nodemailer.createTransport({
     host:'smtp.gmail.com',
+    //mail.solinal.org
     port:465,
     secure: true,
     auth : {

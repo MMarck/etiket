@@ -11,6 +11,7 @@ import './LoginForm.css';
  * Formulario de inicio de sesion
  */
 function LoginForm() {
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -36,8 +37,10 @@ function LoginForm() {
       })
       .catch((error) => {
         alterNotification('UserWarning', 'enable')
-
-        if (error.response) {
+        //alterValidation('Error', 'enable')
+        if (error.response.status == 409) {
+          setError(error.response.data.message);
+        } else if (error.response) {
           alert(error.response.data.error.message);
         } else if (error.request) {
           console.log(error.request);
@@ -82,6 +85,7 @@ function LoginForm() {
         />
 
         <br />
+        {error && <div className="error_msg">{error}</div>}
         <button type="submit" className="ligthButton">
           Iniciar sesión
         </button>

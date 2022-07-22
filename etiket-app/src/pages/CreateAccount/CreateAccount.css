@@ -32,4 +32,16 @@ input.invalid{
 #PasswordRequirements{
   padding-bottom: 30px;
 }
+.success_msg {
+	width: 100%;
+	padding: 15px;
+	margin: 5px 0;
+	font-size: 14px;
+	background-color: #5cdd5c;
+	color: white;
+	border-radius: 5px;
+	text-align: center;
+}
+
+
 

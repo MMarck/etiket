@@ -1,11 +1,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import axios from 'axios';
-import { Component } from 'react';
+import { Component, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { backendURL } from '../../config/constants';
 import withRouter from '../../tools/withRouter';
 import './CreateAccount.css';
-
 /**
  * Vista que renderiza el formulario para crear una cuenta de usuario
  */
@@ -35,6 +34,7 @@ class CreateAccount extends Component {
 
   register(e) {
     e.preventDefault();
+
     if (
       this.state.email === '' ||
       this.state.password === '' ||
@@ -49,10 +49,11 @@ class CreateAccount extends Component {
         firstName: this.state.nombre,
         lastName: this.state.apellido
       };
-
+      
       axios
         .post(`${backendURL}UsersDB`, jsonData)
         .then((response) => {
+          //setMsg(response.message);
           alert(response.data.message);
           this.props.navigate('/login');
         })
@@ -109,6 +110,7 @@ class CreateAccount extends Component {
 
 
   render() {
+    //const [msg, setMsg] = useState("");
     return (
       <div className="d-flex flex-column w-50 small">
         <span id="avisoDeIngreso">
@@ -206,6 +208,7 @@ class CreateAccount extends Component {
           </div>
 
           <br />
+          
           <button
             type="submit"
             className="ligthButton w-100 cursor-pointer"
@@ -228,12 +231,6 @@ class CreateAccount extends Component {
           <span className="icon" />
           <span>Inicia sesion con Google</span>
         </div>
-
-        <div className="signupButton facebook mx-auto mt-2 small">
-          <span className="icon" />
-          <span>Inicia sesion con Facebook</span>
-        </div>
-
         <hr />
 
         <small>© Copyright Solinal 2021</small>

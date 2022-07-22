@@ -108,7 +108,7 @@ module.exports = {
                 const template= getTemplate(Users.firstName +" "+Users.lastName,Users._id,req.headers.host, Users.emailToken)
                 sendEmail(Users.email, "Verification Account",template);
                 return res.status(201).json({
-                    message: "Se ha creado el usuario correctamente"
+                    message: "Se ha creado el usuario correctamente. Revise du correo para la validación"
                     
                 });
 
@@ -126,8 +126,8 @@ module.exports = {
           if (err) { return next(err); }
           if (!user) { return res.status(400).json({message:"Error, correo o contraseña no son correctos"}); }
           if(user.isVerified==false){ return res
-			.status(201)
-			.send({ message: "An Email sent to your account please verify" });}
+			.status(409)
+			.send({ message: "Un correo electrónico se ha enviado a su cuenta por favor verifique" });}
           req.logIn(user, function(err) {
             if (err) { return next(err); }
             const accessToken=generateAccessToken(req.user)

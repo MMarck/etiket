@@ -66,3 +66,15 @@
   width: 42px;
   height: 42px;
 }
+.error_msg,
+.success_msg {
+	width: 100%;
+	padding: 15px;
+	margin: 5px 0;
+	font-size: 14px;
+	background-color: #f34646;
+	color: white;
+	border-radius: 5px;
+	text-align: center;
+}
+
