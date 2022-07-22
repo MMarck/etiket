@@ -609,3 +609,29 @@ Ingredientes
   display: flex;
   gap: 0.5vw;
 }
+
+/* Declarations CSS */
+
+#declarationsCont{
+  
+}
+
+.declarationItem{
+  cursor: pointer;
+  display: inline-flex;
+  border: var(--Sblack) 1px solid;
+  text-align: center;
+  width: fit-content;
+  padding: 0.3vw;
+  font-size: 0.73rem;
+  margin: 0.1vw;
+}
+
+.declarationItem:hover{
+  border: var(--Sgreen) 2px solid;
+}
+
+.declarationIsSelected{
+  border: var(--Sgreen) 1px solid;
+  background-color: var(--Sgreen);
+}

@@ -33,7 +33,8 @@ import {
   backendURL,
   producerLabels,
   importerLabels,
-  marketerLabels
+  marketerLabels,
+  declarations
   // eslint-disable-next-line import/no-duplicates
 } from '../../config/constants';
 
@@ -200,6 +201,16 @@ class Sidebar extends Component {
 
   handleInstructions(e) {
     this.handleStateChange('instrucciones', e);
+  }
+
+  handleDeclarations(e) {
+    let declarationsCopy = JSON.parse(JSON.stringify(this.props.etiqueta.declarations));
+    if (declarationsCopy.includes(e)) {
+      declarationsCopy = declarationsCopy.filter((item) => item !== e);
+    } else {
+      declarationsCopy.push(e);
+    }
+    this.handleStateChange('declarations', declarationsCopy);
   }
 
   render() {
@@ -1019,7 +1030,31 @@ class Sidebar extends Component {
             alt="mensajes-declarados"
             dataTip="Declaraciones"
             isDisabled={isDisabled}
-            // content={<></>}
+            content={
+              <div>
+                <div className="sidebarContHeader">
+                  <p className="sidebarTitle">Declaraciones nutricionales y saludables</p>
+                  <p className="sidebarSubTitle">
+                    En el caso de que su producto necesite algún tipo de declaración adicional, como
+                    el uso de edulcorantes no calóricos, es necesario mostrarlo.
+                  </p>
+                </div>
+                <div id="declarationsCont">
+                  {Object.entries(declarations).map(([key, value]) => (
+                    <button
+                      type="button"
+                      className={
+                        this.props.etiqueta.declarations.includes(key)
+                          ? 'declarationItem declarationIsSelected'
+                          : 'declarationItem'
+                      }
+                      onClick={() => this.handleDeclarations(key)}>
+                      {value}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            }
           />
         </div>
       </div>
